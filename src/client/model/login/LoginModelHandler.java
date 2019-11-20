@@ -2,6 +2,7 @@ package client.model.login;
 
 import shared.clients.Client;
 
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.LinkedList;
 import java.util.List;
@@ -41,35 +42,9 @@ public class LoginModelHandler implements LoginModel {
     }
 
     @Override
-    public void createUser(String username, String pw, String pwAgain) {
-        String result = attemptCreateUser(username, pw, pwAgain);
-
-        if("OK".equals(result)) {
-            // adding the new user
-            clients.add(new Client(username, pw));
-        }
-
-        support.firePropertyChange("CreateClientResult", "", result);
+    public void addListener(String name, PropertyChangeListener listener) {
+        support.addPropertyChangeListener(name, listener);
     }
 
-    private String attemptCreateUser(String username, String pw, String pwAgain) {
-        if(username == null) {
-            return "Username cannot be empty";
-        }
-        if(findUser(username) != null) {
-            return "Username already exists";
-        }
-        return validatePasswords(pw, pwAgain);
-    }
-
-    private String validatePasswords(String pw, String pwAgain) {
-        if (pw == null) {
-            return "Password cannot be empty";
-        }
-        if (!pw.equals(pwAgain)) {
-            return "Passwords do not match";
-        }
-        return "OK";
-    }
 
 }
