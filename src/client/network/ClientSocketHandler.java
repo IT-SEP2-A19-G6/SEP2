@@ -11,33 +11,44 @@ import java.net.Socket;
 
 public class ClientSocketHandler implements Runnable {
 
-    private Socket socket;
     private ObjectInputStream inputFromServer;
     private ObjectOutputStream outputToServer;
-    ModelFactory modelFactory;
+    private LoginModel loginModel;
 
     public ClientSocketHandler(Socket socket, ModelFactory modelFactory) {
-        this.socket = socket;
-        this.modelFactory = modelFactory;
+        this.loginModel = modelFactory.getLoginModel();
+
+        //TODO make a general method for all listeners, like this -> addListeners(modelFactory);
+
+
+        try {
+            outputToServer = new ObjectOutputStream(socket.getOutputStream());
+            inputFromServer = new ObjectInputStream(socket.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+    //TODO make a private void addListeners, which takes a modelFactory and pass the argument like below:
+    // like this -> modelFactory.getLoginModel().addListener(Request.TYPE.LOGIN_USER.name(), this::sendToServer);
+
+
+    //TODO instantiate the given method from the allListeners method, which wraps an object into a request
+    // before sending it to the server
+
 
     @Override
     public void run() {
         try {
             while (true) {
                 Request request = (Request) inputFromServer.readObject();
+
+                //TODO unwrap request and call model methods() here... (ex. loginModel)
+
             }
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("ClientSocketHandler EXCEPTION: " + e.getMessage());
         }
 
-    }
-
-    public void sendToServer(Request.TYPE type, Object object) {
-        try {
-            outputToServer.writeObject(new Request(type, object));
-        } catch (IOException e) {
-            System.out.println("ClientSocketHandler - sendToServer EXCEPTION: " + e.getMessage());
-        }
     }
 }
