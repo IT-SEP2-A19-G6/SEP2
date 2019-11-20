@@ -1,4 +1,4 @@
-package Client.model.login;
+package client.model.login;
 
 public class LoginModelHandler implements LoginModel {
 }

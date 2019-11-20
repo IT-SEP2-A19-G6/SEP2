@@ -2,17 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eb8f46dc-7406-478f-b6dc-5bbb27d50ebf" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Client/RunTicketClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Client/TicketClientApp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Client/model/ModelFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Client/model/login/LoginModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Client/model/login/LoginModelHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Client/view/ViewHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Client/view/login/LoginView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Client/model/model.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Client/view/LoginViewControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client/view/login/LoginViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Client/viewModel/Login/LoginViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client/viewModel/login/LoginViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Client/RunTicketClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/RunTicketClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Client/TicketClientApp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Client/model/ModelFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Client/model/login/LoginModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Client/model/login/LoginModelHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Client/view/ViewHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Client/view/login/LoginView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Client/view/login/LoginViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/view/login/LoginViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Client/viewModel/ViewModelFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/viewModel/ViewModelFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Client/viewModel/login/LoginViewModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/TicketClientApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/TicketClientApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/model/login/LoginModelHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/model/login/LoginModelHandler.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,9 +44,9 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../IntelliJ" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -67,7 +70,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1574235092617</updated>
-      <workItem from="1574235094238" duration="1434000" />
+      <workItem from="1574235094238" duration="7979000" />
     </task>
     <servers />
   </component>

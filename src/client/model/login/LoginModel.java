@@ -1,4 +1,5 @@
-package Client.model.login;
+package client.model.login;
 
 public interface LoginModel {
+
 }
