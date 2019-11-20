@@ -1,6 +1,8 @@
 package server.network;
 
+import client.model.login.LoginModel;
 import server.model.ServerModelFactory;
+import server.model.login.LoginServerModel;
 import shared.Request;
 
 import java.io.IOException;
@@ -12,18 +14,22 @@ public class ServerSocketHandler implements Runnable {
 
 private ObjectOutputStream outputToClient;
 private ObjectInputStream inputFromClient;
-private ServerModelFactory serverModelFactory;
+private LoginServerModel loginServerModel;
 
 
     public ServerSocketHandler(Socket socket, ServerModelFactory serverModelFactory) {
-        this.serverModelFactory = serverModelFactory;
-
+        this.loginServerModel = serverModelFactory.getLoginServerModel();
+        addListeners();
         try {
             outputToClient = new ObjectOutputStream(socket.getOutputStream());
             inputFromClient = new ObjectInputStream(socket.getInputStream());
         } catch (IOException e) {
             System.out.println("ServerSocketHandler EXCEPTION: " + e.getMessage());
         }
+    }
+
+    private void addListeners() {
+        //TODO add listeners here
     }
 
     @Override

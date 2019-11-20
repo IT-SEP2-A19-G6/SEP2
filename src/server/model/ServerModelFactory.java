@@ -1,11 +1,21 @@
 package server.model;
 
+import server.model.login.LoginServerModel;
+import server.model.login.LoginServerModelHandler;
 import server.persistence.DataFactory;
 
 public class ServerModelFactory {
-    DataFactory dataFactory;
+    private DataFactory dataFactory;
+    private LoginServerModel loginServerModel;
 
     public ServerModelFactory(DataFactory dataFactory) {
         this.dataFactory = dataFactory;
+    }
+
+    public LoginServerModel getLoginServerModel(){
+        if (loginServerModel == null){
+            loginServerModel = new LoginServerModelHandler(dataFactory);
+        }
+        return loginServerModel;
     }
 }

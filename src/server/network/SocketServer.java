@@ -15,19 +15,15 @@ public class SocketServer {
     }
 
     public void start() {
-        System.out.println("Server starting...");
 
         try {
         ServerSocket serverSocket = new ServerSocket(2920);
 
+        System.out.println("Server is running...");
         while (true) {
-            System.out.println("Waiting for clients...");
 
             Socket socket = serverSocket.accept();
-
             ServerSocketHandler serverSocketHandler = new ServerSocketHandler(socket, serverModelFactory);
-            System.out.println("Client connected...");
-
             Thread t = new Thread(serverSocketHandler, "socketThread");
             t.start();
         }
