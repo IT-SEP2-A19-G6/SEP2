@@ -39,8 +39,6 @@ public class LoginViewController {
     loginResultLabel.textProperty().addListener(this::onLoginResult);
     }
     private void onLoginResult(Observable observable, String old, String newVal) {
-        // if the result of modelimpls login attempt is OK, then I change views. Otherwise do nothing
-        // the label will contain the login error message, because the VM updates it.
         if("OK".equals(newVal)) {
             viewHandler.openLoginViewSuccessfulAttempt();
         }
