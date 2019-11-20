@@ -6,9 +6,4 @@ public class User extends Client{
         super(username, password);
     }
 
-    @Override
-    public String access() {
-        return "User";
-    }
-
 }
