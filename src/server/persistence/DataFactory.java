@@ -8,11 +8,8 @@ public class DataFactory {
     private DatabaseConnection databaseConnection;
     private ILoginDAO loginDAO;
 
-    private DatabaseConnection getDatabaseConnection(){
-        if (databaseConnection == null) {
-            databaseConnection = new DatabaseConnection();
-        }
-        return databaseConnection;
+    public DataFactory(){
+        databaseConnection = new DatabaseConnection();
     }
 
     public ILoginDAO getLoginDOA() {
