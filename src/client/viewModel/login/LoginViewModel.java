@@ -32,7 +32,7 @@ public class LoginViewModel {
         //TODO
     }
 
-    public void cancelLogin() {
+    public void clearFields() {
         userName.setValue("");
         password.setValue("");
     }

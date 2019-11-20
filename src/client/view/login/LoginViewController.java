@@ -33,11 +33,11 @@ public class LoginViewController {
 }
 
     public void onLoginButton(ActionEvent actionEvent) {
+        loginViewModel.clearFields();
         loginViewModel.loginAttempt();
-        viewHandler.openTicketView();
     }
 
     public void onCancelButton(ActionEvent actionEvent) {
-        loginViewModel.cancelLogin();
+        loginViewModel.clearFields();
     }
 }
