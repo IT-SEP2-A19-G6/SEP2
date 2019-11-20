@@ -45,11 +45,11 @@ public class ViewHandler {
         }
     }
 
-    private void openLoginViewSuccessfulAttempt() {
+    public void openLoginViewSuccessfulAttempt() {
         try {
             FXMLLoader loader = new FXMLLoader();
 
-            loader.setLocation(getClass().getResource(".../login/LoginView.fxml"));
+            loader.setLocation(getClass().getResource(".../view/login/LoginResult.fxml"));
             Parent root = loader.load();
             mainStage.setTitle("Logged in");
             Scene scene = new Scene(root);
@@ -58,9 +58,5 @@ public class ViewHandler {
             e.printStackTrace();
         }
 
-    }
-
-    public void openTicketView() {
-        //TODO initialize Ticket View
     }
 }
