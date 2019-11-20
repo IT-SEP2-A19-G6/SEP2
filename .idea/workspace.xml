@@ -2,6 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eb8f46dc-7406-478f-b6dc-5bbb27d50ebf" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Client/RunTicketClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Client/TicketClientApp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Client/model/ModelFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Client/model/login/LoginModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Client/model/login/LoginModelHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Client/view/ViewHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Client/view/login/LoginView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Client/model/model.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Client/view/LoginViewControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client/view/login/LoginViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Client/viewModel/Login/LoginViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client/viewModel/login/LoginViewModel.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,6 +25,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -56,7 +67,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1574235092617</updated>
-      <workItem from="1574235094238" duration="574000" />
+      <workItem from="1574235094238" duration="1434000" />
     </task>
     <servers />
   </component>
