@@ -2,6 +2,7 @@ package server.persistence.login;
 
 import server.persistence.database.DatabaseConnection;
 import shared.clients.Client;
+import shared.clients.User;
 import shared.exceptions.ClientDisabledException;
 import shared.exceptions.IncorrectCredentialsException;
 
@@ -26,12 +27,12 @@ public class LoginDOA implements ILoginDAO{
             throw new IncorrectCredentialsException("Incorrect credentials");
         } else if (objects.size() == 1){
             Object[] obj = objects.get(0);
-//            String id = obj[0].toString(); not used //TODO delete or use
+//            String id = obj[0].toString(); //TODO delete or use
             String name = obj[1].toString();
             String password = obj[2].toString();
             boolean active = (boolean) obj[3];
 
-            Client client = new Client(name, password);
+            Client client = new User(obj[1].toString(), obj[2].toString()); //TODO might need some client type attr. in db
 
             if (active){
                 return client; //TODO sort clients by profile
