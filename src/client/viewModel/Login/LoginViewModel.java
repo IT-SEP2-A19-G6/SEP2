@@ -17,12 +17,13 @@ public class LoginViewModel {
 
     public LoginViewModel(LoginModel loginModel, ViewHandler viewHandler) {
         this.loginModel = loginModel;
-        this.viewHandler = viewHandler;
+        this.viewHandler =  viewHandler;
         username = new SimpleStringProperty();
         password = new SimpleStringProperty();
         loginResult =  new SimpleStringProperty();
         loginModel.addListener("LoginResult", this::onLoginResult);
     }
+
 
     private void onLoginResult(PropertyChangeEvent propertyChangeEvent) {
         String result = (String)propertyChangeEvent.getNewValue();
