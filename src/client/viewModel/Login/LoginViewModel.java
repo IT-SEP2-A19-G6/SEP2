@@ -21,7 +21,7 @@ public class LoginViewModel {
         username = new SimpleStringProperty();
         password = new SimpleStringProperty();
         loginResult =  new SimpleStringProperty();
-        loginModel.addListener("LoginResult", this::onLoginResult);
+        loginModel.addPropertyChangeListener("LoginResult", this::onLoginResult);
     }
 
 

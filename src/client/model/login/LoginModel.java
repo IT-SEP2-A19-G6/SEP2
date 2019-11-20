@@ -1,10 +1,11 @@
 package client.model.login;
 
+import shared.IPropertyChangeSubject;
+
 import java.beans.PropertyChangeListener;
 
-public interface LoginModel {
+public interface LoginModel extends IPropertyChangeSubject {
     void validateLogin(String username, String password);
-    void addListener(String name, PropertyChangeListener listener);
 
     //    void createUser(String username, String pw, String pwAgain);
 }
