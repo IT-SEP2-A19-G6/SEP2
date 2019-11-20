@@ -28,9 +28,9 @@ public class LoginViewController {
     private ViewHandler viewHandler;
 
 
-    public void init(ViewHandler viewHandler, LoginViewModel loginViewModel){
+    public void init( LoginViewModel loginViewModel){
     this.loginViewModel = loginViewModel;
-    this.viewHandler = viewHandler;
+
 
     userNameTextField.textProperty().bindBidirectional(loginViewModel.userNameProperty());
     passwordTextField.textProperty().bindBidirectional(loginViewModel.passwordProperty());

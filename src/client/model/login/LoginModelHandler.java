@@ -1,9 +1,11 @@
 package client.model.login;
 
 import shared.clients.Client;
+import shared.clients.User;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.net.UnknownServiceException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,7 +13,6 @@ public class LoginModelHandler implements LoginModel {
     private LoginModel loginModel;
     private List<Client> clients = new LinkedList<>();
     protected PropertyChangeSupport support = new PropertyChangeSupport(this);
-
 
     public void validateLogin(String username, String password) {
         String result = checkLoginCredentials(username, password);
@@ -26,7 +27,6 @@ public class LoginModelHandler implements LoginModel {
         if(!client.getPassword().equals(password)) {
             return "Incorrect password";
         }
-
         return "OK";
     }
 
@@ -45,6 +45,4 @@ public class LoginModelHandler implements LoginModel {
     public void addListener(String name, PropertyChangeListener listener) {
         support.addPropertyChangeListener(name, listener);
     }
-
-
 }
