@@ -12,9 +12,8 @@ public class ServerSocketHandler implements Runnable {
 
 private ObjectOutputStream outputToClient;
 private ObjectInputStream inputFromClient;
+private ServerModelFactory serverModelFactory;
 
-Socket socket;
-ServerModelFactory serverModelFactory;
 
     public ServerSocketHandler(Socket socket, ServerModelFactory serverModelFactory) {
         this.serverModelFactory = serverModelFactory;
@@ -31,16 +30,12 @@ ServerModelFactory serverModelFactory;
     public void run() {
         try {
             while (true) {
-                System.out.println("Waiting for request from client...");
+
+                //TODO remember to change the method depending on what kind of object needs to be casted.
                 Request request =(Request) inputFromClient.readObject();
 
-                if(request.type == Request.TYPE.ADD_USER) {
-                    System.out.println("User have been added " + request.object);
-                    //TODO give the destination and what to do if the type is ADD_USER.
-                } else if (request.type == Request.TYPE.LOGIN_USER) {
-                    System.out.println("User have logged in... " + request.object);
-                    //TODO give the destination and what to do if the type is LOGIN_USER.
-                }
+                //TODO create methods to take care of the newly received objects.
+
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
