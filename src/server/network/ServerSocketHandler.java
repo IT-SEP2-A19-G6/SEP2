@@ -1,7 +1,7 @@
-package Server.network;
+package server.network;
 
-import Server.model.ServerModelFactory;
-import Shared.Request;
+import server.model.ServerModelFactory;
+import shared.Request;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

@@ -1,4 +1,4 @@
-package Client.view;
+package client.view;
 
 public class LoginViewControler {
 }

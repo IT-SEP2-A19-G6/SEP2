@@ -1,4 +1,4 @@
-package Client.model;
+package client.model;
 
 public interface model {
 }

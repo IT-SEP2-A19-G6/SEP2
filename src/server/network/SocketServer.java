@@ -1,6 +1,6 @@
-package Server.network;
+package server.network;
 
-import Server.model.ServerModelFactory;
+import server.model.ServerModelFactory;
 
 import java.io.IOException;
 import java.net.ServerSocket;

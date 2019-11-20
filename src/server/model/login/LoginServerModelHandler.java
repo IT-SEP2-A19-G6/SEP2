@@ -1,4 +1,4 @@
-package Server.model.login;
+package server.model.login;
 
 public class LoginServerModelHandler {
 }

@@ -1,12 +1,7 @@
-package Server;
+package server;
 
-import Server.model.ServerModelFactory;
-import Server.network.ServerSocketHandler;
-import Server.network.SocketServer;
-
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
+import server.model.ServerModelFactory;
+import server.network.SocketServer;
 
 public class RunTicketServer {
 
