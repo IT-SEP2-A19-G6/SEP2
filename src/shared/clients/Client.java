@@ -20,11 +20,5 @@ public abstract class Client implements Serializable {
         return password;
     }
 
-    public abstract String access();
-
-    @Override
-    public String toString() {
-        return "Username: " + username + "\n" + "Password: " + password;
-    }
 
 }
