@@ -1,5 +1,6 @@
 package server.persistence.login;
 
+import shared.clients.Client;
 import shared.exceptions.ClientDisabledException;
 import shared.exceptions.IncorrectCredentialsException;
 
