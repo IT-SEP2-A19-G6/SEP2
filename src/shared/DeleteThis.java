@@ -1,4 +1,4 @@
-package Server;
+package shared;
 
 public class DeleteThis {
 }
