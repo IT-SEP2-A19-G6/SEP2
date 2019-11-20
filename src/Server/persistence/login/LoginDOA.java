@@ -1,19 +1,20 @@
 package Server.persistence.login;
 
 import Server.persistence.database.DatabaseConnection;
+import Shared.exceptions.ClientDisabledException;
 import Shared.exceptions.IncorrectCredentialsException;
 
 import java.util.ArrayList;
 
 public class LoginDOA implements ILoginDAO{
-    DatabaseConnection databaseConnection;
+    private DatabaseConnection databaseConnection;
 
     public LoginDOA(DatabaseConnection databaseConnection){
         this.databaseConnection = databaseConnection;
     }
 
     @Override
-    public Client loginReq(String username, String pw) throws IncorrectCredentialsException {
+    public Client loginReq(String username, String pw) throws IncorrectCredentialsException, ClientDisabledException {
         String sql =  "SELECT * FROM " + databaseConnection.getSchemaName() + "." + databaseConnection.getClientTableName() +
                 " WHERE username LIKE '" + username + "' AND password LIKE '" + pw + "';";
 
@@ -32,13 +33,11 @@ public class LoginDOA implements ILoginDAO{
             Client client = new Client(id, name, password, active);
 
             if (active){
-                
+                return (User) client;
+            } else {
+                throw new ClientDisabledException("Client is disabled");
             }
-
-
-            return User(id, name, password, active);
         }
-
-
+        return null;
     }
 }
