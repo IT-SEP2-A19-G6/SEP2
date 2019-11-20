@@ -1,4 +1,4 @@
-package Shared.exceptions;
+package shared.exceptions;
 
 public class IncorrectCredentialsException extends Exception {
 

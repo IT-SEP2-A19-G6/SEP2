@@ -1,8 +1,8 @@
-package Server.persistence.login;
+package server.persistence.login;
 
-import Server.persistence.database.DatabaseConnection;
-import Shared.exceptions.ClientDisabledException;
-import Shared.exceptions.IncorrectCredentialsException;
+import server.persistence.database.DatabaseConnection;
+import shared.exceptions.ClientDisabledException;
+import shared.exceptions.IncorrectCredentialsException;
 
 import java.util.ArrayList;
 

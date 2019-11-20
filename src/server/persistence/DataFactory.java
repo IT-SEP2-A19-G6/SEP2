@@ -1,8 +1,8 @@
-package Server.persistence;
+package server.persistence;
 
-import Server.persistence.database.DatabaseConnection;
-import Server.persistence.login.ILoginDAO;
-import Server.persistence.login.LoginDOA;
+import server.persistence.database.DatabaseConnection;
+import server.persistence.login.ILoginDAO;
+import server.persistence.login.LoginDOA;
 
 public class DataFactory {
 

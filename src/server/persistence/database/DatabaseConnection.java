@@ -1,4 +1,4 @@
-package Server.persistence.database;
+package server.persistence.database;
 
 import java.sql.*;
 import java.util.ArrayList;
