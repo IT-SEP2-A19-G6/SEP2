@@ -12,10 +12,5 @@ public class ServerModelFactory {
         this.dataFactory = dataFactory;
     }
 
-    public LoginServerModel getLoginServerModel(){
-        if (loginServerModel == null){
-            loginServerModel = new LoginServerModelHandler(dataFactory);
-        }
-        return loginServerModel;
-    }
+
 }
