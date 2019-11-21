@@ -1,4 +1,76 @@
 package server.model.login;
 
-public class LoginServerModelHandler {
+/* SOMEone edited?
+import server.persistence.DataFactory;
+
+public class LoginServerModelHandler implements LoginServerModel {
+    DataFactory dataFactory;
+
+    public LoginServerModelHandler(DataFactory dataFactory) {
+        this.dataFactory = dataFactory;
+    }
+*/
+
+
+import server.persistence.DataFactory;
+import server.persistence.login.ILoginDAO;
+import shared.Response;
+import shared.clients.User;
+import shared.exceptions.IncorrectCredentialsException;
+import shared.exceptions.LoginDisabledException;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
+public class LoginServerModelHandler implements LoginServerModel{
+    private PropertyChangeSupport support = new PropertyChangeSupport(this);
+    private ILoginDAO loginDAO;
+
+    public LoginServerModelHandler(DataFactory dataFactory) {
+        loginDAO = dataFactory.getLoginDOA();
+    }
+
+
+    @Override
+    public Response validateLogin(User user){
+        String loginMessage;
+        try {
+            loginMessage = loginDAO.validateLogin(user);
+        } catch (IncorrectCredentialsException e) {
+            loginMessage = e.getMessage();
+        } catch (LoginDisabledException e) {
+            loginMessage = e.getMessage();
+        }
+        return new Response(user.getUsername(), loginMessage);
+    }
+
+
+    @Override
+    public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
+        if (name == null){
+            support.addPropertyChangeListener(listener);
+        } else {
+            support.addPropertyChangeListener(name, listener);
+        }
+    }
+
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
+    }
+
+    @Override
+    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
+        if (name == null){
+            support.removePropertyChangeListener(listener);
+        } else {
+            support.removePropertyChangeListener(name, listener);
+        }
+    }
+
+    @Override
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        support.removePropertyChangeListener(listener);
+    }
+
 }
