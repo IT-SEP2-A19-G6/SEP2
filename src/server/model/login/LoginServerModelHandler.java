@@ -14,8 +14,7 @@ public class LoginServerModelHandler implements LoginServerModel {
 
 import server.persistence.DataFactory;
 import server.persistence.login.ILoginDAO;
-import shared.Request;
-import shared.clients.Client;
+import shared.Response;
 import shared.clients.User;
 import shared.exceptions.IncorrectCredentialsException;
 import shared.exceptions.LoginDisabledException;
@@ -33,19 +32,16 @@ public class LoginServerModelHandler implements LoginServerModel{
 
 
     @Override
-    public void validateLogin(User userToValidate){
-        Client user = null;
+    public Response validateLogin(User user){
+        String loginMessage;
         try {
-            user = loginDAO.validateLogin(userToValidate);
+            loginMessage = loginDAO.validateLogin(user);
         } catch (IncorrectCredentialsException e) {
-            System.out.println(e.getMessage()); //TODO handle Exception correct
+            loginMessage = e.getMessage();
         } catch (LoginDisabledException e) {
-            System.out.println(e.getMessage()); //TODO handle Exception correct
+            loginMessage = e.getMessage();
         }
-        if (user != null){
-            support.firePropertyChange(Request.TYPE.LOGIN_ACCEPT.name(), "", user);
-        }
-
+        return new Response(user.getUsername(), loginMessage);
     }
 
 

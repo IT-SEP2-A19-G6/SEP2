@@ -9,8 +9,8 @@ public class Request implements Serializable {
 
 
     public enum TYPE {
-        LOGIN_REQ,
-        LOGIN_ACCEPT;
+        LOGIN_REQ, //object equals User
+        LOGIN_RESPONSE; //object equals Response
     }
 
     public Request(TYPE type, Object object) {

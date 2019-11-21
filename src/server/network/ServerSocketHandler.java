@@ -1,8 +1,8 @@
 package server.network;
 
-import client.model.login.LoginModel;
 import server.model.ServerModelFactory;
 import server.model.login.LoginServerModel;
+import shared.Response;
 import shared.Request;
 import shared.clients.User;
 
@@ -31,16 +31,11 @@ private LoginServerModel loginServerModel;
     }
 
     private void addListeners() {
-        loginServerModel.addPropertyChangeListener(Request.TYPE.LOGIN_ACCEPT.name(), this::handlePropertyChange);
         //TODO add listeners here
     }
 
     private void handlePropertyChange(PropertyChangeEvent propertyChangeEvent) {
         //TODO handle propertyChanges
-        if (propertyChangeEvent.getPropertyName().equals(Request.TYPE.LOGIN_ACCEPT.name())){
-            Request request = new Request(Request.TYPE.LOGIN_ACCEPT, propertyChangeEvent.getNewValue());
-            sendToClient(request);
-        }
     }
 
     private void sendToClient(Request request){
@@ -58,11 +53,13 @@ private LoginServerModel loginServerModel;
             while (true) {
 
                 //TODO remember to change the method depending on what kind of object needs to be casted.
-                Request request = (Request) inputFromClient.readObject();
+                Request requestFromClient = (Request) inputFromClient.readObject();
 
-                if (request.type.equals(Request.TYPE.LOGIN_REQ)){
-                    User user = (User) request.object;
-                    loginServerModel.validateLogin(user);
+                if (requestFromClient.type.equals(Request.TYPE.LOGIN_REQ)){
+                    User user = (User) requestFromClient.object;
+                    Response message = loginServerModel.validateLogin(user);
+                    Request requestToClient = new Request(Request.TYPE.LOGIN_RESPONSE, message);
+                    sendToClient(requestToClient);
                 }
 
                 //TODO create methods to take care of the newly received objects.
@@ -72,4 +69,6 @@ private LoginServerModel loginServerModel;
             e.printStackTrace();
         }
     }
+
+    //TODO add graceful connection shutdown
 }

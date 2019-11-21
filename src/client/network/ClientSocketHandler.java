@@ -3,6 +3,7 @@ package client.network;
 import client.model.ModelFactory;
 import client.model.login.LoginModel;
 import shared.Request;
+import shared.Response;
 import shared.clients.Client;
 import shared.clients.User;
 
@@ -54,12 +55,12 @@ public class ClientSocketHandler implements Runnable {
     public void run() {
         try {
             while (true) {
-                Request request = (Request) inputFromServer.readObject();
+                Request requestFromServer = (Request) inputFromServer.readObject();
 
-                if (request.type.equals(Request.TYPE.LOGIN_ACCEPT)){
-                    User user = (User) request.object;
+                if (requestFromServer.type.equals(Request.TYPE.LOGIN_RESPONSE)){
+                    Response loginResponse = (Response) requestFromServer.object;
                     //TODO call loginmodel method
-                    System.out.println(user.getUsername() + " " + user.getPassword());
+                    System.out.println(loginResponse.getToUser() + " " + loginResponse.getMessage());
                 }
 
                 //TODO unwrap request and call model methods() here... (ex. loginModel)
@@ -70,4 +71,6 @@ public class ClientSocketHandler implements Runnable {
         }
 
     }
+
+    //TODO add graceful connection shutdown
 }

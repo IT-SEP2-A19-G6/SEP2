@@ -16,7 +16,7 @@ public class LoginDOA implements ILoginDAO{
     }
 
     @Override
-    public Client validateLogin(User user) throws IncorrectCredentialsException, LoginDisabledException {
+    public String validateLogin(User user) throws IncorrectCredentialsException, LoginDisabledException {
         String sql =  "SELECT * FROM " + databaseConnection.getSchemaName() + "." + databaseConnection.getClientTableName() +
                 " WHERE username LIKE '" + user.getUsername() + "' AND password LIKE '" + user.getPassword() + "';";
 
@@ -28,16 +28,14 @@ public class LoginDOA implements ILoginDAO{
         } else if (objects.size() == 1){
             Object[] obj = objects.get(0);
 //            String id = obj[0].toString(); //TODO delete or use
-            String name = obj[1].toString();
-            String password = obj[2].toString();
+            String username = obj[1].toString();
+//            String password = obj[2].toString(); /TODO delete or use
             boolean active = (boolean) obj[3];
 
-            Client client = new User(obj[1].toString(), obj[2].toString()); //TODO might need some client type attr. in db
-
             if (active){
-                return client; //TODO sort clients by profile
+                return "user login accepted";
             } else {
-                throw new LoginDisabledException("Client is disabled");
+                throw new LoginDisabledException("account disabled");
             }
         }
         return null;
