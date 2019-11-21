@@ -26,23 +26,21 @@ class ILoginDAOTest {
     @Test
     void validateLoginCorrectCredentials() {
         User userCorrectCredentials = new User("user1", "user");
-        User dbUser = null;
+        String responseFromDOA = null;
         try {
-            dbUser = (User) loginDAO.validateLogin(userCorrectCredentials);
+            responseFromDOA = loginDAO.validateLogin(userCorrectCredentials);
         } catch (IncorrectCredentialsException | LoginDisabledException e) {
             fail("Exception thrown: " + e);
         }
-        assert dbUser != null;
-        assertEquals(userCorrectCredentials.getUsername(), dbUser.getUsername());
-        assertEquals(userCorrectCredentials.getPassword(), dbUser.getPassword());
+        assertEquals("user login accepted", responseFromDOA);
     }
 
     @Test
     void validateLoginWrongPassword(){
         User userWrongPassword = new User("user1", "wrongPassword");
-        User dbUser = null;
+        String responseFromDOA = null;
         try {
-            dbUser = (User) loginDAO.validateLogin(userWrongPassword);
+            responseFromDOA = loginDAO.validateLogin(userWrongPassword);
         } catch (IncorrectCredentialsException | LoginDisabledException e) {
             assertTrue(e instanceof IncorrectCredentialsException);
             return;
@@ -53,9 +51,9 @@ class ILoginDAOTest {
     @Test
     void validateLoginWrongUsername(){
         User userWrongUsername= new User("WrongUsername", "user");
-        User dbUser = null;
+        String responseFromDOA = null;
         try {
-            dbUser = (User) loginDAO.validateLogin(userWrongUsername);
+            responseFromDOA = loginDAO.validateLogin(userWrongUsername);
         } catch (IncorrectCredentialsException | LoginDisabledException e) {
             assertTrue(e instanceof IncorrectCredentialsException);
             return;
@@ -66,14 +64,14 @@ class ILoginDAOTest {
     @Test
     void validateLogingDisabledUser(){
         User userDisabled= new User("user4", "user");
-        User dbUser = null;
+        String responseFromDOA = null;
         try {
-            dbUser = (User) loginDAO.validateLogin(userDisabled);
+            responseFromDOA = loginDAO.validateLogin(userDisabled);
         } catch (IncorrectCredentialsException | LoginDisabledException e) {
             assertTrue(e instanceof LoginDisabledException);
             return;
         }
         fail("No exception thrown");
     }
-    
+
 }

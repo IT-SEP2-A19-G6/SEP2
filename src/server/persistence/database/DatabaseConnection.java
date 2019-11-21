@@ -12,6 +12,7 @@ public class DatabaseConnection {
         clientTableName = "account_client";
     }
 
+    //TODO handle postgres exceptions like connection....
     private Connection getConnection(){ //TODO update postgres credentials
         String driver = "org.postgresql.Driver";
         String url = "jdbc:postgresql://localhost:5432/postgres";
