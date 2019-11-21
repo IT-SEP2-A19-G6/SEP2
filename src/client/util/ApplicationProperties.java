@@ -8,14 +8,23 @@ public enum ApplicationProperties {
     INSTANCE;
 
     private final Properties properties;
+    private String filePath = "client/util/application.properties";
 
     ApplicationProperties() {
         properties = new Properties();
         try {
-            properties.load(getClass().getClassLoader().getResourceAsStream("conf_file/application.properties"));
+            properties.load(getClass().getClassLoader().getResourceAsStream(filePath));
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getDefaultFilePath() {
+        return filePath;
+    }
+    public void setFilePath(String filePath) {
+        if (!filePath.isEmpty())
+            this.filePath = filePath;
     }
 
     public String getAppName() {
