@@ -1,5 +1,7 @@
 package server.persistence.database;
 
+import shared.util.ApplicationProperties;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -9,15 +11,15 @@ public class DatabaseConnection {
 
     public DatabaseConnection(){
         schemaName = "sep2";
-        clientTableName = "account_client";
+        clientTableName = "account_client"; // TODO JH: Perhaps this could be placed in an enum later?
     }
 
     //TODO handle postgres exceptions like connection....
     private Connection getConnection(){ //TODO update postgres credentials
-        String driver = "org.postgresql.Driver";
-        String url = "jdbc:postgresql://localhost:5432/postgres";
-        String user = "postgres";
-        String pw = "IT-DBS1-A19-JN";
+        String driver = ApplicationProperties.INSTANCE.getDbDriver();
+        String url = ApplicationProperties.INSTANCE.getDbUrl();
+        String user = ApplicationProperties.INSTANCE.getDbUser();
+        String pw = ApplicationProperties.INSTANCE.getDbPassword();
 
         try {
             Class.forName(driver);

@@ -1,4 +1,4 @@
-package client.util;
+package shared.util;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -8,7 +8,7 @@ public enum ApplicationProperties {
     INSTANCE;
 
     private final Properties properties;
-    private String filePath = "client/util/application.properties";
+    private String filePath = "shared/util/application.properties";
 
     ApplicationProperties() {
         properties = new Properties();
