@@ -3,6 +3,7 @@ package client.network;
 import client.model.ModelFactory;
 import client.model.login.LoginModel;
 import shared.Request;
+import shared.clients.Client;
 import shared.clients.User;
 
 import java.beans.PropertyChangeEvent;
@@ -54,6 +55,12 @@ public class ClientSocketHandler implements Runnable {
         try {
             while (true) {
                 Request request = (Request) inputFromServer.readObject();
+
+                if (request.type.equals(Request.TYPE.LOGIN_ACCEPT)){
+                    User user = (User) request.object;
+                    //TODO call loginmodel method
+                    System.out.println(user.getUsername() + " " + user.getPassword());
+                }
 
                 //TODO unwrap request and call model methods() here... (ex. loginModel)
 

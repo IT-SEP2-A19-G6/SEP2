@@ -38,7 +38,8 @@ private LoginServerModel loginServerModel;
     private void handlePropertyChange(PropertyChangeEvent propertyChangeEvent) {
         //TODO handle propertyChanges
         if (propertyChangeEvent.getPropertyName().equals(Request.TYPE.LOGIN_ACCEPT.name())){
-
+            Request request = new Request(Request.TYPE.LOGIN_ACCEPT, propertyChangeEvent.getNewValue());
+            sendToClient(request);
         }
     }
 
