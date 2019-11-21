@@ -11,49 +11,70 @@ public class LoginServerModelHandler implements LoginServerModel {
     }
 */
 
-import client.model.login.LoginModel;
-import shared.clients.Client;
 
+import server.persistence.DataFactory;
+import server.persistence.login.ILoginDAO;
+import shared.Request;
+import shared.clients.Client;
+import shared.clients.User;
+import shared.exceptions.IncorrectCredentialsException;
+import shared.exceptions.LoginDisabledException;
+
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.LinkedList;
-import java.util.List;
 
 public class LoginServerModelHandler implements LoginServerModel{
-    private LoginModel loginModel;
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
-    private List<Client> clients= new LinkedList<>();
+    private ILoginDAO loginDAO;
+
+    public LoginServerModelHandler(DataFactory dataFactory) {
+        loginDAO = dataFactory.getLoginDOA();
+    }
+
 
     @Override
-    public void validateData(String username, String password) {
-    loginModel.validateLogin(username, password);
-    String result = checkLoginCredentials(username, password);
-    support.firePropertyChange("LoginResult","",result);
+    public void validateLogin(User userToValidate) {
+        Client user = null;
+        try {
+            user = loginDAO.validateLogin(userToValidate);
+        } catch (IncorrectCredentialsException e) {
+            System.out.println(e.getMessage()); //TODO handle Exception correct
+        } catch (LoginDisabledException e) {
+            System.out.println(e.getMessage()); //TODO handle Exception correct
+        }
+        if (user != null){
+            support.firePropertyChange(Request.TYPE.LOGIN_ACCEPT.name(), "", user);
+        }
+
     }
 
-    private String checkLoginCredentials(String username, String password) {
-        Client client = findUser(username);
-        if(client == null) {
-            return "User not found";
+
+    @Override
+    public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
+        if (name == null){
+            support.addPropertyChangeListener(listener);
+        } else {
+            support.addPropertyChangeListener(name, listener);
         }
-        if(!client.getUsername().equals(username)){
-            return "Incorrect username";
-        }
-        if(!client.getPassword().equals(password)) {
-            return "Incorrect password";
-        }
-        return "OK";
     }
 
-    private Client findUser(String username) {
-        Client client = null;
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
+    }
 
-        for (Client c : clients) {
-            if(c.getUsername().equals(username)) {
-                client = c;
-                break;
-            }
+    @Override
+    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
+        if (name == null){
+            support.removePropertyChangeListener(listener);
+        } else {
+            support.removePropertyChangeListener(name, listener);
         }
-        return client;
+    }
+
+    @Override
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        support.removePropertyChangeListener(listener);
     }
 
 }

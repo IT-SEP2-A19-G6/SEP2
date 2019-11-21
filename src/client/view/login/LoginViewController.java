@@ -3,12 +3,12 @@ package client.view.login;
 import client.view.ViewHandler;
 import client.viewModel.login.LoginViewModel;
 import javafx.beans.Observable;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import java.awt.event.ActionEvent;
 
 
 public class LoginViewController {
@@ -18,31 +18,23 @@ public class LoginViewController {
     @FXML
     private TextField passwordTextField;
     @FXML
-    private Button loginButton;
-    @FXML
-    private Button cancelButton;
-    @FXML
     private Label loginResultLabel;
 
     private LoginViewModel loginViewModel;
     private ViewHandler viewHandler;
 
 
-    public void init( LoginViewModel loginViewModel){
-    this.loginViewModel = loginViewModel;
-
-
-    userNameTextField.textProperty().bindBidirectional(loginViewModel.userNameProperty());
-    passwordTextField.textProperty().bindBidirectional(loginViewModel.passwordProperty());
-
-    loginResultLabel.textProperty().bindBidirectional(loginViewModel.loginResultProperty());
-    loginResultLabel.textProperty().addListener(this::onLoginResult);
+    public void init(ViewHandler viewHandler, LoginViewModel loginViewModel){
+        this.viewHandler = viewHandler;
+        this.loginViewModel = loginViewModel;
+        userNameTextField.textProperty().bindBidirectional(loginViewModel.userNameProperty());
+        passwordTextField.textProperty().bindBidirectional(loginViewModel.passwordProperty());
     }
-    private void onLoginResult(Observable observable, String old, String newVal) {
-        if("OK".equals(newVal)) {
-            viewHandler.openLoginViewSuccessfulAttempt();
-        }
-    }
+
+    //TODO create action onEnter
+
+    //TODO add loginResultLabel to view for showing exceptions
+
 
     public void onLoginButton(ActionEvent actionEvent) {
         loginViewModel.validateLogin();

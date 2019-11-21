@@ -16,9 +16,9 @@ public class LoginDOA implements ILoginDAO{
     }
 
     @Override
-    public Client loginReq(String username, String pw) throws IncorrectCredentialsException, LoginDisabledException {
+    public Client validateLogin(User user) throws IncorrectCredentialsException, LoginDisabledException {
         String sql =  "SELECT * FROM " + databaseConnection.getSchemaName() + "." + databaseConnection.getClientTableName() +
-                " WHERE username LIKE '" + username + "' AND password LIKE '" + pw + "';";
+                " WHERE username LIKE '" + user.getUsername() + "' AND password LIKE '" + user.getPassword() + "';";
 
         ArrayList<Object[]> objects = null;
         objects = databaseConnection.executePreparedQuery(sql);
