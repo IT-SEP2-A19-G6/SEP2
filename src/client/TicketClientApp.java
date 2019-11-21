@@ -11,14 +11,12 @@ public class TicketClientApp extends Application {
 
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         ModelFactory modelFactory = new ModelFactory();
         ClientSocket clientSocket = new ClientSocket(modelFactory);
         ViewModelFactory viewModelFactory = new ViewModelFactory(modelFactory);
-        //TODO shouldn't the viewHandler take a stage also??
         ViewHandler viewHandler = new ViewHandler(viewModelFactory);
-        viewHandler.start();
+        viewHandler.start(stage);
         clientSocket.start();
-
     }
 }

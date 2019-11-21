@@ -1,5 +1,8 @@
 package server.model.login;
 
-public interface LoginServerModel {
-    void validateData(String username, String password);
+import shared.IPropertyChangeSubject;
+import shared.clients.User;
+
+public interface LoginServerModel extends IPropertyChangeSubject {
+    void validateLogin(User user);
 }

@@ -1,6 +1,7 @@
 package client.model.login;
 
 import shared.IPropertyChangeSubject;
+import shared.Request;
 import shared.clients.Client;
 import shared.clients.User;
 
@@ -12,40 +13,12 @@ import java.util.List;
 
 public class LoginModelHandler implements LoginModel, IPropertyChangeSubject {
 
-    private List<Client> clients = new LinkedList<>();
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public void validateLogin(String username, String password) {
-        String result = checkLoginCredentials(username, password);
-        support.firePropertyChange("LoginResult", "", result);
+        Client client = new User(username, password);
+        support.firePropertyChange(Request.TYPE.LOGIN_REQ.name(), "", client);
     }
-
-    private String checkLoginCredentials(String username, String password) {
-        Client client = findUser(username);
-        if(client == null) {
-            return "User not found";
-        }
-        if(!client.getUsername().equals(username)){
-            return "Incorrect username";
-        }
-        if(!client.getPassword().equals(password)) {
-            return "Incorrect password";
-        }
-        return "OK";
-    }
-
-    private Client findUser(String username) {
-        Client client = null;
-        for (Client c : clients) {
-            if(c.getUsername().equals(username)) {
-                client = c;
-                break;
-            }
-        }
-        return client;
-    }
-
-
 
     @Override
     public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
