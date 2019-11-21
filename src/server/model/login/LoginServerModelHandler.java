@@ -33,7 +33,7 @@ public class LoginServerModelHandler implements LoginServerModel{
 
 
     @Override
-    public void validateLogin(User userToValidate) {
+    public void validateLogin(User userToValidate){
         Client user = null;
         try {
             user = loginDAO.validateLogin(userToValidate);
