@@ -16,6 +16,7 @@ import server.persistence.DataFactory;
 import server.persistence.login.ILoginDAO;
 import shared.Response;
 import shared.clients.User;
+import shared.exceptions.DataConnectionException;
 import shared.exceptions.IncorrectCredentialsException;
 import shared.exceptions.LoginDisabledException;
 
@@ -36,9 +37,7 @@ public class LoginServerModelHandler implements LoginServerModel{
         String loginMessage;
         try {
             loginMessage = loginDAO.validateLogin(user);
-        } catch (IncorrectCredentialsException e) {
-            loginMessage = e.getMessage();
-        } catch (LoginDisabledException e) {
+        } catch (IncorrectCredentialsException | LoginDisabledException | DataConnectionException e) {
             loginMessage = e.getMessage();
         }
         return new Response(user.getUsername(), loginMessage);
