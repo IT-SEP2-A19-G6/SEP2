@@ -7,11 +7,8 @@ import shared.clients.User;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.net.UnknownServiceException;
-import java.util.LinkedList;
-import java.util.List;
 
-public class LoginModelHandler implements LoginModel, IPropertyChangeSubject {
+public class LoginModelHandler implements ILoginModel, IPropertyChangeSubject {
 
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
 

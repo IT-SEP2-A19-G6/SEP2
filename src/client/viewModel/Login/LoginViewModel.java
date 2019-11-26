@@ -1,18 +1,20 @@
 package client.viewModel.login;
 
-import client.model.login.LoginModel;
+import client.model.login.ILoginModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import shared.clients.Client;
+import shared.clients.User;
 
 import java.beans.PropertyChangeEvent;
 
 public class LoginViewModel {
-    private LoginModel loginModel;
+    private ILoginModel loginModel;
     private StringProperty loginResult;
     private StringProperty username;
     private StringProperty password;
 
-    public LoginViewModel(LoginModel loginModel) {
+    public LoginViewModel(ILoginModel loginModel) {
         this.loginModel = loginModel;
         username = new SimpleStringProperty();
         password = new SimpleStringProperty();
@@ -42,14 +44,22 @@ public class LoginViewModel {
     }
 
     public void validateLogin() {
-        //TODO password restriction check
-        //TODO both fields should be filled before calling loginModel
-       loginModel.validateLogin(username.getValue(), password.getValue());
+
+        if(username.getValue()==null){
+            loginResult.setValue("Login require username...");
+        }else if(password.getValue()==null) {
+            loginResult.setValue("Login require password...");
+        }else if(loginModel.validateLogin(username.getValue(), password.getValue()) ==
+                new Client(username.getValue().toString(), password.getValue().toString())){
+
+        }
+            loginModel.validateLogin(username.getValue(), password.getValue());
     }
 
     public void clearFields() {
         username.setValue("");
         password.setValue("");
+        loginResult.setValue("");
     }
 
 

@@ -1,11 +1,9 @@
 package client.network;
 
 import client.model.ModelFactory;
-import client.model.login.LoginModel;
+import client.model.login.ILoginModel;
 import shared.Request;
 import shared.Response;
-import shared.clients.Client;
-import shared.clients.User;
 
 import java.beans.PropertyChangeEvent;
 import java.io.IOException;
@@ -17,7 +15,7 @@ public class ClientSocketHandler implements Runnable {
 
     private ObjectInputStream inputFromServer;
     private ObjectOutputStream outputToServer;
-    private LoginModel loginModel;
+    private ILoginModel loginModel;
 
     public ClientSocketHandler(Socket socket, ModelFactory modelFactory) {
         this.loginModel = modelFactory.getLoginModel();
@@ -32,7 +30,6 @@ public class ClientSocketHandler implements Runnable {
 
     private void addListeners(ModelFactory modelFactory) {
         modelFactory.getLoginModel().addPropertyChangeListener(Request.TYPE.LOGIN_REQ.name(), this::handlePropertyChange);
-        //TODO add listeners here like this -> modelFactory.getLoginModel().addListener(Request.TYPE.LOGIN_REQ.name(), this::sendToServer);
     }
 
     private void handlePropertyChange(PropertyChangeEvent propertyChangeEvent) {

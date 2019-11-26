@@ -29,15 +29,16 @@ public class LoginViewController {
         this.loginViewModel = loginViewModel;
         userNameTextField.textProperty().bindBidirectional(loginViewModel.userNameProperty());
         passwordTextField.textProperty().bindBidirectional(loginViewModel.passwordProperty());
+        loginResultLabel.textProperty().bindBidirectional(loginViewModel.loginResultProperty());
     }
 
     //TODO create action onEnter
 
-    //TODO add loginResultLabel to view for showing exceptions
 
 
     public void onLoginButton(ActionEvent actionEvent) {
         loginViewModel.validateLogin();
+        System.out.println(loginViewModel.userNameProperty().toString() + " " + loginViewModel.passwordProperty().toString());
     }
 
     public void onCancelButton(ActionEvent actionEvent) {

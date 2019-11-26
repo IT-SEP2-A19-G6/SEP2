@@ -4,6 +4,6 @@ import shared.IPropertyChangeSubject;
 
 import java.beans.PropertyChangeListener;
 
-public interface LoginModel extends IPropertyChangeSubject {
+public interface ILoginModel extends IPropertyChangeSubject {
     void validateLogin(String username, String password);
 }

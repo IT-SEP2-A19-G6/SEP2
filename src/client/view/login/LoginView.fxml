@@ -24,9 +24,14 @@
          <font>
             <Font size="18.0" />
          </font></Button>
-      <Label layoutX="250.0" layoutY="102.0" text="Login" textAlignment="CENTER">
+      <Label layoutX="249.0" layoutY="57.0" text="Login" textAlignment="CENTER">
          <font>
             <Font size="41.0" />
+         </font>
+      </Label>
+      <Label fx:id="loginResultLabel" alignment="CENTER" ellipsisString="" layoutX="174.0" layoutY="160.0" prefHeight="27.0" prefWidth="250.0" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
          </font>
       </Label>
    </children>
