@@ -15,17 +15,12 @@ import java.beans.PropertyChangeSupport;
 public class LoginModelHandler implements ILoginModel, IPropertyChangeSubject {
 
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
-    private LoginViewModel loginViewModel;
-
-    public LoginModelHandler(ModelFactory modelFactory) {
-
-    }
 
     public void validateLogin(String username, String password) {
         Client client = new User(username, password);
         support.firePropertyChange(Request.TYPE.LOGIN_REQ.name(), "", client);
     }
-    
+
     public void loginResult(Response loginResponse) {
         support.firePropertyChange(Request.TYPE.LOGIN_RESPONSE.name(), "", loginResponse);
     }

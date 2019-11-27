@@ -60,7 +60,6 @@ public class ClientSocketHandler implements Runnable {
                 if (requestFromServer.type.equals(Request.TYPE.LOGIN_RESPONSE)){
                     Response loginResponse = (Response) requestFromServer.object;
                     loginModel.loginResult(loginResponse);
-                    System.out.println(loginResponse.getToUser() + " " + loginResponse.getMessage());
                 }
 
                 //TODO unwrap request and call model methods() here... (ex. loginModel)

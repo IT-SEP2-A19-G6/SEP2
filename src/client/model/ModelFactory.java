@@ -8,7 +8,7 @@ public class ModelFactory {
 
     public ILoginModel getLoginModel() {
         if (loginModel == null) {
-            loginModel = new LoginModelHandler(this);
+            loginModel = new LoginModelHandler();
         }
         return loginModel;
     }

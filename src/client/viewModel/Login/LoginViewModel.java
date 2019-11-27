@@ -1,9 +1,11 @@
 package client.viewModel.login;
 
 import client.model.login.ILoginModel;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import shared.Request;
+import shared.Response;
 
 import java.beans.PropertyChangeEvent;
 
@@ -20,8 +22,6 @@ public class LoginViewModel {
         loginResult =  new SimpleStringProperty();
         loginModel.addPropertyChangeListener(Request.TYPE.LOGIN_RESPONSE.name(), this::onLoginResult);
     }
-
-
 
     public StringProperty userNameProperty() {
         return this.username;
@@ -46,17 +46,15 @@ public class LoginViewModel {
         }
     }
 
-//    public void loginResultListener() {
-//        loginModel.addPropertyChangeListener(Request.TYPE.LOGIN_RESPONSE.name(), this::onLoginResult);
-//    }
-
     private void onLoginResult(PropertyChangeEvent propertyChangeEvent) {
-        String result = (String)propertyChangeEvent.getNewValue();
-        if(loginResult!=null || loginResult.equals("")) {
+        Response result = (Response) propertyChangeEvent.getNewValue();
+        if(loginResult!=null /*|| loginResult.equals("")*/) {
             clearFields();
         }
-        loginResult.setValue(result);
-        System.out.println(result);
+
+        Platform.runLater(()->{
+            loginResult.setValue(result.getMessage());
+                });
     }
 
     public void clearFields() {

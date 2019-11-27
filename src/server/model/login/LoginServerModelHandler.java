@@ -31,7 +31,6 @@ public class LoginServerModelHandler implements LoginServerModel{
         loginDAO = dataFactory.getLoginDOA();
     }
 
-
     @Override
     public Response validateLogin(User user){
         String loginMessage;
@@ -42,7 +41,6 @@ public class LoginServerModelHandler implements LoginServerModel{
         }
         return new Response(user.getUsername(), loginMessage);
     }
-
 
     @Override
     public void addPropertyChangeListener(String name, PropertyChangeListener listener) {

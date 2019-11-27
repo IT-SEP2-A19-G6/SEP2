@@ -36,7 +36,6 @@ public class LoginViewController {
 
     public void onLoginButton(ActionEvent actionEvent) {
         loginViewModel.validateLogin();
-        System.out.println(loginViewModel.userNameProperty().toString() + " " + loginViewModel.passwordProperty().toString());
     }
 
     public void onCancelButton(ActionEvent actionEvent) {
