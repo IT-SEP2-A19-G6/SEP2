@@ -34,8 +34,6 @@ public class LoginViewController {
 
     //TODO create action onEnter
 
-
-
     public void onLoginButton(ActionEvent actionEvent) {
         loginViewModel.validateLogin();
         System.out.println(loginViewModel.userNameProperty().toString() + " " + loginViewModel.passwordProperty().toString());

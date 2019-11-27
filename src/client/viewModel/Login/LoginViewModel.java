@@ -3,8 +3,7 @@ package client.viewModel.login;
 import client.model.login.ILoginModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import shared.clients.Client;
-import shared.clients.User;
+import shared.Request;
 
 import java.beans.PropertyChangeEvent;
 
@@ -19,17 +18,10 @@ public class LoginViewModel {
         username = new SimpleStringProperty();
         password = new SimpleStringProperty();
         loginResult =  new SimpleStringProperty();
-        loginModel.addPropertyChangeListener("LoginResult", this::onLoginResult);
+        loginModel.addPropertyChangeListener(Request.TYPE.LOGIN_RESPONSE.name(), this::onLoginResult);
     }
 
 
-    private void onLoginResult(PropertyChangeEvent propertyChangeEvent) {
-        String result = (String)propertyChangeEvent.getNewValue();
-        if("OK".equals(result)) {
-            clearFields();
-        }
-        loginResult.setValue("Login successful...");
-    }
 
     public StringProperty userNameProperty() {
         return this.username;
@@ -44,15 +36,28 @@ public class LoginViewModel {
     }
 
     public void validateLogin() {
-
         if(username.getValue()==null || username.getValue().equals("")){
-            loginResult.setValue("Login require username...");
+            loginResult.setValue("Enter username");
         }else if(password.getValue()==null || password.getValue().equals("")) {
-            loginResult.setValue("Login require password...");
-        }else
+            loginResult.setValue("Enter password");
+        }else {
+            loginResult.setValue("");
             loginModel.validateLogin(username.getValue(), password.getValue());
+        }
     }
 
+//    public void loginResultListener() {
+//        loginModel.addPropertyChangeListener(Request.TYPE.LOGIN_RESPONSE.name(), this::onLoginResult);
+//    }
+
+    private void onLoginResult(PropertyChangeEvent propertyChangeEvent) {
+        String result = (String)propertyChangeEvent.getNewValue();
+        if(loginResult!=null || loginResult.equals("")) {
+            clearFields();
+        }
+        loginResult.setValue(result);
+        System.out.println(result);
+    }
 
     public void clearFields() {
         username.setValue("");

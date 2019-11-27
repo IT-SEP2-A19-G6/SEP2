@@ -2,10 +2,12 @@ package client.network;
 
 import client.model.ModelFactory;
 import client.model.login.ILoginModel;
+import shared.IPropertyChangeSubject;
 import shared.Request;
 import shared.Response;
 
 import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -16,6 +18,7 @@ public class ClientSocketHandler implements Runnable {
     private ObjectInputStream inputFromServer;
     private ObjectOutputStream outputToServer;
     private ILoginModel loginModel;
+    private PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public ClientSocketHandler(Socket socket, ModelFactory modelFactory) {
         this.loginModel = modelFactory.getLoginModel();
@@ -56,7 +59,7 @@ public class ClientSocketHandler implements Runnable {
 
                 if (requestFromServer.type.equals(Request.TYPE.LOGIN_RESPONSE)){
                     Response loginResponse = (Response) requestFromServer.object;
-                    //TODO call loginmodel method
+                    loginModel.loginResult(loginResponse);
                     System.out.println(loginResponse.getToUser() + " " + loginResponse.getMessage());
                 }
 

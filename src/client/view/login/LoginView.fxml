@@ -16,11 +16,11 @@
             <PasswordField fx:id="passwordTextField" alignment="CENTER" promptText="Password" />
          </children>
       </VBox>
-      <Button fx:id="cancelButton" layoutX="312.0" layoutY="296.0" mnemonicParsing="false" onAction="#onCancelButton" text="Cancel">
+      <Button fx:id="loginButton" layoutX="216.0" layoutY="296.0" mnemonicParsing="false" onAction="#onLoginButton" text="Login">
          <font>
             <Font size="18.0" />
          </font></Button>
-      <Button fx:id="loginButton" layoutX="216.0" layoutY="296.0" mnemonicParsing="false" onAction="#onLoginButton" text="Login">
+      <Button fx:id="cancelButton" layoutX="312.0" layoutY="296.0" mnemonicParsing="false" onAction="#onCancelButton" text="Cancel">
          <font>
             <Font size="18.0" />
          </font></Button>
@@ -29,9 +29,9 @@
             <Font size="41.0" />
          </font>
       </Label>
-      <Label fx:id="loginResultLabel" alignment="CENTER" ellipsisString="" layoutX="174.0" layoutY="160.0" prefHeight="27.0" prefWidth="250.0" textAlignment="CENTER">
+      <Label fx:id="loginResultLabel" alignment="CENTER" ellipsisString="" layoutX="62.0" layoutY="159.0" prefHeight="27.0" prefWidth="500.0" textAlignment="CENTER">
          <font>
-            <Font size="18.0" />
+            <Font size="14.0" />
          </font>
       </Label>
    </children>
