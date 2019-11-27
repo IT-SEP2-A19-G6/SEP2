@@ -18,7 +18,6 @@ public class ClientSocketHandler implements Runnable {
     private ObjectInputStream inputFromServer;
     private ObjectOutputStream outputToServer;
     private ILoginModel loginModel;
-    private PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public ClientSocketHandler(Socket socket, ModelFactory modelFactory) {
         this.loginModel = modelFactory.getLoginModel();
@@ -32,11 +31,11 @@ public class ClientSocketHandler implements Runnable {
     }
 
     private void addListeners(ModelFactory modelFactory) {
-        modelFactory.getLoginModel().addPropertyChangeListener(Request.TYPE.LOGIN_REQ.name(), this::handlePropertyChange);
+        modelFactory.getLoginModel().addPropertyChangeListener(Request.TYPE.LOGIN_REQ.name(), this::handleLoginReq);
     }
 
-    private void handlePropertyChange(PropertyChangeEvent propertyChangeEvent) {
-        if (propertyChangeEvent.getPropertyName().equals(Request.TYPE.LOGIN_REQ.name())){
+    private void handleLoginReq(PropertyChangeEvent propertyChangeEvent) {
+        if (propertyChangeEvent.getNewValue() != null){
             Request request = new Request(Request.TYPE.LOGIN_REQ, propertyChangeEvent.getNewValue());
             sendToServer(request);
         }

@@ -4,6 +4,6 @@ import shared.IPropertyChangeSubject;
 import shared.Response;
 import shared.clients.User;
 
-public interface ILoginServerModel extends IPropertyChangeSubject {
+public interface ILoginServerModel{
     Response validateLogin(User user);
 }
