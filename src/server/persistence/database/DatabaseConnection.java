@@ -1,11 +1,12 @@
 package server.persistence.database;
 
+import shared.exceptions.DataConnectionException;
 import shared.util.ApplicationProperties;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class DatabaseConnection {
+public class DatabaseConnection implements IDatabaseConnection {
     private String schemaName;
     private String clientTableName;
 
@@ -15,7 +16,7 @@ public class DatabaseConnection {
     }
 
     //TODO handle postgres exceptions like connection....
-    private Connection getConnection(){ //TODO update postgres credentials
+    private Connection getConnection() throws DataConnectionException { //TODO update postgres credentials
         String driver = ApplicationProperties.INSTANCE.getDbDriver();
         String url = ApplicationProperties.INSTANCE.getDbUrl();
         String user = ApplicationProperties.INSTANCE.getDbUser();
@@ -31,7 +32,7 @@ public class DatabaseConnection {
         try {
             connection = DriverManager.getConnection(url, user, pw);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DataConnectionException("Failed to establish connection to data");
         }
 
         return connection;
@@ -47,12 +48,12 @@ public class DatabaseConnection {
         try {
             if (!connection.isClosed())
                 getConnection().close();
-        } catch (SQLException e) {
+        } catch (SQLException | DataConnectionException e) {
             e.printStackTrace();
         }
     }
 
-    public ArrayList<Object[]> executePreparedQuery(String preparedSql) {
+    public ArrayList<Object[]> executePreparedQuery(String preparedSql) throws DataConnectionException {
         ArrayList<Object[]> results = new ArrayList<>();
         Connection connection = getConnection();
 
@@ -60,7 +61,7 @@ public class DatabaseConnection {
         try {
             preparedStatement = connection.prepareStatement(preparedSql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DataConnectionException("Lost connection to data");
         }
 
         ResultSet resultSet = null;
@@ -76,7 +77,7 @@ public class DatabaseConnection {
                 results.add(row);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DataConnectionException("Lost connection to data");
         } finally {
             try {
                 if (resultSet != null)

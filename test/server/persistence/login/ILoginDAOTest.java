@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import server.persistence.DataFactory;
 import shared.clients.User;
+import shared.exceptions.DataConnectionException;
 import shared.exceptions.IncorrectCredentialsException;
 import shared.exceptions.LoginDisabledException;
 
@@ -29,7 +30,7 @@ class ILoginDAOTest {
         String responseFromDOA = null;
         try {
             responseFromDOA = loginDAO.validateLogin(userCorrectCredentials);
-        } catch (IncorrectCredentialsException | LoginDisabledException e) {
+        } catch (IncorrectCredentialsException | LoginDisabledException | DataConnectionException e) {
             fail("Exception thrown: " + e);
         }
         assertEquals("user login accepted", responseFromDOA);
@@ -41,7 +42,7 @@ class ILoginDAOTest {
         String responseFromDOA = null;
         try {
             responseFromDOA = loginDAO.validateLogin(userWrongPassword);
-        } catch (IncorrectCredentialsException | LoginDisabledException e) {
+        } catch (IncorrectCredentialsException | LoginDisabledException | DataConnectionException e) {
             assertTrue(e instanceof IncorrectCredentialsException);
             return;
         }
@@ -54,7 +55,7 @@ class ILoginDAOTest {
         String responseFromDOA = null;
         try {
             responseFromDOA = loginDAO.validateLogin(userWrongUsername);
-        } catch (IncorrectCredentialsException | LoginDisabledException e) {
+        } catch (IncorrectCredentialsException | LoginDisabledException | DataConnectionException e) {
             assertTrue(e instanceof IncorrectCredentialsException);
             return;
         }
@@ -67,7 +68,7 @@ class ILoginDAOTest {
         String responseFromDOA = null;
         try {
             responseFromDOA = loginDAO.validateLogin(userDisabled);
-        } catch (IncorrectCredentialsException | LoginDisabledException e) {
+        } catch (IncorrectCredentialsException | LoginDisabledException | DataConnectionException e) {
             assertTrue(e instanceof LoginDisabledException);
             return;
         }
