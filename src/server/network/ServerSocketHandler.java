@@ -21,7 +21,6 @@ private ILoginServerModel loginServerModel;
 
     public ServerSocketHandler(Socket socket, ServerModelFactory serverModelFactory) {
         this.loginServerModel = serverModelFactory.getLoginServerModel();
-        addListeners();
         try {
             outputToClient = new ObjectOutputStream(socket.getOutputStream());
             inputFromClient = new ObjectInputStream(socket.getInputStream());
@@ -30,13 +29,6 @@ private ILoginServerModel loginServerModel;
         }
     }
 
-    private void addListeners() {
-        //TODO add listeners here
-    }
-
-    private void handlePropertyChange(PropertyChangeEvent propertyChangeEvent) {
-        //TODO handle propertyChanges
-    }
 
     private void sendToClient(Request request){
         try {

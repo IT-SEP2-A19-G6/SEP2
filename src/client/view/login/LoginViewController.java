@@ -2,10 +2,8 @@ package client.view.login;
 
 import client.view.ViewHandler;
 import client.viewModel.login.LoginViewModel;
-import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 

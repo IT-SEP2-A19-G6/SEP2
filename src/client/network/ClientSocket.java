@@ -7,7 +7,7 @@ import java.net.Socket;
 
 public class ClientSocket {
 
-    ModelFactory modelFactory;
+    private ModelFactory modelFactory;
 
     public ClientSocket(ModelFactory modelFactory) {
         this.modelFactory = modelFactory;

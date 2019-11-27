@@ -6,7 +6,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import shared.Request;
 import shared.Response;
-
 import java.beans.PropertyChangeEvent;
 
 public class LoginViewModel {
@@ -20,8 +19,13 @@ public class LoginViewModel {
         username = new SimpleStringProperty();
         password = new SimpleStringProperty();
         loginResult =  new SimpleStringProperty();
+        addListeners();
+    }
+
+    private void addListeners(){
         loginModel.addPropertyChangeListener(Request.TYPE.LOGIN_RESPONSE.name(), this::onLoginResult);
     }
+
 
     public StringProperty userNameProperty() {
         return this.username;

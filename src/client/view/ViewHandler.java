@@ -10,16 +10,16 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ViewHandler {
-    private Stage mainStage;
+    private Stage stage;
     private ViewModelFactory viewModelFactory;
 
     public ViewHandler(ViewModelFactory viewModelFactory) {
         this.viewModelFactory = viewModelFactory;
-        this.mainStage = new Stage();
+        this.stage = new Stage();
     }
 
     public void start(Stage stage) {
-        mainStage = stage;
+        this.stage = stage;
         openLoginView();
     }
 
@@ -37,13 +37,13 @@ public class ViewHandler {
 
         LoginViewController view = loader.getController();
         view.init(this, viewModelFactory.getLoginViewModel());
-        mainStage.setTitle("Login");
+        stage.setTitle("Login");
 
 
         scene = new Scene(root);
-        mainStage.setScene(scene);
-        mainStage.setResizable(false);
-        mainStage.show();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
     }
 
 }
