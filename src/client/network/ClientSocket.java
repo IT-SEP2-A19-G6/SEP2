@@ -8,6 +8,7 @@ import java.net.Socket;
 public class ClientSocket {
 
     private ModelFactory modelFactory;
+    private ClientSocketHandler clientSocketHandler;
 
     public ClientSocket(ModelFactory modelFactory) {
         this.modelFactory = modelFactory;
@@ -18,13 +19,17 @@ public class ClientSocket {
 
         try {
             Socket socket = new Socket("localhost", 2920);
-            ClientSocketHandler clientSocketHandler = new ClientSocketHandler(socket, modelFactory);
+            clientSocketHandler = new ClientSocketHandler(socket, modelFactory);
 
             Thread t = new Thread(clientSocketHandler);
             t.start();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void closeConnection(){
+        clientSocketHandler.closeConnection();
     }
 }
 

@@ -8,6 +8,7 @@ import shared.Response;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeSupport;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -18,8 +19,12 @@ public class ClientSocketHandler implements Runnable {
     private ObjectInputStream inputFromServer;
     private ObjectOutputStream outputToServer;
     private ILoginModel loginModel;
+    private boolean activeConnection;
+    private Socket socket;
 
     public ClientSocketHandler(Socket socket, ModelFactory modelFactory) {
+        this.socket = socket;
+        activeConnection = true;
         this.loginModel = modelFactory.getLoginModel();
         addListeners(modelFactory);
         try {
@@ -53,7 +58,7 @@ public class ClientSocketHandler implements Runnable {
     @Override
     public void run() {
         try {
-            while (true) {
+            while (activeConnection) {
                 Request requestFromServer = (Request) inputFromServer.readObject();
 
                 if (requestFromServer.type.equals(Request.TYPE.LOGIN_RESPONSE)){
@@ -64,11 +69,27 @@ public class ClientSocketHandler implements Runnable {
                 //TODO unwrap request and call model methods() here... (ex. loginModel)
 
             }
+        } catch (EOFException e) {
+            System.out.println("Client closed");
+            try {
+                inputFromServer.close();
+                outputToServer.close();
+                socket.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("ClientSocketHandler EXCEPTION: " + e.getMessage());
+            e.printStackTrace();
         }
 
     }
+
+    public void closeConnection() {
+        activeConnection = false;
+        Request closeReq = new Request(Request.TYPE.CLOSE_CONNECTION, "");
+        sendToServer(closeReq);
+    }
+
 
     //TODO add graceful connection shutdown
 }
