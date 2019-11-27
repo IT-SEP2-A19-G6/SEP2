@@ -17,9 +17,15 @@ public class LoginModelHandler implements ILoginModel, IPropertyChangeSubject {
         support.firePropertyChange(Request.TYPE.LOGIN_REQ.name(), "", client);
     }
 
+
+
     @Override
     public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
-        support.addPropertyChangeListener(name, listener);
+        if (name == null){
+            support.addPropertyChangeListener(listener);
+        } else {
+            support.addPropertyChangeListener(name, listener);
+        }
     }
 
     @Override
@@ -29,7 +35,11 @@ public class LoginModelHandler implements ILoginModel, IPropertyChangeSubject {
 
     @Override
     public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
-        support.removePropertyChangeListener(name, listener);
+        if (name == null){
+            support.removePropertyChangeListener(listener);
+        } else {
+            support.removePropertyChangeListener(name, listener);
+        }
     }
 
     @Override

@@ -28,7 +28,7 @@ public class LoginViewModel {
         if("OK".equals(result)) {
             clearFields();
         }
-        loginResult.setValue(result);
+        loginResult.setValue("Login successful...");
     }
 
     public StringProperty userNameProperty() {
@@ -45,16 +45,14 @@ public class LoginViewModel {
 
     public void validateLogin() {
 
-        if(username.getValue()==null){
+        if(username.getValue()==null || username.getValue().equals("")){
             loginResult.setValue("Login require username...");
-        }else if(password.getValue()==null) {
+        }else if(password.getValue()==null || password.getValue().equals("")) {
             loginResult.setValue("Login require password...");
-        }else if(loginModel.validateLogin(username.getValue(), password.getValue()) ==
-                new Client(username.getValue().toString(), password.getValue().toString())){
-
-        }
+        }else
             loginModel.validateLogin(username.getValue(), password.getValue());
     }
+
 
     public void clearFields() {
         username.setValue("");
