@@ -7,7 +7,6 @@ import server.persistence.DataFactory;
 import shared.clients.User;
 import shared.exceptions.DataConnectionException;
 import shared.exceptions.IncorrectCredentialsException;
-import shared.exceptions.LoginDisabledException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,7 +29,7 @@ class ILoginDAOTestPostgres {
         String responseFromDOA = null;
         try {
             responseFromDOA = loginDAO.validateLogin(userCorrectCredentials);
-        } catch (IncorrectCredentialsException | LoginDisabledException | DataConnectionException e) {
+        } catch (IncorrectCredentialsException| DataConnectionException e) {
             fail("Exception thrown: " + e);
         }
         assertEquals("user login accepted", responseFromDOA);
@@ -42,7 +41,7 @@ class ILoginDAOTestPostgres {
         String responseFromDOA = null;
         try {
             responseFromDOA = loginDAO.validateLogin(userWrongPassword);
-        } catch (IncorrectCredentialsException | LoginDisabledException | DataConnectionException e) {
+        } catch (IncorrectCredentialsException | DataConnectionException e) {
             assertTrue(e instanceof IncorrectCredentialsException);
             return;
         }
@@ -55,7 +54,7 @@ class ILoginDAOTestPostgres {
         String responseFromDOA = null;
         try {
             responseFromDOA = loginDAO.validateLogin(userWrongUsername);
-        } catch (IncorrectCredentialsException | LoginDisabledException | DataConnectionException e) {
+        } catch (IncorrectCredentialsException| DataConnectionException e) {
             assertTrue(e instanceof IncorrectCredentialsException);
             return;
         }

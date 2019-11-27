@@ -12,13 +12,11 @@ public class LoginServerModelHandler implements LoginServerModel {
 */
 
 
-import server.persistence.DataFactory;
 import server.persistence.login.ILoginDAO;
 import shared.Response;
 import shared.clients.User;
 import shared.exceptions.DataConnectionException;
 import shared.exceptions.IncorrectCredentialsException;
-import shared.exceptions.LoginDisabledException;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -36,7 +34,7 @@ public class LoginServerModelHandler implements ILoginServerModel {
         String loginMessage;
         try {
             loginMessage = loginDAO.validateLogin(user);
-        } catch (IncorrectCredentialsException | LoginDisabledException | DataConnectionException e) {
+        } catch (IncorrectCredentialsException | DataConnectionException e) {
             loginMessage = e.getMessage();
         }
         return new Response(user.getUsername(), loginMessage);

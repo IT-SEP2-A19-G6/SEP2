@@ -1,11 +1,8 @@
 package server.persistence.login;
 
-import server.persistence.database.DatabaseConnection;
 import server.persistence.database.IDatabaseConnection;
-import shared.clients.Client;
 import shared.clients.User;
 import shared.exceptions.DataConnectionException;
-import shared.exceptions.LoginDisabledException;
 import shared.exceptions.IncorrectCredentialsException;
 
 import java.util.ArrayList;
@@ -18,7 +15,7 @@ public class LoginDOA implements ILoginDAO{
     }
 
     @Override
-    public String validateLogin(User user) throws IncorrectCredentialsException, LoginDisabledException, DataConnectionException {
+    public String validateLogin(User user) throws IncorrectCredentialsException, DataConnectionException {
         String sql =  "SELECT * FROM " + databaseConnection.getSchemaName() + "." + databaseConnection.getClientTableName() +
                 " WHERE username LIKE '" + user.getUsername() + "' AND password LIKE '" + user.getPassword() + "';";
 
@@ -38,7 +35,6 @@ public class LoginDOA implements ILoginDAO{
                 return "User login accepted";
             } else {
                 throw new IncorrectCredentialsException("Incorrect credentials");
-                //throw new LoginDisabledException("Account disabled"); //TODO delete if userstory is not implemented
             }
         }
         return null;
