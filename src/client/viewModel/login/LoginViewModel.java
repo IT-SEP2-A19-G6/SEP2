@@ -49,18 +49,21 @@ public class LoginViewModel {
     private void onLoginResult(PropertyChangeEvent propertyChangeEvent) {
         Response result = (Response) propertyChangeEvent.getNewValue();
         if(loginResult!=null /*|| loginResult.equals("")*/) {
-            clearFields();
-        }
-
-        Platform.runLater(()->{
-            loginResult.setValue(result.getMessage());
+            Platform.runLater(()->{
+                loginResult.setValue(result.getMessage());
+                    });
+            if (result.getMessage().contains("login accepted")){
+                Platform.runLater(()->{
+                    clearFields();
+                    //Change view here
                 });
+            }
+        }
     }
 
     public void clearFields() {
         username.setValue("");
         password.setValue("");
-        loginResult.setValue("");
     }
 
 
