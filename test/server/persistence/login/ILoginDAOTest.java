@@ -8,7 +8,6 @@ import server.testdummies.TestDatabaseConnection;
 import shared.clients.User;
 import shared.exceptions.DataConnectionException;
 import shared.exceptions.IncorrectCredentialsException;
-import shared.exceptions.LoginDisabledException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,7 +37,7 @@ class ILoginDAOTest {
         String responseFromDOA = null;
         try {
             responseFromDOA = loginDAO.validateLogin(userCorrectCredentials);
-        } catch (IncorrectCredentialsException | LoginDisabledException | DataConnectionException e) {
+        } catch (IncorrectCredentialsException | DataConnectionException e) {
             fail("Exception thrown: " + e);
         }
         assertEquals("user login accepted", responseFromDOA);
@@ -50,7 +49,7 @@ class ILoginDAOTest {
         String responseFromDOA = null;
         try {
             responseFromDOA = loginDAO.validateLogin(userWrongPassword);
-        } catch (IncorrectCredentialsException | LoginDisabledException | DataConnectionException e) {
+        } catch (IncorrectCredentialsException | DataConnectionException e) {
             assertTrue(e instanceof IncorrectCredentialsException);
             return;
         }
@@ -63,7 +62,7 @@ class ILoginDAOTest {
         String responseFromDOA = null;
         try {
             responseFromDOA = loginDAO.validateLogin(userWrongUsername);
-        } catch (IncorrectCredentialsException | LoginDisabledException | DataConnectionException e) {
+        } catch (IncorrectCredentialsException | DataConnectionException e) {
             assertTrue(e instanceof IncorrectCredentialsException);
             return;
         }
