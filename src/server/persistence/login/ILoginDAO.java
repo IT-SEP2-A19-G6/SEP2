@@ -1,6 +1,5 @@
 package server.persistence.login;
 
-import shared.clients.Client;
 import shared.clients.User;
 import shared.exceptions.DataConnectionException;
 import shared.exceptions.LoginDisabledException;

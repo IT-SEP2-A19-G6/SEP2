@@ -23,12 +23,12 @@ import shared.exceptions.LoginDisabledException;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class LoginServerModelHandler implements LoginServerModel{
+public class LoginServerModelHandler implements ILoginServerModel {
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
     private ILoginDAO loginDAO;
 
-    public LoginServerModelHandler(DataFactory dataFactory) {
-        loginDAO = dataFactory.getLoginDOA();
+    public LoginServerModelHandler(ILoginDAO loginDAO) {
+        this.loginDAO = loginDAO;
     }
 
     @Override

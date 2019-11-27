@@ -1,7 +1,7 @@
 package server.network;
 
 import server.model.ServerModelFactory;
-import server.model.login.LoginServerModel;
+import server.model.login.ILoginServerModel;
 import shared.Response;
 import shared.Request;
 import shared.clients.User;
@@ -16,7 +16,7 @@ public class ServerSocketHandler implements Runnable {
 
 private ObjectOutputStream outputToClient;
 private ObjectInputStream inputFromClient;
-private LoginServerModel loginServerModel;
+private ILoginServerModel loginServerModel;
 
 
     public ServerSocketHandler(Socket socket, ServerModelFactory serverModelFactory) {
