@@ -35,9 +35,10 @@ public class LoginDOA implements ILoginDAO{
             boolean active = (boolean) obj[3];
 
             if (active){
-                return "user login accepted";
+                return "User login accepted";
             } else {
-                throw new LoginDisabledException("account disabled");
+                throw new IncorrectCredentialsException("Incorrect credentials");
+                //throw new LoginDisabledException("Account disabled"); //TODO delete if userstory is not implemented
             }
         }
         return null;

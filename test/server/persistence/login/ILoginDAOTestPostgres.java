@@ -1,10 +1,9 @@
 package server.persistence.login;
 
-
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import server.persistence.database.IDatabaseConnection;
-import server.testdummies.TestDatabaseConnection;
+import server.persistence.DataFactory;
 import shared.clients.User;
 import shared.exceptions.DataConnectionException;
 import shared.exceptions.IncorrectCredentialsException;
@@ -12,29 +11,22 @@ import shared.exceptions.LoginDisabledException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ILoginDAOTest {
-    IDatabaseConnection dbConn;
+class ILoginDAOTestPostgres {
     private ILoginDAO loginDAO;
 
     @BeforeEach
     void setUp() {
-        dbConn = new TestDatabaseConnection();
-        loginDAO = new LoginDOA(dbConn);
+        DataFactory dataFactory = new DataFactory();
+        loginDAO = dataFactory.getLoginDOA();
     }
 
-    @Test
-    void getSchemaName(){
-        assertEquals("sep2", dbConn.getSchemaName());
-    }
-
-    @Test
-    void getClientTableName(){
-        assertEquals("account_client", dbConn.getClientTableName());
+    @AfterEach
+    void tearDown() {
     }
 
     @Test
     void validateLoginCorrectCredentials() {
-        User userCorrectCredentials = new User("correctUser", "correctPassword");
+        User userCorrectCredentials = new User("user1", "user");
         String responseFromDOA = null;
         try {
             responseFromDOA = loginDAO.validateLogin(userCorrectCredentials);
@@ -46,7 +38,7 @@ class ILoginDAOTest {
 
     @Test
     void validateLoginWrongPassword(){
-        User userWrongPassword = new User("correctUser", "wrongPassword");
+        User userWrongPassword = new User("user1", "wrongPassword");
         String responseFromDOA = null;
         try {
             responseFromDOA = loginDAO.validateLogin(userWrongPassword);
@@ -59,7 +51,7 @@ class ILoginDAOTest {
 
     @Test
     void validateLoginWrongUsername(){
-        User userWrongUsername= new User("WrongUsername", "correctPassword");
+        User userWrongUsername= new User("WrongUsername", "user");
         String responseFromDOA = null;
         try {
             responseFromDOA = loginDAO.validateLogin(userWrongUsername);
@@ -69,7 +61,6 @@ class ILoginDAOTest {
         }
         fail("No exception thrown");
     }
-
 
 
 }

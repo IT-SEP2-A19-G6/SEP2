@@ -15,8 +15,8 @@ public class DatabaseConnection implements IDatabaseConnection {
         clientTableName = "account_client"; // TODO JH: Perhaps this could be placed in an enum later?
     }
 
-    //TODO handle postgres exceptions like connection....
-    private Connection getConnection() throws DataConnectionException { //TODO update postgres credentials
+
+    private Connection getConnection() throws DataConnectionException {
         String driver = ApplicationProperties.INSTANCE.getDbDriver();
         String url = ApplicationProperties.INSTANCE.getDbUrl();
         String user = ApplicationProperties.INSTANCE.getDbUser();
