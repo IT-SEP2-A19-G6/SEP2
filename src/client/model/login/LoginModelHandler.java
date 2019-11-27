@@ -1,17 +1,18 @@
 package client.model.login;
 
+import client.model.ModelFactory;
+import client.viewModel.login.LoginViewModel;
 import shared.IPropertyChangeSubject;
 import shared.Request;
+import shared.Response;
 import shared.clients.Client;
 import shared.clients.User;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.net.UnknownServiceException;
-import java.util.LinkedList;
-import java.util.List;
 
-public class LoginModelHandler implements LoginModel, IPropertyChangeSubject {
+public class LoginModelHandler implements ILoginModel, IPropertyChangeSubject {
 
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
 
@@ -20,9 +21,17 @@ public class LoginModelHandler implements LoginModel, IPropertyChangeSubject {
         support.firePropertyChange(Request.TYPE.LOGIN_REQ.name(), "", client);
     }
 
+    public void loginResult(Response loginResponse) {
+        support.firePropertyChange(Request.TYPE.LOGIN_RESPONSE.name(), "", loginResponse);
+    }
+
     @Override
     public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
-        support.addPropertyChangeListener(name, listener);
+        if (name == null){
+            support.addPropertyChangeListener(listener);
+        } else {
+            support.addPropertyChangeListener(name, listener);
+        }
     }
 
     @Override
@@ -32,7 +41,11 @@ public class LoginModelHandler implements LoginModel, IPropertyChangeSubject {
 
     @Override
     public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
-        support.removePropertyChangeListener(name, listener);
+        if (name == null){
+            support.removePropertyChangeListener(listener);
+        } else {
+            support.removePropertyChangeListener(name, listener);
+        }
     }
 
     @Override

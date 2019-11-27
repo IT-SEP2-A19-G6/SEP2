@@ -1,7 +1,6 @@
 package client.viewModel;
 
 import client.model.ModelFactory;
-import client.view.ViewHandler;
 import client.viewModel.login.LoginViewModel;
 
 public class ViewModelFactory {

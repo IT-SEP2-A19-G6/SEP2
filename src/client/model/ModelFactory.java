@@ -1,12 +1,12 @@
 package client.model;
 
-import client.model.login.LoginModel;
+import client.model.login.ILoginModel;
 import client.model.login.LoginModelHandler;
 
 public class ModelFactory {
-    private LoginModel loginModel;
+    private ILoginModel loginModel;
 
-    public LoginModel getLoginModel() {
+    public ILoginModel getLoginModel() {
         if (loginModel == null) {
             loginModel = new LoginModelHandler();
         }

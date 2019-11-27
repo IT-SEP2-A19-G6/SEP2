@@ -16,17 +16,22 @@
             <PasswordField fx:id="passwordTextField" alignment="CENTER" promptText="Password" />
          </children>
       </VBox>
-      <Button fx:id="cancelButton" layoutX="312.0" layoutY="296.0" mnemonicParsing="false" onAction="#onCancelButton" text="Cancel">
-         <font>
-            <Font size="18.0" />
-         </font></Button>
       <Button fx:id="loginButton" layoutX="216.0" layoutY="296.0" mnemonicParsing="false" onAction="#onLoginButton" text="Login">
          <font>
             <Font size="18.0" />
          </font></Button>
-      <Label layoutX="250.0" layoutY="102.0" text="Login" textAlignment="CENTER">
+      <Button fx:id="cancelButton" layoutX="312.0" layoutY="296.0" mnemonicParsing="false" onAction="#onCancelButton" text="Cancel">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Label layoutX="249.0" layoutY="57.0" text="Login" textAlignment="CENTER">
          <font>
             <Font size="41.0" />
+         </font>
+      </Label>
+      <Label fx:id="loginResultLabel" alignment="CENTER" ellipsisString="" layoutX="62.0" layoutY="159.0" prefHeight="27.0" prefWidth="500.0" textAlignment="CENTER">
+         <font>
+            <Font size="14.0" />
          </font>
       </Label>
    </children>
