@@ -3,8 +3,8 @@ package server.model.login;
 import server.persistence.login.ILoginDAO;
 import shared.Response;
 import shared.clients.User;
-import shared.exceptions.DataConnectionException;
-import shared.exceptions.IncorrectCredentialsException;
+import server.persistence.exceptions.DataConnectionException;
+import server.persistence.exceptions.IncorrectCredentialsException;
 
 
 public class LoginServerModelHandler implements ILoginServerModel {

@@ -2,7 +2,7 @@ package server.testdummies;
 
 import server.persistence.database.IDatabaseConnection;
 import shared.clients.User;
-import shared.exceptions.DataConnectionException;
+
 import java.util.ArrayList;
 
 public class TestDatabaseConnection implements IDatabaseConnection {

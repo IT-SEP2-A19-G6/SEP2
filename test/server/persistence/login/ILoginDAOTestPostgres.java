@@ -5,8 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import server.persistence.DataFactory;
 import shared.clients.User;
-import shared.exceptions.DataConnectionException;
-import shared.exceptions.IncorrectCredentialsException;
+import server.persistence.exceptions.DataConnectionException;
+import server.persistence.exceptions.IncorrectCredentialsException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
