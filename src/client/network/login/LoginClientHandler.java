@@ -14,6 +14,10 @@ public class LoginClientHandler implements ILoginClient {
 
     public LoginClientHandler(IClientSocketHandler clientSocketHandler){
         this.clientSocketHandler = clientSocketHandler;
+        addListeners();
+    }
+
+    private void addListeners() {
         clientSocketHandler.addPropertyChangeListener(Request.TYPE.LOGIN_RESPONSE.name(), this::handleResponse);
     }
 
