@@ -28,13 +28,15 @@ public class LoginDOA implements ILoginDAO{
             Object[] obj = objects.get(0);
 //            String id = obj[0].toString(); //TODO delete or use
             String username = obj[1].toString();
-//            String password = obj[2].toString(); /TODO delete or use
+            String password = obj[2].toString();
             boolean active = (boolean) obj[3];
 
-            if (active){
-                return "User login accepted";
-            } else {
-                throw new IncorrectCredentialsException("Incorrect credentials");
+            if(user.getUsername().equals(username) && user.getPassword().equals(password)){
+                if (active){
+                    return "User login accepted";
+                } else {
+                    throw new IncorrectCredentialsException("Incorrect credentials");
+                }
             }
         }
         return null;

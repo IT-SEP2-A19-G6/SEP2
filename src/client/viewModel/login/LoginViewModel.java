@@ -2,6 +2,8 @@ package client.viewModel.login;
 
 import client.model.login.ILoginModel;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import shared.Request;
@@ -13,19 +15,24 @@ public class LoginViewModel {
     private StringProperty loginResult;
     private StringProperty username;
     private StringProperty password;
+    private BooleanProperty isInFocus;
 
     public LoginViewModel(ILoginModel loginModel) {
         this.loginModel = loginModel;
         username = new SimpleStringProperty();
         password = new SimpleStringProperty();
         loginResult =  new SimpleStringProperty();
+        isInFocus = new SimpleBooleanProperty();
         addListeners();
     }
 
     private void addListeners(){
-        loginModel.addPropertyChangeListener(Request.TYPE.LOGIN_RESPONSE.name(), this::onLoginResult);
+        loginModel.addPropertyChangeListener(Request.TYPE.LOGIN_RESPONSE.name(), this::handleResponse);
     }
 
+    public BooleanProperty getIsInFocus(){
+        return this.isInFocus;
+    }
 
     public StringProperty userNameProperty() {
         return this.username;
@@ -50,7 +57,7 @@ public class LoginViewModel {
         }
     }
 
-    private void onLoginResult(PropertyChangeEvent propertyChangeEvent) {
+    private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
         Response result = (Response) propertyChangeEvent.getNewValue();
         if(loginResult!=null /*|| loginResult.equals("")*/) {
             Platform.runLater(()->{
@@ -68,6 +75,10 @@ public class LoginViewModel {
     public void clearFields() {
         username.setValue("");
         password.setValue("");
+    }
+
+    public void setIsInFocus(boolean bool){
+        isInFocus.set(bool);
     }
 
 
