@@ -1,4 +1,4 @@
-package shared.exceptions;
+package server.persistence.exceptions;
 
 public class DataConnectionException extends Exception {
 

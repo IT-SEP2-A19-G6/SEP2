@@ -1,6 +1,6 @@
 package server.persistence.database;
 
-import shared.exceptions.DataConnectionException;
+import server.persistence.exceptions.DataConnectionException;
 import shared.util.ApplicationProperties;
 
 import java.sql.*;
