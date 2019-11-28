@@ -5,9 +5,6 @@ import server.model.login.ILoginServerModel;
 import shared.Response;
 import shared.Request;
 import shared.clients.User;
-
-import java.beans.PropertyChangeEvent;
-import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -53,6 +50,7 @@ private boolean activeConnection;
                 //TODO remember to change the method depending on what kind of object needs to be casted.
                 Request requestFromClient = (Request) inputFromClient.readObject();
                 if (requestFromClient.type.equals(Request.TYPE.CLOSE_CONNECTION)){
+                    sendToClient(requestFromClient);
                     closeConnection();
                 } else if (requestFromClient.type.equals(Request.TYPE.LOGIN_REQ)){
                     User user = (User) requestFromClient.object;
