@@ -16,16 +16,20 @@ public class LoginModelHandler implements ILoginModel, IPropertyChangeSubject {
 
     public LoginModelHandler(ILoginClient loginClient){
         this.loginClient = loginClient;
+        addListeners();
+    }
+
+    private void addListeners() {
+        loginClient.addPropertyChangeListener(Request.TYPE.LOGIN_RESPONSE.name(), this::handleResponse);
     }
 
     public void validateLogin(String username, String password) {
         Client client = new User(username, password);
         loginClient.validateLogin(client);
-        loginClient.addPropertyChangeListener(Request.TYPE.LOGIN_RESPONSE.name(), this::handleResponse);
     }
 
 
-    public void handleResponse(PropertyChangeEvent propertyChangeEvent) {
+    private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
         support.firePropertyChange(propertyChangeEvent.getPropertyName(), propertyChangeEvent.getOldValue(), propertyChangeEvent.getNewValue());
     }
 
