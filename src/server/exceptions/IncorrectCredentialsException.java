@@ -1,4 +1,4 @@
-package server.persistence.exceptions;
+package server.exceptions;
 
 public class IncorrectCredentialsException extends Exception {
 

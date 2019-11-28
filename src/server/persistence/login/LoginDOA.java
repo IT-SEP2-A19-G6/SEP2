@@ -2,8 +2,8 @@ package server.persistence.login;
 
 import server.persistence.database.IDatabaseConnection;
 import shared.clients.User;
-import server.persistence.exceptions.DataConnectionException;
-import server.persistence.exceptions.IncorrectCredentialsException;
+import server.exceptions.DataConnectionException;
+import server.exceptions.IncorrectCredentialsException;
 
 import java.util.ArrayList;
 

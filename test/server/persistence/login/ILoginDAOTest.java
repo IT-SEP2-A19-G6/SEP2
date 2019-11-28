@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import server.persistence.database.IDatabaseConnection;
 import server.testdummies.TestDatabaseConnection;
 import shared.clients.User;
-import server.persistence.exceptions.DataConnectionException;
-import server.persistence.exceptions.IncorrectCredentialsException;
+import server.exceptions.DataConnectionException;
+import server.exceptions.IncorrectCredentialsException;
 
 import static org.junit.jupiter.api.Assertions.*;
 

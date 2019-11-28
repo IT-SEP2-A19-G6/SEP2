@@ -1,6 +1,6 @@
 package server.persistence.database;
 
-import server.persistence.exceptions.DataConnectionException;
+import server.exceptions.DataConnectionException;
 
 import java.util.ArrayList;
 
