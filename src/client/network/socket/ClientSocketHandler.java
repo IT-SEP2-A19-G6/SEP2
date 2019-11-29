@@ -60,7 +60,7 @@ public class ClientSocketHandler implements IClientSocketHandler {
                         ex.printStackTrace();
                     }
                 } else {
-                    support.firePropertyChange(Request.TYPE.SERVER_REQ.name(), "", requestFromServer);
+                    support.firePropertyChange(requestFromServer.type.name(), "", requestFromServer);
                     }
                 }
         } catch (IOException | ClassNotFoundException e) {
