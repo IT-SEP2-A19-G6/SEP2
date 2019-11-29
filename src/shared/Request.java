@@ -11,7 +11,6 @@ public class Request implements Serializable {
     public enum TYPE {
         LOGIN_REQ, //object equals User
         LOGIN_RESPONSE, //object equals Response
-        SERVER_REQ,
         CLOSE_CONNECTION //to close socket connection
     }
 
