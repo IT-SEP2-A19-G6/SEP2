@@ -2,6 +2,7 @@ package client.network.login;
 
 import client.network.socket.IClientSocketHandler;
 import shared.Request;
+import shared.Response;
 import shared.clients.Client;
 
 import java.beans.PropertyChangeEvent;
@@ -18,11 +19,15 @@ public class LoginClientHandler implements ILoginClient {
     }
 
     private void addListeners() {
-        clientSocketHandler.addPropertyChangeListener(Request.TYPE.LOGIN_RESPONSE.name(), this::handleResponse);
+        clientSocketHandler.addPropertyChangeListener(Request.TYPE.SERVER_REQ.name(), this::handleResponse);
     }
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
-        support.firePropertyChange(propertyChangeEvent.getPropertyName(), propertyChangeEvent.getOldValue(), propertyChangeEvent.getNewValue());
+        Request serverReq = (Request) propertyChangeEvent.getNewValue();
+        if (serverReq.type.name().equals(Request.TYPE.LOGIN_RESPONSE.name())) {
+            Response loginResponse = (Response) serverReq.object;
+            support.firePropertyChange(serverReq.type.name(), "", loginResponse);
+        }
     }
 
     @Override
