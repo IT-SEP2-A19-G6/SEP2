@@ -19,7 +19,7 @@ public class LoginClientHandler implements ILoginClient {
     }
 
     private void addListeners() {
-        clientSocketHandler.addPropertyChangeListener(Request.TYPE.SERVER_REQ.name(), this::handleResponse);
+        clientSocketHandler.addPropertyChangeListener(Request.TYPE.LOGIN_RESPONSE.name(), this::handleResponse);
     }
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
