@@ -59,14 +59,10 @@ public class ClientSocketHandler implements IClientSocketHandler {
                     } catch (IOException | InterruptedException ex) {
                         ex.printStackTrace();
                     }
-                } else if (requestFromServer.type.equals(Request.TYPE.LOGIN_RESPONSE)){
-                        Response loginResponse = (Response) requestFromServer.object;
-                        support.firePropertyChange(Request.TYPE.LOGIN_RESPONSE.name(), "", loginResponse);
+                } else {
+                    support.firePropertyChange(Request.TYPE.SERVER_REQ.name(), "", requestFromServer);
                     }
                 }
-
-                //TODO unwrap request and call model methods() here... (ex. loginModel)
-
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
