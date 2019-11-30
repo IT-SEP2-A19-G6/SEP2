@@ -32,7 +32,7 @@ class ILoginDAOTestPostgres {
         } catch (IncorrectCredentialsException| DataConnectionException e) {
             fail("Exception thrown: " + e);
         }
-        assertEquals("user login accepted", responseFromDOA);
+        assertEquals("User login accepted", responseFromDOA);
     }
 
     @Test

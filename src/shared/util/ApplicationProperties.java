@@ -8,7 +8,7 @@ public enum ApplicationProperties {
     INSTANCE;
 
     private final Properties properties;
-    private String filePath = "shared/util/application.properties";
+    private final String filePath = "shared/util/application.properties";
 
     ApplicationProperties() {
         properties = new Properties();
@@ -22,10 +22,7 @@ public enum ApplicationProperties {
     public String getDefaultFilePath() {
         return filePath;
     }
-    public void setFilePath(String filePath) {
-        if (!filePath.isEmpty())
-            this.filePath = filePath;
-    }
+
 
     public String getAppName() {
         return properties.getProperty("app.name");

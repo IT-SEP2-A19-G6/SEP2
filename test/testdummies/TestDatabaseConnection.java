@@ -1,4 +1,4 @@
-package server.testdummies;
+package testdummies;
 
 import server.persistence.database.IDatabaseConnection;
 import shared.clients.User;

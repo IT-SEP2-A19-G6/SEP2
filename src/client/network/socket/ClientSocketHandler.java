@@ -1,9 +1,9 @@
 package client.network.socket;
 
 import shared.Request;
-import shared.Response;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -48,25 +48,21 @@ public class ClientSocketHandler implements IClientSocketHandler {
         try {
             while (activeConnection) {
                 Request requestFromServer = (Request) inputFromServer.readObject();
-
-                if (requestFromServer.type.equals(Request.TYPE.CLOSE_CONNECTION)) {
-                    activeConnection = false;
-                    try {
-                        Thread.sleep(500);
-                        inputFromServer.close();
-                        outputToServer.close();
-                        socket.close();
-                    } catch (IOException | InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
-                } else {
-                    support.firePropertyChange(requestFromServer.type.name(), "", requestFromServer);
-                    }
-                }
+                support.firePropertyChange(requestFromServer.type.name(), "", requestFromServer);
+            }
+        } catch (EOFException e){ //server closed connection
+            activeConnection = false;
+            try {
+                inputFromServer.close();
+                outputToServer.close();
+                socket.close();
+                System.out.println("Client closed");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
