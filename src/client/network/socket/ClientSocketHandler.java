@@ -1,7 +1,6 @@
 package client.network.socket;
 
 import shared.Request;
-import shared.Response;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.EOFException;
@@ -9,7 +8,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.net.SocketException;
 
 public class ClientSocketHandler implements IClientSocketHandler {
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
@@ -52,7 +50,7 @@ public class ClientSocketHandler implements IClientSocketHandler {
                 Request requestFromServer = (Request) inputFromServer.readObject();
                 support.firePropertyChange(requestFromServer.type.name(), "", requestFromServer);
             }
-        } catch (EOFException e){
+        } catch (EOFException e){ //server closed connection
             activeConnection = false;
             try {
                 inputFromServer.close();
@@ -65,7 +63,6 @@ public class ClientSocketHandler implements IClientSocketHandler {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
