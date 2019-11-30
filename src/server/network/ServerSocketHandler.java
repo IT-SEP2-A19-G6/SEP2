@@ -39,7 +39,6 @@ private boolean activeConnection;
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -50,7 +49,6 @@ private boolean activeConnection;
                 //TODO remember to change the method depending on what kind of object needs to be casted.
                 Request requestFromClient = (Request) inputFromClient.readObject();
                 if (requestFromClient.type.equals(Request.TYPE.CLOSE_CONNECTION)){
-                    sendToClient(requestFromClient);
                     closeConnection();
                 } else if (requestFromClient.type.equals(Request.TYPE.LOGIN_REQ)){
                     User user = (User) requestFromClient.object;
