@@ -1,9 +1,7 @@
 package server.persistence.database;
 
-import shared.exceptions.DataConnectionException;
+import server.exceptions.DataConnectionException;
 
-import java.sql.SQLDataException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface IDatabaseConnection {

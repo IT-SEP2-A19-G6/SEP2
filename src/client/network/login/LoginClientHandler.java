@@ -1,38 +1,39 @@
-package client.model.login;
+package client.network.login;
 
-import client.network.login.ILoginClient;
-import shared.IPropertyChangeSubject;
+import client.network.socket.IClientSocketHandler;
 import shared.Request;
+import shared.Response;
 import shared.clients.Client;
-import shared.clients.User;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class LoginModelHandler implements ILoginModel, IPropertyChangeSubject {
+public class LoginClientHandler implements ILoginClient {
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
-    private ILoginClient loginClient;
+    private IClientSocketHandler clientSocketHandler;
 
-    public LoginModelHandler(ILoginClient loginClient){
-        this.loginClient = loginClient;
+    public LoginClientHandler(IClientSocketHandler clientSocketHandler){
+        this.clientSocketHandler = clientSocketHandler;
         addListeners();
     }
 
     private void addListeners() {
-        loginClient.addPropertyChangeListener(Request.TYPE.LOGIN_RESPONSE.name(), this::handleResponse);
+        clientSocketHandler.addPropertyChangeListener(Request.TYPE.LOGIN_RESPONSE.name(), this::handleResponse);
     }
-
-    public void validateLogin(String username, String password) {
-        Client client = new User(username, password);
-        loginClient.validateLogin(client);
-    }
-
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
-        support.firePropertyChange(propertyChangeEvent.getPropertyName(), propertyChangeEvent.getOldValue(), propertyChangeEvent.getNewValue());
+        Request serverReq = (Request) propertyChangeEvent.getNewValue();
+        if (serverReq.type.name().equals(Request.TYPE.LOGIN_RESPONSE.name())) {
+            Response loginResponse = (Response) serverReq.object;
+            support.firePropertyChange(serverReq.type.name(), "", loginResponse);
+        }
     }
 
+    @Override
+    public void validateLogin(Client client) {
+        Request loginReq = new Request(Request.TYPE.LOGIN_REQ, client);
+        clientSocketHandler.sendToServer(loginReq);
+    }
 
     @Override
     public void addPropertyChangeListener(String name, PropertyChangeListener listener) {

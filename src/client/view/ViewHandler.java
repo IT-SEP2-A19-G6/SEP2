@@ -40,10 +40,12 @@ public class ViewHandler {
         stage.setTitle("Login");
 
 
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
+        if (root != null) {
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+        }
     }
 
 }

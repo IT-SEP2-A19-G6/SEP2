@@ -5,8 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import server.persistence.DataFactory;
 import shared.clients.User;
-import shared.exceptions.DataConnectionException;
-import shared.exceptions.IncorrectCredentialsException;
+import server.exceptions.DataConnectionException;
+import server.exceptions.IncorrectCredentialsException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,7 +32,7 @@ class ILoginDAOTestPostgres {
         } catch (IncorrectCredentialsException| DataConnectionException e) {
             fail("Exception thrown: " + e);
         }
-        assertEquals("user login accepted", responseFromDOA);
+        assertEquals("User login accepted", responseFromDOA);
     }
 
     @Test

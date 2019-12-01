@@ -1,6 +1,5 @@
 package server.model.login;
 
-import shared.IPropertyChangeSubject;
 import shared.Response;
 import shared.clients.User;
 

@@ -5,9 +5,6 @@ import server.model.login.ILoginServerModel;
 import shared.Response;
 import shared.Request;
 import shared.clients.User;
-
-import java.beans.PropertyChangeEvent;
-import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -42,7 +39,6 @@ private boolean activeConnection;
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
