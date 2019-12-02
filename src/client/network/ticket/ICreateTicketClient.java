@@ -1,4 +1,6 @@
 package client.network.ticket;
 
-public interface ICreateTicketClient {
+import shared.IPropertyChangeSubject;
+
+public interface ICreateTicketClient extends IPropertyChangeSubject {
 }

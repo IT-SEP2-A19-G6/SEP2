@@ -12,7 +12,7 @@ public class Request implements Serializable {
         LOGIN_REQ, //object equals User
         LOGIN_RESPONSE, //object equals Response
         CLOSE_CONNECTION, //to close socket connection
-        TICKET_SEND,
+        TICKET_CREATE,
         TICKET_RECEIVE
     }
 
