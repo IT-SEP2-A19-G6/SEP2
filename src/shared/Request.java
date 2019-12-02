@@ -9,9 +9,10 @@ public class Request implements Serializable {
 
 
     public enum TYPE {
-        LOGIN_REQ, //object equals User
+        LOGIN_REQ, //object contains User
         LOGIN_RESPONSE, //object equals Response
-        CLOSE_CONNECTION //to close socket connection
+        CLOSE_CONNECTION, //to close socket connection
+        TICKET // object contains new ticket
     }
 
     public Request(TYPE type, Object object) {

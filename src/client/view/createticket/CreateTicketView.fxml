@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.createticket.CreateTicketViewController">
+   <children>
+      <VBox prefWidth="800.0" spacing="10.0">
+         <children>
+            <HBox spacing="20.0">
+               <children>
+                  <VBox>
+                     <children>
+                        <Label text="Action">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="actionComboBox" prefWidth="150.0" promptText="CREATE" />
+                        <Label text="Create a new ticket." />
+                     </children>
+                  </VBox>
+                  <VBox layoutX="10.0" layoutY="10.0">
+                     <children>
+                        <Label text="Location">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="locationTextField" />
+                        <Label text="Set location for the ticket" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <VBox>
+               <children>
+                  <Label text="Subject (Required)">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="Be precise, specific and short" />
+                  <TextField fx:id="subjectTextField" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Label text="Comment (Required)">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="Specifie in greater details" />
+                  <TextArea fx:id="descriptionTextArea" prefHeight="200.0" prefWidth="200.0" />
+               </children>
+            </VBox>
+            <HBox spacing="20.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onSubmitButtonClick" text="Submit" />
+                  <Button mnemonicParsing="false" onAction="#onResetButtonClick" text="Reset" />
+                  <Button cancelButton="true" layoutX="84.0" layoutY="10.0" mnemonicParsing="false" onAction="#onCancelButtonClick" text="Cancel" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding></VBox>
+   </children>
+</AnchorPane>

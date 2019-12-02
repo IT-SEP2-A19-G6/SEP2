@@ -1,4 +1,4 @@
-package client.viewModel.login;
+package client.viewModel.Login;
 
 import client.model.login.ILoginModel;
 import javafx.application.Platform;
@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import shared.Request;
 import shared.Response;
+
 import java.beans.PropertyChangeEvent;
 
 public class LoginViewModel {
