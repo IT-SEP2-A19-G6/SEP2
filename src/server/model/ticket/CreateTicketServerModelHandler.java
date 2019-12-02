@@ -2,7 +2,7 @@ package server.model.ticket;
 
 import shared.Response;
 
-public class TicketServerModelHandler implements ITicketServerModel{
+public class CreateTicketServerModelHandler implements ICreateTicketServerModel {
 
     @Override
     public Response sendTicket(Ticket ticket) {

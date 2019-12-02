@@ -2,14 +2,14 @@ package server.model;
 
 import server.model.login.ILoginServerModel;
 import server.model.login.LoginServerModelHandler;
-import server.model.ticket.ITicketServerModel;
-import server.model.ticket.TicketServerModelHandler;
+import server.model.ticket.ICreateTicketServerModel;
+import server.model.ticket.CreateTicketServerModelHandler;
 import server.persistence.DataFactory;
 
 public class ServerModelFactory {
     private DataFactory dataFactory;
     private ILoginServerModel loginServerModel;
-    private ITicketServerModel ticketServerModel;
+    private ICreateTicketServerModel ticketServerModel;
 
     public ServerModelFactory(DataFactory dataFactory) {
         this.dataFactory = dataFactory;
@@ -22,9 +22,9 @@ public class ServerModelFactory {
         return loginServerModel;
     }
 
-    public ITicketServerModel getTicketServerModel() {
+    public ICreateTicketServerModel getTicketServerModel() {
         if(ticketServerModel == null){
-            ticketServerModel = new TicketServerModelHandler();//TODO method from posgres
+            ticketServerModel = new CreateTicketServerModelHandler();//TODO method from posgres
         }
         return ticketServerModel;
     }
