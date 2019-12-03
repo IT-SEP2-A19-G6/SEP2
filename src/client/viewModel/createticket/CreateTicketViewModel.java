@@ -46,6 +46,7 @@ public class CreateTicketViewModel {
         }
     }
 
+
     public void clearFields() {
         subject.setValue("");
         description.setValue("");

@@ -6,10 +6,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.paint.Color;
 
 public class CreateTicketViewController {
     @FXML
@@ -20,6 +18,10 @@ public class CreateTicketViewController {
     public TextArea descriptionTextArea;
     @FXML
     public TextField locationTextField;
+    @FXML
+    public Label labelSubject;
+    @FXML
+    public Label labelComment;
 
     private CreateTicketViewModel vm;
     private StringProperty ticketResult;
@@ -44,6 +46,10 @@ public class CreateTicketViewController {
     }
 
     public void onSubmitButtonClick() {
+        labelComment.setTextFill(descriptionTextArea.getText().isEmpty() ? Color.RED : Color.BLACK);
+        labelSubject.setTextFill(subjectTextField.getText().isEmpty() ? Color.RED : Color.BLACK);
+        if (subjectTextField.getText().isEmpty() || descriptionTextArea.getText().isEmpty()) return;
+
         vm.submitTicket();
     }
 
