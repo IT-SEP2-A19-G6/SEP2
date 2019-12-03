@@ -1,41 +1,61 @@
-package client.viewmodel.user;
+package client.viewmodel.user.uielements;
 
+import client.viewmodel.user.UserViewModel;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import static javafx.geometry.Pos.*;
 
-public class TicketItem {
 
-    public HBox addTicketItem(String id, String createdTime, String lastUpdateTime, String description, String status, String branch, String assignee, String tag){
+import static javafx.geometry.Pos.CENTER;
+import static javafx.geometry.Pos.CENTER_LEFT;
+
+public class TicketListItem {
+    private UserViewModel userViewModel;
+    private String id, description, status, branch, assignee, tag, createdTime, lastUpdateTime;
+    private HBox ticketListItem;
+
+    public TicketListItem(UserViewModel userViewModel, String id, String description, String status, String branch, String assignee, String tag, String createdTime, String updatedTime) {
+        this.userViewModel = userViewModel;
+        this.id = id;
+        this.description = description;
+        this.status = status;
+        this.branch = branch;
+        this.assignee = assignee;
+        this.tag = tag;
+        this.createdTime = createdTime;
+        this.lastUpdateTime = updatedTime;
+        this.ticketListItem = createTicketItem();
+    }
+
+    private HBox createTicketItem(){
 
         GridPane topRow = oneRow3ColGridPane("ID: ", id, "Created: ", createdTime, "Last Update: ", lastUpdateTime);
-        topRow.setPrefWidth(575);
+        topRow.setPrefWidth(585);
         topRow.setPadding(new Insets(5));
 
         GridPane midRow = oneRow2ColGridPane(description, status);
-        midRow.setPrefWidth(575);
+        midRow.setPrefWidth(585);
         midRow.setPadding(new Insets(5));
 
         GridPane bottomRow = oneRow3ColGridPane("Branch: ", branch, "Assigned to: ", assignee, "#", tag);
-        bottomRow.setPrefWidth(575);
+        bottomRow.setPrefWidth(585);
         bottomRow.setPadding(new Insets(5));
 
         VBox vBox = new VBox(topRow, midRow, bottomRow);
-        vBox.setPrefWidth(575);
+        vBox.setPrefWidth(585);
         vBox.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(10), Insets.EMPTY)));
 
 
         HBox hBox = new HBox(vBox);
-        hBox.setPrefWidth(575);
+        hBox.setPrefWidth(585);
         hBox.setMaxWidth(hBox.getPrefWidth());
         hBox.setPadding(new Insets(5));
         hBox.setOnMousePressed(e -> {
             if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
-                UserViewModel.getTicket(id);
+                userViewModel.getTicket(getId());
             }
         });
 
@@ -87,4 +107,11 @@ public class TicketItem {
         return gridPane;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public HBox getTicketListItem() {
+        return ticketListItem;
+    }
 }

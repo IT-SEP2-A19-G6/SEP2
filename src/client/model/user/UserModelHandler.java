@@ -21,7 +21,7 @@ public class UserModelHandler implements IUserModel {
         //TODO DELETE below
         userTickets = new ArrayList<>();
         for (i = 0; i < 5; i++) {
-            Ticket ticket = new Ticket("Subject " + i, "Description " + i, "location " + i);
+            Ticket ticket = new Ticket("Subject " + i, "Some super important description" + i, "location " + i);
             userTickets.add(ticket);
         }
     }
@@ -45,8 +45,8 @@ public class UserModelHandler implements IUserModel {
 
     @Override
     public void addTicket() {
-        Ticket ticket = new Ticket("Subject" + i, "Description" + i, "location" + i);
-        userTickets.add(ticket);
+        Ticket ticket = new Ticket("Subject" + i, "A new super important description" + i, "location" + i);
+        userTickets.add(0, ticket);
         i++;
         support.firePropertyChange(Request.TYPE.TICKET_LIST_RESPONSE.name(), "", userTickets);
 

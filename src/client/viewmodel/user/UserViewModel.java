@@ -1,6 +1,9 @@
 package client.viewmodel.user;
 
 import client.model.user.IUserModel;
+import client.viewmodel.user.uielements.SideMenu;
+import client.viewmodel.user.uielements.TicketList;
+import client.viewmodel.user.uielements.TicketListItem;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,20 +17,30 @@ import java.util.ArrayList;
 public class UserViewModel {
     private IUserModel userModel;
     private StringProperty userLabelProperty;
-    private ObservableList<Node> tickets;
+    private ObservableList<Node> rightArea;
+    private ObservableList<Node> menuItems;
 
 
     public UserViewModel(IUserModel userModel) {
         this.userModel = userModel;
         userLabelProperty = new SimpleStringProperty();
-        tickets = FXCollections.observableArrayList();
+        rightArea = FXCollections.observableArrayList();
+        menuItems = FXCollections.observableArrayList();
         addListeners();
 
     }
 
-    public static void getTicket(String id) {
+    public  void getTicket(String id) {
         //TODO get exixting ticket by ID here
         System.out.println(id);
+    }
+
+    public void getTicketList() {
+        //TODO call ticketList
+    }
+
+    public void addNewTicket() {
+        userModel.addTicket();
     }
 
     private void addListeners() {
@@ -36,11 +49,13 @@ public class UserViewModel {
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
         ArrayList<Ticket> ticketsFromServer = (ArrayList<Ticket>) propertyChangeEvent.getNewValue();
-        tickets.clear();
+        rightArea.clear();
+        TicketList ticketList = new TicketList();
         for (Ticket ticket : ticketsFromServer){
-            TicketItem item = new TicketItem();
-            tickets.add(item.addTicketItem("id" + ticket.getSubject(), "SomeTime", "SomeUpdate", ticket.getDescription(), ticket.getTicketStatus().toString(), "SomeBranches", "SomeMember", ticket.getSubject()));
+            TicketListItem listItem = new TicketListItem(this, "id" + ticket.getSubject(), ticket.getDescription(), ticket.getTicketStatus().toString(), "SomeBranches", "SomeMember", ticket.getSubject(), "SomeTime", "SomeUpdate");
+            ticketList.addTicketToList(listItem.getTicketListItem());
         }
+        rightArea.add(ticketList.getTicketList());
 
     }
 
@@ -49,17 +64,19 @@ public class UserViewModel {
     }
 
 
-    public ObservableList<Node> ticketNodes(){
-        return tickets;
+    public ObservableList<Node> setRightArea(){
+        return rightArea;
     }
 
+    public ObservableList<Node> menuNodes(){
+        return menuItems;
+    }
 
     public void initView(String username) {
         userLabelProperty.setValue(username);
         userModel.requestTicketList(username);
+        SideMenu menu = new SideMenu(this, username);
+        menuItems.add(menu.getMenu());
     }
 
-    public void addTicket() {
-        userModel.addTicket();
-    }
 }

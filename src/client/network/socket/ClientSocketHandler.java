@@ -53,11 +53,12 @@ public class ClientSocketHandler implements IClientSocketHandler {
         } catch (EOFException e){ //server closed connection
             activeConnection = false;
             try {
+                Thread.sleep(500);
                 inputFromServer.close();
                 outputToServer.close();
                 socket.close();
                 System.out.println("Client closed");
-            } catch (IOException ex) {
+            } catch (IOException | InterruptedException ex) {
                 ex.printStackTrace();
             }
         } catch (IOException | ClassNotFoundException e) {

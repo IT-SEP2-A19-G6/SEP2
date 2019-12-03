@@ -2,56 +2,33 @@ package client.view.user;
 
 import client.view.ViewHandler;
 import client.viewmodel.user.UserViewModel;
-
-import javafx.beans.property.BooleanProperty;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
-
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.input.MouseEvent;
+
 
 
 public class UserViewController {
 
-
     @FXML
-    Label username;
-
-    @FXML
-    ScrollPane ticketScroll;
-
-    @FXML
-    VBox ticketBox;
-
-    @FXML
-    Button newTicket;
-
+    AnchorPane menuPane, rightArea;
 
 
     private ViewHandler viewHandler;
     private UserViewModel userViewModel;
 
-
-
     public void init(ViewHandler viewHandler, UserViewModel userViewModel, String username){
         this.viewHandler = viewHandler;
         this.userViewModel = userViewModel;
-        this.username.textProperty().bindBidirectional(userViewModel.userLabelProperty());
+        Bindings.bindContentBidirectional(userViewModel.setRightArea(), rightArea.getChildren());
+        Bindings.bindContentBidirectional(userViewModel.menuNodes(), menuPane.getChildren());
         userViewModel.initView(username);
-        updateTickets();
     }
 
-    private void updateTickets(){
-        ticketBox.getChildren().addAll(userViewModel.ticketNodes());
-    }
-
-
-    public void addNewTicket(ActionEvent actionEvent) {
-        //TODO ADD NEW TICKET HERE
-        userViewModel.addTicket();
-    }
 
 
 }
