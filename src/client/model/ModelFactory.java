@@ -25,7 +25,7 @@ public class ModelFactory {
 
     public ICreateTicketModel getCreateTicketModel() {
         if (createTicketModel == null) {
-            createTicketModel = new CreateTicketModelHandler();
+            createTicketModel = new CreateTicketModelHandler(clientFactory.getCreateTicketClient());
         }
         return createTicketModel;
     }

@@ -17,29 +17,33 @@ public class CreateTicketViewModel {
     private StringProperty description;
     private StringProperty location;
 
+
+
+    private StringProperty ticketResult;
+
     public CreateTicketViewModel(ICreateTicketModel createTicketModel) {
         this.createTicketModel = createTicketModel;
         subject = new SimpleStringProperty("");
         description = new SimpleStringProperty("");
         location = new SimpleStringProperty("");
+        ticketResult = new SimpleStringProperty("");
 
         addListeners();
     }
 
     private void addListeners() {
-        createTicketModel.addPropertyChangeListener(Request.TYPE.TICKET.name(), this::handleResponse);
+        createTicketModel.addPropertyChangeListener(Request.TYPE.TICKET_RECEIVE.name(), this::handleResponse);
     }
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
         Response result = (Response) propertyChangeEvent.getNewValue();
-
-        if (result.getMessage().contains("ticket created")){
+        if (result.getMessage().contains("OK")){
             Platform.runLater(()->{
                 clearFields();
-                //TODO: What should happen if ticket is created, just clear?
+                ticketResult.setValue(result.getMessage());
+                ticketResult.setValue("");
             });
         }
-
     }
 
     public void clearFields() {
@@ -52,11 +56,9 @@ public class CreateTicketViewModel {
         createTicketModel.submitTicket(subject.getValue(), description.getValue(), location.getValue());
     }
 
-
     public StringProperty subjectProperty() {
         return subject;
     }
-
 
     public StringProperty descriptionProperty() {
         return description;
@@ -65,4 +67,9 @@ public class CreateTicketViewModel {
     public StringProperty locationProperty() {
         return location;
     }
+
+    public StringProperty ticketResultProperty() {
+        return ticketResult;
+    }
+
 }
