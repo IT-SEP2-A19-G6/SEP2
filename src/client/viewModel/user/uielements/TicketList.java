@@ -13,7 +13,7 @@ public class TicketList {
     public TicketList(){
         vBox = new VBox();
         ticketList = new ScrollPane(vBox);
-        ticketList.setPrefSize(600, 400);
+        ticketList.setPrefSize(600, 600);
     }
 
     public void addTicketToList(HBox ticketItem){

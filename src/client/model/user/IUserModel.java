@@ -5,5 +5,5 @@ import shared.IPropertyChangeSubject;
 public interface IUserModel extends IPropertyChangeSubject {
     void requestTicketList(String username);
 
-    void addTicket();
+//    void addTicket(); //TODO delete or use
 }

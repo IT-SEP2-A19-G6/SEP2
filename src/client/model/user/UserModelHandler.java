@@ -18,12 +18,12 @@ public class UserModelHandler implements IUserModel {
     public UserModelHandler(IUserClient userClient) {
         this.userClient = userClient;
         addListeners();
-        //TODO DELETE below
         userTickets = new ArrayList<>();
-        for (i = 0; i < 5; i++) {
-            Ticket ticket = new Ticket("Subject " + i, "Some super important description" + i, "location " + i);
-            userTickets.add(ticket);
-        }
+//        //TODO DELETE below
+//        for (i = 0; i < 5; i++) {
+//            Ticket ticket = new Ticket("Subject " + i, "Some super important description" + i, "location " + i);
+//            userTickets.add(ticket);
+//        }
     }
 
     private void addListeners() {
@@ -31,26 +31,26 @@ public class UserModelHandler implements IUserModel {
     }
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
-        support.firePropertyChange(propertyChangeEvent.getPropertyName(), "", propertyChangeEvent.getNewValue());
+        ArrayList<Ticket> ticketsFromServer = (ArrayList<Ticket>) propertyChangeEvent.getNewValue();
+        if (ticketsFromServer.size() > 0){
+            userTickets.addAll(ticketsFromServer);
+            support.firePropertyChange(propertyChangeEvent.getPropertyName(), "", propertyChangeEvent.getNewValue());
+        }
     }
 
     @Override
     public void requestTicketList(String username) {
         userClient.requestTicketList(username);
-
-        //TODO delete below
-        support.firePropertyChange(Request.TYPE.TICKET_LIST_RESPONSE.name(), "", userTickets);
-
     }
 
-    @Override
-    public void addTicket() {
-        Ticket ticket = new Ticket("Subject" + i, "A new super important description" + i, "location" + i);
-        userTickets.add(0, ticket);
-        i++;
-        support.firePropertyChange(Request.TYPE.TICKET_LIST_RESPONSE.name(), "", userTickets);
-
-    }
+    //TODO delete or use
+//    @Override
+//    public void addTicket() {
+//        Ticket ticket = new Ticket("Subject" + i, "A new super important description" + i, "location" + i);
+//        userTickets.add(0, ticket);
+//        i++;
+//        support.firePropertyChange(Request.TYPE.TICKET_LIST_RESPONSE.name(), "", userTickets);
+//    }
 
     @Override
     public void addPropertyChangeListener(String name, PropertyChangeListener listener) {

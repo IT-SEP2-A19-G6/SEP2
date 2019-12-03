@@ -33,24 +33,24 @@ public class TicketListItem {
     private HBox createTicketItem(){
 
         GridPane topRow = oneRow3ColGridPane("ID: ", id, "Created: ", createdTime, "Last Update: ", lastUpdateTime);
-        topRow.setPrefWidth(585);
+        topRow.setPrefWidth(580);
         topRow.setPadding(new Insets(5));
 
         GridPane midRow = oneRow2ColGridPane(description, status);
-        midRow.setPrefWidth(585);
+        midRow.setPrefWidth(580);
         midRow.setPadding(new Insets(5));
 
         GridPane bottomRow = oneRow3ColGridPane("Branch: ", branch, "Assigned to: ", assignee, "#", tag);
-        bottomRow.setPrefWidth(585);
+        bottomRow.setPrefWidth(580);
         bottomRow.setPadding(new Insets(5));
 
         VBox vBox = new VBox(topRow, midRow, bottomRow);
-        vBox.setPrefWidth(585);
+        vBox.setPrefWidth(580);
         vBox.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(10), Insets.EMPTY)));
 
 
         HBox hBox = new HBox(vBox);
-        hBox.setPrefWidth(585);
+        hBox.setPrefWidth(580);
         hBox.setMaxWidth(hBox.getPrefWidth());
         hBox.setPadding(new Insets(5));
         hBox.setOnMousePressed(e -> {

@@ -77,8 +77,7 @@ public class SideMenu {
 
     private Region svgShape(String svg){
         SVGPath svgPath = new SVGPath();
-        String path = svg;
-        svgPath.setContent(path);
+        svgPath.setContent(svg);
         Region svgShape = new Region();
         svgShape.setShape(svgPath);
         svgShape.setPrefHeight(60);
