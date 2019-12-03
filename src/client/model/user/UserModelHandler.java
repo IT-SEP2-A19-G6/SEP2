@@ -2,8 +2,8 @@ package client.model.user;
 
 import client.network.user.IUserClient;
 import shared.Request;
+import shared.Response;
 import shared.Ticket;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -12,18 +12,11 @@ import java.util.ArrayList;
 public class UserModelHandler implements IUserModel {
     private IUserClient userClient;
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
-    private ArrayList<Ticket> userTickets; //TODO DELETE
-    private int i = 0;
+    private ArrayList<Ticket> userTickets;
 
     public UserModelHandler(IUserClient userClient) {
         this.userClient = userClient;
         addListeners();
-        userTickets = new ArrayList<>();
-//        //TODO DELETE below
-//        for (i = 0; i < 5; i++) {
-//            Ticket ticket = new Ticket("Subject " + i, "Some super important description" + i, "location " + i);
-//            userTickets.add(ticket);
-//        }
     }
 
     private void addListeners() {
@@ -31,16 +24,25 @@ public class UserModelHandler implements IUserModel {
     }
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
-        ArrayList<Ticket> ticketsFromServer = (ArrayList<Ticket>) propertyChangeEvent.getNewValue();
-        if (ticketsFromServer.size() > 0){
+        Request response = (Request) propertyChangeEvent.getNewValue();
+        ArrayList<Ticket> ticketsFromServer = (ArrayList<Ticket>) response.object;
+        if (ticketsFromServer != null && ticketsFromServer.size() > 0){
+            support.firePropertyChange(propertyChangeEvent.getPropertyName(), "", ticketsFromServer);
             userTickets.addAll(ticketsFromServer);
-            support.firePropertyChange(propertyChangeEvent.getPropertyName(), "", propertyChangeEvent.getNewValue());
+        } else {
+            Response noTicketResponse = new Response("", "No tickets yet - try add one...");
+            support.firePropertyChange(Request.TYPE.NO_TICKETS_FOUND_RESPONSE.name(), "", noTicketResponse);
         }
     }
 
     @Override
     public void requestTicketList(String username) {
-        userClient.requestTicketList(username);
+        if (userTickets == null){ //TODO might cause a bug if we do not add tickets below
+            userTickets = new ArrayList<>();
+            userClient.requestTicketList(username);
+        } else {
+            support.firePropertyChange(Request.TYPE.TICKET_LIST_RESPONSE.name(), "", userTickets);
+        }
     }
 
     //TODO delete or use

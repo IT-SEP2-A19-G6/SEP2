@@ -40,4 +40,9 @@ public class TestDatabaseConnection implements IDatabaseConnection {
     public String getClientTableName() {
         return "account_client";
     }
+
+    @Override
+    public String getTicketTableName() {
+        return "ticket";
+    }
 }

@@ -8,4 +8,5 @@ public interface IDatabaseConnection {
     ArrayList<Object[]> executePreparedQuery(String preparedSql) throws DataConnectionException;
     String getSchemaName();
     String getClientTableName();
+    String getTicketTableName();
 }
