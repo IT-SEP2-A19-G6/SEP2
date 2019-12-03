@@ -36,8 +36,7 @@ public class CreateTicketViewModel {
         if (result.getMessage().contains("ticket created")){
             Platform.runLater(()->{
                 clearFields();
-                //TODO: change to something else
-
+                //TODO: What should happen if ticket is created, just clear?
             });
         }
 

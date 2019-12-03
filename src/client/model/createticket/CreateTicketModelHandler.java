@@ -1,6 +1,8 @@
 package client.model.createticket;
 
+import client.network.ticket.ICreateTicketClient;
 import shared.IPropertyChangeSubject;
+import shared.Request;
 import shared.Ticket;
 
 import java.beans.PropertyChangeEvent;
@@ -11,20 +13,17 @@ public class CreateTicketModelHandler implements ICreateTicketModel, IPropertyCh
 
 
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
-    //private ICreateTicketClient createTicketClient;
+    private ICreateTicketClient createTicketClient;
 
 
-//    public CreateTicketHandler(ICreateTicketClient createTicketClient) {
-//        this.createTicketClient = createTicketClient;
-//    }
-
-    public CreateTicketModelHandler() {
-
+    public CreateTicketModelHandler(ICreateTicketClient createTicketClient) {
+        this.createTicketClient = createTicketClient;
     }
 
 
+
     private void addListeners() {
-        //createTicketClient.addPropertyChangeListener(Request.TYPE.TICKET.name(), this::handleResponse);
+        createTicketClient.addPropertyChangeListener(Request.TYPE.TICKET.name(), this::handleResponse);
     }
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
@@ -34,6 +33,7 @@ public class CreateTicketModelHandler implements ICreateTicketModel, IPropertyCh
     @Override
     public void submitTicket(String subject, String description, String location) {
         Ticket ticket = new Ticket(subject, description, location);
+        // TODO: Add network handler like the commented out below, Change enum if needed
         //createTicketClient.submitTicket(ticket);
     }
 
