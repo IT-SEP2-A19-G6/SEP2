@@ -1,39 +1,40 @@
-package client.network.login;
+package client.model.createticket;
 
-import client.network.socket.IClientSocketHandler;
-import shared.Request;
-import shared.Response;
-import shared.clients.Client;
+import shared.IPropertyChangeSubject;
+import shared.Ticket;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class LoginClientHandler implements ILoginClient {
-    private PropertyChangeSupport support = new PropertyChangeSupport(this);
-    private IClientSocketHandler clientSocketHandler;
+public class CreateTicketModelHandler implements ICreateTicketModel, IPropertyChangeSubject {
 
-    public LoginClientHandler(IClientSocketHandler clientSocketHandler){
-        this.clientSocketHandler = clientSocketHandler;
-        addListeners();
+
+    private PropertyChangeSupport support = new PropertyChangeSupport(this);
+    //private ICreateTicketClient createTicketClient;
+
+
+//    public CreateTicketHandler(ICreateTicketClient createTicketClient) {
+//        this.createTicketClient = createTicketClient;
+//    }
+
+    public CreateTicketModelHandler() {
+
     }
 
+
     private void addListeners() {
-        clientSocketHandler.addPropertyChangeListener(Request.TYPE.LOGIN_RESPONSE.name(), this::handleResponse);
+        //createTicketClient.addPropertyChangeListener(Request.TYPE.TICKET.name(), this::handleResponse);
     }
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
-        Request serverReq = (Request) propertyChangeEvent.getNewValue();
-        if (serverReq.type.name().equals(Request.TYPE.LOGIN_RESPONSE.name())) {
-            Response loginResponse = (Response) serverReq.object;
-            support.firePropertyChange(serverReq.type.name(), "", loginResponse);
-        }
+        support.firePropertyChange(propertyChangeEvent.getPropertyName(), propertyChangeEvent.getOldValue(), propertyChangeEvent.getNewValue());
     }
 
     @Override
-    public void validateLogin(Client client) {
-        Request loginReq = new Request(Request.TYPE.LOGIN_REQ, client);
-        clientSocketHandler.sendToServer(loginReq);
+    public void submitTicket(String subject, String description, String location) {
+        Ticket ticket = new Ticket(subject, description, location);
+        //createTicketClient.submitTicket(ticket);
     }
 
     @Override

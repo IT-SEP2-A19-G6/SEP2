@@ -1,4 +1,3 @@
-
 package shared;
 
 public enum TicketStatus {
@@ -6,5 +5,4 @@ public enum TicketStatus {
     OPEN,
     CLOSED,
     PENDING
-
 }
