@@ -1,27 +1,34 @@
 package client.view;
 
 import client.view.login.LoginViewController;
-import client.viewModel.ViewModelFactory;
+import client.view.user.UserViewController;
+import client.viewmodel.ViewModelFactory;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
+
 
 public class ViewHandler {
     private Stage stage;
     private ViewModelFactory viewModelFactory;
+    private Scene loginScene;
+    private Scene userScene;
 
-    public ViewHandler(ViewModelFactory viewModelFactory) {
+
+    public ViewHandler(Stage stage, ViewModelFactory viewModelFactory) {
+        this.stage = stage;
         this.viewModelFactory = viewModelFactory;
         this.stage = new Stage();
     }
-
-    public void start(Stage stage) {
-        this.stage = stage;
+    public void start() {
         openLoginView();
+        stage.show();
     }
+
+
+
 
     private void openLoginView(){
         Scene scene;
@@ -47,5 +54,35 @@ public class ViewHandler {
             stage.show();
         }
     }
+
+    public void openUserView(String username){
+        Scene scene;
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = null;
+
+        loader.setLocation(getClass().getResource("user/UserView.fxml"));
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        UserViewController view = loader.getController();
+        view.init(this, viewModelFactory.getUserViewModel(), username);
+        stage.setTitle("Tickets");
+
+
+        if (root != null) {
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+        }
+    }
+
+
+
+
+
 
 }
