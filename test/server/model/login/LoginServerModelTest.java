@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import server.persistence.database.IDatabaseConnection;
 import server.persistence.login.ILoginDAO;
-import server.persistence.login.LoginDOA;
+import server.persistence.login.LoginDAO;
 import testdummies.TestDatabaseConnection;
 import shared.Response;
 import shared.clients.User;
@@ -20,7 +20,7 @@ class LoginServerModelTest {
     @BeforeEach
     void setUp() {
         IDatabaseConnection dbConn = new TestDatabaseConnection();
-        ILoginDAO loginDAO = new LoginDOA(dbConn);
+        ILoginDAO loginDAO = new LoginDAO(dbConn);
         loginServerModel = new LoginServerModelHandler(loginDAO);
     }
 

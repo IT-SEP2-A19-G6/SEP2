@@ -2,20 +2,24 @@ package server.network;
 
 import server.model.ServerModelFactory;
 import server.model.login.ILoginServerModel;
+import server.model.user.IUserServerModel;
 import shared.Response;
 import shared.Request;
+import shared.Ticket;
 import shared.clients.User;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.ArrayList;
 
 public class ServerSocketHandler implements Runnable {
 
 private ObjectOutputStream outputToClient;
 private ObjectInputStream inputFromClient;
 private ILoginServerModel loginServerModel;
+private IUserServerModel userServerModel;
 private Socket socket;
 private boolean activeConnection;
 
@@ -24,6 +28,7 @@ private boolean activeConnection;
         activeConnection = true;
         this.socket = socket;
         this.loginServerModel = serverModelFactory.getLoginServerModel();
+        this.userServerModel = serverModelFactory.getUserServerModel();
         try {
             outputToClient = new ObjectOutputStream(socket.getOutputStream());
             inputFromClient = new ObjectInputStream(socket.getInputStream());
@@ -56,7 +61,10 @@ private boolean activeConnection;
                     Request requestToClient = new Request(Request.TYPE.LOGIN_RESPONSE, message);
                     sendToClient(requestToClient);
                 } else if (requestFromClient.type.equals(Request.TYPE.TICKET_LIST_REQ)){
-                    System.out.println("list req");
+                    String username = (String) requestFromClient.object;
+                    ArrayList<Ticket> tickets = userServerModel.requestClientTickets(username);
+                    Request response = new Request(Request.TYPE.TICKET_LIST_RESPONSE, tickets);
+                    sendToClient(response);
                 }
 
                 //TODO create methods to take care of the newly received objects.

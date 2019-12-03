@@ -7,10 +7,10 @@ import server.exceptions.IncorrectCredentialsException;
 
 import java.util.ArrayList;
 
-public class LoginDOA implements ILoginDAO{
+public class LoginDAO implements ILoginDAO{
     private IDatabaseConnection databaseConnection;
 
-    public LoginDOA(IDatabaseConnection databaseConnection){
+    public LoginDAO(IDatabaseConnection databaseConnection){
         this.databaseConnection = databaseConnection;
     }
 

@@ -9,10 +9,12 @@ import java.util.ArrayList;
 public class DatabaseConnection implements IDatabaseConnection {
     private String schemaName;
     private String clientTableName;
+    private String ticketTableName;
 
     public DatabaseConnection(){
         schemaName = "sep2";
         clientTableName = "account_client"; // TODO JH: Perhaps this could be placed in an enum later?
+        ticketTableName = "ticket";
     }
 
 
@@ -96,6 +98,10 @@ public class DatabaseConnection implements IDatabaseConnection {
 
     public String getClientTableName(){
         return clientTableName;
+    }
+
+    public String getTicketTableName(){
+        return ticketTableName;
     }
 
 

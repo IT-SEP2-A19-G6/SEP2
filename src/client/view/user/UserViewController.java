@@ -3,7 +3,6 @@ package client.view.user;
 import client.view.ViewHandler;
 import client.viewmodel.user.UserViewModel;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.BooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 
@@ -12,15 +11,18 @@ public class UserViewController {
     @FXML
     AnchorPane menuPane, rightArea;
 
-    private ViewHandler viewHandler;
 
     public void init(ViewHandler viewHandler, UserViewModel userViewModel, String username){
-        this.viewHandler = viewHandler;
         Bindings.bindContentBidirectional(userViewModel.setRightArea(), rightArea.getChildren());
         Bindings.bindContentBidirectional(userViewModel.menuNodes(), menuPane.getChildren());
         userViewModel.initView(username);
+        userViewModel.showTicketProperty().addListener((observableValue, s, t1) -> {
+            if(t1.equals("new ticket")){
+                userViewModel.resetTicketCall();
+                System.out.println("new ticket");
+                //TODO open ticketview here
+            }
+        });
     }
-
-
 
 }

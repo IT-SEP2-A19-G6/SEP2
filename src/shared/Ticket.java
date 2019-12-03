@@ -1,18 +1,23 @@
 package shared;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Ticket {
+public class Ticket implements Serializable {
     private String user;
     private ArrayList<String> branches;
     private ArrayList<String> branchMembers;
+    private String id;
     private String subject;
     private String description;
     private String location;
     private TicketStatus ticketStatus;
 
 
-    public Ticket(String subject, String description, String location) {
+
+    //TODO Class only for testing should be deleted JN
+    public Ticket(String id, String subject, String description, String location) {
+        this.id = id;
         this.subject = subject;
         this.description = description;
         this.location = location;
