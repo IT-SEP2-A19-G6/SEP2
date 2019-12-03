@@ -23,7 +23,7 @@
                   </VBox>
                   <VBox layoutX="10.0" layoutY="10.0">
                      <children>
-                        <Label text="Location">
+                        <Label text="Location (Optional)">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
