@@ -3,7 +3,7 @@ package client;
 import client.model.ModelFactory;
 import client.network.ClientFactory;
 import client.view.ViewHandler;
-import client.viewModel.ViewModelFactory;
+import client.viewmodel.ViewModelFactory;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -15,8 +15,8 @@ public class TicketClientApp extends Application {
         clientFactory = new ClientFactory();
         ModelFactory modelFactory = new ModelFactory(clientFactory);
         ViewModelFactory viewModelFactory = new ViewModelFactory(modelFactory);
-        ViewHandler viewHandler = new ViewHandler(viewModelFactory);
-        viewHandler.start(stage);
+        ViewHandler viewHandler = new ViewHandler(stage, viewModelFactory);
+        viewHandler.start();
     }
 
     @Override

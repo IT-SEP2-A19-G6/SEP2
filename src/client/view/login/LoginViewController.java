@@ -1,7 +1,7 @@
 package client.view.login;
 
 import client.view.ViewHandler;
-import client.viewModel.login.LoginViewModel;
+import client.viewmodel.login.LoginViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,11 +22,10 @@ public class LoginViewController {
     private Button loginButton, cancelButton;
 
     private LoginViewModel loginViewModel;
-    private ViewHandler viewHandler;
+
 
 
     public void init(ViewHandler viewHandler, LoginViewModel loginViewModel){
-        this.viewHandler = viewHandler;
         this.loginViewModel = loginViewModel;
         userNameTextField.textProperty().bindBidirectional(loginViewModel.userNameProperty());
         passwordTextField.textProperty().bindBidirectional(loginViewModel.passwordProperty());
@@ -36,10 +35,15 @@ public class LoginViewController {
         loginButton.focusTraversableProperty().bindBidirectional(loginViewModel.getIsInFocus());
         cancelButton.focusTraversableProperty().bindBidirectional(loginViewModel.getIsInFocus());
         loginViewModel.setIsInFocus(false);
+        loginViewModel.loginResponseProperty().addListener((observableValue, s, t1) -> {
+            if(t1.contains("login accepted"))
+                if (t1.contains("User")){
+                    viewHandler.openUserView(userNameTextField.getText());
+                    loginViewModel.clearFields();
+                }
+        });
     }
 
-
-    //TODO create action onEnter
 
     public void onLoginButton(ActionEvent actionEvent) {
         loginViewModel.validateLogin();

@@ -4,6 +4,8 @@ import client.network.login.ILoginClient;
 import client.network.login.LoginClientHandler;
 import client.network.socket.ClientSocketHandler;
 import client.network.socket.IClientSocketHandler;
+import client.network.user.IUserClient;
+import client.network.user.UserClientHandler;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -13,6 +15,7 @@ import java.net.Socket;
 public class ClientFactory {
     private IClientSocketHandler clientSocketHandler;
     private ILoginClient loginClient;
+    private IUserClient userClient;
 
     public ClientFactory() {
         System.out.println("Client is starting...");
@@ -38,6 +41,13 @@ public class ClientFactory {
             loginClient = new LoginClientHandler(clientSocketHandler);
         }
         return loginClient;
+    }
+
+    public IUserClient getUserClient(){
+        if (userClient == null){
+            userClient = new UserClientHandler(clientSocketHandler);
+        }
+        return userClient;
     }
 
 

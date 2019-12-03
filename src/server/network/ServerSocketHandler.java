@@ -55,6 +55,8 @@ private boolean activeConnection;
                     Response message = loginServerModel.validateLogin(user);
                     Request requestToClient = new Request(Request.TYPE.LOGIN_RESPONSE, message);
                     sendToClient(requestToClient);
+                } else if (requestFromClient.type.equals(Request.TYPE.TICKET_LIST_REQ)){
+                    System.out.println("list req");
                 }
 
                 //TODO create methods to take care of the newly received objects.
