@@ -1,6 +1,7 @@
 package client.view;
 
 import client.view.login.LoginViewController;
+import client.view.signup.SignUpViewController;
 import client.view.user.UserViewController;
 import client.viewmodel.ViewModelFactory;
 import javafx.fxml.FXMLLoader;
@@ -30,7 +31,7 @@ public class ViewHandler {
 
 
 
-    private void openLoginView(){
+    public void openLoginView(){
         Scene scene;
         FXMLLoader loader = new FXMLLoader();
         Parent root = null;
@@ -70,6 +71,31 @@ public class ViewHandler {
         UserViewController view = loader.getController();
         view.init(this, viewModelFactory.getUserViewModel(), username);
         stage.setTitle("Tickets");
+
+
+        if (root != null) {
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+        }
+    }
+
+    public void openSignUpView(){
+        Scene scene;
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = null;
+
+        loader.setLocation(getClass().getResource("signup/SignUpView.fxml"));
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        SignUpViewController view = loader.getController();
+        view.init(this, viewModelFactory.getSignUpViewModel());
+        stage.setTitle("Sign up");
 
 
         if (root != null) {

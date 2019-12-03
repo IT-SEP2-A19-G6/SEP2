@@ -3,6 +3,8 @@ package server.model;
 
 import server.model.login.ILoginServerModel;
 import server.model.login.LoginServerModelHandler;
+import server.model.signup.ISignUpServerModel;
+import server.model.signup.SignUpServerModelHandler;
 import server.model.user.IUserServerModel;
 import server.model.user.UserServerModelHandler;
 import server.persistence.DataFactory;
@@ -11,6 +13,7 @@ public class ServerModelFactory {
     private DataFactory dataFactory;
     private ILoginServerModel loginServerModel;
     private IUserServerModel userModel;
+    private ISignUpServerModel signUpServerModel;
 
     public ServerModelFactory(DataFactory dataFactory) {
         this.dataFactory = dataFactory;
@@ -31,6 +34,10 @@ public class ServerModelFactory {
     }
 
 
-
-
+    public ISignUpServerModel getSignUpServerModel() {
+        if (signUpServerModel == null){
+            signUpServerModel = new SignUpServerModelHandler(dataFactory.getSignUpDAO());
+        }
+        return signUpServerModel;
+    }
 }

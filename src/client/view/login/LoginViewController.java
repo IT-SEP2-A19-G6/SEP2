@@ -17,16 +17,19 @@ public class LoginViewController {
     @FXML
     private TextField passwordTextField;
     @FXML
-    private Label loginResultLabel;
+    private Label loginResultLabel, signUpLabel;
     @FXML
     private Button loginButton, cancelButton;
 
     private LoginViewModel loginViewModel;
+    private ViewHandler viewHandler;
 
 
 
     public void init(ViewHandler viewHandler, LoginViewModel loginViewModel){
         this.loginViewModel = loginViewModel;
+        this.viewHandler = viewHandler;
+        loginViewModel.clearFields();
         userNameTextField.textProperty().bindBidirectional(loginViewModel.userNameProperty());
         passwordTextField.textProperty().bindBidirectional(loginViewModel.passwordProperty());
         loginResultLabel.textProperty().bindBidirectional(loginViewModel.loginResultProperty());
@@ -59,5 +62,9 @@ public class LoginViewController {
 
     public void setInFocus(MouseEvent mouseEvent) {
         loginViewModel.setIsInFocus(true);
+    }
+
+    public void openSignUp(MouseEvent mouseEvent) {
+        viewHandler.openSignUpView();
     }
 }
