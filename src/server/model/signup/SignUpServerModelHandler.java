@@ -14,7 +14,6 @@ public class SignUpServerModelHandler implements ISignUpServerModel {
 
     @Override
     public Response requestSignUp(User newUser) {
-        Response response = signUpDAO.requestSignUp(newUser);
-        return response;
+        return signUpDAO.requestSignUp(newUser);
     }
 }

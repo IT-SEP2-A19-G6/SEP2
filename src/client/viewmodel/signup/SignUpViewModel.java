@@ -2,14 +2,13 @@ package client.viewmodel.signup;
 
 
 import client.model.signup.ISignUpModel;
-import com.sun.javafx.collections.MapListenerHelper;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import shared.Request;
 import shared.Response;
-import shared.clients.User;
+
 
 import java.beans.PropertyChangeEvent;
 
