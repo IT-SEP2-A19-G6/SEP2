@@ -2,6 +2,7 @@ package server.network;
 
 import server.model.ServerModelFactory;
 import server.model.login.ILoginServerModel;
+import server.model.signup.ISignUpServerModel;
 import server.model.user.IUserServerModel;
 import shared.Response;
 import shared.Request;
@@ -20,6 +21,7 @@ private ObjectOutputStream outputToClient;
 private ObjectInputStream inputFromClient;
 private ILoginServerModel loginServerModel;
 private IUserServerModel userServerModel;
+private ISignUpServerModel signUpServerModel;
 private Socket socket;
 private boolean activeConnection;
 
@@ -29,6 +31,7 @@ private boolean activeConnection;
         this.socket = socket;
         this.loginServerModel = serverModelFactory.getLoginServerModel();
         this.userServerModel = serverModelFactory.getUserServerModel();
+        this.signUpServerModel = serverModelFactory.getSignUpServerModel();
         try {
             outputToClient = new ObjectOutputStream(socket.getOutputStream());
             inputFromClient = new ObjectInputStream(socket.getInputStream());
@@ -64,6 +67,11 @@ private boolean activeConnection;
                     String username = (String) requestFromClient.object;
                     ArrayList<Ticket> tickets = userServerModel.requestClientTickets(username);
                     Request response = new Request(Request.TYPE.TICKET_LIST_RESPONSE, tickets);
+                    sendToClient(response);
+                } else if (requestFromClient.type.equals(Request.TYPE.SIGNUP_REQ)){
+                    User newUser = (User) requestFromClient.object;
+                    Response message = signUpServerModel.requestSignUp(newUser);
+                    Request response = new Request(Request.TYPE.SIGNUP_RESPONSE, message);
                     sendToClient(response);
                 }
 

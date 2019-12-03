@@ -2,6 +2,8 @@ package client.network;
 
 import client.network.login.ILoginClient;
 import client.network.login.LoginClientHandler;
+import client.network.signup.ISignUpClient;
+import client.network.signup.SignUpClientHandler;
 import client.network.socket.ClientSocketHandler;
 import client.network.socket.IClientSocketHandler;
 import client.network.user.IUserClient;
@@ -16,6 +18,7 @@ public class ClientFactory {
     private IClientSocketHandler clientSocketHandler;
     private ILoginClient loginClient;
     private IUserClient userClient;
+    private ISignUpClient signUpClient;
 
     public ClientFactory() {
         System.out.println("Client is starting...");
@@ -50,5 +53,10 @@ public class ClientFactory {
         return userClient;
     }
 
-
+    public ISignUpClient getSignUpClient() {
+        if (signUpClient == null) {
+            signUpClient = new SignUpClientHandler(clientSocketHandler);
+        }
+        return signUpClient;
+    }
 }
