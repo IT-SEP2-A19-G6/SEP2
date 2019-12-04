@@ -1,7 +1,7 @@
 package client.view.login;
 
 import client.view.ViewHandler;
-import client.viewModel.login.LoginViewModel;
+import client.viewModel.Login.LoginViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

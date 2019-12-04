@@ -22,7 +22,7 @@ public class LoginServerModelHandler implements ILoginServerModel {
         } catch (IncorrectCredentialsException | DataConnectionException e) {
             loginMessage = e.getMessage();
         }
-        return new Response(user.getUsername(), loginMessage);
+        return new Response(user, loginMessage);
     }
 
 

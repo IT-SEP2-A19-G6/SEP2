@@ -2,9 +2,12 @@ package server.network;
 
 import server.model.ServerModelFactory;
 import server.model.login.ILoginServerModel;
-import shared.Response;
+import server.model.ticket.ICreateTicketServerModel;
 import shared.Request;
+import shared.Response;
+import shared.Ticket;
 import shared.clients.User;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -16,6 +19,7 @@ public class ServerSocketHandler implements Runnable {
 private ObjectOutputStream outputToClient;
 private ObjectInputStream inputFromClient;
 private ILoginServerModel loginServerModel;
+private ICreateTicketServerModel createTicketServerModel;
 private Socket socket;
 private boolean activeConnection;
 
@@ -24,6 +28,7 @@ private boolean activeConnection;
         activeConnection = true;
         this.socket = socket;
         this.loginServerModel = serverModelFactory.getLoginServerModel();
+        this.createTicketServerModel = serverModelFactory.getTicketServerModel();
         try {
             outputToClient = new ObjectOutputStream(socket.getOutputStream());
             inputFromClient = new ObjectInputStream(socket.getInputStream());
@@ -55,6 +60,13 @@ private boolean activeConnection;
                     Response message = loginServerModel.validateLogin(user);
                     Request requestToClient = new Request(Request.TYPE.LOGIN_RESPONSE, message);
                     sendToClient(requestToClient);
+                } else if(requestFromClient.type.equals((Request.TYPE.TICKET_CREATE))){
+                    Ticket ticket = (Ticket) requestFromClient.object;
+
+                    Response response = createTicketServerModel.sendTicket(ticket);
+
+                    Request request = new Request(Request.TYPE.TICKET_RECEIVE, response);
+                    sendToClient(request);
                 }
 
                 //TODO create methods to take care of the newly received objects.
