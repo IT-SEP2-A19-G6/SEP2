@@ -19,7 +19,8 @@ public class CreateTicketDAO implements ICreateTicketDAO {
         try {
             String sql = "INSERT INTO " + "Ticket" + " (user_id, subject, description, category, location, ticket_Status)" + " VALUES (?, ?, ?, ?, ?, ?);";
             PreparedStatement preparedStatement = databaseConnection.createPreparedStatement(sql);
-            preparedStatement.setInt(1, createTicket.getUser().getUser_id());
+            preparedStatement.setInt(1, 1);
+            //preparedStatement.setInt(1, createTicket.getUser().getUser_id());
             preparedStatement.setString(2, createTicket.getSubject());
             preparedStatement.setString(3, createTicket.getDescription());
             preparedStatement.setString(4, createTicket.getCategory());

@@ -28,6 +28,7 @@ private boolean activeConnection;
         activeConnection = true;
         this.socket = socket;
         this.loginServerModel = serverModelFactory.getLoginServerModel();
+        this.createTicketServerModel = serverModelFactory.getTicketServerModel();
         try {
             outputToClient = new ObjectOutputStream(socket.getOutputStream());
             inputFromClient = new ObjectInputStream(socket.getInputStream());
