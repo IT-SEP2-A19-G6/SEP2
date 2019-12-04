@@ -4,6 +4,8 @@ import client.network.login.ILoginClient;
 import client.network.login.LoginClientHandler;
 import client.network.socket.ClientSocketHandler;
 import client.network.socket.IClientSocketHandler;
+import client.network.ticket.CreateTicketClientHandler;
+import client.network.ticket.ICreateTicketClient;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -38,6 +40,14 @@ public class ClientFactory {
             loginClient = new LoginClientHandler(clientSocketHandler);
         }
         return loginClient;
+    }
+
+    private ICreateTicketClient createTicketClient;
+    public ICreateTicketClient getCreateTicketClient() {
+        if (createTicketClient == null) {
+            createTicketClient = new CreateTicketClientHandler(clientSocketHandler);
+        }
+        return createTicketClient;
     }
 
 
