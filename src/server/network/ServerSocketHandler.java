@@ -1,12 +1,13 @@
 package server.network;
 
-import client.network.ticket.ICreateTicketClient;
 import server.model.ServerModelFactory;
 import server.model.login.ILoginServerModel;
-import shared.Response;
+import server.model.ticket.ICreateTicketServerModel;
 import shared.Request;
+import shared.Response;
 import shared.Ticket;
 import shared.clients.User;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -18,7 +19,7 @@ public class ServerSocketHandler implements Runnable {
 private ObjectOutputStream outputToClient;
 private ObjectInputStream inputFromClient;
 private ILoginServerModel loginServerModel;
-private ICreateTicketClient createTicketClient;
+private ICreateTicketServerModel createTicketServerModel;
 private Socket socket;
 private boolean activeConnection;
 
@@ -60,8 +61,10 @@ private boolean activeConnection;
                     sendToClient(requestToClient);
                 } else if(requestFromClient.type.equals((Request.TYPE.TICKET_CREATE))){
                     Ticket ticket = (Ticket) requestFromClient.object;
-                    Ticket ticketReceive = createTicketClient.createTicket(ticket);
-                    Request request = new Request(Request.TYPE.TICKET_RECEIVE, ticketReceive);
+
+                    Response response = createTicketServerModel.sendTicket(ticket);
+
+                    Request request = new Request(Request.TYPE.TICKET_RECEIVE, response);
                     sendToClient(request);
                 }
 
