@@ -1,5 +1,7 @@
 package shared;
 
+import shared.clients.User;
+
 import java.util.ArrayList;
 
 public class Ticket {
@@ -19,7 +21,6 @@ public class Ticket {
         this.location = location;
         ticketStatus = TicketStatus.OPEN;
     }
-
 
     @Override
     public String toString() {
