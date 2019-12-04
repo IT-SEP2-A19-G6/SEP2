@@ -22,7 +22,7 @@ public class CreateTicketDAO implements ICreateTicketDAO {
         PreparedStatement preparedStatement = databaseConnection.createPreparedStatement(sql);
 
         try {
-            preparedStatement.setInt(1, 1); //TODO delete this when merged, and uncomment code below
+            preparedStatement.setInt(1, 1);
             //preparedStatement.setInt(1, createTicket.getUser().getUser_id());
             preparedStatement.setString(2, createTicket.getSubject());
             preparedStatement.setString(3, createTicket.getDescription());
@@ -31,9 +31,8 @@ public class CreateTicketDAO implements ICreateTicketDAO {
             preparedStatement.setString(6, createTicket.getTicketStatus());
 
             databaseConnection.executeUpdate(preparedStatement);
-            System.out.println("OK");
         } catch (SQLException e) {
-            System.out.println("Creating ticket failed, no ID obtained" + e.getMessage());
+            e.printStackTrace();
         }
         return "OK";
     }
