@@ -1,17 +1,19 @@
 package shared;
 
+import shared.clients.User;
+
 import java.io.Serializable;
 
 public class Response implements Serializable {
-    private String toUser;
+    private User toUser;
     private String message;
 
-    public Response(String toUser, String message) {
+    public Response(User toUser, String message) {
         this.toUser = toUser;
         this.message = message;
     }
 
-    public String getToUser() {
+    public User getToUser() {
         return toUser;
     }
 

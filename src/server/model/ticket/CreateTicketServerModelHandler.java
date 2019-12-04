@@ -22,9 +22,9 @@ public class CreateTicketServerModelHandler implements ICreateTicketServerModel 
             String createTicketMessage;
             try {
                 createTicketMessage = createTicketDAO.addTicket(ticket);//make method in loginDAO in JDBC
-            } catch (IncorrectCredentialsException | DataConnectionException e) {
+            } catch (DataConnectionException e) {
                 createTicketMessage = e.getMessage();
             }
-            return new Response(ticket.getUsername(), createTicketMessage);//create method to get username in Ticket
+            return new Response((User) ticket.getUser(), createTicketMessage);//create method to get username in Ticket
         }
     }

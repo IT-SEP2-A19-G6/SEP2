@@ -64,8 +64,9 @@ public class Ticket implements Serializable {
 
     @Override
     public String toString() {
-        return "CreateTicket{" +
-                "username='" + username + '\'' +
+        return "Ticket{" +
+                "user=" + user +
+                ", username='" + username + '\'' +
                 ", subject='" + subject + '\'' +
                 ", description='" + description + '\'' +
                 ", category='" + category + '\'' +

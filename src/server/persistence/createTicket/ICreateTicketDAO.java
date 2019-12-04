@@ -5,5 +5,5 @@ import shared.Ticket;
 
 public interface ICreateTicketDAO {
 
-    void addTicket (Ticket createTicket) throws DataConnectionException;
+    String addTicket (Ticket createTicket) throws DataConnectionException;
 }

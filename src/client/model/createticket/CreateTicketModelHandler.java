@@ -32,11 +32,7 @@ public class CreateTicketModelHandler implements ICreateTicketModel, IPropertyCh
     @Override
     public void submitTicket(String subject, String description, String location) {
         Ticket ticket = new Ticket(subject, description, location);
-        // TODO: Add network handler like the commented out below, Change enum if needed
-        // DUMMY
-        DummyCreateTicketClient createTicketClient = new DummyCreateTicketClient();
-        createTicketClient.addPropertyChangeListener(Request.TYPE.TICKET_RECEIVE.name(), this::handleResponse);
-        createTicketClient.submitTicket(ticket);
+        createTicketClient.createTicket(ticket);
     }
 
     @Override
