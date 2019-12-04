@@ -7,6 +7,7 @@ import client.viewModel.createticket.CreateTicketViewModel;
 public class ViewModelFactory {
     private ModelFactory modelFactory;
     private LoginViewModel loginViewModel;
+    private CreateTicketViewModel createIssueViewModel;
 
     public ViewModelFactory(ModelFactory mf) {
         this.modelFactory = mf;
@@ -19,8 +20,8 @@ public class ViewModelFactory {
         return loginViewModel;
     }
 
-    private CreateTicketViewModel createIssueViewModel;
-    public CreateTicketViewModel getCreateIssueViewModel() {
+
+    public CreateTicketViewModel getCreateTicketViewModel() {
         if(createIssueViewModel == null) {
             createIssueViewModel = new CreateTicketViewModel(modelFactory.getCreateTicketModel());
         }

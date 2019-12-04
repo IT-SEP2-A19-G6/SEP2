@@ -16,9 +16,6 @@ public class CreateTicketViewModel {
     private StringProperty subject;
     private StringProperty description;
     private StringProperty location;
-
-
-
     private StringProperty ticketResult;
 
     public CreateTicketViewModel(ICreateTicketModel createTicketModel) {
