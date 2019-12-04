@@ -16,7 +16,7 @@ public class CreateTicketDAO implements ICreateTicketDAO {
     }
 
     @Override
-    public void addTicket(Ticket createTicket) throws DataConnectionException {
+    public String addTicket(Ticket createTicket) throws DataConnectionException {
         String sql = "INSERT INTO " + "Ticket" + " (user_id, subject, description, category, location, ticket_Status)" + " VALUES (?, ?, ?, ?, ?, ?);";
 
         PreparedStatement preparedStatement = databaseConnection.createPreparedStatement(sql);
@@ -34,5 +34,6 @@ public class CreateTicketDAO implements ICreateTicketDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return "OK";
     }
 }

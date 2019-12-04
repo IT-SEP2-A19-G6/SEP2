@@ -11,8 +11,8 @@ import shared.clients.User;
 
 public class CreateTicketServerModelHandler implements ICreateTicketServerModel {
     private ICreateTicketDAO createTicketDAO;
-    public CreateTicketServerModelHandler(/*Database database*/) {
-        // this.database = database
+    public CreateTicketServerModelHandler(ICreateTicketDAO createTicketDAO) {
+        this.createTicketDAO = createTicketDAO;
     }
 
     @Override
