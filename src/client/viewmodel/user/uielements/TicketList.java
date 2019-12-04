@@ -1,5 +1,6 @@
 package client.viewmodel.user.uielements;
 
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -20,7 +21,9 @@ public class TicketList {
     }
 
     public void addTicketToList(HBox ticketItem){
-        vBox.getChildren().add(ticketItem);
+        Platform.runLater(() ->{
+            vBox.getChildren().add(ticketItem);
+        });
     }
 
     public ScrollPane getTicketList(){
