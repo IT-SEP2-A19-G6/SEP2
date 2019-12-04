@@ -13,7 +13,7 @@ public class CreateTicketServerModelHandler implements ICreateTicketServerModel 
     }
 
     @Override
-    public Response writeToTable(CreateTicket createTicket) {
+    public Response addTicket(CreateTicket createTicket) {
         return null;
     }
 }
