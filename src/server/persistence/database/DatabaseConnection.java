@@ -12,7 +12,7 @@ public class DatabaseConnection implements IDatabaseConnection {
 
     public DatabaseConnection(){
         schemaName = "sep2";
-        clientTableName = "account_client"; // TODO JH: Perhaps this could be placed in an enum later?
+        clientTableName = "account_client"; // TODO Perhaps this could be placed in an enum later?
     }
 
 
