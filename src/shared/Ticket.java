@@ -33,5 +33,9 @@ public class Ticket {
                 ", ticketStatus=" + ticketStatus +
                 '}';
     }
+
+    public String getUser() {
+        return user;
+    }
 }
 

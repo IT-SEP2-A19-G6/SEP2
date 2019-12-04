@@ -57,7 +57,6 @@ public class CreateTicketViewModel {
         return subject;
     }
 
-
     public StringProperty descriptionProperty() {
         return description;
     }
