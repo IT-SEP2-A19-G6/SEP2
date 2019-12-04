@@ -22,12 +22,12 @@ public class CreateTicketClientHandler implements ICreateTicketClient {
     }
 
     private void addListeners() {
-        clientSocketHandler.addPropertyChangeListener(Request.TYPE.TICKET_CREATE.name(), this::handleResponse);
+        clientSocketHandler.addPropertyChangeListener(Request.TYPE.TICKET_RECEIVE.name(), this::handleResponse);
     }
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
         Request serverReq = (Request) propertyChangeEvent.getNewValue();
-        if (serverReq.type.name().equals(Request.TYPE.TICKET_CREATE.name())) {
+        if (serverReq.type.name().equals(Request.TYPE.TICKET_RECEIVE.name())) {
             Response createTicket = (Response) serverReq.object;
             support.firePropertyChange(serverReq.type.name(), "", createTicket);
         }
