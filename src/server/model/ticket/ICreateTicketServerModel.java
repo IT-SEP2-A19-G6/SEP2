@@ -1,8 +1,9 @@
 package server.model.ticket;
 
 
+import shared.Response;
 import shared.Ticket;
 
 public interface ICreateTicketServerModel {
-    Ticket sendTicket();
+    Response sendTicket(Ticket ticket);
 }
