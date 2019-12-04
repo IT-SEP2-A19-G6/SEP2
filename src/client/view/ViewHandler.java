@@ -15,21 +15,20 @@ public class ViewHandler {
     private ViewModelFactory viewModelFactory;
 
     private Scene loginScene;
-    private Scene createIssueScene;
+    private Scene createTicketScene;
 
     public ViewHandler(Stage stage, ViewModelFactory viewModelFactory) {
         this.stage = stage;
         this.viewModelFactory = viewModelFactory;
-        this.stage = new Stage();
     }
 
     public void start() {
-        openCreateIssueView();
+        openCreateTicketView();
         stage.show();
     }
 
 
-    private void openLoginView(){
+    public void openLoginView(){
 
         FXMLLoader loader = new FXMLLoader();
 
@@ -45,17 +44,17 @@ public class ViewHandler {
 
     }
 
-    private void openCreateIssueView() {
+    public void openCreateTicketView() {
         FXMLLoader loader = new FXMLLoader();
 
-        if (createIssueScene == null) {
+        if (createTicketScene == null) {
             Parent root = getRootByPath("createticket/CreateTicketView.fxml", loader);
             CreateTicketViewController controller = loader.getController();
-            controller.init(viewModelFactory.getCreateIssueViewModel());
-            createIssueScene = new Scene(root);
+            controller.init(viewModelFactory.getCreateTicketViewModel());
+            createTicketScene = new Scene(root);
         }
         stage.setTitle("Create Ticket");
-        stage.setScene(createIssueScene);
+        stage.setScene(createTicketScene);
     }
 
     public Stage getStage(){

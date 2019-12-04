@@ -36,7 +36,7 @@
             </HBox>
             <VBox>
                <children>
-                  <Label text="Subject (Required)">
+                  <Label fx:id="labelSubject" text="Subject (Required)">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -47,7 +47,7 @@
             </VBox>
             <VBox>
                <children>
-                  <Label text="Comment (Required)">
+                  <Label fx:id="labelComment" text="Comment (Required)">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

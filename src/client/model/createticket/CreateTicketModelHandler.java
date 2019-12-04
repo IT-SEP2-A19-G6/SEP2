@@ -18,12 +18,11 @@ public class CreateTicketModelHandler implements ICreateTicketModel, IPropertyCh
 
     public CreateTicketModelHandler(ICreateTicketClient createTicketClient) {
         this.createTicketClient = createTicketClient;
+        addListeners();
     }
 
-
-
     private void addListeners() {
-        createTicketClient.addPropertyChangeListener(Request.TYPE.TICKET.name(), this::handleResponse);
+        createTicketClient.addPropertyChangeListener(Request.TYPE.TICKET_RECEIVE.name(), this::handleResponse);
     }
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
@@ -34,7 +33,10 @@ public class CreateTicketModelHandler implements ICreateTicketModel, IPropertyCh
     public void submitTicket(String subject, String description, String location) {
         Ticket ticket = new Ticket(subject, description, location);
         // TODO: Add network handler like the commented out below, Change enum if needed
-        //createTicketClient.submitTicket(ticket);
+        // DUMMY
+        DummyCreateTicketClient createTicketClient = new DummyCreateTicketClient();
+        createTicketClient.addPropertyChangeListener(Request.TYPE.TICKET_RECEIVE.name(), this::handleResponse);
+        createTicketClient.submitTicket(ticket);
     }
 
     @Override

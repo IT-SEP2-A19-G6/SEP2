@@ -27,4 +27,3 @@ public class CreateTicketServerModelHandler implements ICreateTicketServerModel 
             return new Response(ticket.getUsername(), createTicketMessage);//create method to get username in Ticket
         }
     }
-
