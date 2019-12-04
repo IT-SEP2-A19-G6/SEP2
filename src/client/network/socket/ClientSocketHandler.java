@@ -1,6 +1,5 @@
 package client.network.socket;
 
-import client.network.ticket.ICreateTicketClient;
 import shared.Request;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -10,7 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class ClientSocketHandler implements IClientSocketHandler{
+public class ClientSocketHandler implements IClientSocketHandler {
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
     private Socket socket;
     private ObjectInputStream inputFromServer;
