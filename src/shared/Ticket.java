@@ -10,7 +10,6 @@ public class Ticket implements Serializable {
 
 
     private Client user;
-    private String username;
     private String subject;
     private String description;
     private String category;
@@ -38,10 +37,6 @@ public class Ticket implements Serializable {
         return user;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
     public String getSubject() {
         return subject;
     }
@@ -64,8 +59,8 @@ public class Ticket implements Serializable {
 
     @Override
     public String toString() {
-        return "CreateTicket{" +
-                "username='" + username + '\'' +
+        return "Ticket{" +
+                "user=" + user +
                 ", subject='" + subject + '\'' +
                 ", description='" + description + '\'' +
                 ", category='" + category + '\'' +
