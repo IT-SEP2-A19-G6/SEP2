@@ -24,7 +24,7 @@ public class ServerModelFactory {
 
     public ICreateTicketServerModel getTicketServerModel() {
         if(ticketServerModel == null){
-            ticketServerModel = new CreateTicketServerModelHandler(dataFactory.getCreateTicketDAO);//TODO method from posgres
+            ticketServerModel = new CreateTicketServerModelHandler(dataFactory.getCreateTicketDAO());
         }
         return ticketServerModel;
     }
