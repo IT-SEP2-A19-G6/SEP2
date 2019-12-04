@@ -4,7 +4,6 @@ import client.network.socket.IClientSocketHandler;
 import shared.Request;
 import shared.Response;
 import shared.clients.Client;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
