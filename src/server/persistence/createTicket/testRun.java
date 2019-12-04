@@ -3,6 +3,7 @@ package server.persistence.createTicket;
 import server.exceptions.DataConnectionException;
 import server.persistence.database.DatabaseConnection;
 import shared.CreateTicket;
+import shared.clients.User;
 
 public class testRun {
 
@@ -10,7 +11,7 @@ public class testRun {
 
         CreateTicketDAO ctdao = new CreateTicketDAO(new DatabaseConnection());
         try {
-            ctdao.writeToTable(new CreateTicket("1","testsub", "testDesc", "testCat", "testloc", "OPEN"));
+            ctdao.addTicket(new CreateTicket(new User("John Snow", "DragonLady69"),"testsub", "testDesc", "testCat", "testloc", "OPEN"));
         } catch (DataConnectionException e) {
             e.printStackTrace();
         }

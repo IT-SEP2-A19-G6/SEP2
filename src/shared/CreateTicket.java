@@ -1,11 +1,15 @@
 package shared;
 
+import shared.clients.Client;
 import shared.clients.User;
 
 import java.io.Serializable;
 
 public class CreateTicket implements Serializable {
 
+
+
+    private Client user;
     private String username;
     private String subject;
     private String description;
@@ -15,15 +19,17 @@ public class CreateTicket implements Serializable {
 
 
 
-    public CreateTicket(String username, String subject, String description, String category, String location, String ticketStatus) {
-        this.username = username;
+    public CreateTicket(User client, String subject, String description, String category, String location, String ticketStatus) {
+        this.user = client;
         this.subject = subject;
         this.description = description;
         this.category = category;
         this.location = location;
         this.ticketStatus = ticketStatus;
     }
-
+    public Client getUser() {
+        return user;
+    }
     public String getUsername() {
         return username;
     }

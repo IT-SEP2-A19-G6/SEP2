@@ -4,8 +4,10 @@ import server.exceptions.DataConnectionException;
 import server.persistence.database.IDatabaseConnection;
 import shared.CreateTicket;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class CreateTicketDAO implements ICreateTicketDAO {
 
@@ -17,18 +19,18 @@ public class CreateTicketDAO implements ICreateTicketDAO {
 
     @Override
     public void addTicket(CreateTicket createTicket) throws DataConnectionException {
-        String sql = "INSERT INTO " + "Ticket" + " VALUES (?, ?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO " + "Ticket" + " (user_id, subject, description, category, location, ticket_Status)" + " VALUES (?, ?, ?, ?, ?, ?);";
 
         PreparedStatement preparedStatement = databaseConnection.createPreparedStatement(sql);
 
         try {
-            preparedStatement.setInt(1, 2);
-            preparedStatement.setInt(2, 1);
-            preparedStatement.setString(3, createTicket.getSubject());
-            preparedStatement.setString(4, createTicket.getDescription());
-            preparedStatement.setString(5, createTicket.getCategory());
-            preparedStatement.setString(6, createTicket.getLocation());
-            preparedStatement.setString(7, createTicket.getTicketStatus());
+            preparedStatement.setInt(1, 1);
+            //preparedStatement.setInt(1, createTicket.getUser().getUser_id());
+            preparedStatement.setString(2, createTicket.getSubject());
+            preparedStatement.setString(3, createTicket.getDescription());
+            preparedStatement.setString(4, createTicket.getCategory());
+            preparedStatement.setString(5, createTicket.getLocation());
+            preparedStatement.setString(6, createTicket.getTicketStatus());
 
             databaseConnection.executeUpdate(preparedStatement);
         } catch (SQLException e) {
