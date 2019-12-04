@@ -11,6 +11,7 @@ import shared.clients.User;
 
 public class CreateTicketServerModelHandler implements ICreateTicketServerModel {
     private ICreateTicketDAO createTicketDAO;
+
     public CreateTicketServerModelHandler(ICreateTicketDAO createTicketDAO) {
         this.createTicketDAO = createTicketDAO;
     }
