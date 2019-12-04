@@ -16,6 +16,7 @@ public class UserModelHandler implements IUserModel {
 
     public UserModelHandler(IUserClient userClient) {
         this.userClient = userClient;
+        userTickets = new ArrayList<>();
         addListeners();
     }
 
@@ -37,8 +38,7 @@ public class UserModelHandler implements IUserModel {
 
     @Override
     public void requestTicketList(String username) {
-        if (userTickets == null){ //TODO might cause a bug if we do not add tickets below
-            userTickets = new ArrayList<>();
+        if (userTickets.size() == 0){ //TODO might cause a bug if we do not add tickets below
             userClient.requestTicketList(username);
         } else {
             support.firePropertyChange(Request.TYPE.TICKET_LIST_RESPONSE.name(), "", userTickets);
