@@ -2,12 +2,10 @@ package server.persistence.createTicket;
 
 import server.exceptions.DataConnectionException;
 import server.persistence.database.IDatabaseConnection;
-import shared.CreateTicket;
+import shared.Ticket;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class CreateTicketDAO implements ICreateTicketDAO {
 
@@ -18,7 +16,7 @@ public class CreateTicketDAO implements ICreateTicketDAO {
     }
 
     @Override
-    public void addTicket(CreateTicket createTicket) throws DataConnectionException {
+    public void addTicket(Ticket createTicket) throws DataConnectionException {
         String sql = "INSERT INTO " + "Ticket" + " (user_id, subject, description, category, location, ticket_Status)" + " VALUES (?, ?, ?, ?, ?, ?);";
 
         PreparedStatement preparedStatement = databaseConnection.createPreparedStatement(sql);

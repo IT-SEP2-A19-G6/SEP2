@@ -5,7 +5,7 @@ import shared.clients.User;
 
 import java.io.Serializable;
 
-public class CreateTicket implements Serializable {
+public class Ticket implements Serializable {
 
 
 
@@ -19,7 +19,7 @@ public class CreateTicket implements Serializable {
 
 
 
-    public CreateTicket(User client, String subject, String description, String category, String location, String ticketStatus) {
+    public Ticket(User client, String subject, String description, String category, String location, String ticketStatus) {
         this.user = client;
         this.subject = subject;
         this.description = description;

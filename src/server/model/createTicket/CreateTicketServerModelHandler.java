@@ -1,7 +1,7 @@
 package server.model.createTicket;
 
 import server.persistence.createTicket.ICreateTicketDAO;
-import shared.CreateTicket;
+import shared.Ticket;
 import shared.Response;
 
 public class CreateTicketServerModelHandler implements ICreateTicketServerModel {
@@ -13,7 +13,7 @@ public class CreateTicketServerModelHandler implements ICreateTicketServerModel 
     }
 
     @Override
-    public Response addTicket(CreateTicket createTicket) {
+    public Response addTicket(Ticket createTicket) {
         return null;
     }
 }

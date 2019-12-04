@@ -1,8 +1,8 @@
 package server.model.createTicket;
 
-import shared.CreateTicket;
+import shared.Ticket;
 import shared.Response;
 
 public interface ICreateTicketServerModel {
-    Response addTicket(CreateTicket createTicket);
+    Response addTicket(Ticket createTicket);
 }

@@ -1,9 +1,9 @@
 package server.persistence.createTicket;
 
 import server.exceptions.DataConnectionException;
-import shared.CreateTicket;
+import shared.Ticket;
 
 public interface ICreateTicketDAO {
 
-    void addTicket (CreateTicket createTicket) throws DataConnectionException;
+    void addTicket (Ticket createTicket) throws DataConnectionException;
 }
