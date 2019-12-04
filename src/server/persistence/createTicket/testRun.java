@@ -5,8 +5,6 @@ import server.persistence.database.DatabaseConnection;
 import shared.Ticket;
 import shared.clients.User;
 
-import java.sql.SQLException;
-
 public class testRun {
 
     public static void main(String[] args) {
