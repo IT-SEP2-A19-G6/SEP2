@@ -24,8 +24,7 @@ public class SocketServer {
 
             Socket socket = serverSocket.accept();
             ServerSocketHandler serverSocketHandler = new ServerSocketHandler(socket, serverModelFactory);
-            Thread t = new Thread(serverSocketHandler);
-            //"socketThread" if we give name wouldn't it crash when connection another client?
+            Thread t = new Thread(serverSocketHandler, "socketThread");
             t.start();
         }
 

@@ -3,8 +3,6 @@ package client.network.ticket;
 
 import client.network.socket.IClientSocketHandler;
 import shared.Request;
-import shared.Response;
-import shared.Ticket;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -26,17 +24,7 @@ public class CreateTicketClientHandler implements ICreateTicketClient {
     }
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
-        Request serverReq = (Request) propertyChangeEvent.getNewValue();
-        if (serverReq.type.name().equals(Request.TYPE.TICKET_CREATE.name())) {
-            Response createTicket = (Response) serverReq.object;
-            support.firePropertyChange(serverReq.type.name(), "", createTicket);
-        }
-    }
-    @Override
-    public Ticket createTicket(Ticket ticket) {
-        Request createTicketReq = new Request(Request.TYPE.TICKET_CREATE, ticket);
-        clientSocketHandler.sendToServer(createTicketReq);
-        return ticket;
+
     }
 
     @Override
@@ -66,6 +54,4 @@ public class CreateTicketClientHandler implements ICreateTicketClient {
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         support.removePropertyChangeListener(listener);
     }
-
-
 }
