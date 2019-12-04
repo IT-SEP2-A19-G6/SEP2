@@ -3,7 +3,9 @@ package server.persistence.createTicket;
 import server.exceptions.DataConnectionException;
 import shared.Ticket;
 
+import java.sql.SQLException;
+
 public interface ICreateTicketDAO {
 
-    void addTicket (Ticket createTicket) throws DataConnectionException;
+    String addTicket (Ticket createTicket) throws DataConnectionException;
 }
