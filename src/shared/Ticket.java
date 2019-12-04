@@ -1,76 +1,36 @@
 package shared;
 
-import shared.clients.Client;
-import shared.clients.User;
+import java.util.ArrayList;
 
-import java.io.Serializable;
+public class Ticket {
 
-public class Ticket implements Serializable {
-
-
-
-    private Client user;
-    private String username;
+    private String user;
+    private ArrayList<String> branches;
+    private ArrayList<String> branchMembers;
     private String subject;
     private String description;
-    private String category;
     private String location;
-    private String ticketStatus;
+    private TicketStatus ticketStatus;
 
-
-
-    public Ticket(User client, String subject, String description, String category, String location, String ticketStatus) {
-        this.user = client;
-        this.subject = subject;
-        this.description = description;
-        this.category = category;
-        this.location = location;
-        this.ticketStatus = ticketStatus;
-    }
 
     public Ticket(String subject, String description, String location) {
         this.subject = subject;
         this.description = description;
         this.location = location;
+        ticketStatus = TicketStatus.OPEN;
     }
 
-    public Client getUser() {
-        return user;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public String getTicketStatus() {
-        return ticketStatus;
-    }
 
     @Override
     public String toString() {
-        return "CreateTicket{" +
-                "username='" + username + '\'' +
-                ", subject='" + subject + '\'' +
+        return "Ticket{" +
+                "user='" + user + '\'' +
+                ", branches=" + branches +
+                ", branchMembers=" + branchMembers +
                 ", description='" + description + '\'' +
-                ", category='" + category + '\'' +
                 ", location='" + location + '\'' +
-                ", ticketStatus='" + ticketStatus + '\'' +
+                ", ticketStatus=" + ticketStatus +
                 '}';
     }
 }
+

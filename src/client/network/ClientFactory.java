@@ -15,7 +15,6 @@ import java.net.Socket;
 public class ClientFactory {
     private IClientSocketHandler clientSocketHandler;
     private ILoginClient loginClient;
-    private ICreateTicketClient createTicketClient;
 
     public ClientFactory() {
         System.out.println("Client is starting...");
@@ -43,11 +42,13 @@ public class ClientFactory {
         return loginClient;
     }
 
+    private ICreateTicketClient createTicketClient;
     public ICreateTicketClient getCreateTicketClient() {
-        if(createTicketClient == null) {
+        if (createTicketClient == null) {
             createTicketClient = new CreateTicketClientHandler(clientSocketHandler);
         }
-        return  createTicketClient;
+        return createTicketClient;
     }
+
 
 }
