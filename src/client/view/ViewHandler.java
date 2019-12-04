@@ -14,8 +14,6 @@ import java.io.IOException;
 public class ViewHandler {
     private Stage stage;
     private ViewModelFactory viewModelFactory;
-    private Scene loginScene;
-    private Scene userScene;
 
 
     public ViewHandler(Stage stage, ViewModelFactory viewModelFactory) {
@@ -25,7 +23,6 @@ public class ViewHandler {
     }
     public void start() {
         openLoginView();
-        stage.show();
     }
 
 

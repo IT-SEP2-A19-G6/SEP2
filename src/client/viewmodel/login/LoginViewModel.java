@@ -48,6 +48,7 @@ public class LoginViewModel {
     }
 
     public void validateLogin() {
+        System.out.println("how?"); //TODO delete sout
         if(username.getValue()==null || username.getValue().equals("")){
             loginResult.setValue("Enter username");
         }else if(password.getValue()==null || password.getValue().equals("")) {
@@ -60,6 +61,7 @@ public class LoginViewModel {
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
         Response result = (Response) propertyChangeEvent.getNewValue();
+        System.out.println("call here"); //TODO delete sout
         if(loginResult != null) {
             Platform.runLater(()->{
                 loginResult.setValue(result.getMessage());
