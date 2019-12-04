@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public abstract class Client implements Serializable {
 
-    private Integer user_id;
     private String username;
     private String password;
 
@@ -20,8 +19,6 @@ public abstract class Client implements Serializable {
     public String getPassword() {
         return password;
     }
-
-    public Integer getUser_id() {return user_id;}
 
 
 }

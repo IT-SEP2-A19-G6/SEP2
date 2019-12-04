@@ -26,6 +26,13 @@ public class Ticket implements Serializable {
         this.location = location;
         this.ticketStatus = ticketStatus;
     }
+
+    public Ticket(String subject, String description, String location) {
+        this.subject = subject;
+        this.description = description;
+        this.location = location;
+    }
+
     public Client getUser() {
         return user;
     }
