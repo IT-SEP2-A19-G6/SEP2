@@ -34,5 +34,6 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <Label fx:id="signUpLabel" layoutX="279.0" layoutY="356.0" onMousePressed="#openSignUp" text="Sign up" />
    </children>
 </Pane>

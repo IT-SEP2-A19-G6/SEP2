@@ -9,10 +9,12 @@ import java.util.ArrayList;
 public class DatabaseConnection implements IDatabaseConnection {
     private String schemaName;
     private String clientTableName;
+    private String ticketTableName;
 
-    public DatabaseConnection() {
+    public DatabaseConnection(){
         schemaName = "sep2";
-        clientTableName = "account_client"; // TODO: Perhaps this could be placed in an enum later?
+        clientTableName = "account_client"; // TODO JH: Perhaps this could be placed in an enum later?
+        ticketTableName = "ticket";
     }
 
 
@@ -69,7 +71,7 @@ public class DatabaseConnection implements IDatabaseConnection {
             assert preparedStatement != null;
             resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()) {
+            while (resultSet.next()){
                 Object[] row = new Object[resultSet.getMetaData().getColumnCount()];
                 for (int i = 0; i < row.length; i++) {
                     row[i] = resultSet.getObject(i + 1);
@@ -90,33 +92,16 @@ public class DatabaseConnection implements IDatabaseConnection {
         return results;
     }
 
-    public PreparedStatement createPreparedStatement(String preparedSql) throws DataConnectionException  {
-        Connection connection = getConnection();
-
-        PreparedStatement preparedStatement = null;
-        try {
-            preparedStatement = connection.prepareStatement(preparedSql);
-        } catch (SQLException e) {
-            throw new DataConnectionException("Lost connection to data");
-        }
-        return preparedStatement;
-    }
-
-    public void executeUpdate(PreparedStatement preparedStatement){
-        try {
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     public String getSchemaName(){
         return schemaName;
     }
 
     public String getClientTableName(){
         return clientTableName;
+    }
+
+    public String getTicketTableName(){
+        return ticketTableName;
     }
 
 

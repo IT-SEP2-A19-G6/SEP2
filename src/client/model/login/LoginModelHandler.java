@@ -1,6 +1,7 @@
 package client.model.login;
 
 import client.network.login.ILoginClient;
+import shared.IPropertyChangeSubject;
 import shared.Request;
 import shared.clients.Client;
 import shared.clients.User;
@@ -9,7 +10,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class LoginModelHandler implements ILoginModel {
+public class LoginModelHandler implements ILoginModel, IPropertyChangeSubject {
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
     private ILoginClient loginClient;
 
@@ -22,7 +23,6 @@ public class LoginModelHandler implements ILoginModel {
         loginClient.addPropertyChangeListener(Request.TYPE.LOGIN_RESPONSE.name(), this::handleResponse);
     }
 
-    @Override
     public void validateLogin(String username, String password) {
         Client client = new User(username, password);
         loginClient.validateLogin(client);
@@ -61,5 +61,4 @@ public class LoginModelHandler implements ILoginModel {
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         support.removePropertyChangeListener(listener);
     }
-
 }

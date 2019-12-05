@@ -1,38 +1,34 @@
-package client.network.login;
+package client.network.user;
 
 import client.network.socket.IClientSocketHandler;
 import shared.Request;
-import shared.Response;
-import shared.clients.Client;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class LoginClientHandler implements ILoginClient {
-    private PropertyChangeSupport support = new PropertyChangeSupport(this);
+public class UserClientHandler implements IUserClient {
     private IClientSocketHandler clientSocketHandler;
+    private PropertyChangeSupport support = new PropertyChangeSupport(this);
 
-    public LoginClientHandler(IClientSocketHandler clientSocketHandler){
+    public UserClientHandler(IClientSocketHandler clientSocketHandler) {
         this.clientSocketHandler = clientSocketHandler;
         addListeners();
     }
 
     private void addListeners() {
-        clientSocketHandler.addPropertyChangeListener(Request.TYPE.LOGIN_RESPONSE.name(), this::handleResponse);
+        clientSocketHandler.addPropertyChangeListener(Request.TYPE.TICKET_LIST_RESPONSE.name(), this::handleResponse);
     }
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
-        Request serverReq = (Request) propertyChangeEvent.getNewValue();
-        if (serverReq.type.name().equals(Request.TYPE.LOGIN_RESPONSE.name())) {
-            Response loginResponse = (Response) serverReq.object;
-            support.firePropertyChange(serverReq.type.name(), "", loginResponse);
-        }
+        support.firePropertyChange(propertyChangeEvent.getPropertyName(), "", propertyChangeEvent.getNewValue());
     }
 
+
     @Override
-    public void validateLogin(Client client) {
-        Request loginReq = new Request(Request.TYPE.LOGIN_REQ, client);
-        clientSocketHandler.sendToServer(loginReq);
+    public void requestTicketList(String username) {
+        Request request = new Request(Request.TYPE.TICKET_LIST_REQ, username);
+        clientSocketHandler.sendToServer(request);
     }
 
     @Override

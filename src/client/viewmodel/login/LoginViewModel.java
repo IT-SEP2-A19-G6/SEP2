@@ -1,4 +1,4 @@
-package client.viewModel.Login;
+package client.viewmodel.login;
 
 import client.model.login.ILoginModel;
 import javafx.application.Platform;
@@ -6,9 +6,9 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 import shared.Request;
 import shared.Response;
-
 import java.beans.PropertyChangeEvent;
 
 public class LoginViewModel {
@@ -60,16 +60,10 @@ public class LoginViewModel {
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
         Response result = (Response) propertyChangeEvent.getNewValue();
-        if(loginResult!=null /*|| loginResult.equals("")*/) {
+        if(loginResult != null) {
             Platform.runLater(()->{
                 loginResult.setValue(result.getMessage());
                     });
-            if (result.getMessage().contains("login accepted")){
-                Platform.runLater(()->{
-                    clearFields();
-                    //Change view here
-                });
-            }
         }
     }
 
@@ -80,6 +74,10 @@ public class LoginViewModel {
 
     public void setIsInFocus(boolean bool){
         isInFocus.set(bool);
+    }
+
+    public ObservableValue<? extends String> loginResponseProperty() {
+        return loginResult;
     }
 
 

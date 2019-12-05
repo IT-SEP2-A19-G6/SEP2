@@ -10,11 +10,13 @@ public class Request implements Serializable {
 
     public enum TYPE {
         LOGIN_REQ, //object contains User
-        LOGIN_RESPONSE, //object equals Response
-        CLOSE_CONNECTION, //to close socket connection
-        TICKET, // object contains new ticket
-        TICKET_CREATE,
-        TICKET_RECEIVE
+        LOGIN_RESPONSE, //object contains Response
+        CLOSE_CONNECTION, //to close socket connection Object contains ""
+        TICKET_LIST_REQ, // Object contains String, username
+        TICKET_LIST_RESPONSE, //Object contains ArrayList<Ticket>
+        NO_TICKETS_FOUND_RESPONSE, //Object contains String "someMessage"
+        SIGNUP_REQ,
+        SIGNUP_RESPONSE
     }
 
     public Request(TYPE type, Object object) {

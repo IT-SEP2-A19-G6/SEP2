@@ -1,38 +1,35 @@
-package client.network.login;
+package client.network.signup;
 
 import client.network.socket.IClientSocketHandler;
 import shared.Request;
-import shared.Response;
-import shared.clients.Client;
+import shared.clients.User;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class LoginClientHandler implements ILoginClient {
+public class SignUpClientHandler implements ISignUpClient {
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
     private IClientSocketHandler clientSocketHandler;
 
-    public LoginClientHandler(IClientSocketHandler clientSocketHandler){
+    public SignUpClientHandler(IClientSocketHandler clientSocketHandler) {
         this.clientSocketHandler = clientSocketHandler;
         addListeners();
     }
 
     private void addListeners() {
-        clientSocketHandler.addPropertyChangeListener(Request.TYPE.LOGIN_RESPONSE.name(), this::handleResponse);
+        clientSocketHandler.addPropertyChangeListener(Request.TYPE.SIGNUP_RESPONSE.name(), this::handleResponse);
     }
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
-        Request serverReq = (Request) propertyChangeEvent.getNewValue();
-        if (serverReq.type.name().equals(Request.TYPE.LOGIN_RESPONSE.name())) {
-            Response loginResponse = (Response) serverReq.object;
-            support.firePropertyChange(serverReq.type.name(), "", loginResponse);
-        }
+        Request fromServer = (Request) propertyChangeEvent.getNewValue();
+        support.firePropertyChange(propertyChangeEvent.getPropertyName(), propertyChangeEvent.getOldValue(), fromServer.object);
     }
 
     @Override
-    public void validateLogin(Client client) {
-        Request loginReq = new Request(Request.TYPE.LOGIN_REQ, client);
-        clientSocketHandler.sendToServer(loginReq);
+    public void requestSignUp(User user) {
+        Request signUpReq = new Request(Request.TYPE.SIGNUP_REQ, user);
+        clientSocketHandler.sendToServer(signUpReq);
     }
 
     @Override
