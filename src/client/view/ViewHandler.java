@@ -2,7 +2,9 @@ package client.view;
 
 import client.view.createticket.CreateTicketViewController;
 import client.view.login.LoginViewController;
-import client.viewModel.ViewModelFactory;
+import client.view.signup.SignUpViewController;
+import client.view.user.UserViewController;
+import client.viewmodel.ViewModelFactory;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,6 +18,8 @@ public class ViewHandler {
 
     private Scene loginScene;
     private Scene createTicketScene;
+    private Scene signUpScene;
+    private Scene userScene;
 
     public ViewHandler(Stage stage, ViewModelFactory viewModelFactory) {
         this.stage = stage;
@@ -23,7 +27,7 @@ public class ViewHandler {
     }
 
     public void start() {
-        openCreateTicketView();
+        openLoginView();
         stage.show();
     }
 
@@ -55,6 +59,32 @@ public class ViewHandler {
         }
         stage.setTitle("Create Ticket");
         stage.setScene(createTicketScene);
+    }
+
+    public void openUserView(String username) {
+        FXMLLoader loader = new FXMLLoader();
+
+        if (createTicketScene == null) {
+            Parent root = getRootByPath("user/UserView.fxml", loader);
+            UserViewController controller = loader.getController();
+            controller.init(this, viewModelFactory.getUserViewModel(), username);
+            userScene = new Scene(root);
+        }
+        stage.setTitle("Tickets");
+        stage.setScene(userScene);
+    }
+
+    public void openSignUpView() {
+        FXMLLoader loader = new FXMLLoader();
+
+        if (createTicketScene == null) {
+            Parent root = getRootByPath("signup/SignUpView.fxml", loader);
+            SignUpViewController controller = loader.getController();
+            controller.init(this, viewModelFactory.getSignUpViewModel());
+            signUpScene = new Scene(root);
+        }
+        stage.setTitle("Sign Up");
+        stage.setScene(signUpScene);
     }
 
     public Stage getStage(){

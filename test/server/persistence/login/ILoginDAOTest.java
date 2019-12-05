@@ -18,7 +18,7 @@ class ILoginDAOTest {
     @BeforeEach
     void setUp() {
         dbConn = new TestDatabaseConnection();
-        loginDAO = new LoginDOA(dbConn);
+        loginDAO = new LoginDAO(dbConn);
     }
 
     @Test

@@ -1,6 +1,6 @@
 package client.view.createticket;
 
-import client.viewModel.createticket.CreateTicketViewModel;
+import client.viewmodel.createticket.CreateTicketViewModel;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

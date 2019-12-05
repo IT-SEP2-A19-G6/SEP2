@@ -11,4 +11,5 @@ public interface IDatabaseConnection {
     void executeUpdate(PreparedStatement preparedStatement);
     String getSchemaName();
     String getClientTableName();
+    String getTicketTableName();
 }

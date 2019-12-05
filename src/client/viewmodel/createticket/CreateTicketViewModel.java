@@ -1,4 +1,4 @@
-package client.viewModel.createticket;
+package client.viewmodel.createticket;
 
 import client.model.createticket.ICreateTicketModel;
 import javafx.application.Platform;
