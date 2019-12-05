@@ -41,6 +41,7 @@ public class UserDAO implements IUserDAO {
 
         if (objects.size() > 0){
             for (Object[] obj : objects) {
+
                 dateCreated = (Date) obj[0];
                 id = (int) obj[1];
                 userId = (int) obj[2];
