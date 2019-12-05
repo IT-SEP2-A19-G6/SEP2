@@ -1,8 +1,10 @@
 package testdummies;
 
+import server.exceptions.DataConnectionException;
 import server.persistence.database.IDatabaseConnection;
 import shared.clients.User;
 
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 public class TestDatabaseConnection implements IDatabaseConnection {
@@ -32,6 +34,16 @@ public class TestDatabaseConnection implements IDatabaseConnection {
     }
 
     @Override
+    public PreparedStatement createPreparedStatement(String preparedSql) throws DataConnectionException {
+        return null;
+    }
+
+    @Override
+    public void executeUpdate(PreparedStatement preparedStatement) {
+
+    }
+
+    @Override
     public String getSchemaName() {
         return "sep2";
     }
@@ -39,5 +51,10 @@ public class TestDatabaseConnection implements IDatabaseConnection {
     @Override
     public String getClientTableName() {
         return "account_client";
+    }
+
+    @Override
+    public String getTicketTableName() {
+        return null;
     }
 }

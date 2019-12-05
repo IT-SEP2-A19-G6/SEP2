@@ -18,6 +18,7 @@ public class CreateTicketServerModelHandler implements ICreateTicketServerModel 
 
     @Override
     public Response sendTicket(Ticket ticket) {
+        System.out.println("TICKET HERE");
 
             String createTicketMessage;
             try {
@@ -25,6 +26,7 @@ public class CreateTicketServerModelHandler implements ICreateTicketServerModel 
             } catch (DataConnectionException e) {
                 createTicketMessage = e.getMessage();
             }
-            return new Response((User) ticket.getUser(), createTicketMessage);//create method to get username in Ticket
+
+            return new Response(ticket.getUsername(), createTicketMessage);//create method to get username in Ticket
         }
     }

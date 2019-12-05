@@ -3,7 +3,7 @@ package client;
 import client.model.ModelFactory;
 import client.network.ClientFactory;
 import client.view.ViewHandler;
-import client.viewModel.ViewModelFactory;
+import client.viewmodel.ViewModelFactory;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

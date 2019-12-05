@@ -2,10 +2,14 @@ package client.network;
 
 import client.network.login.ILoginClient;
 import client.network.login.LoginClientHandler;
+import client.network.signup.ISignUpClient;
+import client.network.signup.SignUpClientHandler;
 import client.network.socket.ClientSocketHandler;
 import client.network.socket.IClientSocketHandler;
 import client.network.ticket.CreateTicketClientHandler;
 import client.network.ticket.ICreateTicketClient;
+import client.network.user.IUserClient;
+import client.network.user.UserClientHandler;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -16,6 +20,8 @@ public class ClientFactory {
     private IClientSocketHandler clientSocketHandler;
     private ILoginClient loginClient;
     private ICreateTicketClient createTicketClient;
+    private IUserClient userClient;
+    private ISignUpClient signUpClient;
 
     public ClientFactory() {
         System.out.println("Client is starting...");
@@ -48,6 +54,20 @@ public class ClientFactory {
             createTicketClient = new CreateTicketClientHandler(clientSocketHandler);
         }
         return  createTicketClient;
+    }
+
+    public IUserClient getUserClient(){
+        if (userClient == null){
+            userClient = new UserClientHandler(clientSocketHandler);
+        }
+        return userClient;
+    }
+
+    public ISignUpClient getSignUpClient() {
+        if (signUpClient == null) {
+            signUpClient = new SignUpClientHandler(clientSocketHandler);
+        }
+        return signUpClient;
     }
 
 }

@@ -2,7 +2,9 @@ package server.network;
 
 import server.model.ServerModelFactory;
 import server.model.login.ILoginServerModel;
+import server.model.signup.ISignUpServerModel;
 import server.model.ticket.ICreateTicketServerModel;
+import server.model.user.IUserServerModel;
 import shared.Request;
 import shared.Response;
 import shared.Ticket;
@@ -13,6 +15,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.ArrayList;
 
 public class ServerSocketHandler implements Runnable {
 
@@ -20,6 +23,8 @@ private ObjectOutputStream outputToClient;
 private ObjectInputStream inputFromClient;
 private ILoginServerModel loginServerModel;
 private ICreateTicketServerModel createTicketServerModel;
+private ISignUpServerModel signUpServerModel;
+private IUserServerModel userServerModel;
 private Socket socket;
 private boolean activeConnection;
 
@@ -29,6 +34,8 @@ private boolean activeConnection;
         this.socket = socket;
         this.loginServerModel = serverModelFactory.getLoginServerModel();
         this.createTicketServerModel = serverModelFactory.getTicketServerModel();
+        this.signUpServerModel = serverModelFactory.getSignUpServerModel();
+        this.userServerModel = serverModelFactory.getUserServerModel();
         try {
             outputToClient = new ObjectOutputStream(socket.getOutputStream());
             inputFromClient = new ObjectInputStream(socket.getInputStream());
@@ -67,6 +74,16 @@ private boolean activeConnection;
 
                     Request request = new Request(Request.TYPE.TICKET_RECEIVE, response);
                     sendToClient(request);
+                }  else if (requestFromClient.type.equals(Request.TYPE.TICKET_LIST_REQ)){
+                    String username = (String) requestFromClient.object;
+                    ArrayList<Ticket> tickets = userServerModel.requestClientTickets(username);
+                    Request response = new Request(Request.TYPE.TICKET_LIST_RESPONSE, tickets);
+                    sendToClient(response);
+                } else if (requestFromClient.type.equals(Request.TYPE.SIGNUP_REQ)){
+                    User newUser = (User) requestFromClient.object;
+                    Response message = signUpServerModel.requestSignUp(newUser);
+                    Request response = new Request(Request.TYPE.SIGNUP_RESPONSE, message);
+                    sendToClient(response);
                 }
 
                 //TODO create methods to take care of the newly received objects.
