@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import server.persistence.database.IDatabaseConnection;
 import server.persistence.login.ILoginDAO;
 import server.persistence.login.LoginDAO;
+import shared.clients.Client;
 import testdummies.TestDatabaseConnection;
 import shared.Response;
 import shared.clients.User;
@@ -30,7 +31,7 @@ class LoginServerModelTest {
     void validateCorrectCredentials(){
         user = new User("correctUser", "correctPassword");
         Response response = loginServerModel.validateLogin(user);
-        assertEquals(user.getUsername(), response.getToUser());
+        assertEquals(user.getUsername(), response.getReceiver().getUsername());
         assertEquals("User login accepted", response.getMessage());
     }
 
@@ -39,7 +40,7 @@ class LoginServerModelTest {
     void validateLoginWrongPassword(){
         user = new User("correctUser", "wrongPassword");
         Response response = loginServerModel.validateLogin(user);
-        assertEquals(user.getUsername(), response.getToUser());
+        assertEquals(user.getUsername(), response.getReceiver().getUsername());
         assertEquals("Incorrect credentials", response.getMessage());
     }
 
@@ -47,7 +48,7 @@ class LoginServerModelTest {
     void validateLoginWrongUsername(){
         user = new User("wrongUser", "correctPassword");
         Response response = loginServerModel.validateLogin(user);
-        assertEquals(user.getUsername(), response.getToUser());
+        assertEquals(user.getUsername(), response.getReceiver().getUsername());
         assertEquals("Incorrect credentials", response.getMessage());
     }
 
