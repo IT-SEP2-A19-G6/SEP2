@@ -10,6 +10,7 @@ public class User extends Client{
         super(username, password);
     }
 
+
     @Override
     public void setType(String type) {
 

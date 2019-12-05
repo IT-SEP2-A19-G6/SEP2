@@ -82,3 +82,4 @@ modules.xml
 
 # End of https://www.gitignore.io/api/intellij+iml
 /.idea/sqldialects.xml
+src/shared/util/application.properties

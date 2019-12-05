@@ -16,10 +16,13 @@ public class CreateTicketDAO implements ICreateTicketDAO {
 
     @Override
     public String addTicket(Ticket createTicket) throws DataConnectionException {
+
         try {
             String sql = "INSERT INTO " + "Ticket" + " (user_id, subject, description, category, location, ticket_Status)" + " VALUES (?, ?, ?, ?, ?, ?);";
             PreparedStatement preparedStatement = databaseConnection.createPreparedStatement(sql);
-            preparedStatement.setInt(1, createTicket.getUserId());
+
+            preparedStatement.setInt(1, 1); //TODO delete when real ID works
+           //preparedStatement.setInt(1, createTicket.getUserId());
             preparedStatement.setString(2, createTicket.getSubject());
             preparedStatement.setString(3, createTicket.getDescription());
             preparedStatement.setString(4, createTicket.getCategory());

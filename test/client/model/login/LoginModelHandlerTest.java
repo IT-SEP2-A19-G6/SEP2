@@ -17,7 +17,7 @@ class LoginModelHandlerTest {
     private ILoginModel loginModel;
     private Client user;
     private String responseToCheck;
-    private String userToCheck;
+    private Client userToCheck;
 
     @BeforeEach
     void setUp() {
@@ -29,7 +29,7 @@ class LoginModelHandlerTest {
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
         Response loginResponse = (Response) propertyChangeEvent.getNewValue();
-        userToCheck = loginResponse.getToUser();
+        userToCheck = loginResponse.getReceiver();
         responseToCheck = loginResponse.getMessage();
     }
 
@@ -37,7 +37,7 @@ class LoginModelHandlerTest {
     void validateCorrectCredentials(){
         user = new User("correctUser", "correctPassword");
         loginModel.validateLogin(user.getUsername(), user.getPassword());
-        assertEquals(user.getUsername(), userToCheck);
+        assertEquals(user.getUsername(), userToCheck.getUsername());
         assertEquals("User login accepted", responseToCheck);
     }
 
@@ -45,7 +45,7 @@ class LoginModelHandlerTest {
     void validateLoginWrongPassword(){
         user = new User("correctUser", "wrongPassword");
         loginModel.validateLogin(user.getUsername(), user.getPassword());
-        assertEquals(user.getUsername(), userToCheck);
+        assertEquals(user.getUsername(), userToCheck.getUsername());
         assertEquals("Incorrect credentials", responseToCheck);
     }
 
@@ -53,7 +53,7 @@ class LoginModelHandlerTest {
     void validateLoginWrongUsername(){
         user = new User("wrongUser", "correctPassword");
         loginModel.validateLogin(user.getUsername(), user.getPassword());
-        assertEquals(user.getUsername(), userToCheck);
+        assertEquals(user.getUsername(), userToCheck.getUsername());
         assertEquals("Incorrect credentials", responseToCheck);
     }
 

@@ -2,6 +2,7 @@ package server.model.login;
 
 import server.persistence.login.ILoginDAO;
 import shared.Response;
+import shared.clients.Client;
 import shared.clients.User;
 import server.exceptions.DataConnectionException;
 import server.exceptions.IncorrectCredentialsException;
@@ -22,7 +23,7 @@ public class LoginServerModelHandler implements ILoginServerModel {
         } catch (IncorrectCredentialsException | DataConnectionException e) {
             loginMessage = e.getMessage();
         }
-        return new Response(user.getUsername(), loginMessage);
+        return new Response(user, loginMessage);
     }
 
 

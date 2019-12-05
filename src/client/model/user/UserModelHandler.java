@@ -4,6 +4,8 @@ import client.network.user.IUserClient;
 import shared.Request;
 import shared.Response;
 import shared.Ticket;
+import shared.clients.User;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -31,7 +33,7 @@ public class UserModelHandler implements IUserModel {
             support.firePropertyChange(propertyChangeEvent.getPropertyName(), "", ticketsFromServer);
             userTickets.addAll(ticketsFromServer);
         } else {
-            Response noTicketResponse = new Response("", "No tickets yet - try add one...");
+            Response noTicketResponse = new Response(new User("", ""), "No tickets yet - try add one...");
             support.firePropertyChange(Request.TYPE.NO_TICKETS_FOUND_RESPONSE.name(), "", noTicketResponse);
         }
     }

@@ -32,7 +32,7 @@ public class TestSocketHandler implements IClientSocketHandler {
             } else {
                 loginMessage = "Incorrect credentials";
             }
-            Response loginResponse = new Response(userToCheck.getUsername(), loginMessage);
+            Response loginResponse = new Response(userToCheck, loginMessage);
             Request serverReq = new Request(Request.TYPE.LOGIN_RESPONSE, loginResponse);
             support.firePropertyChange(Request.TYPE.LOGIN_RESPONSE.name(), "", serverReq);
         }
