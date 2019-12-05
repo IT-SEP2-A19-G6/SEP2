@@ -27,6 +27,7 @@ public class LoginClientHandler implements ILoginClient {
         if (serverReq.type.name().equals(Request.TYPE.LOGIN_RESPONSE.name())) {
             Response loginResponse = (Response) serverReq.object;
             support.firePropertyChange(serverReq.type.name(), "", loginResponse);
+
         }
     }
 
@@ -34,6 +35,7 @@ public class LoginClientHandler implements ILoginClient {
     public void validateLogin(Client client) {
         Request loginReq = new Request(Request.TYPE.LOGIN_REQ, client);
         clientSocketHandler.sendToServer(loginReq);
+
     }
 
     @Override

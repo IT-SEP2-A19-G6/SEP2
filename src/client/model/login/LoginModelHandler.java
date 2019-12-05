@@ -31,6 +31,8 @@ public class LoginModelHandler implements ILoginModel {
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
         support.firePropertyChange(propertyChangeEvent.getPropertyName(), propertyChangeEvent.getOldValue(), propertyChangeEvent.getNewValue());
+
+        //TODO set singleton here
     }
 
 

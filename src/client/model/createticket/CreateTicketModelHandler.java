@@ -32,6 +32,7 @@ public class CreateTicketModelHandler implements ICreateTicketModel, IPropertyCh
     @Override
     public void submitTicket(String subject, String description, String location) {
         Ticket ticket = new Ticket(subject, description, location);
+
         createTicketClient.createTicket(ticket);
     }
 

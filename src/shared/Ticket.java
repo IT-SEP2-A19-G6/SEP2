@@ -1,15 +1,12 @@
 package shared;
 
-import shared.clients.Client;
-import shared.clients.User;
-
 import java.io.Serializable;
 
 public class Ticket implements Serializable {
 
 
 
-    private Client user;
+    private int userId;
     private String username;
     private String subject;
     private String description;
@@ -19,8 +16,8 @@ public class Ticket implements Serializable {
 
 
 
-    public Ticket(User client, String subject, String description, String category, String location, String ticketStatus) {
-        this.user = client;
+    public Ticket(int clientId, String subject, String description, String category, String location, String ticketStatus) {
+        this.userId = clientId;
         this.subject = subject;
         this.description = description;
         this.category = category;
@@ -34,8 +31,8 @@ public class Ticket implements Serializable {
         this.location = location;
     }
 
-    public Client getUser() {
-        return user;
+    public int getUserId() {
+        return userId;
     }
 
     public String getUsername() {
@@ -65,7 +62,7 @@ public class Ticket implements Serializable {
     @Override
     public String toString() {
         return "Ticket{" +
-                "user=" + user +
+                "user=" + userId +
                 ", username='" + username + '\'' +
                 ", subject='" + subject + '\'' +
                 ", description='" + description + '\'' +

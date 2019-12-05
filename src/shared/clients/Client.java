@@ -10,10 +10,15 @@ public abstract class Client implements Serializable {
     private String type;
 
 
-    public Client(String username, String password, String type){
+    public Client(String username, String password, String type) {
         this.username = username;
         this.password = password;
         this.type = type;
+    }
+
+    public Client(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     public String getUsername() {
@@ -33,3 +38,5 @@ public abstract class Client implements Serializable {
     }
 
     public abstract void setType(String type);
+
+}
