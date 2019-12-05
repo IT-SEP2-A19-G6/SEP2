@@ -40,8 +40,6 @@ public class LoginViewController {
         loginViewModel.loginResponseProperty().addListener((observableValue, s, t1) -> {
             if(t1.contains("login accepted"))
                 if (t1.contains("User")){
-                    //TODO called twice on login after signup
-                    System.out.println("twice???");
                     viewHandler.openUserView(userNameTextField.getText());
                 }
         });
