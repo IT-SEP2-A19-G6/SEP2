@@ -31,16 +31,16 @@ public class UserDAO implements IUserDAO {
 
         if (objects.size() > 0){
             for (Object[] obj : objects) {
-                Date dateCreated = (Date) obj[0];
-                String id = obj[1].toString();
-                String userId = obj[2].toString();
+                //Date dateCreated = (Date) obj[0];
+                //String id = obj[1].toString();
+                //String userId = obj[2].toString();
                 String subject = obj[3].toString();
                 String description = obj[4].toString();
-                String category = obj[5].toString();
+                //String category = obj[5].toString();
                 String location = obj[6].toString();
-                String status = obj[7].toString();
+                //String status = obj[7].toString();
 
-                LocalDate createdDate = LocalDate.parse( new SimpleDateFormat("yyyy-MM-dd").format(dateCreated) );
+                //LocalDate createdDate = LocalDate.parse( new SimpleDateFormat("yyyy-MM-dd").format(dateCreated) );
 
                 tickets.add(new Ticket(subject, description, location));
             }
