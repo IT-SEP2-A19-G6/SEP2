@@ -4,7 +4,7 @@ import server.model.ServerModelFactory;
 import server.model.login.ILoginServerModel;
 import server.model.signup.ISignUpServerModel;
 import server.model.ticket.ICreateTicketServerModel;
-import server.model.ticketList.ITicketListServerModel;
+import server.model.ticketlist.ITicketListServerModel;
 import shared.Request;
 import shared.Response;
 import shared.Ticket;

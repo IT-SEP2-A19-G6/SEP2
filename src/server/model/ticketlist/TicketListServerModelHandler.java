@@ -1,7 +1,7 @@
-package server.model.ticketList;
+package server.model.ticketlist;
 
 import server.exceptions.DataConnectionException;
-import server.persistence.TicketList.ITicketListDAO;
+import server.persistence.ticketlist.ITicketListDAO;
 import shared.Ticket;
 
 import java.util.ArrayList;

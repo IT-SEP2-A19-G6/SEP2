@@ -1,4 +1,4 @@
-package client.model.ticketList;
+package client.model.ticketlist;
 
 import client.network.ticketList.ITicketListClient;
 import shared.Request;

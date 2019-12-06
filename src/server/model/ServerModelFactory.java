@@ -6,8 +6,8 @@ import server.model.signup.ISignUpServerModel;
 import server.model.signup.SignUpServerModelHandler;
 import server.model.ticket.ICreateTicketServerModel;
 import server.model.ticket.CreateTicketServerModelHandler;
-import server.model.ticketList.ITicketListServerModel;
-import server.model.ticketList.TicketListServerModelHandler;
+import server.model.ticketlist.ITicketListServerModel;
+import server.model.ticketlist.TicketListServerModelHandler;
 import server.persistence.DataFactory;
 
 public class ServerModelFactory {
