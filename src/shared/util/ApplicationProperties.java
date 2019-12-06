@@ -6,7 +6,8 @@ import java.util.Properties;
 public enum ApplicationProperties {
 
     INSTANCE;
-
+    //TODO: application.properties has to be created in the final master before handin.
+    // Currently deleted to prevent git update
     private final Properties properties;
     private final String filePath = "shared/util/application.properties";
 
