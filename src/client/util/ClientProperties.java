@@ -1,19 +1,19 @@
-package client.persistence;
+package client.util;
 
 import shared.clients.Client;
 
-public class AppProperties {
+public class ClientProperties {
 
     // Lazy instantiation
-    private static AppProperties instance;
+    private static ClientProperties instance;
     private Client client;
 
 
-    private AppProperties(){}
+    private ClientProperties(){}
 
-    public static AppProperties getInstance(){
+    public static ClientProperties getInstance(){
         if(instance == null){
-            instance = new AppProperties();
+            instance = new ClientProperties();
         }
         return instance;
     }

@@ -41,8 +41,8 @@ public class TicketListDAO implements ITicketListDAO {
         if (objects.size() > 0){
             for (Object[] obj : objects) {
 
-                dateCreated = (Date) obj[0];
-                id = (int) obj[1];
+                id = (int) obj[0];
+                dateCreated = (Date) obj[1];
                 userId = (int) obj[2];
                 if (obj[3] == null){
                     subject = "";
