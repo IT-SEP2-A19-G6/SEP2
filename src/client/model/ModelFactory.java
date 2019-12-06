@@ -6,8 +6,8 @@ import client.model.login.ILoginModel;
 import client.model.login.LoginModelHandler;
 import client.model.signup.ISignUpModel;
 import client.model.signup.SignUpModelHandler;
-import client.model.ticketList.ITicketListModel;
-import client.model.ticketList.TicketListModelHandler;
+import client.model.ticketlist.ITicketListModel;
+import client.model.ticketlist.TicketListModelHandler;
 import client.network.ClientFactory;
 
 public class ModelFactory {
