@@ -1,6 +1,6 @@
-package client.viewmodel.user.uielements;
+package client.viewmodel.client.uielements;
 
-import client.viewmodel.user.UserViewModel;
+import client.viewmodel.client.ClientViewModel;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -11,12 +11,12 @@ import static javafx.geometry.Pos.CENTER;
 import static javafx.geometry.Pos.CENTER_LEFT;
 
 public class TicketListItem {
-    private UserViewModel userViewModel;
+    private ClientViewModel clientViewModel;
     private String id, description, status, branch, assignee, tag, createdTime, lastUpdateTime;
     private HBox ticketListItem;
 
-    public TicketListItem(UserViewModel userViewModel, String id, String description, String status, String branch, String assignee, String tag, String createdTime, String updatedTime) {
-        this.userViewModel = userViewModel;
+    public TicketListItem(ClientViewModel userViewModel, String id, String description, String status, String branch, String assignee, String tag, String createdTime, String updatedTime) {
+        this.clientViewModel = userViewModel;
         this.id = id;
         this.description = description;
         this.status = status;
@@ -53,7 +53,7 @@ public class TicketListItem {
         hBox.setPadding(new Insets(5));
         hBox.setOnMousePressed(e -> {
             if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
-                userViewModel.getTicket(getId());
+                clientViewModel.getTicket(getId());
             }
         });
 

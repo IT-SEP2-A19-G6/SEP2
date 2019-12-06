@@ -8,8 +8,8 @@ import client.network.socket.ClientSocketHandler;
 import client.network.socket.IClientSocketHandler;
 import client.network.ticket.CreateTicketClientHandler;
 import client.network.ticket.ICreateTicketClient;
-import client.network.user.IUserClient;
-import client.network.user.UserClientHandler;
+import client.network.ticketList.ITicketListClient;
+import client.network.ticketList.TicketListClientHandler;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -20,7 +20,7 @@ public class ClientFactory {
     private IClientSocketHandler clientSocketHandler;
     private ILoginClient loginClient;
     private ICreateTicketClient createTicketClient;
-    private IUserClient userClient;
+    private ITicketListClient userClient;
     private ISignUpClient signUpClient;
 
     public ClientFactory() {
@@ -56,9 +56,9 @@ public class ClientFactory {
         return  createTicketClient;
     }
 
-    public IUserClient getUserClient(){
+    public ITicketListClient getUserClient(){
         if (userClient == null){
-            userClient = new UserClientHandler(clientSocketHandler);
+            userClient = new TicketListClientHandler(clientSocketHandler);
         }
         return userClient;
     }

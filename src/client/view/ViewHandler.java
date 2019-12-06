@@ -3,7 +3,7 @@ package client.view;
 import client.view.createticket.CreateTicketViewController;
 import client.view.login.LoginViewController;
 import client.view.signup.SignUpViewController;
-import client.view.user.UserViewController;
+import client.view.client.ClientViewController;
 import client.viewmodel.ViewModelFactory;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,7 +19,7 @@ public class ViewHandler {
     private Scene loginScene;
     private Scene createTicketScene;
     private Scene signUpScene;
-    private Scene userScene;
+    private Scene clientScene;
 
     public ViewHandler(Stage stage, ViewModelFactory viewModelFactory) {
         this.stage = stage;
@@ -61,17 +61,17 @@ public class ViewHandler {
         stage.setScene(createTicketScene);
     }
 
-    public void openUserView(String username) {
+    public void openClientView(String username) {
         FXMLLoader loader = new FXMLLoader();
 
         if (createTicketScene == null) {
-            Parent root = getRootByPath("user/UserView.fxml", loader);
-            UserViewController controller = loader.getController();
+            Parent root = getRootByPath("client/ClientView.fxml", loader);
+            ClientViewController controller = loader.getController();
             controller.init(this, viewModelFactory.getUserViewModel(), username);
-            userScene = new Scene(root);
+            clientScene = new Scene(root);
         }
-        stage.setTitle("Tickets");
-        stage.setScene(userScene);
+        stage.setTitle("Main View");
+        stage.setScene(clientScene);
     }
 
     public void openSignUpView() {

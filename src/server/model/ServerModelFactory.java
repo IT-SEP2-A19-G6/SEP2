@@ -6,15 +6,15 @@ import server.model.signup.ISignUpServerModel;
 import server.model.signup.SignUpServerModelHandler;
 import server.model.ticket.ICreateTicketServerModel;
 import server.model.ticket.CreateTicketServerModelHandler;
-import server.model.user.IUserServerModel;
-import server.model.user.UserServerModelHandler;
+import server.model.ticketList.ITicketListServerModel;
+import server.model.ticketList.TicketListServerModelHandler;
 import server.persistence.DataFactory;
 
 public class ServerModelFactory {
     private DataFactory dataFactory;
     private ILoginServerModel loginServerModel;
     private ICreateTicketServerModel ticketServerModel;
-    private IUserServerModel userServerModel;
+    private ITicketListServerModel userServerModel;
     private ISignUpServerModel signUpServerModel;
 
     public ServerModelFactory(DataFactory dataFactory) {
@@ -35,9 +35,9 @@ public class ServerModelFactory {
         return ticketServerModel;
     }
 
-    public IUserServerModel getUserServerModel(){
+    public ITicketListServerModel getUserServerModel(){
         if(userServerModel == null){
-            userServerModel = new UserServerModelHandler(dataFactory.getUserDAO());
+            userServerModel = new TicketListServerModelHandler(dataFactory.getUserDAO());
         }
         return userServerModel;
     }

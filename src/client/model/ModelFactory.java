@@ -6,15 +6,15 @@ import client.model.login.ILoginModel;
 import client.model.login.LoginModelHandler;
 import client.model.signup.ISignUpModel;
 import client.model.signup.SignUpModelHandler;
-import client.model.user.IUserModel;
-import client.model.user.UserModelHandler;
+import client.model.ticketList.ITicketListModel;
+import client.model.ticketList.TicketListModelHandler;
 import client.network.ClientFactory;
 
 public class ModelFactory {
     private ILoginModel loginModel;
     private ICreateTicketModel createTicketModel;
     private ClientFactory clientFactory;
-    private IUserModel userModel;
+    private ITicketListModel userModel;
     private ISignUpModel signUpModel;
 
 
@@ -37,9 +37,9 @@ public class ModelFactory {
         return createTicketModel;
     }
 
-    public IUserModel getUserModel(){
+    public ITicketListModel getUserModel(){
         if (userModel == null) {
-            userModel = new UserModelHandler(clientFactory.getUserClient());
+            userModel = new TicketListModelHandler(clientFactory.getUserClient());
         }
         return userModel;
     }
