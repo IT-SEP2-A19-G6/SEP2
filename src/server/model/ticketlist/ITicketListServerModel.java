@@ -1,4 +1,4 @@
-package server.model.ticketList;
+package server.model.ticketlist;
 
 import shared.Ticket;
 

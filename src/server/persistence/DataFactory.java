@@ -8,8 +8,8 @@ import server.persistence.login.ILoginDAO;
 import server.persistence.login.LoginDAO;
 import server.persistence.signup.ISignUpDAO;
 import server.persistence.signup.SignUpDAO;
-import server.persistence.TicketList.ITicketListDAO;
-import server.persistence.TicketList.TicketListDAO;
+import server.persistence.ticketlist.ITicketListDAO;
+import server.persistence.ticketlist.TicketListDAO;
 
 public class DataFactory {
     private IDatabaseConnection databaseConnection;

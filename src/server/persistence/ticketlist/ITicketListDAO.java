@@ -1,4 +1,4 @@
-package server.persistence.TicketList;
+package server.persistence.ticketlist;
 
 import server.exceptions.DataConnectionException;
 import shared.Ticket;

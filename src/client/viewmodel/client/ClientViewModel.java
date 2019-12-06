@@ -1,6 +1,6 @@
 package client.viewmodel.client;
 
-import client.model.ticketList.ITicketListModel;
+import client.model.ticketlist.ITicketListModel;
 import client.viewmodel.client.uielements.SideMenu;
 import client.viewmodel.client.uielements.TicketList;
 import client.viewmodel.client.uielements.TicketListItem;
