@@ -2,8 +2,6 @@ package server.persistence.signup;
 
 import server.exceptions.DataConnectionException;
 import server.persistence.database.IDatabaseConnection;
-import shared.Response;
-import shared.clients.Client;
 import shared.clients.User;
 
 import java.sql.PreparedStatement;
@@ -19,7 +17,6 @@ public class SignUpDAO implements ISignUpDAO{
 
     @Override
     public String requestSignUp(User newUser) throws DataConnectionException {
-        String response;
 
         try {
             String sql = "insert into " + databaseConnection.getUserTableName() + " (Username, Password, Active) VALUES (?, ?, ?);";
@@ -31,11 +28,11 @@ public class SignUpDAO implements ISignUpDAO{
             preparedStatement.setBoolean(3, true);
 
             databaseConnection.executeUpdate(preparedStatement);
-            return response = "Success";
+            return "Success";
         } catch (SQLException e) {
             System.out.println("Creating ticket failed, no ID obtained" + e.getMessage());
         }
-        return response = "Operation failed";
+        return "Operation failed";
     }
 
 }
