@@ -4,10 +4,10 @@ import server.exceptions.DataConnectionException;
 import server.persistence.database.IDatabaseConnection;
 import shared.Ticket;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class TicketListDAO implements ITicketListDAO {
     private IDatabaseConnection databaseConnection;
@@ -22,60 +22,27 @@ public class TicketListDAO implements ITicketListDAO {
         "INNER JOIN Account_Client c ON t.User_Id = c.id " +
         "WHERE c.Username = '" + username + "' " +
         "GROUP BY t.Id_Ticket, c.id;";
-
-        ArrayList<Object[]> objects = null;
-        objects = databaseConnection.executePreparedQuery(sql);
-
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         ArrayList<Ticket> tickets = new ArrayList<>();
-
-        Date dateCreated;
-        int id;
-        int userId;
-        String subject;
-        String description;
-        String category;
-        String location;
-        String status;
-
-
-        if (objects.size() > 0){
-            for (Object[] obj : objects) {
-
-                id = (int) obj[0];
-                dateCreated = (Date) obj[1];
-                userId = (int) obj[2];
-                if (obj[3] == null){
-                    subject = "";
-                } else {
-                    subject = obj[3].toString();
-                }
-                if (obj[4] == null){
-                    description = "";
-                } else {
-                    description = obj[4].toString();
-                }
-                if (obj[5] == null){
-                    category = "";
-                } else {
-                    category = obj[5].toString();
-                }
-                if (obj[6] == null){
-                    location = "";
-                } else {
-                    location = obj[6].toString();
-                }
-                if (obj[7] == null){
-                    status = "";
-                } else {
-                    status = obj[7].toString();
-                }
-
-                LocalDate createdDate = LocalDate.parse( new SimpleDateFormat("yyyy-MM-dd").format(dateCreated) );  //TODO set correct pattern
-
-                tickets.add(new Ticket(subject, description, location));
+        try {
+            ps = databaseConnection.executePreparedQuery(sql);
+            rs = ps.executeQuery();
+            while(rs.next()) {
+                int id = rs.getInt("Id");
+                int userId = rs.getInt("User_Id");
+                String subject = rs.getString("Subject");
+                String description = rs.getString("Description");
+                String category = rs.getString("Category");
+                String location = rs.getString("Location");
+                String ticketStatus = rs.getString("Ticket_Status");
+                tickets.add(new Ticket(id, userId, subject, description, category, location, ticketStatus));
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            databaseConnection.closeConnection(ps, rs);
         }
         return tickets;
     }
-
 }
