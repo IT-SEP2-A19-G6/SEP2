@@ -21,8 +21,8 @@ public class ClientProperties {
     }
 
     public Client getClient() {
-        return new User("user5", "ddd", ClientType.USER);
-    } //TODO return client
+        return client;
+    }
 
     public void setClient(Client client) {
         this.client = client;
