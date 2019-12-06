@@ -4,13 +4,19 @@ import server.exceptions.DataConnectionException;
 import shared.util.ApplicationProperties;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 public class DatabaseConnection implements IDatabaseConnection {
     private String schemaName;
     private String clientTableName;
     private String ticketTableName;
     private String userTableName;
+
+    private String driver = ApplicationProperties.INSTANCE.getDbDriver();
+    private String url = ApplicationProperties.INSTANCE.getDbUrl();
+    private String user = ApplicationProperties.INSTANCE.getDbUser();
+    private String pw = ApplicationProperties.INSTANCE.getDbPassword();
+
+    private Connection connection;
 
     public DatabaseConnection() {
         schemaName = "sep2";
@@ -21,11 +27,7 @@ public class DatabaseConnection implements IDatabaseConnection {
     }
 
 
-    private Connection getConnection() throws DataConnectionException {
-        String driver = ApplicationProperties.INSTANCE.getDbDriver();
-        String url = ApplicationProperties.INSTANCE.getDbUrl();
-        String user = ApplicationProperties.INSTANCE.getDbUser();
-        String pw = ApplicationProperties.INSTANCE.getDbPassword();
+    public Connection getConnection() throws DataConnectionException {
 
         try {
             Class.forName(driver);
@@ -33,23 +35,34 @@ public class DatabaseConnection implements IDatabaseConnection {
             e.printStackTrace();
         }
 
-        Connection connection = null;
         try {
-            connection = DriverManager.getConnection(url, user, pw);
+            if (connection == null || connection.isClosed()) {
+                connection = DriverManager.getConnection(url, user, pw);
+            }
         } catch (SQLException e) {
             throw new DataConnectionException("Failed to establish connection to data");
         }
-
         return connection;
     }
 
-    private void closeConnection(Connection connection, PreparedStatement preparedStatement) {
+    @Override
+    public void closeConnection(PreparedStatement ps, ResultSet rs) {
+        // close preparedstatement
         try {
-            if (preparedStatement != null)
-                preparedStatement.close();
+            if (rs != null) {
+                ps.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        // close the resultset
+        try {
+            if (rs != null)
+                rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // close connection
         try {
             if (!connection.isClosed())
                 getConnection().close();
@@ -58,43 +71,24 @@ public class DatabaseConnection implements IDatabaseConnection {
         }
     }
 
-    public ArrayList<Object[]> executePreparedQuery(String preparedSql) throws DataConnectionException {
-        ArrayList<Object[]> results = new ArrayList<>();
-        Connection connection = getConnection();
 
+
+    @Override
+    public PreparedStatement executePreparedQuery(String preparedSql) throws DataConnectionException {
+        Connection connection = getConnection();
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = connection.prepareStatement(preparedSql);
         } catch (SQLException e) {
             throw new DataConnectionException("Lost connection to data");
         }
+        assert preparedStatement != null;
+        return preparedStatement;
 
-        ResultSet resultSet = null;
-        try {
-            assert preparedStatement != null;
-            resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                Object[] row = new Object[resultSet.getMetaData().getColumnCount()];
-                for (int i = 0; i < row.length; i++) {
-                    row[i] = resultSet.getObject(i + 1);
-                }
-                results.add(row);
-            }
-        } catch (SQLException e) {
-            throw new DataConnectionException("Lost connection to data");
-        } finally {
-            try {
-                if (resultSet != null)
-                    resultSet.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            closeConnection(connection, preparedStatement);
-        }
-        return results;
     }
 
+
+    @Override
     public PreparedStatement createPreparedStatement(String preparedSql) throws DataConnectionException  {
         Connection connection = getConnection();
 
@@ -106,7 +100,7 @@ public class DatabaseConnection implements IDatabaseConnection {
         }
         return preparedStatement;
     }
-
+    @Override
     public void executeUpdate(PreparedStatement preparedStatement){
         try {
             preparedStatement.executeUpdate();
@@ -115,19 +109,19 @@ public class DatabaseConnection implements IDatabaseConnection {
         }
     }
 
-
+    @Override
     public String getSchemaName(){
         return schemaName;
     }
-
+    @Override
     public String getClientTableName(){
         return clientTableName;
     }
-
+    @Override
     public String getTicketTableName() {
         return ticketTableName;
     }
-
+    @Override
     public String getUserTableName(){
         return userTableName;
     }

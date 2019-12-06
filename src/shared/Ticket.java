@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Ticket implements Serializable {
 
 
-
+    private int id;
     private int userId;
     private String username;
     private String subject;
@@ -15,7 +15,15 @@ public class Ticket implements Serializable {
     private String ticketStatus;
 
 
-
+    public Ticket(int id, int clientId, String subject, String description, String category, String location, String ticketStatus) {
+        this.id = id;
+        this.userId = clientId;
+        this.subject = subject;
+        this.description = description;
+        this.category = category;
+        this.location = location;
+        this.ticketStatus = ticketStatus;
+    }
     public Ticket(int clientId, String subject, String description, String category, String location, String ticketStatus) {
         this.userId = clientId;
         this.subject = subject;
