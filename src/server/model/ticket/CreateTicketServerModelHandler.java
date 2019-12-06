@@ -1,10 +1,7 @@
 package server.model.ticket;
 
-import client.network.ticket.ICreateTicketClient;
 import server.exceptions.DataConnectionException;
-import server.exceptions.IncorrectCredentialsException;
-import server.persistence.createTicket.ICreateTicketDAO;
-import server.persistence.login.ILoginDAO;
+import server.persistence.createticket.ICreateTicketDAO;
 import shared.Response;
 import shared.Ticket;
 import shared.clients.User;
