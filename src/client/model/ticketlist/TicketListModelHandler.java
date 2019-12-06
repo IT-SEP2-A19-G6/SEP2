@@ -17,26 +17,29 @@ public class TicketListModelHandler implements ITicketListModel {
 
     public TicketListModelHandler(ITicketListClient userClient) {
         this.ticketListClient = userClient;
-        ownTickets = new ArrayList<>();
         addListeners();
     }
 
     private void addListeners() {
-        ticketListClient.addPropertyChangeListener(Request.TYPE.OWN_TICKET_LIST_RESPONSE.name(), this::handleResponse);
+        ticketListClient.addPropertyChangeListener(Request.TYPE.OWN_TICKET_LIST_RESPONSE.name(), this::handleOwnListResponse);
+        ticketListClient.addPropertyChangeListener(Request.TYPE.ASSIGNED_TICKET_LIST_RESPONSE.name(), this::handleAssignedListResponse);
     }
 
-    private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
+    private void handleOwnListResponse(PropertyChangeEvent propertyChangeEvent) {
         ArrayList<Ticket> ticketsFromServer = (ArrayList<Ticket>) propertyChangeEvent.getNewValue();
         if (ticketsFromServer != null && ticketsFromServer.size() > 0){
             support.firePropertyChange(propertyChangeEvent.getPropertyName(), "", ticketsFromServer);
             ownTickets.addAll(ticketsFromServer);
         } else {
-            support.firePropertyChange(Request.TYPE.NO_TICKETS_FOUND_RESPONSE.name(), "", "No Tickets");
+            support.firePropertyChange(Request.TYPE.NO_TICKETS_FOUND_RESPONSE.name(), "", "No Tickets yet - try add one...");
         }
     }
 
     @Override
     public void requestOwnTicketList(String username) {
+        if (ownTickets == null){
+            ownTickets = new ArrayList<>();
+        }
         if (ownTickets.size() == 0){ //TODO might cause a bug if we do not add tickets below
             ticketListClient.requestOwnTicketList(username);
         } else {
@@ -44,8 +47,21 @@ public class TicketListModelHandler implements ITicketListModel {
         }
     }
 
+    private void handleAssignedListResponse(PropertyChangeEvent propertyChangeEvent) {
+        ArrayList<Ticket> ticketsFromServer = (ArrayList<Ticket>) propertyChangeEvent.getNewValue();
+        if (ticketsFromServer != null && ticketsFromServer.size() > 0){
+            support.firePropertyChange(propertyChangeEvent.getPropertyName(), "", ticketsFromServer);
+            assignedTickets.addAll(ticketsFromServer);
+        } else {
+            support.firePropertyChange(Request.TYPE.NO_TICKETS_ASSIGNED_RESPONSE.name(), "", "Good job! No tickets to handle");
+        }
+    }
+
     @Override
     public void requestAssignedTicketList(String username) {
+        if (assignedTickets == null){
+            assignedTickets = new ArrayList<>();
+        }
         if (assignedTickets.size() == 0){ //TODO might cause a bug if we do not add tickets below
             ticketListClient.requestAssignedTicketList(username);
         } else {

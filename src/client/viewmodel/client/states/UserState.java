@@ -32,20 +32,4 @@ public class UserState implements IClientState {
     }
 
 
-    @Override
-    public void buildTicketList(ArrayList<Ticket> ticketsFromServer) {
-        viewModel.clearRightArea();
-        for (Ticket ticket : ticketsFromServer){
-            TicketListItem listItem = new TicketListItem(viewModel, "id" + ticket.getSubject(), ticket.getDescription(), "SomeStatus", "SomeBranches", "SomeMember", ticket.getSubject(), "SomeTime", "SomeUpdate");
-            ticketList.addTicketToList(listItem.getTicketListItem());
-        }
-        viewModel.buildRightArea(ticketList.getTicketList());
-    }
-
-    @Override
-    public void showNoTickets() {
-        viewModel.clearRightArea();
-        viewModel.buildRightArea(ticketList.getEmptyList("No tickets yet - try add one..."));
-    }
-
 }

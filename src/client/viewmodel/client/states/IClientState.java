@@ -8,7 +8,5 @@ import java.util.ArrayList;
 public interface IClientState {
     void entry(ClientViewModel ViewModel);
     void exit();
-    void buildTicketList(ArrayList<Ticket> ticketsFromServer);
-    void showNoTickets();
 
 }
