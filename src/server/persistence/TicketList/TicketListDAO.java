@@ -1,19 +1,18 @@
-package server.persistence.user;
+package server.persistence.TicketList;
 
 import server.exceptions.DataConnectionException;
 import server.persistence.database.IDatabaseConnection;
 import shared.Ticket;
-import shared.clients.User;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class UserDAO implements IUserDAO {
+public class TicketListDAO implements ITicketListDAO {
     private IDatabaseConnection databaseConnection;
 
-    public UserDAO(IDatabaseConnection databaseConnection) {
+    public TicketListDAO(IDatabaseConnection databaseConnection) {
         this.databaseConnection = databaseConnection;
     }
 

@@ -1,4 +1,4 @@
-package client.viewmodel.user.uielements;
+package client.viewmodel.client.uielements;
 
 import javafx.application.Platform;
 import javafx.geometry.Pos;

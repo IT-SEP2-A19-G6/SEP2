@@ -1,4 +1,4 @@
-package client.network.user;
+package client.network.ticketList;
 
 import client.network.socket.IClientSocketHandler;
 import shared.Request;
@@ -7,11 +7,11 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class UserClientHandler implements IUserClient {
+public class TicketListClientHandler implements ITicketListClient {
     private IClientSocketHandler clientSocketHandler;
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
 
-    public UserClientHandler(IClientSocketHandler clientSocketHandler) {
+    public TicketListClientHandler(IClientSocketHandler clientSocketHandler) {
         this.clientSocketHandler = clientSocketHandler;
         addListeners();
     }

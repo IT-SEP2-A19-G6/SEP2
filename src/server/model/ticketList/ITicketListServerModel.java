@@ -1,9 +1,9 @@
-package server.model.user;
+package server.model.ticketList;
 
 import shared.Ticket;
 
 import java.util.ArrayList;
 
-public interface IUserServerModel {
+public interface ITicketListServerModel {
     ArrayList<Ticket> requestClientTickets(String username);
 }
