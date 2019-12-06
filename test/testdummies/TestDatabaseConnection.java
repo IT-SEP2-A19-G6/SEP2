@@ -5,6 +5,7 @@ import server.persistence.database.IDatabaseConnection;
 import shared.clients.User;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class TestDatabaseConnection implements IDatabaseConnection {
@@ -20,7 +21,7 @@ public class TestDatabaseConnection implements IDatabaseConnection {
 
 
     @Override
-    public ArrayList<Object[]> executePreparedQuery(String preparedSql) {
+    public PreparedStatement executePreparedQuery(String preparedSql) {
         if (preparedSql.equals("SELECT * FROM " + getSchemaName() + "." + getClientTableName() +
                 " WHERE username LIKE '" + testUser.getUsername() + "' AND password LIKE '" + testUser.getPassword() + "';")) {
             Object[] userFromDb = {1, testUser.getUsername(), testUser.getPassword(), true};
@@ -30,8 +31,10 @@ public class TestDatabaseConnection implements IDatabaseConnection {
             Object[] userFromDb = {2, disabledUser.getUsername(), disabledUser.getPassword(), false};
             usersToReturn.add(userFromDb);
         }
-        return usersToReturn;
+        return (PreparedStatement) usersToReturn;
     }
+
+
 
     @Override
     public PreparedStatement createPreparedStatement(String preparedSql) throws DataConnectionException {
@@ -61,5 +64,10 @@ public class TestDatabaseConnection implements IDatabaseConnection {
     @Override
     public String getUserTableName() {
         return null;
+    }
+
+    @Override
+    public void closeConnection(PreparedStatement ps, ResultSet rs) {
+
     }
 }

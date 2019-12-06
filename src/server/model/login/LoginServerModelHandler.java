@@ -1,11 +1,10 @@
 package server.model.login;
 
+import server.exceptions.DataConnectionException;
 import server.persistence.login.ILoginDAO;
 import shared.Response;
 import shared.clients.Client;
 import shared.clients.User;
-import server.exceptions.DataConnectionException;
-import server.exceptions.IncorrectCredentialsException;
 
 
 public class LoginServerModelHandler implements ILoginServerModel {
@@ -17,13 +16,16 @@ public class LoginServerModelHandler implements ILoginServerModel {
 
     @Override
     public Response validateLogin(User user){
-        String loginMessage;
         try {
-            loginMessage = loginDAO.validateLogin(user);
-        } catch (IncorrectCredentialsException | DataConnectionException e) {
-            loginMessage = e.getMessage();
+            String loginMessage;
+            Client client = null;
+            client = loginDAO.validateLogin(user);
+            loginMessage = client != null ? "User login accepted" : "Incorrect credentials";
+            return new Response(client != null ? client : null, loginMessage);
+        } catch (DataConnectionException e) {
+            e.printStackTrace();
         }
-        return new Response(user, loginMessage);
+        return null;
     }
 
 

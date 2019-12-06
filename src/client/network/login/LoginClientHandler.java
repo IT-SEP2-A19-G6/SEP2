@@ -1,6 +1,7 @@
 package client.network.login;
 
 import client.network.socket.IClientSocketHandler;
+import client.util.ClientProperties;
 import shared.Request;
 import shared.Response;
 import shared.clients.Client;
@@ -26,6 +27,10 @@ public class LoginClientHandler implements ILoginClient {
         Request serverReq = (Request) propertyChangeEvent.getNewValue();
         if (serverReq.type.name().equals(Request.TYPE.LOGIN_RESPONSE.name())) {
             Response loginResponse = (Response) serverReq.object;
+            if (loginResponse.getReceiver() != null)
+                ClientProperties.getInstance().setClient(loginResponse.getReceiver());
+
+
             support.firePropertyChange(serverReq.type.name(), "", loginResponse);
 
         }
