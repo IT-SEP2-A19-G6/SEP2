@@ -10,11 +10,14 @@ public class DatabaseConnection implements IDatabaseConnection {
     private String schemaName;
     private String clientTableName;
     private String ticketTableName;
+    private String userTableName;
 
     public DatabaseConnection() {
         schemaName = "sep2";
         clientTableName = "account_client"; // TODO: Perhaps this could be placed in an enum later?
+        userTableName = "account_user";
         ticketTableName = "ticket";
+
     }
 
 
@@ -123,6 +126,10 @@ public class DatabaseConnection implements IDatabaseConnection {
 
     public String getTicketTableName() {
         return ticketTableName;
+    }
+
+    public String getUserTableName(){
+        return userTableName;
     }
 
 }

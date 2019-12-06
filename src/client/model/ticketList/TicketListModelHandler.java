@@ -1,6 +1,6 @@
-package client.model.user;
+package client.model.ticketList;
 
-import client.network.user.IUserClient;
+import client.network.ticketList.ITicketListClient;
 import shared.Request;
 import shared.Response;
 import shared.Ticket;
@@ -11,19 +11,19 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
-public class UserModelHandler implements IUserModel {
-    private IUserClient userClient;
+public class TicketListModelHandler implements ITicketListModel {
+    private ITicketListClient ticketListClient;
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
     private ArrayList<Ticket> userTickets;
 
-    public UserModelHandler(IUserClient userClient) {
-        this.userClient = userClient;
+    public TicketListModelHandler(ITicketListClient userClient) {
+        this.ticketListClient = userClient;
         userTickets = new ArrayList<>();
         addListeners();
     }
 
     private void addListeners() {
-        userClient.addPropertyChangeListener(Request.TYPE.TICKET_LIST_RESPONSE.name(), this::handleResponse);
+        ticketListClient.addPropertyChangeListener(Request.TYPE.TICKET_LIST_RESPONSE.name(), this::handleResponse);
     }
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
@@ -41,7 +41,7 @@ public class UserModelHandler implements IUserModel {
     @Override
     public void requestTicketList(String username) {
         if (userTickets.size() == 0){ //TODO might cause a bug if we do not add tickets below
-            userClient.requestTicketList(username);
+            ticketListClient.requestTicketList(username);
         } else {
             support.firePropertyChange(Request.TYPE.TICKET_LIST_RESPONSE.name(), "", userTickets);
         }

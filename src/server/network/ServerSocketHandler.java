@@ -4,7 +4,7 @@ import server.model.ServerModelFactory;
 import server.model.login.ILoginServerModel;
 import server.model.signup.ISignUpServerModel;
 import server.model.ticket.ICreateTicketServerModel;
-import server.model.user.IUserServerModel;
+import server.model.ticketList.ITicketListServerModel;
 import shared.Request;
 import shared.Response;
 import shared.Ticket;
@@ -24,7 +24,7 @@ private ObjectInputStream inputFromClient;
 private ILoginServerModel loginServerModel;
 private ICreateTicketServerModel createTicketServerModel;
 private ISignUpServerModel signUpServerModel;
-private IUserServerModel userServerModel;
+private ITicketListServerModel userServerModel;
 private Socket socket;
 private boolean activeConnection;
 

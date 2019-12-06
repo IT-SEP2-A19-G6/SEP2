@@ -1,10 +1,10 @@
-package server.persistence.user;
+package server.persistence.TicketList;
 
 import server.exceptions.DataConnectionException;
 import shared.Ticket;
 
 import java.util.ArrayList;
 
-public interface IUserDAO {
+public interface ITicketListDAO {
     ArrayList<Ticket> getClientTickets(String username) throws DataConnectionException;
 }

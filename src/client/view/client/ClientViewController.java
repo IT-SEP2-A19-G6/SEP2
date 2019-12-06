@@ -1,18 +1,18 @@
-package client.view.user;
+package client.view.client;
 
 import client.view.ViewHandler;
-import client.viewmodel.user.UserViewModel;
+import client.viewmodel.client.ClientViewModel;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 
-public class UserViewController {
+public class ClientViewController {
 
     @FXML
     AnchorPane menuPane, rightArea;
 
 
-    public void init(ViewHandler viewHandler, UserViewModel userViewModel, String username){
+    public void init(ViewHandler viewHandler, ClientViewModel userViewModel, String username){
         Bindings.bindContentBidirectional(userViewModel.setRightArea(), rightArea.getChildren());
         Bindings.bindContentBidirectional(userViewModel.menuNodes(), menuPane.getChildren());
         userViewModel.initView(username);

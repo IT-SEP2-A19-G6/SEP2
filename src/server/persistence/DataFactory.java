@@ -8,14 +8,14 @@ import server.persistence.login.ILoginDAO;
 import server.persistence.login.LoginDAO;
 import server.persistence.signup.ISignUpDAO;
 import server.persistence.signup.SignUpDAO;
-import server.persistence.user.IUserDAO;
-import server.persistence.user.UserDAO;
+import server.persistence.TicketList.ITicketListDAO;
+import server.persistence.TicketList.TicketListDAO;
 
 public class DataFactory {
     private IDatabaseConnection databaseConnection;
     private ILoginDAO loginDAO;
     private ICreateTicketDAO createTicketDAO;
-    private IUserDAO userDAO;
+    private ITicketListDAO userDAO;
     private ISignUpDAO signUpDAO;
 
     public DataFactory(){
@@ -36,9 +36,9 @@ public class DataFactory {
         return createTicketDAO;
     }
 
-    public IUserDAO getUserDAO(){
+    public ITicketListDAO getUserDAO(){
         if (userDAO == null){
-            userDAO = new UserDAO(databaseConnection);
+            userDAO = new TicketListDAO(databaseConnection);
         }
         return userDAO;
     }

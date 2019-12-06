@@ -4,13 +4,13 @@ import client.model.ModelFactory;
 import client.viewmodel.login.LoginViewModel;
 import client.viewmodel.createticket.CreateTicketViewModel;
 import client.viewmodel.signup.SignUpViewModel;
-import client.viewmodel.user.UserViewModel;
+import client.viewmodel.client.ClientViewModel;
 
 public class ViewModelFactory {
     private ModelFactory modelFactory;
     private LoginViewModel loginViewModel;
     private CreateTicketViewModel createIssueViewModel;
-    private UserViewModel userViewModel;
+    private ClientViewModel userViewModel;
     private SignUpViewModel signUpViewModel;
 
     public ViewModelFactory(ModelFactory mf) {
@@ -32,9 +32,9 @@ public class ViewModelFactory {
         return createIssueViewModel;
     }
 
-    public UserViewModel getUserViewModel(){
+    public ClientViewModel getUserViewModel(){
         if (userViewModel == null) {
-            userViewModel = new UserViewModel(modelFactory.getUserModel());
+            userViewModel = new ClientViewModel(modelFactory.getUserModel());
         }
         return userViewModel;
     }

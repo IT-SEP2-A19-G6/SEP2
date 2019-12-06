@@ -1,9 +1,9 @@
-package client.viewmodel.user;
+package client.viewmodel.client;
 
-import client.model.user.IUserModel;
-import client.viewmodel.user.uielements.SideMenu;
-import client.viewmodel.user.uielements.TicketList;
-import client.viewmodel.user.uielements.TicketListItem;
+import client.model.ticketList.ITicketListModel;
+import client.viewmodel.client.uielements.SideMenu;
+import client.viewmodel.client.uielements.TicketList;
+import client.viewmodel.client.uielements.TicketListItem;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -17,15 +17,15 @@ import shared.Ticket;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 
-public class UserViewModel {
-    private IUserModel userModel;
+public class ClientViewModel {
+    private ITicketListModel userModel;
     private ObservableList<Node> rightArea;
     private ObservableList<Node> menuItems;
     private String username;
     private TicketList ticketList;
     private StringProperty callNewTicket;
 
-    public UserViewModel(IUserModel userModel) {
+    public ClientViewModel(ITicketListModel userModel) {
         this.userModel = userModel;
         this.ticketList = new TicketList();
         rightArea = FXCollections.observableArrayList();
