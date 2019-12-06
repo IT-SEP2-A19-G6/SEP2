@@ -2,9 +2,7 @@ package client.model.ticketlist;
 
 import client.network.ticketList.ITicketListClient;
 import shared.Request;
-import shared.Response;
 import shared.Ticket;
-import shared.clients.User;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -14,46 +12,63 @@ import java.util.ArrayList;
 public class TicketListModelHandler implements ITicketListModel {
     private ITicketListClient ticketListClient;
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
-    private ArrayList<Ticket> userTickets;
+    private ArrayList<Ticket> ownTickets;
+    private ArrayList<Ticket> assignedTickets;
 
     public TicketListModelHandler(ITicketListClient userClient) {
         this.ticketListClient = userClient;
-        userTickets = new ArrayList<>();
+        ownTickets = new ArrayList<>();
         addListeners();
     }
 
     private void addListeners() {
-        ticketListClient.addPropertyChangeListener(Request.TYPE.TICKET_LIST_RESPONSE.name(), this::handleResponse);
+        ticketListClient.addPropertyChangeListener(Request.TYPE.OWN_TICKET_LIST_RESPONSE.name(), this::handleResponse);
     }
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
-        Request response = (Request) propertyChangeEvent.getNewValue();
-        ArrayList<Ticket> ticketsFromServer = (ArrayList<Ticket>) response.object;
+        ArrayList<Ticket> ticketsFromServer = (ArrayList<Ticket>) propertyChangeEvent.getNewValue();
         if (ticketsFromServer != null && ticketsFromServer.size() > 0){
             support.firePropertyChange(propertyChangeEvent.getPropertyName(), "", ticketsFromServer);
-            userTickets.addAll(ticketsFromServer);
+            ownTickets.addAll(ticketsFromServer);
         } else {
-            Response noTicketResponse = new Response(new User("", ""), "No tickets yet - try add one...");
-            support.firePropertyChange(Request.TYPE.NO_TICKETS_FOUND_RESPONSE.name(), "", noTicketResponse);
+            support.firePropertyChange(Request.TYPE.NO_TICKETS_FOUND_RESPONSE.name(), "", "No Tickets");
         }
     }
 
     @Override
-    public void requestTicketList(String username) {
-        if (userTickets.size() == 0){ //TODO might cause a bug if we do not add tickets below
-            ticketListClient.requestTicketList(username);
+    public void requestOwnTicketList(String username) {
+        if (ownTickets.size() == 0){ //TODO might cause a bug if we do not add tickets below
+            ticketListClient.requestOwnTicketList(username);
         } else {
-            support.firePropertyChange(Request.TYPE.TICKET_LIST_RESPONSE.name(), "", userTickets);
+            support.firePropertyChange(Request.TYPE.OWN_TICKET_LIST_RESPONSE.name(), "", ownTickets);
+        }
+    }
+
+    @Override
+    public void requestAssignedTicketList(String username) {
+        if (assignedTickets.size() == 0){ //TODO might cause a bug if we do not add tickets below
+            ticketListClient.requestAssignedTicketList(username);
+        } else {
+            support.firePropertyChange(Request.TYPE.ASSIGNED_TICKET_LIST_RESPONSE.name(), "", assignedTickets);
         }
     }
 
     //TODO delete or use
 //    @Override
-//    public void addTicket() {
+//    public void addOwnTicket() {
 //        Ticket ticket = new Ticket("Subject" + i, "A new super important description" + i, "location" + i);
-//        userTickets.add(0, ticket);
+//        ownTickets.add(0, ticket);
 //        i++;
-//        support.firePropertyChange(Request.TYPE.TICKET_LIST_RESPONSE.name(), "", userTickets);
+//        support.firePropertyChange(Request.TYPE.TICKET_LIST_RESPONSE.name(), "", ownTickets);
+//    }
+
+    //TODO delete or use
+//    @Override
+//    public void addAssignedTicket() {
+//        Ticket ticket = new Ticket("Subject" + i, "A new super important description" + i, "location" + i);
+//        assignedTickets.add(0, ticket);
+//        i++;
+//        support.firePropertyChange(Request.TYPE.TICKET_LIST_RESPONSE.name(), "", assignedTickets);
 //    }
 
     @Override

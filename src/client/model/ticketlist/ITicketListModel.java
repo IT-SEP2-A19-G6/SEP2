@@ -3,7 +3,10 @@ package client.model.ticketlist;
 import shared.IPropertyChangeSubject;
 
 public interface ITicketListModel extends IPropertyChangeSubject {
-    void requestTicketList(String username);
+    void requestOwnTicketList(String username);
+    void requestAssignedTicketList(String username);
 
-//    void addTicket(); //TODO delete or use
+//    void addOwnTicket(); //TODO delete or use
+//    void addAssignedTicket(); //TODO delete or use
+
 }

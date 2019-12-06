@@ -1,6 +1,8 @@
 package client.util;
 
 import shared.clients.Client;
+import shared.clients.ClientType;
+import shared.clients.User;
 
 public class ClientProperties {
 
@@ -19,8 +21,8 @@ public class ClientProperties {
     }
 
     public Client getClient() {
-        return client;
-    }
+        return new User("user5", "ddd", ClientType.USER);
+    } //TODO return client
 
     public void setClient(Client client) {
         this.client = client;

@@ -17,7 +17,7 @@ public class TicketListDAO implements ITicketListDAO {
     }
 
     @Override
-    public ArrayList<Ticket> getClientTickets(String username) throws DataConnectionException {
+    public ArrayList<Ticket> getOwnTicketList(String username) throws DataConnectionException {
         String sql = "SELECT * FROM " + databaseConnection.getSchemaName() + "." + databaseConnection.getTicketTableName() + " t " +
         "INNER JOIN Account_Client c ON t.User_Id = c.id " +
         "WHERE c.Username = '" + username + "' " +
@@ -77,5 +77,13 @@ public class TicketListDAO implements ITicketListDAO {
         }
         return tickets;
     }
+
+    @Override
+    public ArrayList<Ticket> getAssignedTicketList(String username) throws DataConnectionException {
+        //TODO do jdbc
+        ArrayList<Ticket> tickets = new ArrayList<>();
+        return tickets;
+    }
+
 
 }

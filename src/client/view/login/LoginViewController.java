@@ -40,7 +40,7 @@ public class LoginViewController {
         loginViewModel.loginResponseProperty().addListener((observableValue, s, t1) -> {
             if(t1.contains("login accepted"))
                 if (t1.contains("User")){
-                    viewHandler.openClientView(userNameTextField.getText());
+                    viewHandler.openClientView();
                 }
         });
     }

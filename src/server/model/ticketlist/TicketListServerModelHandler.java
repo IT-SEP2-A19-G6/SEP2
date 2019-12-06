@@ -14,10 +14,21 @@ public class TicketListServerModelHandler implements ITicketListServerModel {
     }
 
     @Override
-    public ArrayList<Ticket> requestClientTickets(String username) {
+    public ArrayList<Ticket> requestOwnTicketList(String username) {
         ArrayList<Ticket> tickets = null;
         try {
-            tickets = ticketListDAO.getClientTickets(username);
+            tickets = ticketListDAO.getOwnTicketList(username);
+        } catch (DataConnectionException e) {
+            e.printStackTrace();
+        }
+        return tickets;
+    }
+
+    @Override
+    public ArrayList<Ticket> requestAssignedTicketList(String username) {
+        ArrayList<Ticket> tickets = null;
+        try {
+            tickets = ticketListDAO.getAssignedTicketList(username);
         } catch (DataConnectionException e) {
             e.printStackTrace();
         }

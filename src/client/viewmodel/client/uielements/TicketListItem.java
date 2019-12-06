@@ -15,8 +15,8 @@ public class TicketListItem {
     private String id, description, status, branch, assignee, tag, createdTime, lastUpdateTime;
     private HBox ticketListItem;
 
-    public TicketListItem(ClientViewModel userViewModel, String id, String description, String status, String branch, String assignee, String tag, String createdTime, String updatedTime) {
-        this.clientViewModel = userViewModel;
+    public TicketListItem(ClientViewModel clientViewModel, String id, String description, String status, String branch, String assignee, String tag, String createdTime, String updatedTime) {
+        this.clientViewModel = clientViewModel;
         this.id = id;
         this.description = description;
         this.status = status;

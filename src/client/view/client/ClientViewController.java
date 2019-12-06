@@ -12,10 +12,9 @@ public class ClientViewController {
     AnchorPane menuPane, rightArea;
 
 
-    public void init(ViewHandler viewHandler, ClientViewModel userViewModel, String username){
+    public void init(ViewHandler viewHandler, ClientViewModel userViewModel){
         Bindings.bindContentBidirectional(userViewModel.setRightArea(), rightArea.getChildren());
         Bindings.bindContentBidirectional(userViewModel.menuNodes(), menuPane.getChildren());
-        userViewModel.initView(username);
         userViewModel.showTicketProperty().addListener((observableValue, s, t1) -> {
             if(t1.equals("new ticket")){
                 viewHandler.openCreateTicketView();
