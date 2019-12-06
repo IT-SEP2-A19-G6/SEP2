@@ -3,6 +3,7 @@ package server.persistence.login;
 import server.exceptions.DataConnectionException;
 import server.persistence.database.IDatabaseConnection;
 import shared.clients.Client;
+import shared.clients.ClientType;
 import shared.clients.User;
 
 import java.sql.PreparedStatement;
@@ -31,11 +32,11 @@ public class LoginDAO implements ILoginDAO{
                 String userName = rs.getString("Username");
                 String password = null;
                 boolean active = rs.getBoolean("Active"); // needs to be in user
-                String type = rs.getString("type");
+                ClientType type =  ClientType.valueOf(rs.getString("type"));
                 resultUser = new User(id, userName, password, type, active);
             }
         } catch (SQLException e) {
-            throw new DataConnectionException();
+            throw new DataConnectionException(e.getMessage());
         } finally {
             databaseConnection.closeConnection(ps, rs);
         }

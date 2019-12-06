@@ -1,6 +1,8 @@
 package client.util;
 
 import shared.clients.Client;
+import shared.clients.ClientType;
+import shared.clients.User;
 
 public class ClientProperties {
 

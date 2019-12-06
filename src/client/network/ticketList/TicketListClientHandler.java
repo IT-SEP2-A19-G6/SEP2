@@ -2,10 +2,12 @@ package client.network.ticketList;
 
 import client.network.socket.IClientSocketHandler;
 import shared.Request;
+import shared.Ticket;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 
 public class TicketListClientHandler implements ITicketListClient {
     private IClientSocketHandler clientSocketHandler;
@@ -17,17 +19,26 @@ public class TicketListClientHandler implements ITicketListClient {
     }
 
     private void addListeners() {
-        clientSocketHandler.addPropertyChangeListener(Request.TYPE.TICKET_LIST_RESPONSE.name(), this::handleResponse);
+        clientSocketHandler.addPropertyChangeListener(Request.TYPE.OWN_TICKET_LIST_RESPONSE.name(), this::handleResponse);
+        clientSocketHandler.addPropertyChangeListener(Request.TYPE.ASSIGNED_TICKET_LIST_RESPONSE.name(), this::handleResponse);
     }
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
-        support.firePropertyChange(propertyChangeEvent.getPropertyName(), "", propertyChangeEvent.getNewValue());
+        Request listFromServer = (Request) propertyChangeEvent.getNewValue();
+        ArrayList<Ticket> ticketsFromServer = (ArrayList<Ticket>) listFromServer.object;
+        support.firePropertyChange(propertyChangeEvent.getPropertyName(), "", ticketsFromServer);
     }
 
 
     @Override
-    public void requestTicketList(String username) {
-        Request request = new Request(Request.TYPE.TICKET_LIST_REQ, username);
+    public void requestOwnTicketList(String username) {
+        Request request = new Request(Request.TYPE.OWN_TICKET_LIST_REQ, username);
+        clientSocketHandler.sendToServer(request);
+    }
+
+    @Override
+    public void requestAssignedTicketList(String username) {
+        Request request = new Request(Request.TYPE.ASSIGNED_TICKET_LIST_REQ, username);
         clientSocketHandler.sendToServer(request);
     }
 

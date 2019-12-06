@@ -60,6 +60,7 @@ private boolean activeConnection;
 
                 //TODO remember to change the method depending on what kind of object needs to be casted.
                 Request requestFromClient = (Request) inputFromClient.readObject();
+
                 if (requestFromClient.type.equals(Request.TYPE.CLOSE_CONNECTION)){
                     closeConnection();
                 } else if (requestFromClient.type.equals(Request.TYPE.LOGIN_REQ)){
@@ -69,25 +70,27 @@ private boolean activeConnection;
                     sendToClient(requestToClient);
                 } else if(requestFromClient.type.equals((Request.TYPE.TICKET_CREATE))){
                     Ticket ticket = (Ticket) requestFromClient.object;
-
                     Response response = createTicketServerModel.sendTicket(ticket);
-
                     Request request = new Request(Request.TYPE.TICKET_RECEIVE, response);
                     sendToClient(request);
-                }  else if (requestFromClient.type.equals(Request.TYPE.TICKET_LIST_REQ)){
+                }  else if (requestFromClient.type.equals(Request.TYPE.OWN_TICKET_LIST_REQ)){
                     String username = (String) requestFromClient.object;
-                    ArrayList<Ticket> tickets = userServerModel.requestClientTickets(username);
-                    Request response = new Request(Request.TYPE.TICKET_LIST_RESPONSE, tickets);
+                    ArrayList<Ticket> tickets = userServerModel.requestOwnTicketList(username);
+                    Request response = new Request(Request.TYPE.OWN_TICKET_LIST_RESPONSE, tickets);
                     sendToClient(response);
                 } else if (requestFromClient.type.equals(Request.TYPE.SIGNUP_REQ)){
                     User newUser = (User) requestFromClient.object;
                     Response message = signUpServerModel.requestSignUp(newUser);
                     Request response = new Request(Request.TYPE.SIGNUP_RESPONSE, message);
                     sendToClient(response);
+                } else if (requestFromClient.type.equals(Request.TYPE.ASSIGNED_TICKET_LIST_REQ)) {
+                    String username = (String) requestFromClient.object;
+                    ArrayList<Ticket> tickets = userServerModel.requestAssignedTicketList(username);
+                    Request response = new Request(Request.TYPE.ASSIGNED_TICKET_LIST_RESPONSE, tickets);
+                    sendToClient(response);
                 }
 
                 //TODO create methods to take care of the newly received objects.
-
             }
         } catch (SocketException e) {
             closeConnection(); //client closed the connection without calling close

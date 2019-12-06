@@ -5,5 +5,6 @@ import shared.Ticket;
 import java.util.ArrayList;
 
 public interface ITicketListServerModel {
-    ArrayList<Ticket> requestClientTickets(String username);
+    ArrayList<Ticket> requestOwnTicketList(String username);
+    ArrayList<Ticket> requestAssignedTicketList(String username);
 }

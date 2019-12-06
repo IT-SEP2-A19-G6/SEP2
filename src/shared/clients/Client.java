@@ -7,11 +7,11 @@ public abstract class Client implements Serializable {
     private int id;
     private String username;
     private String password;
-    private String type;
+    private ClientType type;
     private boolean active;
 
 
-    public Client(int id, String username, String password, String type, boolean active) {
+    public Client(int id, String username, String password, ClientType type, boolean active) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -19,7 +19,7 @@ public abstract class Client implements Serializable {
         this.active = active;
     }
 
-    public Client(String username, String password, String type) {
+    public Client(String username, String password, ClientType type) {
         this.username = username;
         this.password = password;
         this.type = type;
@@ -38,7 +38,7 @@ public abstract class Client implements Serializable {
         return password;
     }
 
-    public String getType() {
+    public ClientType getType() {
         return type;
     }
 
@@ -50,6 +50,6 @@ public abstract class Client implements Serializable {
         return id;
     }
 
-    public abstract void setType(String type);
+    public abstract void setType(ClientType type);
 
 }

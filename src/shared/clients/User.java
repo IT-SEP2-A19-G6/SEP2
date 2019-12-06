@@ -2,11 +2,11 @@ package shared.clients;
 
 public class User extends Client{
 
-    public User(int id, String username, String password, String type, boolean active) {
-        super(id, username, password, type, active);
-    }
+    public User(int id, String username, String password, ClientType type, boolean active) {
+                super(id, username, password, type, active);
+            }
 
-    public User(String username, String password, String type) {
+    public User(String username, String password, ClientType type) {
         super(username, password, type);
     }
 
@@ -16,7 +16,7 @@ public class User extends Client{
 
 
     @Override
-    public void setType(String type) {
+    public void setType(ClientType type) {
 
     }
 }
