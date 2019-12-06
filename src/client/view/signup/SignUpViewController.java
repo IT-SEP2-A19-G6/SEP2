@@ -35,7 +35,7 @@ public class SignUpViewController {
         feedbackLabel.textProperty().bind(signupViewModel.feedbackStringProperty());
         setFocus(false);
         signupViewModel.responseProperty().addListener((observableValue, s, t1) -> {
-            if(t1.equals("ok")){
+            if(t1.equals("Success")){
                 signupViewModel.resetFeedBackProperty();
                 viewHandler.openLoginView();
             }
