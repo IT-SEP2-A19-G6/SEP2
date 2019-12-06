@@ -12,4 +12,5 @@ public interface IDatabaseConnection {
     String getSchemaName();
     String getClientTableName();
     String getTicketTableName();
+    String getUserTableName();
 }

@@ -1,6 +1,7 @@
 package server.model.signup;
 
 
+import server.exceptions.DataConnectionException;
 import server.persistence.signup.ISignUpDAO;
 import shared.Response;
 import shared.clients.User;
@@ -14,6 +15,12 @@ public class SignUpServerModelHandler implements ISignUpServerModel {
 
     @Override
     public Response requestSignUp(User newUser) {
-        return signUpDAO.requestSignUp(newUser);
+        String DAOresponse;
+        try {
+            DAOresponse = signUpDAO.requestSignUp(newUser);
+        } catch (DataConnectionException e) {
+            DAOresponse = e.getMessage();
+        }
+        return new Response(newUser, DAOresponse);
     }
 }

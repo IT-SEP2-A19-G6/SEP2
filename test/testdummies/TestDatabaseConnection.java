@@ -57,4 +57,9 @@ public class TestDatabaseConnection implements IDatabaseConnection {
     public String getTicketTableName() {
         return null;
     }
+
+    @Override
+    public String getUserTableName() {
+        return null;
+    }
 }
