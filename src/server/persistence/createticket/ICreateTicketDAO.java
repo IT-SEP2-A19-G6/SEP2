@@ -1,4 +1,4 @@
-package server.persistence.createTicket;
+package server.persistence.createticket;
 
 import server.exceptions.DataConnectionException;
 import shared.Ticket;

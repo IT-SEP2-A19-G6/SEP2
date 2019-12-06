@@ -1,7 +1,7 @@
 package server.persistence;
 
-import server.persistence.createTicket.CreateTicketDAO;
-import server.persistence.createTicket.ICreateTicketDAO;
+import server.persistence.createticket.CreateTicketDAO;
+import server.persistence.createticket.ICreateTicketDAO;
 import server.persistence.database.DatabaseConnection;
 import server.persistence.database.IDatabaseConnection;
 import server.persistence.login.ILoginDAO;
