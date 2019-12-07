@@ -1,19 +1,35 @@
 package shared;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class Ticket implements Serializable {
 
 
     private int id;
     private int userId;
+    private String createdDate;
     private String username;
     private String subject;
     private String description;
     private String category;
     private String location;
     private String ticketStatus;
+    private String branch;
+    private String assignee;
 
+    public Ticket(int id, String createdDate, String username, String subject, String description, String category, String location, String ticketStatus, String branch, String assignee) {
+        this.id = id;
+        this.createdDate = createdDate;
+        this.username = username;
+        this.subject = subject;
+        this.description = description;
+        this.category = category;
+        this.location = location;
+        this.ticketStatus = ticketStatus;
+        this.branch = branch;
+        this.assignee = assignee;
+    }
 
     public Ticket(int id, int clientId, String subject, String description, String category, String location, String ticketStatus) {
         this.id = id;
@@ -65,6 +81,22 @@ public class Ticket implements Serializable {
 
     public String getTicketStatus() {
         return ticketStatus;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getBranch() {
+        return branch;
+    }
+
+    public String getAssignee() {
+        return assignee;
+    }
+
+    public String getCreatedDate() {
+        return createdDate;
     }
 
     @Override

@@ -7,38 +7,45 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+
+import java.time.LocalDate;
+
 import static javafx.geometry.Pos.CENTER;
 import static javafx.geometry.Pos.CENTER_LEFT;
 
 public class TicketListItem {
     private ClientViewModel clientViewModel;
-    private String id, description, status, branch, assignee, tag, createdTime, lastUpdateTime;
+    private String id, username, subject, category, location, description, ticketStatus, branch, assignee, createdTime;
     private HBox ticketListItem;
 
-    public TicketListItem(ClientViewModel userViewModel, String id, String description, String status, String branch, String assignee, String tag, String createdTime, String updatedTime) {
-        this.clientViewModel = userViewModel;
-        this.id = id;
+    public TicketListItem(ClientViewModel clientViewModel, int id, String createdTime, String username, String subject, String description, String category, String location, String ticketStatus, String branch, String assignee) {
+        this.clientViewModel = clientViewModel;
+        this.id = String.valueOf(id);
+        this.createdTime = createdTime;
+        this.username = username;
+        this.subject = subject;
         this.description = description;
-        this.status = status;
+        this.category = category;
+        this.location = location;
+        this.ticketStatus = ticketStatus;
         this.branch = branch;
         this.assignee = assignee;
-        this.tag = tag;
         this.createdTime = createdTime;
-        this.lastUpdateTime = updatedTime;
+
         this.ticketListItem = createTicketItem();
     }
 
     private HBox createTicketItem(){
 
-        GridPane topRow = oneRow3ColGridPane("ID: ", id, "Created: ", createdTime, "Last Update: ", lastUpdateTime);
+        GridPane topRow = topRow4Col("ID: ", id, "Created: ", createdTime, "Created by: ", this.username, "Location: ", location);
         topRow.setPrefWidth(580);
         topRow.setPadding(new Insets(5));
 
-        GridPane midRow = oneRow2ColGridPane(description, status);
+        GridPane midRow = midRow2Col(description, ticketStatus);
         midRow.setPrefWidth(580);
         midRow.setPadding(new Insets(5));
 
-        GridPane bottomRow = oneRow3ColGridPane("Branch: ", branch, "Assigned to: ", assignee, "#", tag);
+        GridPane bottomRow = bottomRow3col("Branch: ", branch, "Assigned to: ", assignee, "#", subject);
         bottomRow.setPrefWidth(580);
         bottomRow.setPadding(new Insets(5));
 
@@ -66,26 +73,30 @@ public class TicketListItem {
         return new HBox(nameLabel, contentLabel);
     }
 
-    private GridPane oneRow3ColGridPane(String leftLabelName, String leftLabelContent, String midLabelName, String midLabelContent, String rightLabelName, String rightLabelContent){
+    private GridPane topRow4Col(String leftLabelName, String leftLabelContent, String midLeftLabelName, String midLeftLabelContent,String midRightLabelName, String midRightLabelContent, String rightLabelName, String rightLabelContent){
         HBox left = labelContentHBox(leftLabelName, leftLabelContent);
         left.setAlignment(CENTER_LEFT);
-        left.setPrefWidth(192);
+        left.setPrefWidth(70);
 
-        HBox mid = labelContentHBox(midLabelName, midLabelContent);
-        mid.setAlignment(CENTER_LEFT);
-        mid.setPrefWidth(192);
+        HBox midLeft = labelContentHBox(midLeftLabelName, midLeftLabelContent);
+        midLeft.setAlignment(CENTER_LEFT);
+        midLeft.setPrefWidth(170);
+
+        HBox midRight = labelContentHBox(midRightLabelName, midRightLabelContent);
+        midRight.setAlignment(CENTER_LEFT);
+        midRight.setPrefWidth(170);
 
         HBox right = labelContentHBox(rightLabelName, rightLabelContent);
         right.setAlignment(CENTER_LEFT);
-        right.setPrefWidth(191);
+        right.setPrefWidth(170);
 
         GridPane gridPane = new GridPane();
-        gridPane.addRow(3, left, mid, right);
+        gridPane.addRow(4, left, midLeft, midRight, right);
 
         return gridPane;
     }
 
-    private  GridPane oneRow2ColGridPane(String description, String status){
+    private  GridPane midRow2Col(String description, String status){
         Label desc = new Label(description);
         desc.setFont(Font.font("System", 24));
         desc.setTextFill(Color.DARKCYAN);
@@ -104,6 +115,26 @@ public class TicketListItem {
 
         return gridPane;
     }
+
+    private GridPane bottomRow3col(String leftLabelName, String leftLabelContent, String midLabelName, String midLabelContent, String rightLabelName, String rightLabelContent){
+        HBox left = labelContentHBox(leftLabelName, leftLabelContent);
+        left.setAlignment(CENTER_LEFT);
+        left.setPrefWidth(200);
+
+        HBox mid = labelContentHBox(midLabelName, midLabelContent);
+        mid.setAlignment(CENTER_LEFT);
+        mid.setPrefWidth(200);
+
+        HBox right = labelContentHBox(rightLabelName, rightLabelContent);
+        right.setAlignment(CENTER_LEFT);
+        right.setPrefWidth(140);
+
+        GridPane gridPane = new GridPane();
+        gridPane.addRow(3, left, mid, right);
+
+        return gridPane;
+    }
+
 
     public String getId() {
         return id;
