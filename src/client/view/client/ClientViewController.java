@@ -11,16 +11,30 @@ public class ClientViewController {
     @FXML
     AnchorPane menuPane, rightArea;
 
+    ViewHandler vh;
+
 
     public void init(ViewHandler viewHandler, ClientViewModel userViewModel){
+        vh = viewHandler;
         Bindings.bindContentBidirectional(userViewModel.setRightArea(), rightArea.getChildren());
         Bindings.bindContentBidirectional(userViewModel.menuNodes(), menuPane.getChildren());
         userViewModel.showTicketProperty().addListener((observableValue, s, t1) -> {
             if(t1.equals("new ticket")){
-                viewHandler.openCreateTicketView();
-                userViewModel.resetTicketCall();
+//                viewHandler.openCreateTicketView();
+//                userViewModel.resetTicketCall();
+                setCurrentContent();
             }
         });
+    }
+
+
+    private void setCurrentContent() {
+
+        rightArea.getChildren().clear();
+        rightArea.getChildren().add(vh.loadCreateTicketView());
+
+        System.out.println("clicked");
+
     }
 
 }
