@@ -21,17 +21,19 @@ public class ClientViewController {
         userViewModel.showTicketProperty().addListener((observableValue, s, t1) -> {
             if(t1.equals("new ticket")){
 //                viewHandler.openCreateTicketView();
-//                userViewModel.resetTicketCall();
+                userViewModel.resetTicketCall();
                 setCurrentContent();
             }
         });
     }
 
 
+
     private void setCurrentContent() {
 
         rightArea.getChildren().clear();
-        rightArea.getChildren().add(vh.loadCreateTicketView());
+        //rightArea.getChildren().add(vh.loadCreateTicketView());
+        rightArea.getChildren().addAll(vh.loadTicketList());
 
         System.out.println("clicked");
 
