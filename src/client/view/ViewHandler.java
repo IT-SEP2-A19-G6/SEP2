@@ -1,13 +1,14 @@
 package client.view;
 
+import client.view.client.ClientViewController;
 import client.view.createticket.CreateTicketViewController;
 import client.view.login.LoginViewController;
 import client.view.signup.SignUpViewController;
-import client.view.client.ClientViewController;
 import client.viewmodel.ViewModelFactory;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -46,6 +47,19 @@ public class ViewHandler {
         stage.setScene(loginScene);
 
 
+    }
+
+    // TODO: This could be one way to load the anchorpane into the current view.
+    // if we go with this, we need to figure out how to do class diagram
+    public AnchorPane loadCreateTicketView() {
+        AnchorPane content = new AnchorPane();
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            content = loader.load(getClass().getResource("createticket/CreateTicketView.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return content;
     }
 
     public void openCreateTicketView() {

@@ -1,4 +1,4 @@
-package client.network.ticketList;
+package client.network.ticketlist;
 
 import client.network.socket.IClientSocketHandler;
 import shared.Request;
