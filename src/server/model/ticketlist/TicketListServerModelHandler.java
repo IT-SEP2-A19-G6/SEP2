@@ -34,4 +34,15 @@ public class TicketListServerModelHandler implements ITicketListServerModel {
         }
         return tickets;
     }
+
+    @Override
+    public ArrayList<Ticket> requestBranchTicketList(String username) {
+        ArrayList<Ticket> tickets = null;
+        try {
+            tickets = ticketListDAO.getBranchTicketList(username);
+        } catch (DataConnectionException e) {
+            e.printStackTrace();
+        }
+        return tickets;
+    }
 }

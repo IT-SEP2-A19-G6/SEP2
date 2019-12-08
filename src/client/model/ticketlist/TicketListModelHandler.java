@@ -14,15 +14,11 @@ public class TicketListModelHandler implements ITicketListModel {
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
     private ArrayList<Ticket> ownTickets;
     private ArrayList<Ticket> assignedTickets;
+    private ArrayList<Ticket> branchTickets;
 
     public TicketListModelHandler(ITicketListClient userClient) {
         this.ticketListClient = userClient;
-        addListeners();
-    }
 
-    private void addListeners() {
-        ticketListClient.addPropertyChangeListener(Request.TYPE.OWN_TICKET_LIST_RESPONSE.name(), this::handleOwnListResponse);
-        ticketListClient.addPropertyChangeListener(Request.TYPE.ASSIGNED_TICKET_LIST_RESPONSE.name(), this::handleAssignedListResponse);
     }
 
     private void handleOwnListResponse(PropertyChangeEvent propertyChangeEvent) {
@@ -37,6 +33,7 @@ public class TicketListModelHandler implements ITicketListModel {
 
     @Override
     public void requestOwnTicketList(String username) {
+        ticketListClient.addPropertyChangeListener(Request.TYPE.OWN_TICKET_LIST_RESPONSE.name(), this::handleOwnListResponse);
         if (ownTickets == null){
             ownTickets = new ArrayList<>();
         }
@@ -59,6 +56,7 @@ public class TicketListModelHandler implements ITicketListModel {
 
     @Override
     public void requestAssignedTicketList(String username) {
+        ticketListClient.addPropertyChangeListener(Request.TYPE.ASSIGNED_TICKET_LIST_RESPONSE.name(), this::handleAssignedListResponse);
         if (assignedTickets == null){
             assignedTickets = new ArrayList<>();
         }
@@ -66,6 +64,29 @@ public class TicketListModelHandler implements ITicketListModel {
             ticketListClient.requestAssignedTicketList(username);
         } else {
             support.firePropertyChange(Request.TYPE.ASSIGNED_TICKET_LIST_RESPONSE.name(), "", assignedTickets);
+        }
+    }
+
+    @Override
+    public void requestBranchTicketList(String username) {
+        ticketListClient.addPropertyChangeListener(Request.TYPE.BRANCH_TICKET_LIST_RESPONSE.name(), this::handleBranchListResponse);
+        if (branchTickets == null){
+            branchTickets = new ArrayList<>();
+        }
+        if (branchTickets.size() == 0){ //TODO might cause a bug if we do not add tickets below
+            ticketListClient.requestBranchTicketList(username);
+        } else {
+            support.firePropertyChange(Request.TYPE.BRANCH_TICKET_LIST_RESPONSE.name(), "", branchTickets);
+        }
+    }
+
+    private void handleBranchListResponse(PropertyChangeEvent propertyChangeEvent) {
+        ArrayList<Ticket> ticketsFromServer = (ArrayList<Ticket>) propertyChangeEvent.getNewValue();
+        if (ticketsFromServer != null && ticketsFromServer.size() > 0){
+            support.firePropertyChange(propertyChangeEvent.getPropertyName(), "", ticketsFromServer);
+            branchTickets.addAll(ticketsFromServer);
+        } else {
+            support.firePropertyChange(Request.TYPE.NO_TICKETS_IN_BRANCH_RESPONSE.name(), "", "Go Home!! - no tickets to handle...");
         }
     }
 

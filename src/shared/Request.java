@@ -18,6 +18,9 @@ public class Request implements Serializable {
         ASSIGNED_TICKET_LIST_REQ, // Object contains String, username
         ASSIGNED_TICKET_LIST_RESPONSE, // Object contains ArrayList<Ticket>
         NO_TICKETS_ASSIGNED_RESPONSE, //Object contains String "someMessage"
+        BRANCH_TICKET_LIST_REQ, // Object contains String, username
+        BRANCH_TICKET_LIST_RESPONSE, // Object contains ArrayList<Ticket>
+        NO_TICKETS_IN_BRANCH_RESPONSE, //Object contains String "someMessage"
         SIGNUP_REQ,
         SIGNUP_RESPONSE,
         TICKET, // object contains new ticket

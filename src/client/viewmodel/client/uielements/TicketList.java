@@ -13,17 +13,21 @@ import javafx.scene.text.Font;
 public class TicketList {
     private ScrollPane ticketList;
     private VBox vBox;
+    private final int listSize = 600;
+    private int size;
 
     public TicketList(){
         vBox = new VBox();
+        size = 0;
         ticketList = new ScrollPane(vBox);
-        ticketList.setPrefSize(600, 600);
+        ticketList.setPrefSize(listSize, listSize);
     }
 
     public void addTicketToList(HBox ticketItem){
         Platform.runLater(() ->{
             vBox.getChildren().add(ticketItem);
         });
+        size++;
     }
 
     public ScrollPane getTicketList(){
@@ -35,10 +39,14 @@ public class TicketList {
         messageLabel.setFont(Font.font("System", 24));
         messageLabel.setTextFill(Color.DARKCYAN);
         HBox hBox = new HBox(messageLabel);
-        hBox.setPrefWidth(600);
-        hBox.setPrefHeight(600);
+        hBox.setPrefWidth(listSize);
+        hBox.setPrefHeight(listSize);
         hBox.setAlignment(Pos.CENTER);
 
         return hBox;
+    }
+
+    public int getListSize(){
+        return size;
     }
 }
