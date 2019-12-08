@@ -1,5 +1,6 @@
 package server.network;
 
+import client.viewmodel.client.uielements.TicketList;
 import server.model.ServerModelFactory;
 import server.model.login.ILoginServerModel;
 import server.model.signup.ISignUpServerModel;
@@ -8,6 +9,7 @@ import server.model.ticketlist.ITicketListServerModel;
 import shared.Request;
 import shared.Response;
 import shared.Ticket;
+import shared.TicketListExchange;
 import shared.clients.User;
 
 import java.io.IOException;
@@ -24,7 +26,7 @@ private ObjectInputStream inputFromClient;
 private ILoginServerModel loginServerModel;
 private ICreateTicketServerModel createTicketServerModel;
 private ISignUpServerModel signUpServerModel;
-private ITicketListServerModel userServerModel;
+private ITicketListServerModel ticketListServerModel;
 private Socket socket;
 private boolean activeConnection;
 
@@ -35,7 +37,7 @@ private boolean activeConnection;
         this.loginServerModel = serverModelFactory.getLoginServerModel();
         this.createTicketServerModel = serverModelFactory.getTicketServerModel();
         this.signUpServerModel = serverModelFactory.getSignUpServerModel();
-        this.userServerModel = serverModelFactory.getUserServerModel();
+        this.ticketListServerModel = serverModelFactory.getTicketListServerModel();
         try {
             outputToClient = new ObjectOutputStream(socket.getOutputStream());
             inputFromClient = new ObjectInputStream(socket.getInputStream());
@@ -73,25 +75,15 @@ private boolean activeConnection;
                     Response response = createTicketServerModel.sendTicket(ticket);
                     Request request = new Request(Request.TYPE.TICKET_RECEIVE, response);
                     sendToClient(request);
-                }  else if (requestFromClient.type.equals(Request.TYPE.OWN_TICKET_LIST_REQ)){
-                    String username = (String) requestFromClient.object;
-                    ArrayList<Ticket> tickets = userServerModel.requestOwnTicketList(username);
-                    Request response = new Request(Request.TYPE.OWN_TICKET_LIST_RESPONSE, tickets);
+                }  else if (requestFromClient.type.equals(Request.TYPE.TICKETLIST_REQ)){
+                    TicketListExchange fromClient = (TicketListExchange) requestFromClient.object;
+                    TicketListExchange fromServer = ticketListServerModel.requestTicketList(fromClient);
+                    Request response = new Request(Request.TYPE.TICKETLIST_RESPONSE, fromServer);
                     sendToClient(response);
                 } else if (requestFromClient.type.equals(Request.TYPE.SIGNUP_REQ)){
                     User newUser = (User) requestFromClient.object;
                     Response message = signUpServerModel.requestSignUp(newUser);
                     Request response = new Request(Request.TYPE.SIGNUP_RESPONSE, message);
-                    sendToClient(response);
-                } else if (requestFromClient.type.equals(Request.TYPE.ASSIGNED_TICKET_LIST_REQ)) {
-                    String username = (String) requestFromClient.object;
-                    ArrayList<Ticket> tickets = userServerModel.requestAssignedTicketList(username);
-                    Request response = new Request(Request.TYPE.ASSIGNED_TICKET_LIST_RESPONSE, tickets);
-                    sendToClient(response);
-                }   else if (requestFromClient.type.equals(Request.TYPE.BRANCH_TICKET_LIST_REQ)) {
-                    String username = (String) requestFromClient.object;
-                    ArrayList<Ticket> tickets = userServerModel.requestBranchTicketList(username);
-                    Request response = new Request(Request.TYPE.BRANCH_TICKET_LIST_RESPONSE, tickets);
                     sendToClient(response);
                 }
 

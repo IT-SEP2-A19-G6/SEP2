@@ -1,8 +1,10 @@
 package client.network.ticketlist;
 
 import client.network.socket.IClientSocketHandler;
+import client.viewmodel.client.uielements.TicketList;
 import shared.Request;
 import shared.Ticket;
+import shared.TicketListExchange;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -15,35 +17,22 @@ public class TicketListClientHandler implements ITicketListClient {
 
     public TicketListClientHandler(IClientSocketHandler clientSocketHandler) {
         this.clientSocketHandler = clientSocketHandler;
+        this.clientSocketHandler.addPropertyChangeListener(Request.TYPE.TICKETLIST_RESPONSE.name(), this::handleListResponse);
     }
 
-    private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
-        Request listFromServer = (Request) propertyChangeEvent.getNewValue();
-        ArrayList<Ticket> ticketsFromServer = (ArrayList<Ticket>) listFromServer.object;
-        support.firePropertyChange(propertyChangeEvent.getPropertyName(), "", ticketsFromServer);
+    private void handleListResponse(PropertyChangeEvent propertyChangeEvent) {
+        Request reqFromServer = (Request) propertyChangeEvent.getNewValue();
+        TicketListExchange exchangeFromServer = (TicketListExchange) reqFromServer.object;
+        support.firePropertyChange(propertyChangeEvent.getPropertyName(), "", exchangeFromServer);
     }
 
 
     @Override
-    public void requestOwnTicketList(String username) {
-        clientSocketHandler.addPropertyChangeListener(Request.TYPE.OWN_TICKET_LIST_RESPONSE.name(), this::handleResponse);
-        Request request = new Request(Request.TYPE.OWN_TICKET_LIST_REQ, username);
+    public void requestTicketList(TicketListExchange exchange) {
+        Request request = new Request(Request.TYPE.TICKETLIST_REQ, exchange);
         clientSocketHandler.sendToServer(request);
     }
 
-    @Override
-    public void requestAssignedTicketList(String username) {
-        clientSocketHandler.addPropertyChangeListener(Request.TYPE.ASSIGNED_TICKET_LIST_RESPONSE.name(), this::handleResponse);
-        Request request = new Request(Request.TYPE.ASSIGNED_TICKET_LIST_REQ, username);
-        clientSocketHandler.sendToServer(request);
-    }
-
-    @Override
-    public void requestBranchTicketList(String username) {
-        clientSocketHandler.addPropertyChangeListener(Request.TYPE.BRANCH_TICKET_LIST_RESPONSE.name(), this::handleResponse);
-        Request request = new Request(Request.TYPE.BRANCH_TICKET_LIST_REQ, username);
-        clientSocketHandler.sendToServer(request);
-    }
 
     @Override
     public void addPropertyChangeListener(String name, PropertyChangeListener listener) {

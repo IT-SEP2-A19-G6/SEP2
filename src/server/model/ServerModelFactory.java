@@ -14,7 +14,7 @@ public class ServerModelFactory {
     private DataFactory dataFactory;
     private ILoginServerModel loginServerModel;
     private ICreateTicketServerModel ticketServerModel;
-    private ITicketListServerModel userServerModel;
+    private ITicketListServerModel ticketListServerModel;
     private ISignUpServerModel signUpServerModel;
 
     public ServerModelFactory(DataFactory dataFactory) {
@@ -35,11 +35,11 @@ public class ServerModelFactory {
         return ticketServerModel;
     }
 
-    public ITicketListServerModel getUserServerModel(){
-        if(userServerModel == null){
-            userServerModel = new TicketListServerModelHandler(dataFactory.getUserDAO());
+    public ITicketListServerModel getTicketListServerModel(){
+        if(ticketListServerModel == null){
+            ticketListServerModel = new TicketListServerModelHandler(dataFactory.getTicketListDAO());
         }
-        return userServerModel;
+        return ticketListServerModel;
     }
 
 
