@@ -12,10 +12,10 @@ import javafx.scene.shape.SVGPath;
 import java.util.ArrayList;
 
 public class Menu {
-    ClientViewModel clientViewModel;
+    private ClientViewModel clientViewModel;
     private final int menuWidth = 120;
     private final int picSize = 60;
-    private final int dotSize = 7;
+    private final int spacing = 10;
     private HBox branchDot;
     private HBox ticketDot;
     private HBox clientDot;
@@ -66,7 +66,7 @@ public class Menu {
 
         HBox client = new HBox(clientItem, clientDot);
         client.setPrefWidth(menuWidth);
-        client.setSpacing(10);
+        client.setSpacing(spacing);
         client.setAlignment(Pos.CENTER);
 
         return client;
@@ -95,7 +95,7 @@ public class Menu {
 
         HBox ticket = new HBox(ticketItem, ticketDot);
         ticket.setPrefWidth(menuWidth);
-        ticket.setSpacing(10);
+        ticket.setSpacing(spacing);
         ticket.setAlignment(Pos.CENTER);
 
         return ticket;
@@ -125,7 +125,7 @@ public class Menu {
 
         HBox branch = new HBox(branchItem, branchDot);
         branch.setPrefWidth(menuWidth);
-        branch.setSpacing(10);
+        branch.setSpacing(spacing);
         branch.setAlignment(Pos.CENTER);
 
         return branch;
@@ -136,12 +136,13 @@ public class Menu {
         for (Node node : nodes){
             menu.getChildren().add(node);
         }
-        menu.setSpacing(10);
+        menu.setSpacing(spacing);
         return menu;
     }
 
     private HBox createDot(){
         String svg ="M256,0C114.837,0,0,114.837,0,256s114.837,256,256,256s256-114.837,256-256S397.163,0,256,0z";
+        int dotSize = 7;
         HBox dotBox = new HBox(svgShape(svg, dotSize));
         dotBox.setMaxHeight(dotSize);
         return dotBox;
