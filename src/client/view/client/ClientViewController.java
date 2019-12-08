@@ -20,8 +20,7 @@ public class ClientViewController {
         Bindings.bindContentBidirectional(userViewModel.menuNodes(), menuPane.getChildren());
         userViewModel.showTicketProperty().addListener((observableValue, s, t1) -> {
             if(t1.equals("new ticket")){
-//                viewHandler.openCreateTicketView();
-//                userViewModel.resetTicketCall();
+                userViewModel.resetTicketCall();
                 setCurrentContent();
             }
         });
@@ -29,12 +28,8 @@ public class ClientViewController {
 
 
     private void setCurrentContent() {
-
         rightArea.getChildren().clear();
         rightArea.getChildren().add(vh.loadCreateTicketView());
-
-        System.out.println("clicked");
-
     }
 
 }
