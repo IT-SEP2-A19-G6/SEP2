@@ -67,7 +67,7 @@ public class ViewHandler {
         if (createTicketScene == null) {
             Parent root = getRootByPath("client/ClientView.fxml", loader);
             ClientViewController controller = loader.getController();
-            controller.init(this, viewModelFactory.getUserViewModel());
+            controller.init(this, viewModelFactory.getClientViewModel());
             clientScene = new Scene(root);
         }
         stage.setTitle("Main View");

@@ -14,7 +14,7 @@ public class ModelFactory {
     private ILoginModel loginModel;
     private ICreateTicketModel createTicketModel;
     private ClientFactory clientFactory;
-    private ITicketListModel userModel;
+    private ITicketListModel ticketListModel;
     private ISignUpModel signUpModel;
 
 
@@ -37,11 +37,11 @@ public class ModelFactory {
         return createTicketModel;
     }
 
-    public ITicketListModel getUserModel(){
-        if (userModel == null) {
-            userModel = new TicketListModelHandler(clientFactory.getUserClient());
+    public ITicketListModel getTicketListModel(){
+        if (ticketListModel == null) {
+            ticketListModel = new TicketListModelHandler(clientFactory.getTicketListClient());
         }
-        return userModel;
+        return ticketListModel;
     }
 
     public ISignUpModel getSignUpModel() {

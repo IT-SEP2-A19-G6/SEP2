@@ -20,7 +20,7 @@ public class ClientFactory {
     private IClientSocketHandler clientSocketHandler;
     private ILoginClient loginClient;
     private ICreateTicketClient createTicketClient;
-    private ITicketListClient userClient;
+    private ITicketListClient ticketListClient;
     private ISignUpClient signUpClient;
 
     public ClientFactory() {
@@ -56,11 +56,11 @@ public class ClientFactory {
         return  createTicketClient;
     }
 
-    public ITicketListClient getUserClient(){
-        if (userClient == null){
-            userClient = new TicketListClientHandler(clientSocketHandler);
+    public ITicketListClient getTicketListClient(){
+        if (ticketListClient == null){
+            ticketListClient = new TicketListClientHandler(clientSocketHandler);
         }
-        return userClient;
+        return ticketListClient;
     }
 
     public ISignUpClient getSignUpClient() {

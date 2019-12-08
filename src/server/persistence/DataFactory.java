@@ -15,7 +15,7 @@ public class DataFactory {
     private IDatabaseConnection databaseConnection;
     private ILoginDAO loginDAO;
     private ICreateTicketDAO createTicketDAO;
-    private ITicketListDAO userDAO;
+    private ITicketListDAO ticketListDAO;
     private ISignUpDAO signUpDAO;
 
     public DataFactory(){
@@ -36,11 +36,11 @@ public class DataFactory {
         return createTicketDAO;
     }
 
-    public ITicketListDAO getUserDAO(){
-        if (userDAO == null){
-            userDAO = new TicketListDAO(databaseConnection);
+    public ITicketListDAO getTicketListDAO(){
+        if (ticketListDAO == null){
+            ticketListDAO = new TicketListDAO(databaseConnection);
         }
-        return userDAO;
+        return ticketListDAO;
     }
 
     public ISignUpDAO getSignUpDAO(){
