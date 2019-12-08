@@ -88,6 +88,11 @@ private boolean activeConnection;
                     ArrayList<Ticket> tickets = userServerModel.requestAssignedTicketList(username);
                     Request response = new Request(Request.TYPE.ASSIGNED_TICKET_LIST_RESPONSE, tickets);
                     sendToClient(response);
+                }   else if (requestFromClient.type.equals(Request.TYPE.BRANCH_TICKET_LIST_REQ)) {
+                    String username = (String) requestFromClient.object;
+                    ArrayList<Ticket> tickets = userServerModel.requestBranchTicketList(username);
+                    Request response = new Request(Request.TYPE.BRANCH_TICKET_LIST_RESPONSE, tickets);
+                    sendToClient(response);
                 }
 
                 //TODO create methods to take care of the newly received objects.

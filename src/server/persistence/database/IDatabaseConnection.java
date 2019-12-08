@@ -16,6 +16,7 @@ public interface IDatabaseConnection {
     String getClientTableName();
     String getTicketTableName();
     String getUserTableName();
+    String getBranchTableName();
 
     void closeConnection(PreparedStatement ps, ResultSet rs);
 }

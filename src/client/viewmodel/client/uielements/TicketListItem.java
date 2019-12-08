@@ -17,6 +17,8 @@ public class TicketListItem {
     private ClientViewModel clientViewModel;
     private String id, username, subject, category, location, description, ticketStatus, branch, assignee, createdTime;
     private HBox ticketListItem;
+    private final int itemSize = 580;
+    private final int itemPadding = 5;
 
     public TicketListItem(ClientViewModel clientViewModel, int id, String createdTime, String username, String subject, String description, String category, String location, String ticketStatus, String branch, String assignee) {
         this.clientViewModel = clientViewModel;
@@ -31,33 +33,32 @@ public class TicketListItem {
         this.branch = branch;
         this.assignee = assignee;
         this.createdTime = createdTime;
-
         this.ticketListItem = createTicketItem();
     }
 
     private HBox createTicketItem(){
 
         GridPane topRow = topRow4Col("ID: ", id, "Created: ", createdTime, "Created by: ", this.username, "Location: ", location);
-        topRow.setPrefWidth(580);
-        topRow.setPadding(new Insets(5));
+        topRow.setPrefWidth(itemSize);
+        topRow.setPadding(new Insets(itemPadding));
 
         GridPane midRow = midRow2Col(description, ticketStatus);
-        midRow.setPrefWidth(580);
-        midRow.setPadding(new Insets(5));
+        midRow.setPrefWidth(itemSize);
+        midRow.setPadding(new Insets(itemPadding));
 
         GridPane bottomRow = bottomRow3col("Branch: ", branch, "Assigned to: ", assignee, "#", subject);
-        bottomRow.setPrefWidth(580);
-        bottomRow.setPadding(new Insets(5));
+        bottomRow.setPrefWidth(itemSize);
+        bottomRow.setPadding(new Insets(itemPadding));
 
         VBox vBox = new VBox(topRow, midRow, bottomRow);
-        vBox.setPrefWidth(580);
-        vBox.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(10), Insets.EMPTY)));
+        vBox.setPrefWidth(itemSize);
+        vBox.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(itemPadding * 2), Insets.EMPTY)));
 
 
         HBox hBox = new HBox(vBox);
-        hBox.setPrefWidth(580);
+        hBox.setPrefWidth(itemSize);
         hBox.setMaxWidth(hBox.getPrefWidth());
-        hBox.setPadding(new Insets(5));
+        hBox.setPadding(new Insets(itemPadding));
         hBox.setOnMousePressed(e -> {
             if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
                 clientViewModel.getTicket(getId());

@@ -25,13 +25,14 @@ public class ClientViewModel {
     private ITicketListModel ticketListModel;
     private ObservableList<Node> rightArea;
     private ObservableList<Node> menuItems;
-    private TicketList ticketList;
+    private TicketList ownTicketList;
+    private TicketList branchTicketList;
     private IClientState currentState;
     private StringProperty callNewTicket; //TODO delete after incorporation of ticket
 
     public ClientViewModel(ITicketListModel ticketListModel) {
         this.ticketListModel = ticketListModel;
-        this.ticketList = new TicketList();
+        this.ownTicketList = new TicketList();
         rightArea = FXCollections.observableArrayList();
         menuItems = FXCollections.observableArrayList();
         setInitState();
@@ -66,31 +67,48 @@ public class ClientViewModel {
         return menuItems;
     }
 
-    private void buildTicketList(PropertyChangeEvent propertyChangeEvent) {
+    private void buildOwnTicketList(PropertyChangeEvent propertyChangeEvent) {
         ArrayList<Ticket> ticketsFromServer = (ArrayList<Ticket>) propertyChangeEvent.getNewValue();
         clearRightArea();
         for (Ticket ticket : ticketsFromServer){
             TicketListItem listItem = new TicketListItem(this, ticket.getId(), ticket.getCreatedDate(), ticket.getUsername(), ticket.getSubject(), ticket.getDescription(), ticket.getCategory(), ticket.getLocation(), ticket.getTicketStatus(), ticket.getBranch(), ticket.getAssignee());
-            ticketList.addTicketToList(listItem.getTicketListItem());
+            ownTicketList.addTicketToList(listItem.getTicketListItem());
         }
-        buildRightArea(ticketList.getTicketList());
+        buildRightArea(ownTicketList.getTicketList());
+    }
+
+    private void buildBranchTicketList(PropertyChangeEvent propertyChangeEvent) {
+        ArrayList<Ticket> ticketsFromServer = (ArrayList<Ticket>) propertyChangeEvent.getNewValue();
+        clearRightArea();
+        for (Ticket ticket : ticketsFromServer){
+            TicketListItem listItem = new TicketListItem(this, ticket.getId(), ticket.getCreatedDate(), ticket.getUsername(), ticket.getSubject(), ticket.getDescription(), ticket.getCategory(), ticket.getLocation(), ticket.getTicketStatus(), ticket.getBranch(), ticket.getAssignee());
+            branchTicketList.addTicketToList(listItem.getTicketListItem());
+        }
+        buildRightArea(branchTicketList.getTicketList());
     }
 
    private void showNoTicketsMessage(PropertyChangeEvent propertyChangeEvent) {
        clearRightArea();
-       buildRightArea(ticketList.getEmptyList(propertyChangeEvent.getNewValue().toString()));
+       buildRightArea(ownTicketList.getEmptyList(propertyChangeEvent.getNewValue().toString()));
     }
 
     public void requestOwnTicketList(){
-        ticketListModel.addPropertyChangeListener(Request.TYPE.OWN_TICKET_LIST_RESPONSE.name(), this::buildTicketList);
+        ticketListModel.addPropertyChangeListener(Request.TYPE.OWN_TICKET_LIST_RESPONSE.name(), this::buildOwnTicketList);
         ticketListModel.addPropertyChangeListener(Request.TYPE.NO_TICKETS_FOUND_RESPONSE.name(), this::showNoTicketsMessage);
         ticketListModel.requestOwnTicketList(ClientProperties.getInstance().getClient().getUsername());
     }
 
     public void requestAssignedTicketList(){
-        ticketListModel.addPropertyChangeListener(Request.TYPE.ASSIGNED_TICKET_LIST_RESPONSE.name(), this::buildTicketList);
+        ticketListModel.addPropertyChangeListener(Request.TYPE.ASSIGNED_TICKET_LIST_RESPONSE.name(), this::buildOwnTicketList);
         ticketListModel.addPropertyChangeListener(Request.TYPE.NO_TICKETS_ASSIGNED_RESPONSE.name(), this::showNoTicketsMessage);
         ticketListModel.requestAssignedTicketList(ClientProperties.getInstance().getClient().getUsername());
+    }
+
+    public void requestBranchTicketList() {
+        branchTicketList = new TicketList();
+        ticketListModel.addPropertyChangeListener(Request.TYPE.BRANCH_TICKET_LIST_RESPONSE.name(), this::buildBranchTicketList);
+        ticketListModel.addPropertyChangeListener(Request.TYPE.NO_TICKETS_IN_BRANCH_RESPONSE.name(), this::showNoTicketsMessage);
+        ticketListModel.requestBranchTicketList(ClientProperties.getInstance().getClient().getUsername());
     }
 
     public void getTicket(String id) {
@@ -99,10 +117,24 @@ public class ClientViewModel {
     }
 
     public void getTicketList() {
-        //TODO call ticketList
+        clearRightArea();
+        if (ownTicketList.getListSize() > 0){
+            buildRightArea(ownTicketList.getTicketList());
+        } else {
+            buildRightArea(ownTicketList.getEmptyList("Good job! No tickets to handle"));
+        }
     }
 
-    public void addNewTicket() {
+    public void getBranchList() {
+        if (branchTicketList == null){
+            requestBranchTicketList();
+        } else {
+            clearRightArea();
+            buildRightArea(branchTicketList.getTicketList());
+        }
+    }
+
+    public void createNewTicket() {
         //TODO change to ticketView here
         callNewTicket.setValue("new ticket");
     }
@@ -112,11 +144,15 @@ public class ClientViewModel {
     } //TODO delete after ticket is incorporated into view
 
     public void clearMenu(){
-        menuItems.clear();
+        Platform.runLater(() ->{
+            menuItems.clear();
+        });
     }
 
     public void clearRightArea(){
-        rightArea.clear();
+        Platform.runLater(() ->{
+            rightArea.clear();
+        });
     }
 
     public void buildMenu(Node node){
@@ -130,7 +166,6 @@ public class ClientViewModel {
             rightArea.add(node);
         });
     }
-
 
 
 }

@@ -8,4 +8,5 @@ import java.util.ArrayList;
 public interface ITicketListDAO {
     ArrayList<Ticket> getOwnTicketList(String userToFind) throws DataConnectionException;
     ArrayList<Ticket> getAssignedTicketList(String userToFind) throws DataConnectionException;
+    ArrayList<Ticket> getBranchTicketList(String userToFind) throws DataConnectionException;
 }

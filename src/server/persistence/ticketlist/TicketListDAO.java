@@ -3,6 +3,8 @@ package server.persistence.ticketlist;
 import server.exceptions.DataConnectionException;
 import server.persistence.database.IDatabaseConnection;
 import shared.Ticket;
+import shared.clients.BranchMember;
+import shared.clients.Client;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,6 +43,21 @@ public class TicketListDAO implements ITicketListDAO {
                 "INNER JOIN Branch b on t.Id_Branch = b.Id " +
                 "WHERE c.Username = '" + userToFind + "' " +
                 "GROUP by t.Id, c.id, u.id, b.id;";
+
+        return getTickets(sql);
+    }
+
+    @Override
+    public ArrayList<Ticket> getBranchTicketList(String userToFind) throws DataConnectionException {
+        String sql = "SELECT t.id, created_at, u.Username as creator, Subject, Description, Category, Location, Ticket_Status, branchName, c.Username as assignee FROM " + databaseConnection.getTicketTableName() + " t " +
+                "INNER JOIN account_branch_member abm ON t.Id_Branch = abm.Id_Branch " +
+                "INNER JOIN account_branch_member c ON t.assignee = c.id " +
+                "INNER JOIN Branch B ON t.Id_Branch = B.Id " +
+                "INNER JOIN Account_User u ON t.user_Id = u.Id " +
+                "WHERE abm.username = '" + userToFind + "';";
+
+
+        System.out.println(sql);
 
         return getTickets(sql);
     }
