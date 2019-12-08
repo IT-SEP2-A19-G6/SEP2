@@ -1,6 +1,6 @@
 package client.model.ticketlist;
 
-import client.network.ticketList.ITicketListClient;
+import client.network.ticketlist.ITicketListClient;
 import shared.Request;
 import shared.Ticket;
 
