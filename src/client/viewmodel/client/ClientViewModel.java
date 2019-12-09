@@ -7,7 +7,6 @@ import client.viewmodel.client.states.IClientState;
 import client.viewmodel.client.states.UserState;
 import client.viewmodel.menu.MenuViewModel;
 import client.viewmodel.ticketlist.TicketListViewModel;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
@@ -15,8 +14,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import shared.clients.ClientType;
-
-import java.beans.PropertyChangeEvent;
 
 public class ClientViewModel {
     private ITicketListModel ticketListModel;
@@ -85,7 +82,7 @@ public class ClientViewModel {
 
     public void resetTicketCall(){
         callWindow.setValue("");
-    } //TODO delete after ticket is incorporated into view
+    }
 
 
 }
