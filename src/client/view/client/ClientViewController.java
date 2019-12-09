@@ -1,6 +1,7 @@
 package client.view.client;
 
 import client.view.ViewHandler;
+import client.view.menu.MenuViewController;
 import client.viewmodel.client.ClientViewModel;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -11,11 +12,10 @@ public class ClientViewController {
     @FXML
     AnchorPane menuPane, rightArea;
 
-    ViewHandler vh;
-
+    private ViewHandler viewHandler;
 
     public void init(ViewHandler viewHandler, ClientViewModel userViewModel){
-        vh = viewHandler;
+        this.viewHandler = viewHandler;
         Bindings.bindContentBidirectional(userViewModel.setRightArea(), rightArea.getChildren());
         Bindings.bindContentBidirectional(userViewModel.menuNodes(), menuPane.getChildren());
         userViewModel.showTicketProperty().addListener((observableValue, s, t1) -> {
@@ -31,7 +31,7 @@ public class ClientViewController {
     private void setCurrentContent() {
         rightArea.getChildren().clear();
         //rightArea.getChildren().add(vh.loadCreateTicketView());
-        rightArea.getChildren().addAll(vh.loadTicketList());
+        rightArea.getChildren().addAll(viewHandler.loadTicketList());
 
         System.out.println("clicked");
 
