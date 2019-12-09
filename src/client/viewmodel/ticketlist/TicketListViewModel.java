@@ -35,7 +35,6 @@ public class TicketListViewModel {
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
 
         TicketListExchange fromServer = (TicketListExchange) propertyChangeEvent.getNewValue();
-        tickets.clear();
         tickets.addAll(fromServer.getTickets());
 
         System.out.println("Got tickets:");
