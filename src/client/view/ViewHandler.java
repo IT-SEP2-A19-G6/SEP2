@@ -3,6 +3,7 @@ package client.view;
 import client.view.client.ClientViewController;
 import client.view.createticket.CreateTicketViewController;
 import client.view.login.LoginViewController;
+import client.view.menu.MenuViewController;
 import client.view.signup.SignUpViewController;
 import client.view.ticketlist.TicketListController;
 import client.viewmodel.ViewModelFactory;
@@ -11,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,6 +25,9 @@ public class ViewHandler {
     private Scene createTicketScene;
     private Scene signUpScene;
     private Scene clientScene;
+    private VBox menu;
+    private Pane createTicketPane;
+    private AnchorPane ticketListPane;
 
     public ViewHandler(Stage stage, ViewModelFactory viewModelFactory) {
         this.stage = stage;
@@ -51,7 +56,6 @@ public class ViewHandler {
 
     }
 
-    private Pane createTicketPane;
     public Pane loadCreateTicket() {
         if (createTicketPane == null) {
             createTicketPane = new Pane();
@@ -67,7 +71,6 @@ public class ViewHandler {
         return createTicketPane;
     }
 
-    private AnchorPane ticketListPane;
     public AnchorPane loadTicketList() {
         if (ticketListPane == null) {
             ticketListPane = new AnchorPane();
@@ -83,6 +86,21 @@ public class ViewHandler {
         return ticketListPane;
     }
 
+
+    public VBox loadMenu() {
+        if (menu == null){
+            menu = new VBox();
+        }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("menu/MenuView.fxml"));
+            menu = loader.load();
+            MenuViewController controller = loader.getController();
+            controller.init(this, viewModelFactory);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return menu;
+    }
 
     public void openClientView() {
         FXMLLoader loader = new FXMLLoader();

@@ -1,6 +1,5 @@
 package server.model.ticketlist;
 
-import client.viewmodel.client.uielements.TicketList;
 import server.exceptions.DataConnectionException;
 import server.persistence.ticketlist.ITicketListDAO;
 import shared.Request;
@@ -33,6 +32,7 @@ public class TicketListServerModelHandler implements ITicketListServerModel {
         } else if (exchange.getAction().equals(Request.TYPE.ASSIGNED_TICKET_LIST_REQ)){
             try {
                 exchange.setTicketList(ticketListDAO.getAssignedTicketList(exchange.getUsername()));
+                System.out.println(exchange.getTickets().size());
                 if (exchange.getTickets().size() == 0){
                     exchange.setAction(Request.TYPE.NO_TICKETS_ASSIGNED_RESPONSE);
                     exchange.setMessage("Good job!! go fetch more @branch.");

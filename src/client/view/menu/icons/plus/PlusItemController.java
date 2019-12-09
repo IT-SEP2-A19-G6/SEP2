@@ -1,6 +1,9 @@
 package client.view.menu.icons.plus;
 
 import client.view.ViewHandler;
+import client.viewmodel.ViewModelFactory;
+import client.viewmodel.client.ClientViewModel;
+import client.viewmodel.ticketlist.TicketListViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -10,23 +13,17 @@ public class PlusItemController {
     @FXML
     Label label;
 
-    @FXML
-    Circle dot;
+    private ClientViewModel clientViewModel;
+    private TicketListViewModel ticketListViewModel;
 
-    private ViewHandler viewHandler;
-
-    public void init(ViewHandler viewHandler, String iconText){
-        this.viewHandler = viewHandler;
+    public void init(ViewModelFactory viewModelFactory, String iconText){
+        this.clientViewModel = viewModelFactory.getClientViewModel();
+        this.ticketListViewModel = viewModelFactory.getTicketListViewModel();
         label.setText(iconText);
-        dot.setVisible(true);
     }
 
     public void doAction(ActionEvent actionEvent) {
-        //TODO call viewhandler view
-    }
-
-    public void showDot(boolean bool){
-        dot.setVisible(bool);
+        clientViewModel.createNewTicket();
     }
 
 }

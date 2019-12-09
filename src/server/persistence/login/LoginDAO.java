@@ -24,7 +24,7 @@ public class LoginDAO implements ILoginDAO{
         ResultSet rs = null;
         User resultUser = null;
         try {
-            String sql =  "SELECT * FROM " + databaseConnection.getSchemaName() + "." + databaseConnection.getClientTableName() + " WHERE username LIKE '" + user.getUsername() + "' AND password LIKE '" + user.getPassword() + "';";
+            String sql = "SELECT * FROM " + databaseConnection.getSchemaName() + "." + databaseConnection.getClientTableName() + " WHERE username LIKE '" + user.getUsername() + "' AND password LIKE '" + user.getPassword() + "';";
             ps = databaseConnection.executePreparedQuery(sql);
             rs = ps.executeQuery();
             while(rs.next()) {

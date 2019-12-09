@@ -4,45 +4,71 @@ import client.view.ViewHandler;
 import client.view.menu.icons.branch.BranchItemController;
 import client.view.menu.icons.client.ClientItemController;
 import client.view.menu.icons.plus.PlusItemController;
+import client.viewmodel.ViewModelFactory;
+import client.viewmodel.client.ClientViewModel;
+import client.viewmodel.menu.MenuViewModel;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+
 import java.io.IOException;
 
 public class MenuViewController {
 
     @FXML
-    AnchorPane menu;
-    private ViewHandler viewHandler;
+    VBox menu;
+    private BooleanProperty clientIcon;
+    private BooleanProperty isUser;
+    private StringProperty clientLabel;
+    private BooleanProperty plusIcon;
+    private StringProperty plusLabel;
+    private BooleanProperty branchIcon;
+    private StringProperty branchLabel;
+    private ViewModelFactory viewModelFactory;
 
-    public MenuViewController(ViewHandler viewHandler){
-        this.viewHandler = viewHandler;
+    public void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory){
+        MenuViewModel menuViewModel = viewModelFactory.getMenuViewModel();
+        this.viewModelFactory = viewModelFactory;
+        clientIcon = new SimpleBooleanProperty();
+        isUser = new SimpleBooleanProperty();
+        clientLabel = new SimpleStringProperty();
+        plusIcon = new SimpleBooleanProperty();
+        plusLabel = new SimpleStringProperty();
+        branchIcon = new SimpleBooleanProperty();
+        branchLabel = new SimpleStringProperty();
+        clientIcon.bindBidirectional(menuViewModel.showClientIconProperty());
+        isUser.bindBidirectional(menuViewModel.isUserProperty());
+        clientLabel.bindBidirectional(menuViewModel.clientLabelProperty());
+        plusIcon.bindBidirectional(menuViewModel.showPlusIconProperty());
+        plusLabel.bindBidirectional(menuViewModel.plusLabelProperty());
+        branchIcon.bindBidirectional(menuViewModel.showBranchIconProperty());
+        branchLabel.bindBidirectional(menuViewModel.branchLabelProperty());
+        buildMenu();
     }
 
-    public void addClientIcon(String username){
-        menu.getChildren().add(createClientIcon(username));
+    private void buildMenu() {
+        if (clientIcon.getValue()){
+            menu.getChildren().add(createClientIcon(clientLabel.getValue(), isUser.getValue()));
+        }
+        if (plusIcon.getValue()){
+            menu.getChildren().add(createPlusIcon(plusLabel.getValue(), plusLabel.getValue()));
+        }
+        if (branchIcon.getValue()){
+            menu.getChildren().add(createBranchIcon(branchLabel.getValue(), branchLabel.getValue()));
+        }
     }
 
-    public void addBranchIcon(String branchName){
-        menu.getChildren().add(createBranchIcon(branchName));
-    }
-
-    public AnchorPane getMenu(){
-        return menu;
-    }
-
-    public void addPlusIcon(String labelText){
-        menu.getChildren().add(createPlusIcon(labelText));
-    }
-
-    private GridPane createClientIcon(String username) {
-        GridPane content = new GridPane();
+    private VBox createClientIcon(String username, boolean isUser) {
+        VBox content = new VBox();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../menu/icons/client/ClientItemControl.fxml"));
-            GridPane icon  =  loader.load();
+            VBox icon  =  loader.load();
             ClientItemController controller = loader.getController();
-            controller.init(viewHandler, username);
+            controller.init(viewModelFactory, username, isUser);
             content = icon;
 
         } catch (IOException e) {
@@ -51,13 +77,13 @@ public class MenuViewController {
         return content;
     }
 
-    private GridPane createBranchIcon(String branchName) {
-        GridPane content = new GridPane();
+    private VBox createBranchIcon(String branchName, String username) {
+        VBox content = new VBox();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../menu/icons/branch/BranchItemControl.fxml"));
-            GridPane icon  =  loader.load();
+            VBox icon  =  loader.load();
             BranchItemController controller = loader.getController();
-            controller.init(viewHandler, branchName);
+            controller.init(viewModelFactory, branchName);
             content = icon;
 
         } catch (IOException e) {
@@ -66,13 +92,13 @@ public class MenuViewController {
         return content;
     }
 
-    private GridPane createPlusIcon(String labelText) {
-        GridPane content = new GridPane();
+    private VBox createPlusIcon(String labelText, String username) {
+        VBox content = new VBox();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../menu/icons/plus/plusItemControl.fxml"));
-            GridPane icon  =  loader.load();
+            VBox icon  =  loader.load();
             PlusItemController controller = loader.getController();
-            controller.init(viewHandler, labelText);
+            controller.init(viewModelFactory, labelText);
             content = icon;
 
         } catch (IOException e) {
