@@ -5,13 +5,15 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 
 public class CreateTicketViewController {
     @FXML
-    public ComboBox actionComboBox;
+    public ComboBox<String> actionComboBox;
     @FXML
     public TextField subjectTextField;
     @FXML
@@ -26,6 +28,10 @@ public class CreateTicketViewController {
     private CreateTicketViewModel vm;
     private StringProperty ticketResult;
 
+
+
+
+
     public void init(CreateTicketViewModel vm) {
         this.vm = vm;
         subjectTextField.textProperty().bindBidirectional(vm.subjectProperty());
@@ -33,6 +39,7 @@ public class CreateTicketViewController {
         locationTextField.textProperty().bindBidirectional(vm.locationProperty());
         ticketResult = new SimpleStringProperty();
         ticketResult.bind(vm.ticketResultProperty());
+        actionComboBox.getItems().setAll("IT", "Utility", "Janitors");
         ticketResult.addListener((ChangeListener) (observable, oldValue, newValue) -> {
             if (newValue == "OK") {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
