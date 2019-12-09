@@ -1,6 +1,7 @@
 package client.model.createticket;
 
 import client.network.ticket.ICreateTicketClient;
+import client.util.ClientProperties;
 import shared.IPropertyChangeSubject;
 import shared.Request;
 import shared.Ticket;
@@ -31,7 +32,7 @@ public class CreateTicketModelHandler implements ICreateTicketModel, IPropertyCh
 
     @Override
     public void submitTicket(String subject, String description, String location) {
-        Ticket ticket = new Ticket(subject, description, location);
+        Ticket ticket = new Ticket(ClientProperties.getInstance().getClient().getUser_id(), subject, description, "NONE", location, "OPEN");
 
         createTicketClient.createTicket(ticket);
     }

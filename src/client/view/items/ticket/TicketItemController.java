@@ -24,6 +24,7 @@ public class TicketItemController {
     public Label labelAssignedTo;
 
 
+
     public void init(Ticket ticket) {
         labelId.setText(String.valueOf(ticket.getId()));
         labelCreated.setText(ticket.getCreatedDate());
@@ -34,4 +35,7 @@ public class TicketItemController {
         labelBranch.setText(ticket.getBranch());
         labelAssignedTo.setText(ticket.getAssignee());
     }
+
+
+
 }
