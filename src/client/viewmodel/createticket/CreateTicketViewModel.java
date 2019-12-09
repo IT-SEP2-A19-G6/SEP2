@@ -28,6 +28,7 @@ public class CreateTicketViewModel {
         addListeners();
     }
 
+
     private void addListeners() {
         createTicketModel.addPropertyChangeListener(Request.TYPE.TICKET_RECEIVE.name(), this::handleResponse);
     }
