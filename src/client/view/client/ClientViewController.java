@@ -27,9 +27,15 @@ public class ClientViewController {
     }
 
 
+
     private void setCurrentContent() {
         rightArea.getChildren().clear();
-        rightArea.getChildren().add(vh.loadCreateTicketView());
+        //rightArea.getChildren().add(vh.loadCreateTicketView());
+        rightArea.getChildren().addAll(vh.loadTicketList());
+
+        System.out.println("clicked");
+
+
     }
 
 }
