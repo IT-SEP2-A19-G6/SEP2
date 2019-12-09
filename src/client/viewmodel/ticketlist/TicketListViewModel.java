@@ -1,8 +1,6 @@
 package client.viewmodel.ticketlist;
 
 import client.model.ticketlist.ITicketListModel;
-import client.util.ClientProperties;
-import client.viewmodel.client.ClientViewModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import shared.Request;
@@ -11,9 +9,10 @@ import shared.TicketListExchange;
 
 import java.beans.PropertyChangeEvent;
 
+
 public class TicketListViewModel {
 
-    ITicketListModel ticketListModel;
+    private ITicketListModel ticketListModel;
     private ObservableList<Ticket> tickets;
 
     public TicketListViewModel(ITicketListModel ticketListModel) {
@@ -35,10 +34,16 @@ public class TicketListViewModel {
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
 
         TicketListExchange fromServer = (TicketListExchange) propertyChangeEvent.getNewValue();
-        tickets.addAll(fromServer.getTickets());
 
-        System.out.println("Got tickets:");
-        System.out.println(tickets);
+        if (!tickets.equals(fromServer.getTickets()))
+        {
+            tickets.setAll(fromServer.getTickets());
+            System.out.println("Got tickets:");
+            System.out.println(tickets);
+        }
+
+
+
     }
 
     public ObservableList<Ticket> getTickets() {
