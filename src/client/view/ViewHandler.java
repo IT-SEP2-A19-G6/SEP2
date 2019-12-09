@@ -13,7 +13,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.IOException;
 
 public class ViewHandler {
@@ -52,48 +51,38 @@ public class ViewHandler {
 
     }
 
-    // TODO: This could be one way to load the anchorpane into the current view.
-    // if we go with this, we need to figure out how to do class diagram
-    public Pane loadCreateTicketView() {
-        Pane content = new Pane();
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("createticket/CreateTicketView.fxml"));
-            content = loader.load();
-            CreateTicketViewController controller = loader.getController();
-            controller.init(viewModelFactory.getCreateTicketViewModel());
-
-        } catch (IOException e) {
-            e.printStackTrace();
+    private Pane createTicketPane;
+    public Pane loadCreateTicket() {
+        if (createTicketPane == null) {
+            createTicketPane = new Pane();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("createticket/CreateTicketView.fxml"));
+                createTicketPane = loader.load();
+                CreateTicketViewController controller = loader.getController();
+                controller.init(viewModelFactory.getCreateTicketViewModel());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        return content;
+        return createTicketPane;
     }
 
+    private AnchorPane ticketListPane;
     public AnchorPane loadTicketList() {
-        AnchorPane content = new AnchorPane();
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("ticketlist/TicketListView.fxml"));
-            content = loader.load();
-            TicketListController controller = loader.getController();
-            controller.init();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (ticketListPane == null) {
+            ticketListPane = new AnchorPane();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("ticketlist/TicketListView.fxml"));
+                ticketListPane = loader.load();
+                TicketListController controller = loader.getController();
+                controller.init(viewModelFactory.getTicketListViewModel());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        return content;
+        return ticketListPane;
     }
 
-    public void openCreateTicketView() {
-        FXMLLoader loader = new FXMLLoader();
-
-        if (createTicketScene == null) {
-            Parent root = getRootByPath("createticket/CreateTicketView.fxml", loader);
-            CreateTicketViewController controller = loader.getController();
-            controller.init(viewModelFactory.getCreateTicketViewModel());
-            createTicketScene = new Scene(root);
-        }
-        stage.setTitle("Create Ticket");
-        stage.setScene(createTicketScene);
-    }
 
     public void openClientView() {
         FXMLLoader loader = new FXMLLoader();
