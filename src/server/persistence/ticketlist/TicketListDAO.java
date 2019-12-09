@@ -56,9 +56,6 @@ public class TicketListDAO implements ITicketListDAO {
                 "INNER JOIN Account_User u ON t.user_Id = u.Id " +
                 "WHERE abm.username = '" + userToFind + "';";
 
-
-        System.out.println(sql);
-
         return getTickets(sql);
     }
 
@@ -92,6 +89,7 @@ public class TicketListDAO implements ITicketListDAO {
         } finally {
             databaseConnection.closeConnection(ps, rs);
         }
+
         return tickets;
     }
 

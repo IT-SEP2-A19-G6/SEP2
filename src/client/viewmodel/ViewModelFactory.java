@@ -10,7 +10,7 @@ public class ViewModelFactory {
     private ModelFactory modelFactory;
     private LoginViewModel loginViewModel;
     private CreateTicketViewModel createIssueViewModel;
-    private ClientViewModel userViewModel;
+    private ClientViewModel clientViewModel;
     private SignUpViewModel signUpViewModel;
 
     public ViewModelFactory(ModelFactory mf) {
@@ -32,11 +32,11 @@ public class ViewModelFactory {
         return createIssueViewModel;
     }
 
-    public ClientViewModel getUserViewModel(){
-        if (userViewModel == null) {
-            userViewModel = new ClientViewModel(modelFactory.getUserModel());
+    public ClientViewModel getClientViewModel(){
+        if (clientViewModel == null) {
+            clientViewModel = new ClientViewModel(modelFactory.getTicketListModel());
         }
-        return userViewModel;
+        return clientViewModel;
     }
 
     public SignUpViewModel getSignUpViewModel() {
