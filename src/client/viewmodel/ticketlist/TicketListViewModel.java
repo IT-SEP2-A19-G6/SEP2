@@ -2,6 +2,7 @@ package client.viewmodel.ticketlist;
 
 import client.model.ticketlist.ITicketListModel;
 import client.util.ClientProperties;
+import client.viewmodel.client.ClientViewModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import shared.Request;
@@ -19,11 +20,10 @@ public class TicketListViewModel {
         this.ticketListModel = ticketListModel;
         tickets = FXCollections.observableArrayList();
         addListeners();
-        requestTickets();
     }
 
-    public void requestTickets() {
-        ticketListModel.requestTicketList(new TicketListExchange(Request.TYPE.OWN_TICKET_LIST_REQ, ClientProperties.getInstance().getClient().getUsername()));
+    public void requestTickets(TicketListExchange ticketListExchange) {
+        ticketListModel.requestTicketList(ticketListExchange);
     }
 
     private void addListeners() {

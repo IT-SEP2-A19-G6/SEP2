@@ -1,6 +1,5 @@
 package server.network;
 
-import client.viewmodel.client.uielements.TicketList;
 import server.model.ServerModelFactory;
 import server.model.login.ILoginServerModel;
 import server.model.signup.ISignUpServerModel;
@@ -11,13 +10,11 @@ import shared.Response;
 import shared.Ticket;
 import shared.TicketListExchange;
 import shared.clients.User;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.ArrayList;
 
 public class ServerSocketHandler implements Runnable {
 

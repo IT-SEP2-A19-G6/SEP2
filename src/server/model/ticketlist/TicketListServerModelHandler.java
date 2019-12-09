@@ -1,6 +1,5 @@
 package server.model.ticketlist;
 
-import client.viewmodel.client.uielements.TicketList;
 import server.exceptions.DataConnectionException;
 import server.persistence.ticketlist.ITicketListDAO;
 import shared.Request;

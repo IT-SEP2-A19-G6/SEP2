@@ -1,9 +1,7 @@
 package client.network.ticketlist;
 
 import client.network.socket.IClientSocketHandler;
-import client.viewmodel.client.uielements.TicketList;
 import shared.Request;
-import shared.Ticket;
 import shared.TicketListExchange;
 
 import java.beans.PropertyChangeEvent;
