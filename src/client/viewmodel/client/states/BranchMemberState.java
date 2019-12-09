@@ -1,37 +1,33 @@
 package client.viewmodel.client.states;
 
+import client.util.ClientProperties;
 import client.viewmodel.client.ClientViewModel;
-import client.viewmodel.client.uielements.Menu;
-import client.viewmodel.client.uielements.TicketList;
-import javafx.scene.Node;
+import client.viewmodel.menu.MenuViewModel;
+import client.viewmodel.ticketlist.TicketListViewModel;
+import shared.Request;
+import shared.TicketListExchange;
 
-import java.util.ArrayList;
 
 public class BranchMemberState implements IClientState {
-    private ClientViewModel viewModel;
-    private TicketList ticketList;
-    private Menu menu;
+    private MenuViewModel menuViewModel;
+
 
     @Override
-    public void entry(ClientViewModel viewModel) {
-        this.viewModel = viewModel;
-        this.ticketList = new TicketList();
-        this.menu = new Menu(viewModel);
-        viewModel.requestAssignedTicketList();
-        viewModel.buildMenu(menu.createMenu(buildMenuItems()));
+    public void entry(MenuViewModel menuViewModel, TicketListViewModel ticketListViewModel) {
+        this.menuViewModel = menuViewModel;
+        ticketListViewModel.requestTickets(new TicketListExchange(Request.TYPE.ASSIGNED_TICKET_LIST_REQ, ClientProperties.getInstance().getClient().getUsername()));
+        setMenu();
+    }
+
+    private void setMenu() {
+        menuViewModel.addClientIcon(true, true,  ClientProperties.getInstance().getClient().getUsername());
+        menuViewModel.addPlusIcon(false, "New Ticket");
+        menuViewModel.addBranchIcon(true, "Branch");
     }
 
     @Override
     public void exit() {
-        viewModel.clearMenu();
-        viewModel.clearRightArea();
-    }
-
-    private ArrayList<Node> buildMenuItems(){
-        ArrayList<Node> menuItems = new ArrayList<>();
-        menuItems.add(menu.addClientListItem());
-        menuItems.add(menu.addBranchItem());
-        return menuItems;
+        menuViewModel.clearMenu();
     }
 
 }

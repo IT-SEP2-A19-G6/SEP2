@@ -5,18 +5,18 @@
 
 
 <BorderPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.client.ClientViewController">
-   <left>
-      <AnchorPane fx:id="menuPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="130.0" BorderPane.alignment="CENTER">
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" />
-         </padding>
-      </AnchorPane>
-   </left>
-   <center>
-      <AnchorPane fx:id="rightArea" prefHeight="600.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <opaqueInsets>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </opaqueInsets>
-      </AnchorPane>
-   </center>
+    <left>
+        <AnchorPane fx:id="menuPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="130.0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" />
+            </padding>
+        </AnchorPane>
+    </left>
+    <center>
+        <AnchorPane fx:id="rightArea" prefHeight="600.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <opaqueInsets>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </opaqueInsets>
+        </AnchorPane>
+    </center>
 </BorderPane>
