@@ -30,6 +30,7 @@ public class TicketListViewModel {
         ticketListModel.addPropertyChangeListener(Request.TYPE.BRANCH_TICKET_LIST_RESPONSE.name(), this::handleResponse);
         ticketListModel.addPropertyChangeListener(Request.TYPE.ASSIGNED_TICKET_LIST_RESPONSE.name(), this::handleResponse);
         ticketListModel.addPropertyChangeListener(Request.TYPE.OWN_TICKET_LIST_RESPONSE.name(), this::handleResponse);
+        //TODO listen for no the different no tickets found and add message to view
     }
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
