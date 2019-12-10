@@ -51,7 +51,7 @@ public class ViewModelFactory {
 
     public ClientViewModel getClientViewModel(){
         if (clientViewModel == null) {
-            clientViewModel = new ClientViewModel(modelFactory.getTicketListModel(), getMenuViewModel(), getTicketListViewModel());
+            clientViewModel = new ClientViewModel(getMenuViewModel(), getTicketListViewModel());
         }
         return clientViewModel;
     }

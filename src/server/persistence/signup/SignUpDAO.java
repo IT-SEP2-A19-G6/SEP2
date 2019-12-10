@@ -19,13 +19,15 @@ public class SignUpDAO implements ISignUpDAO{
     public String requestSignUp(User newUser) throws DataConnectionException {
 
         try {
-            String sql = "insert into " + databaseConnection.getUserTableName() + " (Username, Password, Active) VALUES (?, ?, ?);";
+            String sql = "insert into " + databaseConnection.getUserTableName() + " (Username, Password, Active, type) VALUES (?, ?, ?, ?);";
 
             PreparedStatement preparedStatement = databaseConnection.createPreparedStatement(sql);
 
             preparedStatement.setString(1, newUser.getUsername());
             preparedStatement.setString(2, newUser.getPassword());
             preparedStatement.setBoolean(3, true);
+            preparedStatement.setString(4, "USER");
+
 
             databaseConnection.executeUpdate(preparedStatement);
             return "Success";

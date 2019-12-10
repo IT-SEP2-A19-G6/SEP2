@@ -15,12 +15,11 @@ public class BranchMemberState implements IClientState {
     @Override
     public void entry(MenuViewModel menuViewModel, TicketListViewModel ticketListViewModel) {
         this.menuViewModel = menuViewModel;
-        ticketListViewModel.requestTickets(new TicketListExchange(Request.TYPE.ASSIGNED_TICKET_LIST_REQ, ClientProperties.getInstance().getClient().getUsername()));
         setMenu();
     }
 
     private void setMenu() {
-        menuViewModel.addClientIcon(true, true,  ClientProperties.getInstance().getClient().getUsername());
+        menuViewModel.addClientIcon(true, false,  ClientProperties.getInstance().getClient().getUsername());
         menuViewModel.addPlusIcon(false, "New Ticket");
         menuViewModel.addBranchIcon(true, "Branch");
     }

@@ -14,7 +14,6 @@ public class UserState implements IClientState {
     @Override
     public void entry(MenuViewModel menuViewModel, TicketListViewModel ticketListViewModel) {
         this.menuViewModel = menuViewModel;
-        ticketListViewModel.requestTickets(new TicketListExchange(Request.TYPE.OWN_TICKET_LIST_REQ, ClientProperties.getInstance().getClient().getUsername()));
         setMenu();
     }
 

@@ -8,12 +8,14 @@ import client.view.signup.SignUpViewController;
 import client.view.ticketlist.TicketListController;
 import client.viewmodel.ViewModelFactory;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import shared.TicketListExchange;
 
 import java.io.IOException;
 
@@ -28,6 +30,8 @@ public class ViewHandler {
     private VBox menu;
     private Pane createTicketPane;
     private AnchorPane ticketListPane;
+    private ClientViewController clientViewController;
+    private TicketListController ticketListController;
 
     public ViewHandler(Stage stage, ViewModelFactory viewModelFactory) {
         this.stage = stage;
@@ -56,7 +60,7 @@ public class ViewHandler {
 
     }
 
-    public Pane loadCreateTicket() {
+    public void loadCreateTicket() {
         if (createTicketPane == null) {
             createTicketPane = new Pane();
             try {
@@ -68,26 +72,27 @@ public class ViewHandler {
                 e.printStackTrace();
             }
         }
-        return createTicketPane;
+        clientViewController.setRightArea(createTicketPane);
     }
 
-    public AnchorPane loadTicketList() {
+    public void loadTicketList(TicketListExchange ticketListExchange) {
         if (ticketListPane == null) {
             ticketListPane = new AnchorPane();
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("ticketlist/TicketListView.fxml"));
                 ticketListPane = loader.load();
-                TicketListController controller = loader.getController();
-                controller.init(viewModelFactory.getTicketListViewModel());
+                ticketListController = loader.getController();
+                ticketListController.init(viewModelFactory.getTicketListViewModel());
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        return ticketListPane;
+        ticketListController.requestList(ticketListExchange);
+        setRightArea(ticketListPane);
     }
 
 
-    public VBox loadMenu() {
+    public void loadMenu() {
         if (menu == null){
             menu = new VBox();
         }
@@ -99,7 +104,7 @@ public class ViewHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return menu;
+        clientViewController.setMenu(menu);
     }
 
     public void openClientView() {
@@ -107,12 +112,16 @@ public class ViewHandler {
 
         if (createTicketScene == null) {
             Parent root = getRootByPath("client/ClientView.fxml", loader);
-            ClientViewController controller = loader.getController();
-            controller.init(this, viewModelFactory.getClientViewModel());
+            clientViewController = loader.getController();
+            clientViewController.init(this, viewModelFactory.getClientViewModel());
             clientScene = new Scene(root);
         }
         stage.setTitle("Main View");
         stage.setScene(clientScene);
+    }
+
+    public void setRightArea(Node node){
+        clientViewController.setRightArea(node);
     }
 
     public void openSignUpView() {

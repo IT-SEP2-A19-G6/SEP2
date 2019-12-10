@@ -13,17 +13,15 @@ public class PlusItemController {
     @FXML
     Label label;
 
-    private ClientViewModel clientViewModel;
-    private TicketListViewModel ticketListViewModel;
+    private ViewHandler viewHandler;
 
-    public void init(ViewModelFactory viewModelFactory, String iconText){
-        this.clientViewModel = viewModelFactory.getClientViewModel();
-        this.ticketListViewModel = viewModelFactory.getTicketListViewModel();
+    public void init(ViewHandler viewHandler, String iconText){
+        this.viewHandler = viewHandler;
         label.setText(iconText);
     }
 
     public void doAction(ActionEvent actionEvent) {
-        clientViewModel.createNewTicket();
+        viewHandler.loadCreateTicket();
     }
 
 }
