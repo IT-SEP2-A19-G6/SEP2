@@ -54,7 +54,6 @@ public class TicketListServerModelHandler implements ITicketListServerModel {
                 e.printStackTrace();
             }
         }
-
         return exchange;
     }
 }

@@ -8,6 +8,7 @@ import shared.Ticket;
 import shared.TicketListExchange;
 
 import java.beans.PropertyChangeEvent;
+import java.util.ArrayList;
 
 
 public class TicketListViewModel {
@@ -32,18 +33,8 @@ public class TicketListViewModel {
     }
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
-
         TicketListExchange fromServer = (TicketListExchange) propertyChangeEvent.getNewValue();
-
-        if (!tickets.equals(fromServer.getTickets()))
-        {
-            tickets.setAll(fromServer.getTickets());
-            System.out.println("Got tickets:");
-            System.out.println(tickets);
-        }
-
-
-
+        tickets.setAll(fromServer.getTickets());
     }
 
     public ObservableList<Ticket> getTickets() {

@@ -28,9 +28,11 @@ public class MenuViewController {
     private StringProperty plusLabel;
     private BooleanProperty branchIcon;
     private StringProperty branchLabel;
+    private ViewHandler viewHandler;
     private ViewModelFactory viewModelFactory;
 
     public void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory){
+        this.viewHandler = viewHandler;
         MenuViewModel menuViewModel = viewModelFactory.getMenuViewModel();
         this.viewModelFactory = viewModelFactory;
         clientIcon = new SimpleBooleanProperty();
@@ -68,7 +70,7 @@ public class MenuViewController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../menu/icons/client/ClientItemControl.fxml"));
             VBox icon  =  loader.load();
             ClientItemController controller = loader.getController();
-            controller.init(viewModelFactory, username, isUser);
+            controller.init(viewHandler, username, isUser);
             content = icon;
 
         } catch (IOException e) {
@@ -83,7 +85,7 @@ public class MenuViewController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../menu/icons/branch/BranchItemControl.fxml"));
             VBox icon  =  loader.load();
             BranchItemController controller = loader.getController();
-            controller.init(viewModelFactory, branchName);
+            controller.init(viewHandler, branchName);
             content = icon;
 
         } catch (IOException e) {
@@ -98,7 +100,7 @@ public class MenuViewController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../menu/icons/plus/plusItemControl.fxml"));
             VBox icon  =  loader.load();
             PlusItemController controller = loader.getController();
-            controller.init(viewModelFactory, labelText);
+            controller.init(viewHandler, labelText);
             content = icon;
 
         } catch (IOException e) {
