@@ -1,10 +1,9 @@
 package client.viewmodel;
 
 import client.model.ModelFactory;
-import client.viewmodel.client.ClientViewModel;
 import client.viewmodel.createticket.CreateTicketViewModel;
 import client.viewmodel.login.LoginViewModel;
-import client.viewmodel.menu.MenuViewModel;
+import client.viewmodel.mainview.MenuViewModel;
 import client.viewmodel.signup.SignUpViewModel;
 import client.viewmodel.ticketlist.TicketListViewModel;
 
@@ -12,7 +11,6 @@ public class ViewModelFactory {
     private ModelFactory modelFactory;
     private LoginViewModel loginViewModel;
     private CreateTicketViewModel createIssueViewModel;
-    private ClientViewModel clientViewModel;
     private SignUpViewModel signUpViewModel;
     private TicketListViewModel ticketListViewModel;
     private MenuViewModel menuViewModel;
@@ -47,13 +45,6 @@ public class ViewModelFactory {
             createIssueViewModel = new CreateTicketViewModel(modelFactory.getCreateTicketModel());
         }
         return createIssueViewModel;
-    }
-
-    public ClientViewModel getClientViewModel(){
-        if (clientViewModel == null) {
-            clientViewModel = new ClientViewModel(getMenuViewModel(), getTicketListViewModel());
-        }
-        return clientViewModel;
     }
 
     public SignUpViewModel getSignUpViewModel() {

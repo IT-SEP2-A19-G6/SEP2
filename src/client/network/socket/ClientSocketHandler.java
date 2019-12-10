@@ -1,6 +1,5 @@
 package client.network.socket;
 
-import client.network.ticket.ICreateTicketClient;
 import shared.Request;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

@@ -7,7 +7,6 @@ import shared.TicketListExchange;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
 
 public class TicketListClientHandler implements ITicketListClient {
     private IClientSocketHandler clientSocketHandler;
@@ -15,10 +14,10 @@ public class TicketListClientHandler implements ITicketListClient {
 
     public TicketListClientHandler(IClientSocketHandler clientSocketHandler) {
         this.clientSocketHandler = clientSocketHandler;
-        this.clientSocketHandler.addPropertyChangeListener(Request.TYPE.TICKETLIST_RESPONSE.name(), this::handleListResponse);
+        this.clientSocketHandler.addPropertyChangeListener(Request.TYPE.TICKETLIST_RESPONSE.name(), this::handleResponse);
     }
 
-    private void handleListResponse(PropertyChangeEvent propertyChangeEvent) {
+    private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
         Request reqFromServer = (Request) propertyChangeEvent.getNewValue();
         TicketListExchange exchangeFromServer = (TicketListExchange) reqFromServer.object;
         support.firePropertyChange(propertyChangeEvent.getPropertyName(), "", exchangeFromServer);

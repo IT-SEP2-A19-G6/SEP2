@@ -1,9 +1,9 @@
 package client.view;
 
-import client.view.client.ClientViewController;
+import client.view.mainview.MainViewController;
 import client.view.createticket.CreateTicketViewController;
 import client.view.login.LoginViewController;
-import client.view.menu.MenuViewController;
+import client.view.mainview.menu.MenuViewController;
 import client.view.signup.SignUpViewController;
 import client.view.ticketlist.TicketListController;
 import client.viewmodel.ViewModelFactory;
@@ -22,15 +22,14 @@ import java.io.IOException;
 public class ViewHandler {
     private Stage stage;
     private ViewModelFactory viewModelFactory;
-
     private Scene loginScene;
     private Scene createTicketScene;
     private Scene signUpScene;
-    private Scene clientScene;
+    private Scene mainScene;
     private VBox menu;
     private Pane createTicketPane;
     private AnchorPane ticketListPane;
-    private ClientViewController clientViewController;
+    private MainViewController mainViewController;
     private TicketListController ticketListController;
 
     public ViewHandler(Stage stage, ViewModelFactory viewModelFactory) {
@@ -45,9 +44,7 @@ public class ViewHandler {
 
 
     public void openLoginView(){
-
         FXMLLoader loader = new FXMLLoader();
-
         if (loginScene == null) {
             Parent root = getRootByPath("login/LoginView.fxml", loader);
             LoginViewController controller = loader.getController();
@@ -56,8 +53,6 @@ public class ViewHandler {
         }
         stage.setTitle("Login");
         stage.setScene(loginScene);
-
-
     }
 
     public void loadCreateTicket() {
@@ -72,7 +67,7 @@ public class ViewHandler {
                 e.printStackTrace();
             }
         }
-        clientViewController.setRightArea(createTicketPane);
+        mainViewController.setRightArea(createTicketPane);
     }
 
     public void loadTicketList(TicketListExchange ticketListExchange) {
@@ -88,40 +83,35 @@ public class ViewHandler {
             }
         }
         ticketListController.requestList(ticketListExchange);
-        setRightArea(ticketListPane);
+        setMainRightArea(ticketListPane);
     }
 
 
     public void loadMenu() {
         if (menu == null){
             menu = new VBox();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("mainview/menu/MenuView.fxml"));
+                menu = loader.load();
+                MenuViewController controller = loader.getController();
+                controller.init(this, viewModelFactory.getMenuViewModel());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("menu/MenuView.fxml"));
-            menu = loader.load();
-            MenuViewController controller = loader.getController();
-            controller.init(this, viewModelFactory);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        clientViewController.setMenu(menu);
+        mainViewController.setMenu(menu);
     }
 
-    public void openClientView() {
+    public void openMainView() {
         FXMLLoader loader = new FXMLLoader();
-
         if (createTicketScene == null) {
-            Parent root = getRootByPath("client/ClientView.fxml", loader);
-            clientViewController = loader.getController();
-            clientViewController.init(this, viewModelFactory.getClientViewModel());
-            clientScene = new Scene(root);
+            Parent root = getRootByPath("mainview/MainView.fxml", loader);
+            mainViewController = loader.getController();
+            mainViewController.init(this);
+            mainScene = new Scene(root);
         }
         stage.setTitle("Main View");
-        stage.setScene(clientScene);
-    }
-
-    public void setRightArea(Node node){
-        clientViewController.setRightArea(node);
+        stage.setScene(mainScene);
     }
 
     public void openSignUpView() {
@@ -150,6 +140,10 @@ public class ViewHandler {
             e.printStackTrace();
         }
         return root;
+    }
+
+    public void setMainRightArea(Node node){
+        mainViewController.setRightArea(node);
     }
 
 }

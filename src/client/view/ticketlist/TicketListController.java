@@ -1,6 +1,6 @@
 package client.view.ticketlist;
 
-import client.view.items.ticket.TicketItemController;
+import client.view.ticketlist.listitem.TicketItemController;
 import client.viewmodel.ticketlist.TicketListViewModel;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
@@ -51,7 +51,7 @@ public class TicketListController {
     private void createTicket(Ticket ticket) {
         Platform.runLater(() -> {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../items/ticket/TicketItemControl.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("listitem/TicketItemControl.fxml"));
             BorderPane pane  =  loader.load();
             TicketItemController controller = loader.getController();
             controller.init(ticket);
