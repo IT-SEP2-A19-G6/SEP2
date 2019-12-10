@@ -46,7 +46,7 @@ public abstract class Client implements Serializable {
         return active;
     }
 
-    public int getUser_id() {
+    public int getUserId() {
         return id;
     }
 

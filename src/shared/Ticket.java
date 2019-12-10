@@ -1,13 +1,12 @@
 package shared;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 public class Ticket implements Serializable {
 
 
     private int id;
-    private int userId;
+    private int clientId;
     private String createdDate;
     private String username;
     private String subject;
@@ -33,7 +32,7 @@ public class Ticket implements Serializable {
 
     public Ticket(int id, int clientId, String subject, String description, String category, String location, String ticketStatus) {
         this.id = id;
-        this.userId = clientId;
+        this.clientId = clientId;
         this.subject = subject;
         this.description = description;
         this.category = category;
@@ -41,7 +40,7 @@ public class Ticket implements Serializable {
         this.ticketStatus = ticketStatus;
     }
     public Ticket(int clientId, String subject, String description, String category, String location, String ticketStatus) {
-        this.userId = clientId;
+        this.clientId = clientId;
         this.subject = subject;
         this.description = description;
         this.category = category;
@@ -55,8 +54,8 @@ public class Ticket implements Serializable {
         this.location = location;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getClientId() {
+        return clientId;
     }
 
     public String getUsername() {
@@ -102,7 +101,7 @@ public class Ticket implements Serializable {
     @Override
     public String toString() {
         return "Ticket{" +
-                "user=" + userId +
+                "user=" + clientId +
                 ", username='" + username + '\'' +
                 ", subject='" + subject + '\'' +
                 ", description='" + description + '\'' +
