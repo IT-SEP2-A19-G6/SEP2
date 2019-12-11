@@ -14,6 +14,8 @@ public class Request implements Serializable {
         CLOSE_CONNECTION, //to close socket connection
         TICKET_LIST_REQ, //Object contains TicketListExchange
         TICKET_LIST_RESPONSE, //Object contains TicketListExchange
+        TICKET_REPLY_RESPONSE, //Object contains TicketListExchange
+        TICKET_REPLY_REQ, //Object contains TicketListExchange
         OWN_TICKET_LIST_REQ, // Object contains String, username
         ASSIGNED_TICKET_LIST_REQ, // Object contains String, username
         BRANCH_TICKET_LIST_REQ, // Object contains String, username
