@@ -1,30 +1,30 @@
 package shared;
 
 public class TicketReply {
-    private String Message;
-    private String TimeStamp;
+    private String message;
+    private String timeStamp;
     private String username;
     private int ticketId;
 
     public TicketReply(String message, String timeStamp, String username, int ticketId) {
-        Message = message;
-        TimeStamp = timeStamp;
+        this.message = message;
+        this.timeStamp = timeStamp;
         this.username = username;
         this.ticketId = ticketId;
     }
 
     public TicketReply(String message, String username, int ticketId) {
-        Message = message;
+        this.message = message;
         this.username = username;
         this.ticketId = ticketId;
     }
 
     public String getMessage() {
-        return Message;
+        return message;
     }
 
     public String getTimeStamp() {
-        return TimeStamp;
+        return timeStamp;
     }
 
     public String getUsername() {

@@ -17,7 +17,7 @@ public class LoginViewController {
     @FXML
     private TextField passwordTextField;
     @FXML
-    private Label loginResultLabel, signUpLabel;
+    private Label loginResultLabel;
     @FXML
     private Button loginButton, cancelButton;
 
