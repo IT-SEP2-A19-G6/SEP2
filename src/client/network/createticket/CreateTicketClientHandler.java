@@ -1,40 +1,42 @@
-package client.model.createticket;
+package client.network.createticket;
 
-import client.network.createticket.ICreateTicketClient;
-import client.util.ClientProperties;
-import shared.IPropertyChangeSubject;
+
+import client.network.socket.IClientSocketHandler;
 import shared.Request;
+import shared.Response;
 import shared.Ticket;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class CreateTicketModelHandler implements ICreateTicketModel, IPropertyChangeSubject {
+public class CreateTicketClientHandler implements ICreateTicketClient {
 
 
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
-    private ICreateTicketClient createTicketClient;
+    private IClientSocketHandler clientSocketHandler;
 
-
-    public CreateTicketModelHandler(ICreateTicketClient createTicketClient) {
-        this.createTicketClient = createTicketClient;
+    public CreateTicketClientHandler(IClientSocketHandler clientSocketHandler){
+        this.clientSocketHandler =  clientSocketHandler;
         addListeners();
     }
 
     private void addListeners() {
-        createTicketClient.addPropertyChangeListener(Request.TYPE.TICKET_RECEIVE.name(), this::handleResponse);
+        clientSocketHandler.addPropertyChangeListener(Request.TYPE.TICKET_RECEIVE.name(), this::handleResponse);
     }
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
-        support.firePropertyChange(propertyChangeEvent.getPropertyName(), propertyChangeEvent.getOldValue(), propertyChangeEvent.getNewValue());
+        Request serverReq = (Request) propertyChangeEvent.getNewValue();
+        if (serverReq.type.name().equals(Request.TYPE.TICKET_RECEIVE.name())) {
+            Response createTicket = (Response) serverReq.object;
+            support.firePropertyChange(serverReq.type.name(), "", createTicket);
+        }
     }
-
     @Override
-    public void submitTicket(String subject, String description, String location) {
-        Ticket ticket = new Ticket(ClientProperties.getInstance().getClient().getUserId(), subject, description, "NONE", location, "OPEN");
-
-        createTicketClient.createTicket(ticket);
+    public Ticket createTicket(Ticket ticket) {
+        Request createTicketReq = new Request(Request.TYPE.TICKET_CREATE, ticket);
+        clientSocketHandler.sendToServer(createTicketReq);
+        return ticket;
     }
 
     @Override
@@ -64,4 +66,6 @@ public class CreateTicketModelHandler implements ICreateTicketModel, IPropertyCh
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         support.removePropertyChangeListener(listener);
     }
+
+
 }

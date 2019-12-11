@@ -3,10 +3,8 @@ package server.model.ticketlist;
 import server.exceptions.DataConnectionException;
 import server.persistence.ticketlist.ITicketListDAO;
 import shared.Request;
-import shared.Ticket;
 import shared.TicketListExchange;
 
-import java.util.ArrayList;
 
 public class TicketListServerModelHandler implements ITicketListServerModel {
     private ITicketListDAO ticketListDAO;
@@ -54,7 +52,6 @@ public class TicketListServerModelHandler implements ITicketListServerModel {
                 e.printStackTrace();
             }
         }
-
         return exchange;
     }
 }

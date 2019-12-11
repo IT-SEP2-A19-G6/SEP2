@@ -67,11 +67,6 @@ public class TestDatabaseConnection implements IDatabaseConnection {
     }
 
     @Override
-    public String getBranchTableName() {
-        return null;
-    }
-
-    @Override
     public void closeConnection(PreparedStatement ps, ResultSet rs) {
 
     }

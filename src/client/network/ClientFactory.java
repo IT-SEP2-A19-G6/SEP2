@@ -6,8 +6,8 @@ import client.network.signup.ISignUpClient;
 import client.network.signup.SignUpClientHandler;
 import client.network.socket.ClientSocketHandler;
 import client.network.socket.IClientSocketHandler;
-import client.network.ticket.CreateTicketClientHandler;
-import client.network.ticket.ICreateTicketClient;
+import client.network.createticket.CreateTicketClientHandler;
+import client.network.createticket.ICreateTicketClient;
 import client.network.ticketlist.ITicketListClient;
 import client.network.ticketlist.TicketListClientHandler;
 
