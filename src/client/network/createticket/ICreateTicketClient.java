@@ -4,5 +4,5 @@ import shared.IPropertyChangeSubject;
 import shared.Ticket;
 
 public interface ICreateTicketClient extends IPropertyChangeSubject {
-    Ticket createTicket(Ticket ticket);
+    void submitTicket(Ticket ticket);
 }

@@ -14,7 +14,7 @@ public class TicketListClientHandler implements ITicketListClient {
 
     public TicketListClientHandler(IClientSocketHandler clientSocketHandler) {
         this.clientSocketHandler = clientSocketHandler;
-        this.clientSocketHandler.addPropertyChangeListener(Request.TYPE.TICKETLIST_RESPONSE.name(), this::handleResponse);
+        this.clientSocketHandler.addPropertyChangeListener(Request.TYPE.TICKET_LIST_RESPONSE.name(), this::handleResponse);
     }
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
@@ -26,7 +26,7 @@ public class TicketListClientHandler implements ITicketListClient {
 
     @Override
     public void requestTicketList(TicketListExchange exchange) {
-        Request request = new Request(Request.TYPE.TICKETLIST_REQ, exchange);
+        Request request = new Request(Request.TYPE.TICKET_LIST_REQ, exchange);
         clientSocketHandler.sendToServer(request);
     }
 

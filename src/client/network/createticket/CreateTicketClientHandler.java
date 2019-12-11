@@ -33,10 +33,9 @@ public class CreateTicketClientHandler implements ICreateTicketClient {
         }
     }
     @Override
-    public Ticket createTicket(Ticket ticket) {
+    public void submitTicket(Ticket ticket) {
         Request createTicketReq = new Request(Request.TYPE.TICKET_CREATE, ticket);
         clientSocketHandler.sendToServer(createTicketReq);
-        return ticket;
     }
 
     @Override

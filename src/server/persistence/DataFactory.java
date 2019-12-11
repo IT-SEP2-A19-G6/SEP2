@@ -1,5 +1,7 @@
 package server.persistence;
 
+import server.persistence.communication.ITicketReplyDAO;
+import server.persistence.communication.TicketReplyDAO;
 import server.persistence.createticket.CreateTicketDAO;
 import server.persistence.createticket.ICreateTicketDAO;
 import server.persistence.database.DatabaseConnection;
@@ -17,6 +19,7 @@ public class DataFactory {
     private ICreateTicketDAO createTicketDAO;
     private ITicketListDAO ticketListDAO;
     private ISignUpDAO signUpDAO;
+    private ITicketReplyDAO ticketReplyDAO;
 
     public DataFactory(){
         databaseConnection = new DatabaseConnection();
@@ -48,6 +51,13 @@ public class DataFactory {
             signUpDAO = new SignUpDAO(databaseConnection);
         }
         return signUpDAO;
+    }
+
+    public ITicketReplyDAO getTicketReplyDAO(){
+        if (ticketReplyDAO == null){
+            ticketReplyDAO = new TicketReplyDAO(databaseConnection);
+        }
+        return ticketReplyDAO;
     }
 
 

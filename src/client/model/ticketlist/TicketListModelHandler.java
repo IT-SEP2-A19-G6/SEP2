@@ -13,7 +13,7 @@ public class TicketListModelHandler implements ITicketListModel {
 
     public TicketListModelHandler(ITicketListClient userClient) {
         this.ticketListClient = userClient;
-        ticketListClient.addPropertyChangeListener(Request.TYPE.TICKETLIST_RESPONSE.name(), this::HandleResponse);
+        ticketListClient.addPropertyChangeListener(Request.TYPE.TICKET_LIST_RESPONSE.name(), this::HandleResponse);
     }
 
     private void HandleResponse(PropertyChangeEvent propertyChangeEvent) {

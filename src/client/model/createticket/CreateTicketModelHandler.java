@@ -33,8 +33,7 @@ public class CreateTicketModelHandler implements ICreateTicketModel, IPropertyCh
     @Override
     public void submitTicket(String subject, String description, String location) {
         Ticket ticket = new Ticket(ClientProperties.getInstance().getClient().getUserId(), subject, description, "NONE", location, "OPEN");
-
-        createTicketClient.createTicket(ticket);
+        createTicketClient.submitTicket(ticket);
     }
 
     @Override

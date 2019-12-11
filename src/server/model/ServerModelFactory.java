@@ -1,5 +1,7 @@
 package server.model;
 
+import server.model.communication.ITicketReplyServerModel;
+import server.model.communication.TicketReplyServerModelHandler;
 import server.model.login.ILoginServerModel;
 import server.model.login.LoginServerModelHandler;
 import server.model.signup.ISignUpServerModel;
@@ -16,6 +18,7 @@ public class ServerModelFactory {
     private ICreateTicketServerModel ticketServerModel;
     private ITicketListServerModel ticketListServerModel;
     private ISignUpServerModel signUpServerModel;
+    private ITicketReplyServerModel ticketReplyServerModel;
 
     public ServerModelFactory(DataFactory dataFactory) {
         this.dataFactory = dataFactory;
@@ -48,6 +51,13 @@ public class ServerModelFactory {
             signUpServerModel = new SignUpServerModelHandler(dataFactory.getSignUpDAO());
         }
         return signUpServerModel;
+    }
+
+    public ITicketReplyServerModel getTicketReplyServerModel(){
+        if (ticketReplyServerModel == null){
+            ticketReplyServerModel = new TicketReplyServerModelHandler(dataFactory.getTicketReplyDAO());
+        }
+        return ticketReplyServerModel;
     }
 
 

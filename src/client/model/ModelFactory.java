@@ -1,5 +1,7 @@
 package client.model;
 
+import client.model.communication.ITicketReplyModel;
+import client.model.communication.TicketReplyModelHandler;
 import client.model.createticket.CreateTicketModelHandler;
 import client.model.createticket.ICreateTicketModel;
 import client.model.login.ILoginModel;
@@ -16,6 +18,7 @@ public class ModelFactory {
     private ClientFactory clientFactory;
     private ITicketListModel ticketListModel;
     private ISignUpModel signUpModel;
+    private ITicketReplyModel ticketReplyModel;
 
 
     public ModelFactory(ClientFactory clientFactory){
@@ -49,5 +52,12 @@ public class ModelFactory {
             signUpModel = new SignUpModelHandler(clientFactory.getSignUpClient());
         }
         return signUpModel;
+    }
+
+    public ITicketReplyModel ticketReplyModel() {
+        if (ticketReplyModel == null) {
+            ticketReplyModel = new TicketReplyModelHandler(clientFactory.ticketReplyClient());
+        }
+        return ticketReplyModel;
     }
 }
