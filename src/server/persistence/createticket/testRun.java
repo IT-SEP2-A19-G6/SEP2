@@ -6,6 +6,7 @@ import shared.Ticket;
 
 public class testRun {
 
+    //TODO should this class be deleted??
     public static void main(String[] args) {
 
         CreateTicketDAO ctdao = new CreateTicketDAO(new DatabaseConnection());

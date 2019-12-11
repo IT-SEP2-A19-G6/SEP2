@@ -9,7 +9,9 @@ public class ClientProperties {
     private Client client;
 
 
-    private ClientProperties(){}
+    private ClientProperties(){
+
+    }
 
     public static ClientProperties getInstance(){
         if(instance == null){

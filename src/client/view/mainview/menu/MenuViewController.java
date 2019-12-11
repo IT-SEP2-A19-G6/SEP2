@@ -3,6 +3,9 @@ package client.view.mainview.menu;
 import client.view.ViewHandler;
 import client.view.mainview.menu.items.branch.BranchItemController;
 import client.view.mainview.menu.items.client.ClientItemController;
+import client.view.mainview.menu.items.dotcontroller.DotHandler;
+import client.view.mainview.menu.items.dotcontroller.IButtonController;
+import client.view.mainview.menu.items.dotcontroller.IDotController;
 import client.view.mainview.menu.items.plus.PlusItemController;
 import client.viewmodel.mainview.MenuViewModel;
 import javafx.beans.property.BooleanProperty;
@@ -11,6 +14,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import java.io.IOException;
 
@@ -26,6 +30,7 @@ public class MenuViewController {
     private BooleanProperty branchIcon;
     private StringProperty branchLabel;
     private ViewHandler viewHandler;
+    private IButtonController buttonController;
 
     public void init(ViewHandler viewHandler, MenuViewModel menuViewModel){
         this.viewHandler = viewHandler;
@@ -43,6 +48,7 @@ public class MenuViewController {
         plusLabel.bindBidirectional(menuViewModel.plusLabelProperty());
         branchIcon.bindBidirectional(menuViewModel.showBranchIconProperty());
         branchLabel.bindBidirectional(menuViewModel.branchLabelProperty());
+        buttonController = new DotHandler();
         buildMenu();
     }
 
@@ -58,14 +64,15 @@ public class MenuViewController {
         }
     }
 
-    private VBox createClientIcon(String username, boolean isUser) {
-        VBox content = new VBox();
+    private GridPane createClientIcon(String username, boolean isUser) {
+        GridPane content = new GridPane();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("items/client/ClientItemControl.fxml"));
-            VBox icon  =  loader.load();
+            GridPane icon  =  loader.load();
             ClientItemController controller = loader.getController();
-            controller.init(viewHandler, username, isUser);
+            controller.init(viewHandler, username, isUser, buttonController);
             content = icon;
+            buttonController.addDotController(controller);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -73,14 +80,15 @@ public class MenuViewController {
         return content;
     }
 
-    private VBox createBranchIcon(String branchName) {
-        VBox content = new VBox();
+    private GridPane createBranchIcon(String branchName) {
+        GridPane content = new GridPane();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("items/branch/BranchItemControl.fxml"));
-            VBox icon  =  loader.load();
+            GridPane icon  =  loader.load();
             BranchItemController controller = loader.getController();
-            controller.init(viewHandler, branchName);
+            controller.init(viewHandler, branchName, buttonController);
             content = icon;
+            buttonController.addDotController(controller);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -88,14 +96,15 @@ public class MenuViewController {
         return content;
     }
 
-    private VBox createPlusIcon(String labelText) {
-        VBox content = new VBox();
+    private GridPane createPlusIcon(String labelText) {
+        GridPane content = new GridPane();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("items/plus/plusItemControl.fxml"));
-            VBox icon  =  loader.load();
+            GridPane icon  =  loader.load();
             PlusItemController controller = loader.getController();
-            controller.init(viewHandler, labelText);
+            controller.init(viewHandler, labelText, buttonController);
             content = icon;
+            buttonController.addDotController(controller);
 
         } catch (IOException e) {
             e.printStackTrace();

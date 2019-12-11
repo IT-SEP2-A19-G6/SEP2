@@ -1,4 +1,4 @@
-package client.view.ticketlist.listitem;
+package client.view.ticketlist.items.ticketitem;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

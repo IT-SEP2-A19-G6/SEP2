@@ -21,8 +21,7 @@ public class TicketListServerModelHandler implements ITicketListServerModel {
                 if (exchange.getTickets().size() == 0){
                     exchange.setAction(Request.TYPE.NO_TICKETS_FOUND_RESPONSE);
                     exchange.setMessage("No tickets yet - try add one...");
-                } else {
-                    exchange.setAction(Request.TYPE.OWN_TICKET_LIST_RESPONSE);
+                    return exchange;
                 }
             } catch (DataConnectionException e) {
                 e.printStackTrace();
@@ -31,10 +30,9 @@ public class TicketListServerModelHandler implements ITicketListServerModel {
             try {
                 exchange.setTicketList(ticketListDAO.getAssignedTicketList(exchange.getUsername()));
                 if (exchange.getTickets().size() == 0){
-                    exchange.setAction(Request.TYPE.NO_TICKETS_ASSIGNED_RESPONSE);
+                    exchange.setAction(Request.TYPE.NO_TICKETS_FOUND_RESPONSE);
                     exchange.setMessage("Good job!! go fetch more @branch.");
-                } else {
-                    exchange.setAction(Request.TYPE.ASSIGNED_TICKET_LIST_RESPONSE);
+                    return exchange;
                 }
             } catch (DataConnectionException e) {
                 e.printStackTrace();
@@ -43,15 +41,15 @@ public class TicketListServerModelHandler implements ITicketListServerModel {
             try {
                 exchange.setTicketList(ticketListDAO.getBranchTicketList(exchange.getUsername()));
                 if (exchange.getTickets().size() == 0){
-                    exchange.setAction(Request.TYPE.NO_TICKETS_IN_BRANCH_RESPONSE);
+                    exchange.setAction(Request.TYPE.NO_TICKETS_FOUND_RESPONSE);
                     exchange.setMessage("No tickets!! relax until more arrives...");
-                } else {
-                    exchange.setAction(Request.TYPE.BRANCH_TICKET_LIST_RESPONSE);
+                    return exchange;
                 }
             } catch (DataConnectionException e) {
                 e.printStackTrace();
             }
         }
+        exchange.setAction(Request.TYPE.TICKET_LIST_RESPONSE);
         return exchange;
     }
 }

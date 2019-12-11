@@ -72,10 +72,10 @@ private boolean activeConnection;
                     Response response = createTicketServerModel.sendTicket(ticket);
                     Request request = new Request(Request.TYPE.TICKET_RECEIVE, response);
                     sendToClient(request);
-                }  else if (requestFromClient.type.equals(Request.TYPE.TICKETLIST_REQ)){
+                }  else if (requestFromClient.type.equals(Request.TYPE.TICKET_LIST_REQ)){
                     TicketListExchange fromClient = (TicketListExchange) requestFromClient.object;
                     TicketListExchange fromServer = ticketListServerModel.requestTicketList(fromClient);
-                    Request response = new Request(Request.TYPE.TICKETLIST_RESPONSE, fromServer);
+                    Request response = new Request(Request.TYPE.TICKET_LIST_RESPONSE, fromServer);
                     sendToClient(response);
                 } else if (requestFromClient.type.equals(Request.TYPE.SIGNUP_REQ)){
                     User newUser = (User) requestFromClient.object;

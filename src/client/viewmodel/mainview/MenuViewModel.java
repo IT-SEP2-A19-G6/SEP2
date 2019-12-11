@@ -1,14 +1,12 @@
 package client.viewmodel.mainview;
 
-import client.util.ClientProperties;
-import client.viewmodel.mainview.states.BranchMemberState;
-import client.viewmodel.mainview.states.IClientState;
-import client.viewmodel.mainview.states.UserState;
-import javafx.beans.property.*;
-import shared.clients.ClientType;
 
-public class MenuViewModel {
-    private IClientState currentState;
+import client.util.ClientProperties;
+import client.viewmodel.statemachine.IStateController;
+import javafx.beans.property.*;
+
+
+public class MenuViewModel implements IStateController {
     private BooleanProperty clientIcon;
     private BooleanProperty isUser;
     private StringProperty clientLabel;
@@ -26,10 +24,9 @@ public class MenuViewModel {
         branchIcon = new SimpleBooleanProperty();
         branchLabel = new SimpleStringProperty();
         clearMenu();
-        setInitState();
     }
 
-    public void clearMenu() {
+    private void clearMenu() {
         clientIcon.setValue(false);
         clientLabel.setValue("");
         plusIcon.setValue(false);
@@ -38,37 +35,29 @@ public class MenuViewModel {
         branchLabel.setValue("");
     }
 
-    private void setInitState(){
-        if (ClientProperties.getInstance().getClient().getType().equals(ClientType.USER)){
-            setState(new UserState());
-        } else if (ClientProperties.getInstance().getClient().getType().equals(ClientType.BRANCH_MEMBER)) {
-            setState(new BranchMemberState());
-        }
+    @Override
+    public void setUserOptions(){
+        clientIcon.setValue(true);
+        clientLabel.setValue(ClientProperties.getInstance().getClient().getUsername());
+        this.isUser.setValue(true);
+
+        plusIcon.setValue(true);
+        plusLabel.setValue("New Ticket");
     }
 
-    private void setState(IClientState newState){
-        if (currentState != null){
-            currentState.exit();
-        }
-        currentState = newState;
-        currentState.entry(this);
+    @Override
+    public void setBranchOptions(){
+        clientIcon.setValue(true);
+        clientLabel.setValue(ClientProperties.getInstance().getClient().getUsername());
+        this.isUser.setValue(false);
+
+        branchIcon.setValue(true);
+        branchLabel.setValue("Branch");
     }
 
-
-    public void addClientIcon(boolean show, boolean isUser, String username){
-        clientIcon.setValue(show);
-        clientLabel.setValue(username);
-        this.isUser.setValue(isUser);
-    }
-
-    public void addPlusIcon(boolean show, String iconText){
-        plusIcon.setValue(show);
-        plusLabel.setValue(iconText);
-    }
-
-    public void addBranchIcon(boolean show, String branchName){
-        branchIcon.setValue(show);
-        branchLabel.setValue(branchName);
+    @Override
+    public void clearCurrentOptions() {
+        clearMenu();
     }
 
     public Property<Boolean> showClientIconProperty() {

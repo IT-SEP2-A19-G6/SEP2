@@ -1,6 +1,7 @@
 package shared;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Ticket implements Serializable {
 
@@ -16,6 +17,7 @@ public class Ticket implements Serializable {
     private String ticketStatus;
     private String branch;
     private String assignee;
+    private ArrayList<TicketReply> replies;
 
     public Ticket(int id, String createdDate, String username, String subject, String description, String category, String location, String ticketStatus, String branch, String assignee) {
         this.id = id;
@@ -96,6 +98,20 @@ public class Ticket implements Serializable {
 
     public String getCreatedDate() {
         return createdDate;
+    }
+
+    public void addReply(TicketReply reply) {
+        if (replies == null){
+            this.replies = new ArrayList<>();
+        }
+        replies.add(reply);
+    }
+
+    public ArrayList<TicketReply> getReplies() {
+        if (replies != null){
+            return replies;
+        }
+        return null;
     }
 
     @Override

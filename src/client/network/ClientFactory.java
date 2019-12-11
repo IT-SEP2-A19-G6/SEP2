@@ -1,5 +1,7 @@
 package client.network;
 
+import client.network.communication.ITicketReplyClient;
+import client.network.communication.TicketReplyClient;
 import client.network.login.ILoginClient;
 import client.network.login.LoginClientHandler;
 import client.network.signup.ISignUpClient;
@@ -22,6 +24,7 @@ public class ClientFactory {
     private ICreateTicketClient createTicketClient;
     private ITicketListClient ticketListClient;
     private ISignUpClient signUpClient;
+    private ITicketReplyClient ticketReplyClient;
 
     public ClientFactory() {
         System.out.println("Client is starting...");
@@ -68,6 +71,13 @@ public class ClientFactory {
             signUpClient = new SignUpClientHandler(clientSocketHandler);
         }
         return signUpClient;
+    }
+
+    public ITicketReplyClient ticketReplyClient() {
+        if (ticketReplyClient == null) {
+            ticketReplyClient = new TicketReplyClient(clientSocketHandler);
+        }
+        return ticketReplyClient;
     }
 
 }

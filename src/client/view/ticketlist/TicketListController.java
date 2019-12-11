@@ -1,6 +1,7 @@
 package client.view.ticketlist;
 
-import client.view.ticketlist.listitem.TicketItemController;
+import client.view.ticketlist.items.messageitem.MessageItemController;
+import client.view.ticketlist.items.ticketitem.TicketItemController;
 import client.viewmodel.ticketlist.TicketListViewModel;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
@@ -8,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import shared.Ticket;
 import shared.TicketListExchange;
@@ -29,7 +31,6 @@ public class TicketListController {
         this.ticketListViewModel = ticketListViewModel;
 
         ticketListViewModel.getTickets().addListener((ListChangeListener.Change<? extends Ticket> c) -> {
-
             Platform.runLater(() -> {
                 ticketListVBox.getChildren().clear();
             });
@@ -43,15 +44,23 @@ public class TicketListController {
                     }
                 }
             }
+        });
 
-
+        ticketListViewModel.responseMessageProperty().addListener((observableValue, s, t1) -> {
+            if (!(t1.equals(""))){
+                Platform.runLater(() -> {
+                    ticketListVBox.getChildren().clear();
+                });
+                createMessage(t1);
+                ticketListViewModel.resetResponseMessage();
+            }
         });
     }
 
     private void createTicket(Ticket ticket) {
         Platform.runLater(() -> {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("listitem/TicketItemControl.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("items/ticketitem/TicketItemControl.fxml"));
             BorderPane pane  =  loader.load();
             TicketItemController controller = loader.getController();
             controller.init(ticket);
@@ -61,7 +70,21 @@ public class TicketListController {
             e.printStackTrace();
         }
         });
+    }
 
+    private void createMessage(String message) {
+        Platform.runLater(() -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("items/messageitem/MessageItemControl.fxml"));
+                VBox messageBox  =  loader.load();
+                MessageItemController controller = loader.getController();
+                controller.init(message);
+                ticketListVBox.getChildren().add(messageBox);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
 

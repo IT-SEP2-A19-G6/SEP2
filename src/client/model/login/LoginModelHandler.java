@@ -1,7 +1,9 @@
 package client.model.login;
 
 import client.network.login.ILoginClient;
+import client.util.ClientProperties;
 import shared.Request;
+import shared.Response;
 import shared.clients.Client;
 import shared.clients.User;
 
@@ -30,6 +32,11 @@ public class LoginModelHandler implements ILoginModel {
 
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
+        Response loginResponse = (Response) propertyChangeEvent.getNewValue();
+        if (loginResponse.getReceiver() != null) {
+            ClientProperties.getInstance().setClient(loginResponse.getReceiver());
+            support.firePropertyChange(Request.TYPE.SET_STATE.name(), "", ClientProperties.getInstance().getClient().getType());
+        }
         support.firePropertyChange(propertyChangeEvent.getPropertyName(), propertyChangeEvent.getOldValue(), propertyChangeEvent.getNewValue());
 
     }

@@ -1,10 +1,12 @@
 package client.viewmodel;
 
 import client.model.ModelFactory;
+import client.viewmodel.communication.TicketReplyViewModel;
 import client.viewmodel.createticket.CreateTicketViewModel;
 import client.viewmodel.login.LoginViewModel;
 import client.viewmodel.mainview.MenuViewModel;
 import client.viewmodel.signup.SignUpViewModel;
+import client.viewmodel.statemachine.StateHandler;
 import client.viewmodel.ticketlist.TicketListViewModel;
 
 public class ViewModelFactory {
@@ -14,9 +16,11 @@ public class ViewModelFactory {
     private SignUpViewModel signUpViewModel;
     private TicketListViewModel ticketListViewModel;
     private MenuViewModel menuViewModel;
+    private TicketReplyViewModel ticketReplyViewModel;
 
-    public ViewModelFactory(ModelFactory mf) {
-        this.modelFactory = mf;
+    public ViewModelFactory(ModelFactory modelFactory) {
+        this.modelFactory = modelFactory;
+        new StateHandler(this, modelFactory.getLoginModel());
     }
 
     public LoginViewModel getLoginViewModel() {
@@ -52,5 +56,12 @@ public class ViewModelFactory {
             signUpViewModel = new SignUpViewModel(modelFactory.getSignUpModel());
         }
         return signUpViewModel;
+    }
+
+    public TicketReplyViewModel getTicketReplyViewModel() {
+        if (ticketReplyViewModel == null) {
+            ticketReplyViewModel = new TicketReplyViewModel(modelFactory.ticketReplyModel());
+        }
+        return ticketReplyViewModel;
     }
 }

@@ -25,15 +25,8 @@ public class LoginClientHandler implements ILoginClient {
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
         Request serverReq = (Request) propertyChangeEvent.getNewValue();
-        if (serverReq.type.name().equals(Request.TYPE.LOGIN_RESPONSE.name())) {
-            Response loginResponse = (Response) serverReq.object;
-            if (loginResponse.getReceiver() != null)
-                ClientProperties.getInstance().setClient(loginResponse.getReceiver());
-
-
-            support.firePropertyChange(serverReq.type.name(), "", loginResponse);
-
-        }
+        Response loginResponse = (Response) serverReq.object;
+        support.firePropertyChange(serverReq.type.name(), "", loginResponse);
     }
 
     @Override
