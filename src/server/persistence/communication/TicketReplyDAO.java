@@ -12,6 +12,8 @@ public class TicketReplyDAO implements ITicketReplyDAO {
         this.databaseConnection = databaseConnection;
     }
 
+    //TODO handle thrown exceptions in server model
+
     @Override
     public ArrayList<TicketReply> getReplies(int ticketId) {
         return null;
