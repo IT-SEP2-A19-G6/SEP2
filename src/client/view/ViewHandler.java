@@ -20,11 +20,15 @@ import shared.TicketListExchange;
 import java.io.IOException;
 
 public class ViewHandler {
-    private Stage stage;
+
     private ViewModelFactory viewModelFactory;
+
+    private Stage stage;
+
     private Scene loginScene;
     private Scene signUpScene;
     private Scene mainScene;
+
     private VBox menu;
     private Pane createTicketPane;
     private AnchorPane ticketListPane;
