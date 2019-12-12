@@ -46,15 +46,15 @@ public class TicketListController {
             }
         });
 
-        ticketListViewModel.responseMessageProperty().addListener((observableValue, s, t1) -> {
-            if (!(t1.equals(""))){
-                Platform.runLater(() -> {
-                    ticketListVBox.getChildren().clear();
-                });
-                createMessage(t1);
-                ticketListViewModel.resetResponseMessage();
-            }
-        });
+//        ticketListViewModel.responseMessageProperty().addListener((observableValue, s, t1) -> {
+//            if (!(t1.equals(""))){
+//                Platform.runLater(() -> {
+//                    ticketListVBox.getChildren().clear();
+//                });
+//                //createMessage(t1);
+//                ticketListViewModel.resetResponseMessage();
+//            }
+//        });
     }
 
     private void createTicket(Ticket ticket) {
@@ -72,20 +72,20 @@ public class TicketListController {
         });
     }
 
-    private void createMessage(String message) {
-        Platform.runLater(() -> {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("items/messageitem/MessageItemControl.fxml"));
-                VBox messageBox  =  loader.load();
-                MessageItemController controller = loader.getController();
-                controller.init(message);
-                ticketListVBox.getChildren().add(messageBox);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-    }
+//    private void createMessage() {
+//        Platform.runLater(() -> {
+//            try {
+//                FXMLLoader loader = new FXMLLoader(getClass().getResource("items/messageitem/MessageItemControl.fxml"));
+//                VBox messageBox  =  loader.load();
+//                MessageItemController controller = loader.getController();
+//                controller.init();
+//                ticketListVBox.getChildren().add(messageBox);
+//
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        });
+//    }
 
 
     public void requestList(TicketListExchange ticketListExchange) {

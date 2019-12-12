@@ -27,6 +27,11 @@ public class TicketReplyModelHandler implements ITicketReplyModel, IPropertyChan
     }
 
     @Override
+    public void submitReply(String messageArea) {
+
+    }
+
+    @Override
     public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
         if (name == null){
             support.addPropertyChangeListener(listener);
