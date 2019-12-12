@@ -1,31 +1,31 @@
 package server.network;
 
 import server.model.ServerModelFactory;
+import server.model.communication.ITicketReplyServerModel;
 import server.model.login.ILoginServerModel;
 import server.model.signup.ISignUpServerModel;
 import server.model.createticket.ICreateTicketServerModel;
 import server.model.ticketlist.ITicketListServerModel;
-import shared.Request;
-import shared.Response;
-import shared.Ticket;
-import shared.TicketListExchange;
+import shared.*;
 import shared.clients.User;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.ArrayList;
 
 public class ServerSocketHandler implements Runnable {
 
+private Socket socket;
+private boolean activeConnection;
 private ObjectOutputStream outputToClient;
 private ObjectInputStream inputFromClient;
 private ILoginServerModel loginServerModel;
 private ICreateTicketServerModel createTicketServerModel;
 private ISignUpServerModel signUpServerModel;
 private ITicketListServerModel ticketListServerModel;
-private Socket socket;
-private boolean activeConnection;
+private ITicketReplyServerModel ticketReplyServerModel;
 
 
     public ServerSocketHandler(Socket socket, ServerModelFactory serverModelFactory) {
@@ -35,6 +35,7 @@ private boolean activeConnection;
         this.createTicketServerModel = serverModelFactory.getTicketServerModel();
         this.signUpServerModel = serverModelFactory.getSignUpServerModel();
         this.ticketListServerModel = serverModelFactory.getTicketListServerModel();
+        this.ticketReplyServerModel = serverModelFactory.getTicketReplyServerModel();
         try {
             outputToClient = new ObjectOutputStream(socket.getOutputStream());
             inputFromClient = new ObjectInputStream(socket.getInputStream());
@@ -81,6 +82,14 @@ private boolean activeConnection;
                     User newUser = (User) requestFromClient.object;
                     Response message = signUpServerModel.requestSignUp(newUser);
                     Request response = new Request(Request.TYPE.SIGNUP_RESPONSE, message);
+                    sendToClient(response);
+                } else if (requestFromClient.type.equals(Request.TYPE.ADD_TICKET_REPLY)){
+                    TicketReply reply = (TicketReply) requestFromClient.object;
+                    ticketReplyServerModel.addReply(reply);
+                } else if (requestFromClient.type.equals(Request.TYPE.TICKET_REPLIES_REQ)){
+                    int ticketId = (int) requestFromClient.object;
+                    ArrayList<TicketReply> replies = ticketReplyServerModel.getReplies(ticketId);
+                    Request response = new Request(Request.TYPE.TICKET_REPLY_RESPONSE, replies);
                     sendToClient(response);
                 }
 

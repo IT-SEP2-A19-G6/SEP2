@@ -22,13 +22,12 @@ public class LoginViewController {
     private Button loginButton, cancelButton;
 
     private LoginViewModel loginViewModel;
-    private ViewHandler viewHandler;
 
 
 
-    public void init(ViewHandler viewHandler, LoginViewModel loginViewModel){
+
+    public void init(LoginViewModel loginViewModel){
         this.loginViewModel = loginViewModel;
-        this.viewHandler = viewHandler;
         userNameTextField.textProperty().bindBidirectional(loginViewModel.userNameProperty());
         passwordTextField.textProperty().bindBidirectional(loginViewModel.passwordProperty());
         loginResultLabel.textProperty().bindBidirectional(loginViewModel.loginResultProperty());
@@ -40,7 +39,7 @@ public class LoginViewController {
         loginViewModel.loginResponseProperty().addListener((observableValue, s, t1) -> {
             if(t1.contains("login accepted"))
                 if (t1.contains("User")){
-                    viewHandler.openMainView();
+                    ViewHandler.getInstance().openMainView();
                 }
         });
     }
@@ -63,6 +62,6 @@ public class LoginViewController {
     }
 
     public void openSignUp(MouseEvent mouseEvent) {
-        viewHandler.openSignUpView();
+        ViewHandler.getInstance().openSignUpView();
     }
 }

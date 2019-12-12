@@ -15,19 +15,18 @@ public class PlusItemController implements IDotController {
     @FXML
     Circle dot;
 
-    private ViewHandler viewHandler;
     private IButtonController buttonController;
 
-    public void init(ViewHandler viewHandler, String iconText, IButtonController buttonController){
+    public void init(String iconText, IButtonController buttonController){
         this.buttonController = buttonController;
-        this.viewHandler = viewHandler;
+
         label.setText(iconText);
         setVisibility(false);
     }
 
     public void doAction(ActionEvent actionEvent) {
         buttonController.plusButtonPressed(this);
-        viewHandler.loadCreateTicket();
+        ViewHandler.getInstance().loadCreateTicket();
     }
 
 
