@@ -1,12 +1,14 @@
 package shared;
 
+import java.time.LocalDate;
+
 public class TicketReply {
     private String message;
-    private String timeStamp;
+    private LocalDate timeStamp;
     private String username;
     private int ticketId;
 
-    public TicketReply(String message, String timeStamp, String username, int ticketId) {
+    public TicketReply(String message, LocalDate timeStamp, String username, int ticketId) {
         this.message = message;
         this.timeStamp = timeStamp;
         this.username = username;
@@ -23,7 +25,7 @@ public class TicketReply {
         return message;
     }
 
-    public String getTimeStamp() {
+    public LocalDate getTimeStamp() {
         return timeStamp;
     }
 
