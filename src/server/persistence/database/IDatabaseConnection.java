@@ -16,6 +16,7 @@ public interface IDatabaseConnection {
     String getClientTableName();
     String getTicketTableName();
     String getUserTableName();
+    String getReplyTableName();
 
     void closeConnection(PreparedStatement ps, ResultSet rs);
 }

@@ -10,6 +10,7 @@ public class DatabaseConnection implements IDatabaseConnection {
     private String clientTableName;
     private String ticketTableName;
     private String userTableName;
+    private String replyTableName;
 
     private String driver = ApplicationProperties.INSTANCE.getDbDriver();
     private String url = ApplicationProperties.INSTANCE.getDbUrl();
@@ -23,6 +24,7 @@ public class DatabaseConnection implements IDatabaseConnection {
         clientTableName = "account_client"; // TODO: Perhaps this could be placed in an enum later?
         userTableName = "account_user";
         ticketTableName = "ticket";
+        replyTableName = "reply";
     }
 
 
@@ -124,5 +126,8 @@ public class DatabaseConnection implements IDatabaseConnection {
     public String getUserTableName(){
         return userTableName;
     }
+    @Override
+    public String getReplyTableName() {return replyTableName;}
+
 
 }
