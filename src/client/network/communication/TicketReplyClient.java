@@ -23,7 +23,8 @@ public class TicketReplyClient implements ITicketReplyClient {
     }
 
     private void handleReplies(PropertyChangeEvent propertyChangeEvent) {
-        ArrayList<TicketReply> replies = (ArrayList<TicketReply>) propertyChangeEvent.getNewValue();
+        Request request = (Request) propertyChangeEvent.getNewValue();
+        ArrayList<TicketReply> replies = (ArrayList<TicketReply>) request.object;
         support.firePropertyChange(Request.TYPE.TICKET_REPLY_RESPONSE.name(), "", replies);
     }
 

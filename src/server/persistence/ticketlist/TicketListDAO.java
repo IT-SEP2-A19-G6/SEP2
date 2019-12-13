@@ -23,6 +23,7 @@ public class TicketListDAO implements ITicketListDAO {
     }
 
     @Override
+
     public ArrayList<Ticket> getOwnTicketList(int searchId) throws DataConnectionException {
         String sql = "SELECT t.id AS ticketId, created_at, Subject, Description, Location, Ticket_Status, c.username AS creator, branchName, a.Username AS assignee FROM " + databaseConnection.getTicketTableName() + " t " +
         "INNER JOIN Account_Client c ON t.client_Id = c.Id " +

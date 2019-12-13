@@ -25,13 +25,13 @@ public class TicketReplyDAO implements ITicketReplyDAO {
 
     @Override
     public ArrayList<TicketReply> getReplies(int ticketId) throws DataConnectionException {
-        String sql = "SELECT Ticket_Id AS ticketId, tStamp AS timestamp, c.Username AS replier, message FROM " + databaseConnection.getReplyTableName() + " t " +
-                "INNER JOIN Ticket T on Reply.Ticket_Id = T.Id " +
-                "INNER JOIN Account_Client c on Reply.client_Id = c.Id " +
+        String sql = "SELECT Ticket_Id AS ticketId, tStamp AS timestamp, c.Username AS replier, message FROM " + databaseConnection.getReplyTableName() + " r " +
+                "INNER JOIN Ticket T on r.Ticket_Id = T.Id " +
+                "INNER JOIN Account_Client c on r.client_Id = c.Id " +
                 "where t.id = " + ticketId +
                 "ORDER BY timestamp DESC;";
 
-        return getReplies(sql);
+        return getRepliesFromDb(sql);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class TicketReplyDAO implements ITicketReplyDAO {
 
     }
 
-    private ArrayList<TicketReply> getReplies(String preparedSql) throws DataConnectionException {
+    private ArrayList<TicketReply> getRepliesFromDb(String preparedSql) throws DataConnectionException {
         PreparedStatement ps = null;
         ResultSet rs = null;
         ArrayList<TicketReply> replies = new ArrayList<>();
@@ -61,7 +61,8 @@ public class TicketReplyDAO implements ITicketReplyDAO {
                 String replier = rs.getString("replier");
                 String message = rs.getString("message");
 
-                LocalDate date = LocalDate.parse( new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(createdDate) );
+                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+                String date = dateFormat.format(createdDate);
 
                 replies.add(new TicketReply(message, date, replier, ticketId));
             }

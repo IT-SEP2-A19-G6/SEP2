@@ -5,5 +5,5 @@ import shared.TicketReply;
 
 public interface ITicketReplyModel extends IPropertyChangeSubject {
     void getReplies(int ticketId);
-    void addReply(TicketReply reply);
+    void addReply(int ticketid, String message);
 }

@@ -1,8 +1,10 @@
 package client.model.communication;
 
 import client.network.communication.ITicketReplyClient;
+import client.util.ClientProperties;
 import shared.IPropertyChangeSubject;
 import shared.Request;
+import shared.Ticket;
 import shared.TicketReply;
 
 import java.beans.PropertyChangeEvent;
@@ -33,7 +35,8 @@ public class TicketReplyModelHandler implements ITicketReplyModel {
     }
 
     @Override
-    public void addReply(TicketReply reply) {
+    public void addReply(int ticketid, String message) {
+        TicketReply reply = new TicketReply(ticketid, message, ClientProperties.getInstance().getClient().getUserId());
         ticketReplyClient.addReply(reply);
     }
 
