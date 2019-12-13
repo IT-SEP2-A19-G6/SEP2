@@ -36,7 +36,7 @@ public class TicketReplyModelHandler implements ITicketReplyModel {
 
     @Override
     public void addReply(int ticketid, String message) {
-        TicketReply reply = new TicketReply(ticketid, message, ClientProperties.getInstance().getClient().getUserId());
+        TicketReply reply = new TicketReply(message, ticketid, ClientProperties.getInstance().getClient().getClientId());
         ticketReplyClient.addReply(reply);
     }
 

@@ -1,24 +1,13 @@
 package client.view.createticket;
 
-import client.util.ClientProperties;
-import client.view.ViewHandler;
 import client.view.mainview.menu.MenuViewController;
 import client.view.mainview.menu.items.IVirtualButton;
-import client.view.mainview.menu.items.dotcontroller.IButtonController;
 import client.viewmodel.createticket.CreateTicketViewModel;
-import javafx.application.Platform;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import shared.Request;
-import shared.TicketListExchange;
+
 
 public class CreateTicketViewController {
     @FXML
@@ -44,11 +33,9 @@ public class CreateTicketViewController {
         subjectTextField.textProperty().bindBidirectional(createTicketViewModel.subjectProperty());
         descriptionTextArea.textProperty().bindBidirectional(createTicketViewModel.descriptionProperty());
         locationTextField.textProperty().bindBidirectional(createTicketViewModel.locationProperty());
-        StringProperty ticketResult = new SimpleStringProperty();
-        ticketResult.bind(createTicketViewModel.ticketResultProperty());
         categoryComboBox.valueProperty().bindBidirectional(this.createTicketViewModel.currentCategory());
         categoryComboBox.setItems(this.createTicketViewModel.getCategories());
-        ticketResult.addListener((observableValue, s, t1) -> {
+        createTicketViewModel.ticketResultProperty().addListener((observableValue, s, t1) -> {
             if (t1.equals("OK")) {
                 clientButton.pressButton();
                 createTicketViewModel.clearFields();

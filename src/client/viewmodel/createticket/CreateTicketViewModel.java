@@ -31,7 +31,7 @@ public class CreateTicketViewModel {
         subject = new SimpleStringProperty("");
         description = new SimpleStringProperty("");
         location = new SimpleStringProperty("");
-        ticketResult = new SimpleStringProperty("");
+        ticketResult = new SimpleStringProperty();
         categories = FXCollections.observableArrayList();
         currentCategory = new SimpleStringProperty();
         addListeners();
@@ -60,6 +60,7 @@ public class CreateTicketViewModel {
         Response result = (Response) propertyChangeEvent.getNewValue();
         if (result.getMessage().contains("OK")){
             Platform.runLater(()->{
+                System.out.println(result.getMessage());
                 ticketResult.setValue(result.getMessage());
             });
         }
