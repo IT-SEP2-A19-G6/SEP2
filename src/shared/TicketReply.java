@@ -1,7 +1,7 @@
 package shared;
 
+import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class TicketReply {
     private String message;
@@ -10,12 +10,12 @@ public class TicketReply {
     private int ticketId;
     private int replyId;
 
-    public TicketReply(String message, LocalDate timeStamp, String username, int ticketId, int replyId) {
-        this.message = message;
+    public TicketReply(int replyId,int ticketId, LocalDate timeStamp, String username ,String message ) {
+        this.replyId = replyId;
+        this.ticketId = ticketId;
         this.timeStamp = timeStamp;
         this.username = username;
-        this.ticketId = ticketId;
-        this.replyId = replyId;
+        this.message = message;
     }
 
     public TicketReply(String message, String username, int ticketId) {
@@ -23,13 +23,13 @@ public class TicketReply {
         this.username = username;
         this.ticketId = ticketId;
     }
-    
+
 
     public String getMessage() {
         return message;
     }
 
-    public LocalDate getTimeStamp() {
+    public Date getTimeStamp() {
         return timeStamp;
     }
 

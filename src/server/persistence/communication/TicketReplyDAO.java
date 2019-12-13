@@ -20,7 +20,6 @@ public class TicketReplyDAO implements ITicketReplyDAO {
         this.databaseConnection = databaseConnection;
     }
 
-
     @Override
     public ArrayList<TicketReply> getReplies(int ticketId) {
         String sql =  "SELECT r.Reply_Id, t.id, tStamp, r.user_Id, r.message from" + databaseConnection.getTicketTableName() + " t, "
@@ -28,7 +27,6 @@ public class TicketReplyDAO implements ITicketReplyDAO {
          "where t.id = " + ticketId;
         return getRepliesByTicketId(sql);
     }
-
 
     @Override
     public String addReply(TicketReply reply) throws DataConnectionException{
