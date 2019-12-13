@@ -15,11 +15,11 @@ public class TicketReplyServerModelHandler implements ITicketReplyServerModel {
 
     @Override
     public ArrayList<TicketReply> getReplies(int ticketId) {
-        return ticketReplyDAO.getReplies(ticketId);
+        return null;
     }
 
     @Override
     public void addReply(TicketReply reply) {
-        ticketReplyDAO.addReply(reply);
+
     }
 }

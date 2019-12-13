@@ -27,7 +27,7 @@ public class TicketListDAO implements ITicketListDAO {
         String sql = "SELECT t.id, created_at, c.Username as creator, Subject, Description, Category, Location, Ticket_Status, branchName, abm.Username as assignee FROM " + databaseConnection.getTicketTableName() + " t " +
         "INNER JOIN Account_Client c ON t.User_Id = c.id " +
         "INNER JOIN account_branch_member abm on t.Assignee = abm.Id " +
-        "INNER JOIN Branch B on t.Id_Branch = B.Id " +
+        "INNER JOIN Branch B on abm.Id_Branch = B.Id " +
         "WHERE c.Username = '" + userToFind + "' " +
         "GROUP by t.Id, c.id, abm.id, b.id;";
 

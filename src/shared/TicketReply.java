@@ -1,36 +1,30 @@
 package shared;
 
-import client.util.ClientProperties;
-
-import java.io.Serializable;
-import java.time.LocalDate;
-
-public class TicketReply implements Serializable {
-    private String message;
-    private LocalDate timeStamp;
+public class TicketReply {
+    private String Message;
+    private String TimeStamp;
     private String username;
     private int ticketId;
-    private int clientid;
 
-    public TicketReply(String message, LocalDate timeStamp, String username, int ticketId) {
-        this.message = message;
-        this.timeStamp = timeStamp;
+    public TicketReply(String message, String timeStamp, String username, int ticketId) {
+        Message = message;
+        TimeStamp = timeStamp;
         this.username = username;
         this.ticketId = ticketId;
     }
 
-    public TicketReply(int ticketId, String message, int clientid) {
+    public TicketReply(String message, String username, int ticketId) {
+        Message = message;
+        this.username = username;
         this.ticketId = ticketId;
-        this.message = message;
-        this.clientid = clientid;
     }
 
     public String getMessage() {
-        return message;
+        return Message;
     }
 
-    public LocalDate getTimeStamp() {
-        return timeStamp;
+    public String getTimeStamp() {
+        return TimeStamp;
     }
 
     public String getUsername() {

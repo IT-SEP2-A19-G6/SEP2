@@ -26,18 +26,18 @@ public class SignUpViewController {
     Button submitButton, cancelButton;
 
     private SignUpViewModel signUpViewModel;
+    private ViewHandler viewHandler;
 
 
-
-    public void init(SignUpViewModel signupViewModel){
-
+    public void init(ViewHandler viewHandler, SignUpViewModel signupViewModel){
+        this.viewHandler = viewHandler;
         this.signUpViewModel = signupViewModel;
         feedbackLabel.textProperty().bind(signupViewModel.feedbackStringProperty());
         setFocus(false);
         signupViewModel.responseProperty().addListener((observableValue, s, t1) -> {
             if(t1.equals("Success")){
                 signupViewModel.resetFeedBackProperty();
-                ViewHandler.getInstance().openLoginView();
+                viewHandler.openLoginView();
             }
         });
     }
@@ -62,6 +62,6 @@ public class SignUpViewController {
 
 
     public void onCancelButton(ActionEvent actionEvent) {
-        ViewHandler.getInstance().openLoginView();
+        viewHandler.openLoginView();
     }
 }

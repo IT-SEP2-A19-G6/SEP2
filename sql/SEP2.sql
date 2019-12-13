@@ -82,12 +82,5 @@ VALUES (1, 'Something broken', 'Hallo this is a test to make sure it works, brok
 -- This is only for use in case of id reset to 1 again...
 --ALTER SEQUENCE ticket_id_ticket_seq RESTART WITH 1;
 
-select ticket.id, created_at, c.Username as creator, subject, description, category, location, ticket_status, b.branchName, abm.Username as assignee from ticket
-LEFT  JOIN account_client c on user_Id = c.id
-LEFT  JOIN Branch b on Ticket.Id_Branch = b.Id
-LEFT  JOIN account_branch_member abm on Ticket.Assignee = abm.Id
-WHERE c.Username = 'user1';
-
-
 
 

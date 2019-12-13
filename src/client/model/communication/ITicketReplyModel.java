@@ -1,9 +1,8 @@
 package client.model.communication;
 
-import shared.IPropertyChangeSubject;
 import shared.TicketReply;
 
-public interface ITicketReplyModel extends IPropertyChangeSubject {
+public interface ITicketReplyModel {
     void getReplies(int ticketId);
-    void addReply(int ticketid, String message);
+    void addReply(TicketReply reply);
 }

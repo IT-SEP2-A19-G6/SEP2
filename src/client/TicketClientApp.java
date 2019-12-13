@@ -18,7 +18,8 @@ public class TicketClientApp extends Application {
         clientFactory = new ClientFactory();
         ModelFactory modelFactory = new ModelFactory(clientFactory);
         ViewModelFactory viewModelFactory = new ViewModelFactory(modelFactory);
-        ViewHandler.getInstance().start(stage, viewModelFactory);
+        ViewHandler viewHandler = new ViewHandler(stage, viewModelFactory);
+        viewHandler.start();
     }
 
     @Override

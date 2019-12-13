@@ -1,8 +1,8 @@
 package client.view;
 
+import client.view.mainview.MainViewController;
 import client.view.createticket.CreateTicketViewController;
 import client.view.login.LoginViewController;
-import client.view.mainview.MainViewController;
 import client.view.mainview.menu.MenuViewController;
 import client.view.signup.SignUpViewController;
 import client.view.ticketlist.TicketListController;
@@ -20,42 +20,40 @@ import shared.TicketListExchange;
 import java.io.IOException;
 
 public class ViewHandler {
-
-    private ViewModelFactory viewModelFactory;
-
     private Stage stage;
-
+    private ViewModelFactory viewModelFactory;
     private Scene loginScene;
+    private Scene createTicketScene;
     private Scene signUpScene;
     private Scene mainScene;
-
     private VBox menu;
     private Pane createTicketPane;
     private AnchorPane ticketListPane;
-
     private MainViewController mainViewController;
     private TicketListController ticketListController;
 
-    private static ViewHandler instance;
-
-    private ViewHandler() {}
-
-    public static ViewHandler getInstance() {
-        if (instance == null) {
-            instance = new ViewHandler();
-        }
-        return instance;
-    }
-
-    public void start(Stage stage, ViewModelFactory viewModelFactory) {
+    public ViewHandler(Stage stage, ViewModelFactory viewModelFactory) {
         this.stage = stage;
         this.viewModelFactory = viewModelFactory;
+    }
 
+    public void start() {
         openLoginView();
         stage.show();
     }
 
 
+    public void openLoginView(){
+        FXMLLoader loader = new FXMLLoader();
+        if (loginScene == null) {
+            Parent root = getRootByPath("login/LoginView.fxml", loader);
+            LoginViewController controller = loader.getController();
+            controller.init(this, viewModelFactory.getLoginViewModel());
+            loginScene = new Scene(root);
+        }
+        stage.setTitle("Login");
+        stage.setScene(loginScene);
+    }
 
     public void loadCreateTicket() {
         if (createTicketPane == null) {
@@ -79,7 +77,7 @@ public class ViewHandler {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("ticketlist/TicketListView.fxml"));
                 ticketListPane = loader.load();
                 ticketListController = loader.getController();
-                ticketListController.init(viewModelFactory);
+                ticketListController.init(viewModelFactory.getTicketListViewModel());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -96,7 +94,7 @@ public class ViewHandler {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("mainview/menu/MenuView.fxml"));
                 menu = loader.load();
                 MenuViewController controller = loader.getController();
-                controller.init(viewModelFactory.getMenuViewModel());
+                controller.init(this, viewModelFactory.getMenuViewModel());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -106,10 +104,10 @@ public class ViewHandler {
 
     public void openMainView() {
         FXMLLoader loader = new FXMLLoader();
-        if (mainScene == null) {
+        if (createTicketScene == null) {
             Parent root = getRootByPath("mainview/MainView.fxml", loader);
             mainViewController = loader.getController();
-            mainViewController.init();
+            mainViewController.init(this);
             mainScene = new Scene(root);
         }
         stage.setTitle("Main View");
@@ -119,27 +117,18 @@ public class ViewHandler {
     public void openSignUpView() {
         FXMLLoader loader = new FXMLLoader();
 
-        if (signUpScene == null) {
+        if (createTicketScene == null) {
             Parent root = getRootByPath("signup/SignUpView.fxml", loader);
             SignUpViewController controller = loader.getController();
-            controller.init(viewModelFactory.getSignUpViewModel());
+            controller.init(this, viewModelFactory.getSignUpViewModel());
             signUpScene = new Scene(root);
         }
         stage.setTitle("Sign Up");
         stage.setScene(signUpScene);
     }
 
-
-    public void openLoginView(){
-        FXMLLoader loader = new FXMLLoader();
-        if (loginScene == null) {
-            Parent root = getRootByPath("login/LoginView.fxml", loader);
-            LoginViewController controller = loader.getController();
-            controller.init(viewModelFactory.getLoginViewModel());
-            loginScene = new Scene(root);
-        }
-        stage.setTitle("Login");
-        stage.setScene(loginScene);
+    public Stage getStage(){
+        return stage;
     }
 
     private Parent getRootByPath(String path, FXMLLoader loader) {

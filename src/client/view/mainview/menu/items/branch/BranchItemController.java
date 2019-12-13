@@ -18,17 +18,18 @@ public class BranchItemController implements IDotController {
     @FXML
     Circle dot;
 
-
+    private ViewHandler viewHandler;
     private IButtonController buttonController;
 
-    public void init(String branchName, IButtonController buttonController){
+    public void init(ViewHandler viewHandler, String branchName, IButtonController buttonController){
+        this.viewHandler = viewHandler;
         this.buttonController = buttonController;
         label.setText(branchName);
         setVisibility(false);
     }
 
     public void doAction(ActionEvent actionEvent) {
-        ViewHandler.getInstance().loadTicketList(new TicketListExchange(Request.TYPE.BRANCH_TICKET_LIST_REQ, ClientProperties.getInstance().getClient().getUsername()));
+        viewHandler.loadTicketList(new TicketListExchange(Request.TYPE.BRANCH_TICKET_LIST_REQ, ClientProperties.getInstance().getClient().getUsername()));
         buttonController.branchButtonPressed(this);
     }
 

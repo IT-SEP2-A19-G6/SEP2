@@ -11,7 +11,7 @@
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="221.0" prefWidth="236.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.signup.SignUpViewController">
     <children>
-        <Label text="Ticket System" textFill="53b9db">
+        <Label text="Ticket System" textFill="#459a99">
             <font>
                 <Font size="27.0" />
             </font>
