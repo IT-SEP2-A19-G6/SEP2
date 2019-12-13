@@ -1,11 +1,9 @@
 package client.view.mainview.menu;
 
-import client.view.ViewHandler;
 import client.view.mainview.menu.items.branch.BranchItemController;
 import client.view.mainview.menu.items.client.ClientItemController;
 import client.view.mainview.menu.items.dotcontroller.DotHandler;
 import client.view.mainview.menu.items.dotcontroller.IButtonController;
-import client.view.mainview.menu.items.dotcontroller.IDotController;
 import client.view.mainview.menu.items.plus.PlusItemController;
 import client.viewmodel.mainview.MenuViewModel;
 import javafx.beans.property.BooleanProperty;
@@ -16,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+
 import java.io.IOException;
 
 public class MenuViewController {
@@ -29,11 +28,11 @@ public class MenuViewController {
     private StringProperty plusLabel;
     private BooleanProperty branchIcon;
     private StringProperty branchLabel;
-    private ViewHandler viewHandler;
+
     private IButtonController buttonController;
 
-    public void init(ViewHandler viewHandler, MenuViewModel menuViewModel){
-        this.viewHandler = viewHandler;
+    public void init(MenuViewModel menuViewModel){
+
         clientIcon = new SimpleBooleanProperty();
         isUser = new SimpleBooleanProperty();
         clientLabel = new SimpleStringProperty();
@@ -70,7 +69,7 @@ public class MenuViewController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("items/client/ClientItemControl.fxml"));
             GridPane icon  =  loader.load();
             ClientItemController controller = loader.getController();
-            controller.init(viewHandler, username, isUser, buttonController);
+            controller.init(username, isUser, buttonController);
             content = icon;
             buttonController.addDotController(controller);
 
@@ -86,7 +85,7 @@ public class MenuViewController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("items/branch/BranchItemControl.fxml"));
             GridPane icon  =  loader.load();
             BranchItemController controller = loader.getController();
-            controller.init(viewHandler, branchName, buttonController);
+            controller.init(branchName, buttonController);
             content = icon;
             buttonController.addDotController(controller);
 
@@ -102,7 +101,7 @@ public class MenuViewController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("items/plus/plusItemControl.fxml"));
             GridPane icon  =  loader.load();
             PlusItemController controller = loader.getController();
-            controller.init(viewHandler, labelText, buttonController);
+            controller.init(labelText, buttonController);
             content = icon;
             buttonController.addDotController(controller);
 

@@ -2,6 +2,7 @@ package client.view.ticketlist;
 
 import client.view.ticketlist.items.messageitem.MessageItemController;
 import client.view.ticketlist.items.ticketitem.TicketItemController;
+import client.viewmodel.ViewModelFactory;
 import client.viewmodel.ticketlist.TicketListViewModel;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
@@ -9,13 +10,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import shared.Ticket;
 import shared.TicketListExchange;
 
 import java.io.IOException;
-;
 
 public class TicketListController {
 
@@ -26,9 +25,11 @@ public class TicketListController {
     AnchorPane pane;
 
     private TicketListViewModel ticketListViewModel;
+    private ViewModelFactory viewModelFactory;
 
-    public void init(TicketListViewModel ticketListViewModel) {
-        this.ticketListViewModel = ticketListViewModel;
+    public void init(ViewModelFactory vmf) {
+        viewModelFactory = vmf;
+        this.ticketListViewModel = vmf.getTicketListViewModel();
 
         ticketListViewModel.getTickets().addListener((ListChangeListener.Change<? extends Ticket> c) -> {
             Platform.runLater(() -> {
@@ -63,7 +64,7 @@ public class TicketListController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("items/ticketitem/TicketItemControl.fxml"));
             BorderPane pane  =  loader.load();
             TicketItemController controller = loader.getController();
-            controller.init(ticket);
+            controller.init(viewModelFactory, ticket);
             ticketListVBox.getChildren().add(pane);
 
         } catch (IOException e) {

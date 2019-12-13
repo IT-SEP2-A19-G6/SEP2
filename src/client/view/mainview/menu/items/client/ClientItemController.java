@@ -1,7 +1,6 @@
 package client.view.mainview.menu.items.client;
 
 import client.view.ViewHandler;
-import client.view.mainview.menu.items.dotcontroller.DotHandler;
 import client.view.mainview.menu.items.dotcontroller.IButtonController;
 import client.view.mainview.menu.items.dotcontroller.IDotController;
 import javafx.event.ActionEvent;
@@ -21,11 +20,10 @@ public class ClientItemController implements IDotController {
 
     private boolean isUser;
     private String username;
-    private ViewHandler viewHandler;
+
     private IButtonController buttonController;
 
-    public void init(ViewHandler viewHandler, String username, boolean isUser, IButtonController buttonController){
-        this.viewHandler = viewHandler;
+    public void init(String username, boolean isUser, IButtonController buttonController){
         this.buttonController = buttonController;
         this.isUser = isUser;
         this.username = username;
@@ -36,9 +34,9 @@ public class ClientItemController implements IDotController {
     public void doAction(ActionEvent actionEvent) {
         buttonController.clientButtonPressed(this);
         if (isUser){
-            viewHandler.loadTicketList(new TicketListExchange(Request.TYPE.OWN_TICKET_LIST_REQ, username));
+            ViewHandler.getInstance().loadTicketList(new TicketListExchange(Request.TYPE.OWN_TICKET_LIST_REQ, username));
         } else {
-            viewHandler.loadTicketList(new TicketListExchange(Request.TYPE.ASSIGNED_TICKET_LIST_REQ, username));
+            ViewHandler.getInstance().loadTicketList(new TicketListExchange(Request.TYPE.ASSIGNED_TICKET_LIST_REQ, username));
         }
     }
 
