@@ -91,6 +91,10 @@ private ITicketReplyServerModel ticketReplyServerModel;
                     ArrayList<TicketReply> replies = ticketReplyServerModel.getReplies(ticketId);
                     Request response = new Request(Request.TYPE.TICKET_REPLY_RESPONSE, replies);
                     sendToClient(response);
+                } else if (requestFromClient.type.equals(Request.TYPE.BRANCH_REQ)){
+                    ArrayList<Branch> branches = createTicketServerModel.getBranches();
+                    Request response = new Request(Request.TYPE.BRANCH_RESPONSE, branches);
+                    sendToClient(response);
                 }
 
                 //TODO create methods to take care of the newly received objects.

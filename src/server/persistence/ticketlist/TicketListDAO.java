@@ -73,7 +73,6 @@ public class TicketListDAO implements ITicketListDAO {
                 String creator = rs.getString("creator");
                 String subject = rs.getString("Subject");
                 String description = rs.getString("Description");
-                String category = rs.getString("Category");
                 String location = rs.getString("Location");
                 String ticketStatus = rs.getString("Ticket_Status");
                 String branch = rs.getString("branchname");
@@ -82,7 +81,7 @@ public class TicketListDAO implements ITicketListDAO {
                 DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
                 String date = dateFormat.format(createdDate);
 
-                tickets.add(new Ticket(id, date, creator, subject, description, category, location, ticketStatus, branch, assignee));
+                tickets.add(new Ticket(id, date, creator, subject, description, location, ticketStatus, branch, assignee));
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -25,7 +25,9 @@ public class Request implements Serializable {
         SIGNUP_RESPONSE,
         TICKET_CREATE,
         TICKET_RECEIVE,
-        SET_STATE // Object contains client type
+        SET_STATE, // Object contains client type
+        BRANCH_REQ, // no object
+        BRANCH_RESPONSE // Object contains ArrayList<Branch>
     }
 
     public Request(TYPE type, Object object) {

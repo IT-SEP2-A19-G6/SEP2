@@ -35,6 +35,7 @@ public class ViewHandler {
 
     private MainViewController mainViewController;
     private TicketListController ticketListController;
+    private MenuViewController menuViewController;
 
     private static ViewHandler instance;
 
@@ -64,7 +65,7 @@ public class ViewHandler {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("createticket/CreateTicketView.fxml"));
                 createTicketPane = loader.load();
                 CreateTicketViewController controller = loader.getController();
-                controller.init(viewModelFactory.getCreateTicketViewModel());
+                controller.init(viewModelFactory.getCreateTicketViewModel(), menuViewController);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -95,8 +96,8 @@ public class ViewHandler {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("mainview/menu/MenuView.fxml"));
                 menu = loader.load();
-                MenuViewController controller = loader.getController();
-                controller.init(viewModelFactory.getMenuViewModel());
+                menuViewController = loader.getController();
+                menuViewController.init(viewModelFactory.getMenuViewModel());
             } catch (IOException e) {
                 e.printStackTrace();
             }
