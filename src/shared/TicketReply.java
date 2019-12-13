@@ -1,12 +1,16 @@
 package shared;
 
+import client.util.ClientProperties;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class TicketReply {
+public class TicketReply implements Serializable {
     private String message;
     private LocalDate timeStamp;
     private String username;
     private int ticketId;
+    private int clientid;
 
     public TicketReply(String message, LocalDate timeStamp, String username, int ticketId) {
         this.message = message;
@@ -15,10 +19,10 @@ public class TicketReply {
         this.ticketId = ticketId;
     }
 
-    public TicketReply(String message, String username, int ticketId) {
-        this.message = message;
-        this.username = username;
+    public TicketReply(int ticketId, String message, int clientid) {
         this.ticketId = ticketId;
+        this.message = message;
+        this.clientid = clientid;
     }
 
     public String getMessage() {

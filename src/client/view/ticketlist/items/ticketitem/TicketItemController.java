@@ -1,7 +1,11 @@
 package client.view.ticketlist.items.ticketitem;
 
-import client.view.ticketlist.items.messageitem.MessageItemController;
+import client.view.ticketlist.items.replymessageitem.ReplyMessageItemController;
 import client.view.ticketlist.items.replyitem.TicketReplyItemController;
+import client.viewmodel.ViewModelFactory;
+import client.viewmodel.communication.TicketReplyViewModel;
+import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,12 +40,17 @@ public class TicketItemController {
     @FXML
     public VBox ticketVBox;
 
+    ArrayList<TicketReply> replies = new ArrayList<>();
+    private ViewModelFactory viewModelFactory;
+    private TicketReplyViewModel viewModel;
+    private Ticket ticket;
 
 
-    public void init(Ticket ticket) {
 
-
-
+    public void init(ViewModelFactory viewModelFactory, Ticket ticket) {
+        this.viewModelFactory = viewModelFactory;
+        this.ticket = ticket;
+        this.viewModel = viewModelFactory.getTicketReplyViewModel();
         labelId.setText(String.valueOf(ticket.getId()));
         labelCreated.setText(ticket.getCreatedDate());
         labelCreatedBy.setText(ticket.getUsername());
@@ -50,46 +59,71 @@ public class TicketItemController {
         labelStatus.setText(ticket.getTicketStatus());
         labelBranch.setText(ticket.getBranch());
         labelAssignedTo.setText(ticket.getAssignee());
+
+//        viewModel.getReplies().addListener((ListChangeListener.Change<? extends TicketReply> c) -> {
+//            while (c.next()) {
+//                if (c.wasAdded()) {
+//                    int start = c.getFrom();
+//                    int end = c.getTo();
+//                    for (int i = start; i < end; i++) {
+//                        TicketReply newTicketReply = c.getList().get(i);
+//                        replies.add(newTicketReply);
+//                    }
+//                }
+//            }
+//            Platform.runLater(() -> {
+//                for (TicketReply reply : replies) {
+//                    ticketVBox.getChildren().add(createTicketReplyMessage(reply));
+//                }
+//                ticketVBox.getChildren().add(getReplyNode());
+//            });
+//        });
     }
 
     public void showMoreButton(ActionEvent actionEvent) {
-
-
+        //Change if necessary
+        // TODO fix check...
         if (ticketVBox.getChildren().size() > 4) {
             for (int i = 0; i < ticketVBox.getChildren().size(); i++) {
-                ticketVBox.getChildren().remove(4);
+                if (ticketVBox.getChildren().size() > 4)
+                    ticketVBox.getChildren().remove(4);
             }
         } else {
             loadReplies();
         }
-
     }
-
 
     private void loadReplies() {
-        //Dummy replies
         replies.clear();
-        replies.add(new TicketReply("Test 1", "user1", 1));
-        replies.add(new TicketReply("Test 2", "user1", 1));
-        replies.add(new TicketReply("Test 3", "user1", 1));
-        replies.add(new TicketReply("Test 4", "user1", 1));
 
-        for (TicketReply reply : replies) {
-            ticketVBox.getChildren().add(createTicketReplyMessage(reply));
-        }
+        viewModel.getReplies().addListener((ListChangeListener.Change<? extends TicketReply> c) -> {
+            while (c.next()) {
+                if (c.wasAdded()) {
+                    int start = c.getFrom();
+                    int end = c.getTo();
+                    for (int i = start; i < end; i++) {
+                        TicketReply newTicketReply = c.getList().get(i);
+                        replies.add(newTicketReply);
+                    }
+                }
+            }
+            Platform.runLater(() -> {
+                for (TicketReply reply : replies) {
+                    ticketVBox.getChildren().add(createTicketReplyMessage(reply));
+                }
+                ticketVBox.getChildren().add(getReplyNode());
+            });
+        });
 
-        ticketVBox.getChildren().add(getReplyNode());
+        viewModel.getReplies(ticket.getId());
     }
-
-    //Set the replies into this arraylist.
-    ArrayList<TicketReply> replies = new ArrayList<>();
 
     private Node getReplyNode() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../../items/replyitem/TicketReplyItemControl.fxml"));
             BorderPane pane  =  loader.load();
             TicketReplyItemController controller = loader.getController();
-            controller.init();
+            controller.init(viewModelFactory.getTicketReplyViewModel(), ticket.getId());
             return pane;
 
         } catch (IOException e) {
@@ -101,9 +135,9 @@ public class TicketItemController {
     private Node createTicketReplyMessage(TicketReply reply) {
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../../items/messageitem/MessageItemControl.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../replymessageitem/ReplyMessageItemControl.fxml"));
             BorderPane pane  =  loader.load();
-            MessageItemController controller = loader.getController();
+            ReplyMessageItemController controller = loader.getController();
             controller.init(reply);
             return pane;
 

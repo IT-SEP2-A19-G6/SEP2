@@ -1,19 +1,13 @@
 package client.view.ticketlist.items.replyitem;
 
-import client.view.ticketlist.items.messageitem.MessageItemController;
-import client.view.ticketlist.items.ticketitem.TicketItemController;
 import client.viewmodel.communication.TicketReplyViewModel;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.BorderPane;
-import shared.TicketReply;
 
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class TicketReplyItemController {
 
@@ -25,31 +19,23 @@ public class TicketReplyItemController {
     public Label textAreaEmpty;
 
     private TicketReplyViewModel viewModel;
-    private TicketItemController ticketItemController;
+    private StringProperty replyResult;
+    private int id;
 
-    public void openMessage() {
-
+    public void init(TicketReplyViewModel vm, int id) {
+       viewModel = vm;
+       this.id = id;
+       messageTextArea.textProperty().bindBidirectional(viewModel.messageAreaProperty());
+       replyResult = new SimpleStringProperty();
+       replyResult.bind(viewModel.replyResultProperty());
     }
-
-
-
-    public void init() {
-       // messageTextArea.textProperty().bindBidirectional(viewModel.messageAreProperty());
-    }
-
-
 
     public void submitButton(ActionEvent actionEvent) {
 
         //TODO make a label saying the textarea is empty.
         if(messageTextArea.getText().isEmpty()) return;
 
-       // viewModel.submitReply();
+        viewModel.addReply(id);
     }
-
-
-//    public void init(Arraylist<Reply> replies) {
-//
-//    }
 
 }

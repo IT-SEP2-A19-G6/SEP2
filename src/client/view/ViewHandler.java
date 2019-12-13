@@ -79,7 +79,7 @@ public class ViewHandler {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("ticketlist/TicketListView.fxml"));
                 ticketListPane = loader.load();
                 ticketListController = loader.getController();
-                ticketListController.init(viewModelFactory.getTicketListViewModel());
+                ticketListController.init(viewModelFactory);
             } catch (IOException e) {
                 e.printStackTrace();
             }
