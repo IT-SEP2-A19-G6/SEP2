@@ -69,7 +69,7 @@ public class TicketReplyDAO implements ITicketReplyDAO {
                 DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
                 String date = dateFormat.format(timestamp);
 
-                replies.add(new TicketReply(id, ticketId, timestamp, username, message));
+                replies.add(new TicketReply(id, ticketId, date, username, message));
             }
         } catch (SQLException | DataConnectionException e) {
             e.printStackTrace();

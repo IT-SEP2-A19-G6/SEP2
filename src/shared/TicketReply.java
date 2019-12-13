@@ -23,15 +23,13 @@ public class TicketReply {
         this.username = username;
         this.ticketId = ticketId;
     }
-
-    public TicketReply(int id, int ticketId, Date timestamp, String username, String message) {
-    }
+    
 
     public String getMessage() {
         return message;
     }
 
-    public java.sql.Date getTimeStamp() {
+    public LocalDate getTimeStamp() {
         return timeStamp;
     }
 
