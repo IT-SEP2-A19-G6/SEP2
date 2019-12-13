@@ -60,9 +60,7 @@ public class CreateTicketViewModel {
         Response result = (Response) propertyChangeEvent.getNewValue();
         if (result.getMessage().contains("OK")){
             Platform.runLater(()->{
-                clearFields();
                 ticketResult.setValue(result.getMessage());
-                ticketResult.setValue("");
             });
         }
     }
@@ -73,6 +71,7 @@ public class CreateTicketViewModel {
         description.setValue("");
         location.setValue("");
         currentCategory.setValue(stdCategoryMessage);
+        ticketResult.setValue("");
     }
 
     public void submitTicket() {

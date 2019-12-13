@@ -4,6 +4,9 @@ import server.exceptions.DataConnectionException;
 import server.persistence.ticketlist.ITicketListDAO;
 import shared.Request;
 import shared.TicketListExchange;
+import shared.clients.BranchMember;
+import shared.clients.Client;
+import shared.clients.User;
 
 
 public class TicketListServerModelHandler implements ITicketListServerModel {
@@ -16,8 +19,9 @@ public class TicketListServerModelHandler implements ITicketListServerModel {
     @Override
     public TicketListExchange requestTicketList(TicketListExchange exchange) {
         if (exchange.getAction().equals(Request.TYPE.OWN_TICKET_LIST_REQ)){
+            User user = (User) exchange.getClient();
             try {
-                exchange.setTicketList(ticketListDAO.getOwnTicketList(exchange.getUsername()));
+                exchange.setTicketList(ticketListDAO.getOwnTicketList(user.getClientId()));
                 if (exchange.getTickets().size() == 0){
                     exchange.setAction(Request.TYPE.NO_TICKETS_FOUND_RESPONSE);
                     exchange.setMessage("No tickets yet - try add one...");
@@ -27,8 +31,9 @@ public class TicketListServerModelHandler implements ITicketListServerModel {
                 e.printStackTrace();
             }
         } else if (exchange.getAction().equals(Request.TYPE.ASSIGNED_TICKET_LIST_REQ)){
+            BranchMember member = (BranchMember) exchange.getClient();
             try {
-                exchange.setTicketList(ticketListDAO.getAssignedTicketList(exchange.getUsername()));
+                exchange.setTicketList(ticketListDAO.getAssignedTicketList(member.getClientId()));
                 if (exchange.getTickets().size() == 0){
                     exchange.setAction(Request.TYPE.NO_TICKETS_FOUND_RESPONSE);
                     exchange.setMessage("Good job!! go fetch more @branch.");
@@ -38,8 +43,9 @@ public class TicketListServerModelHandler implements ITicketListServerModel {
                 e.printStackTrace();
             }
         } else if (exchange.getAction().equals(Request.TYPE.BRANCH_TICKET_LIST_REQ)){
+            BranchMember member = (BranchMember) exchange.getClient();
             try {
-                exchange.setTicketList(ticketListDAO.getBranchTicketList(exchange.getUsername()));
+                exchange.setTicketList(ticketListDAO.getBranchTicketList(member.getBranchId()));
                 if (exchange.getTickets().size() == 0){
                     exchange.setAction(Request.TYPE.NO_TICKETS_FOUND_RESPONSE);
                     exchange.setMessage("No tickets!! relax until more arrives...");

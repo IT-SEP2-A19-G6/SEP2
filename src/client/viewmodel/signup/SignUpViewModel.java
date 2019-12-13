@@ -51,7 +51,7 @@ public class SignUpViewModel {
         } else if (!(newPassword.equals(confirmPassword))) {
                 feedbackProperty.setValue("Passwords are not the same");
         } else{
-            signUpModel.requestSignUp(newUsername, newPassword);
+            signUpModel.requestSignUp(newUsername.toLowerCase(), newPassword);
         }
     }
 

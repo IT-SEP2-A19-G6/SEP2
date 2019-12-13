@@ -1,5 +1,6 @@
 package client.view.mainview.menu.items.client;
 
+import client.util.ClientProperties;
 import client.view.ViewHandler;
 import client.view.mainview.menu.items.IVirtualButton;
 import client.view.mainview.menu.items.dotcontroller.IButtonController;
@@ -49,9 +50,9 @@ public class ClientItemController implements IDotController, IVirtualButton {
     public void doButtonAction(){
         buttonController.clientButtonPressed(this);
         if (isUser){
-            ViewHandler.getInstance().loadTicketList(new TicketListExchange(Request.TYPE.OWN_TICKET_LIST_REQ, username));
+            ViewHandler.getInstance().loadTicketList(new TicketListExchange(Request.TYPE.OWN_TICKET_LIST_REQ, ClientProperties.getInstance().getClient()));
         } else {
-            ViewHandler.getInstance().loadTicketList(new TicketListExchange(Request.TYPE.ASSIGNED_TICKET_LIST_REQ, username));
+            ViewHandler.getInstance().loadTicketList(new TicketListExchange(Request.TYPE.ASSIGNED_TICKET_LIST_REQ, ClientProperties.getInstance().getClient()));
         }
     }
 }

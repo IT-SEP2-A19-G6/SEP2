@@ -23,7 +23,7 @@ public class CreateTicketDAO implements ICreateTicketDAO {
     public String addTicket(Ticket createTicket) throws DataConnectionException {
 
         try {
-            String sql = "INSERT INTO " + databaseConnection.getTicketTableName() + " (user_id, subject, description, location, ticket_Status, id_branch)" + " VALUES (?, ?, ?, ?, ?, ?);";
+            String sql = "INSERT INTO " + databaseConnection.getTicketTableName() + " (client_id, subject, description, location, ticket_Status, id_branch)" + " VALUES (?, ?, ?, ?, ?, ?);";
             PreparedStatement preparedStatement = databaseConnection.createPreparedStatement(sql);
 
             preparedStatement.setInt(1, createTicket.getClientId());

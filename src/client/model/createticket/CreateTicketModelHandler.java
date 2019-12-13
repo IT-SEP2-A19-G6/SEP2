@@ -50,7 +50,7 @@ public class CreateTicketModelHandler implements ICreateTicketModel{
                 branchId = branch.getId();
             }
         }
-        Ticket ticket = new Ticket(ClientProperties.getInstance().getClient().getUserId(), subject, description, location, branchId);
+        Ticket ticket = new Ticket(ClientProperties.getInstance().getClient().getClientId(), subject, description, location, branchId);
         createTicketClient.submitTicket(ticket);
     }
 

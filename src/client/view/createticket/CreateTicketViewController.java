@@ -51,6 +51,7 @@ public class CreateTicketViewController {
         ticketResult.addListener((observableValue, s, t1) -> {
             if (t1.equals("OK")) {
                 clientButton.pressButton();
+                createTicketViewModel.clearFields();
             }
         });
     }

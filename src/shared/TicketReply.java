@@ -7,6 +7,7 @@ public class TicketReply {
     private LocalDate timeStamp;
     private String username;
     private int ticketId;
+    private int clientId;
 
     public TicketReply(String message, LocalDate timeStamp, String username, int ticketId) {
         this.message = message;
@@ -15,9 +16,9 @@ public class TicketReply {
         this.ticketId = ticketId;
     }
 
-    public TicketReply(String message, String username, int ticketId) {
+    public TicketReply(String message, int ticketId, int clientId) {
         this.message = message;
-        this.username = username;
+        this.clientId = clientId;
         this.ticketId = ticketId;
     }
 
@@ -35,5 +36,9 @@ public class TicketReply {
 
     public int getTicketId() {
         return ticketId;
+    }
+
+    public int getClientId() {
+        return clientId;
     }
 }
