@@ -14,9 +14,11 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import shared.Request;
 import shared.Ticket;
 import shared.TicketReply;
 
+import java.beans.PropertyChangeEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -41,10 +43,11 @@ public class TicketItemController {
     @FXML
     public VBox ticketVBox;
 
-    ArrayList<TicketReply> replies = new ArrayList<>();
+    ArrayList<TicketReply> replies;
     private ViewModelFactory viewModelFactory;
     private TicketReplyViewModel viewModel;
     private Ticket ticket;
+    private boolean isShown;
 
 
 
@@ -60,6 +63,9 @@ public class TicketItemController {
         labelStatus.setText(ticket.getTicketStatus());
         labelBranch.setText(ticket.getBranch());
         labelAssignedTo.setText(ticket.getAssignee());
+        isShown = false;
+
+        viewModel.addPropertyChangeListener(Request.TYPE.TICKET_REPLY_RESPONSE.name() + ticket.getId(), this::handleReplies);
 
 
 
@@ -85,45 +91,63 @@ public class TicketItemController {
 //        });
     }
 
+    private void handleReplies(PropertyChangeEvent propertyChangeEvent) {
+        replies = (ArrayList<TicketReply>) propertyChangeEvent.getNewValue();
+        Platform.runLater(() -> {
+            clearMessages(4);
+            for (TicketReply reply : replies) {
+                ticketVBox.getChildren().add(createTicketReplyMessage(reply));
+            }
+            ticketVBox.getChildren().add(getReplyNode());
+            System.out.println("After adding: " + ticketVBox.getChildren().size());
+        });
+
+    }
+
     public void showMoreButton(ActionEvent actionEvent) {
-        viewModel.getTicketReplies().clear();
-        viewModel.getReplies(ticket.getId());
-
-        //Change if necessary
-        // TODO fix check...
-        if (ticketVBox.getChildren().size() > 4) {
-            for (int i = 0; i < ticketVBox.getChildren().size(); i++) {
-                if (ticketVBox.getChildren().size() > 4)
-                    ticketVBox.getChildren().remove(4);
-            }
+        if (isShown){
+            System.out.println("shown true");
+            clearMessages(4);
+            isShown = false;
         } else {
-            loadReplies();
+            isShown = true;
+            viewModel.getReplies(ticket.getId());
+            ticketVBox.getChildren().add(getReplyNode());
         }
+//
+//        //Change if necessary
+//        // TODO fix check...
+//        if (ticketVBox.getChildren().size() > 4) {
+//            clearMessages(4);
+//        } else {
+////            viewModel.getTicketReplies().clear();
+////            loadReplies();
+//        }
     }
 
-    private void loadReplies() {
-        replies.clear();
-
-        viewModel.getTicketReplies().addListener((ListChangeListener.Change<? extends TicketReply> c) -> {
-            while (c.next()) {
-                if (c.wasAdded()) {
-                    int start = c.getFrom();
-                    int end = c.getTo();
-                    for (int i = start; i < end; i++) {
-                        TicketReply newTicketReply = c.getList().get(i);
-                        replies.add(newTicketReply);
-                    }
-                }
-            }
-            Platform.runLater(() -> {
-                for (TicketReply reply : replies) {
-                    ticketVBox.getChildren().add(createTicketReplyMessage(reply));
-                }
-                ticketVBox.getChildren().add(getReplyNode());
-            });
-        });;
-
-    }
+//    private void loadReplies() {
+//        replies.clear();
+//
+//        viewModel.getTicketReplies().addListener((ListChangeListener.Change<? extends TicketReply> c) -> {
+//            while (c.next()) {
+//                if (c.wasAdded()) {
+//                    int start = c.getFrom();
+//                    int end = c.getTo();
+//                    for (int i = start; i < end; i++) {
+//                        TicketReply newTicketReply = c.getList().get(i);
+//                        replies.add(newTicketReply);
+//                    }
+//                }
+//            }
+//            Platform.runLater(() -> {
+//                for (TicketReply reply : replies) {
+//                    ticketVBox.getChildren().add(createTicketReplyMessage(reply));
+//                }
+//                ticketVBox.getChildren().add(getReplyNode());
+//            });
+//        });;
+//
+//    }
 
     private Node getReplyNode() {
         try {
@@ -152,6 +176,16 @@ public class TicketItemController {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private void clearMessages(int from){
+        System.out.println("Before clear: " + ticketVBox.getChildren().size());
+        for (int i = 0; i < ticketVBox.getChildren().size(); i++) {
+            if (ticketVBox.getChildren().size() > 4)
+                ticketVBox.getChildren().remove(from);
+//                ticketVBox.getChildren().remove(ticketVBox.getChildren().size() - 1);
+        }
+        System.out.println("After clear: " + ticketVBox.getChildren().size());
     }
 
 }
