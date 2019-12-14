@@ -2,12 +2,13 @@ package server.network;
 
 import server.model.ServerModelFactory;
 import server.model.communication.ITicketReplyServerModel;
+import server.model.createticket.ICreateTicketServerModel;
 import server.model.login.ILoginServerModel;
 import server.model.signup.ISignUpServerModel;
-import server.model.createticket.ICreateTicketServerModel;
 import server.model.ticketlist.ITicketListServerModel;
 import shared.*;
 import shared.clients.User;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -95,6 +96,9 @@ private ITicketReplyServerModel ticketReplyServerModel;
                     ArrayList<Branch> branches = createTicketServerModel.getBranches();
                     Request response = new Request(Request.TYPE.BRANCH_RESPONSE, branches);
                     sendToClient(response);
+                } else if (requestFromClient.type.equals(Request.TYPE.TICKET_SET_STATUS)) {
+                    Ticket ticket = (Ticket) requestFromClient.object;
+                    createTicketServerModel.updateTicket(ticket);
                 }
 
                 //TODO create methods to take care of the newly received objects.

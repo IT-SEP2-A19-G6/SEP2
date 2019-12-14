@@ -5,12 +5,10 @@ import server.persistence.database.IDatabaseConnection;
 import shared.Branch;
 import shared.Ticket;
 
-import java.io.StringBufferInputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class CreateTicketDAO implements ICreateTicketDAO {
 
@@ -45,6 +43,37 @@ public class CreateTicketDAO implements ICreateTicketDAO {
         String sql = "SELECT * FROM " + databaseConnection.getBranchTableName() + ";";
 
         return getBranches(sql);
+    }
+
+    @Override
+    public void updateTicket(Ticket ticket) {
+        try {
+            String sql = "UPDATE " + databaseConnection.getTicketTableName() +
+                        " SET" +
+                        " subject = ?," +
+                        " description = ?," +
+                        " location = ?," +
+                        " ticket_status = ?," +
+                        " id_branch = (select id_branch from branch where branchName = ?)," +
+                        " assignee = (select id from account_client where Username = ?)" +
+                        " WHERE ticket.id = ?";
+
+            PreparedStatement preparedStatement = databaseConnection.createPreparedStatement(sql);
+
+            preparedStatement.setString(1, ticket.getSubject());
+            preparedStatement.setString(2, ticket.getDescription());
+            preparedStatement.setString(3, ticket.getLocation());
+            preparedStatement.setString(4, ticket.getTicketStatus());
+            preparedStatement.setString(5, ticket.getBranch());
+            preparedStatement.setString(6, ticket.getAssignee());
+            preparedStatement.setInt(7, ticket.getId());
+            databaseConnection.executeUpdate(preparedStatement);
+
+
+        } catch (DataConnectionException | SQLException e) {
+            System.out.println("updating ticket failed with message" + e.getMessage());
+        }
+
     }
 
     private ArrayList<Branch> getBranches(String preparedSql) throws DataConnectionException {

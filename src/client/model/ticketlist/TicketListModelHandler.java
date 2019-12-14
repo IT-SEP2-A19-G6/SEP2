@@ -2,7 +2,9 @@ package client.model.ticketlist;
 
 import client.network.ticketlist.ITicketListClient;
 import shared.Request;
+import shared.Ticket;
 import shared.TicketListExchange;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -24,6 +26,11 @@ public class TicketListModelHandler implements ITicketListModel {
     @Override
     public void requestTicketList(TicketListExchange exchange) {
         ticketListClient.requestTicketList(exchange);
+    }
+
+    @Override
+    public void setTicketStatus(Ticket ticket) {
+        ticketListClient.setTicketStatus(ticket);
     }
 
     @Override

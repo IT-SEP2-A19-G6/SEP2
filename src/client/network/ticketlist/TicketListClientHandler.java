@@ -2,6 +2,7 @@ package client.network.ticketlist;
 
 import client.network.socket.IClientSocketHandler;
 import shared.Request;
+import shared.Ticket;
 import shared.TicketListExchange;
 
 import java.beans.PropertyChangeEvent;
@@ -28,6 +29,12 @@ public class TicketListClientHandler implements ITicketListClient {
     @Override
     public void requestTicketList(TicketListExchange exchange) {
         Request request = new Request(Request.TYPE.TICKET_LIST_REQ, exchange);
+        clientSocketHandler.sendToServer(request);
+    }
+
+    @Override
+    public void setTicketStatus(Ticket ticket) {
+        Request request = new Request(Request.TYPE.TICKET_SET_STATUS, ticket);
         clientSocketHandler.sendToServer(request);
     }
 

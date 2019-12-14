@@ -29,6 +29,10 @@ public class TicketListViewModel {
         ticketListModel.requestTicketList(ticketListExchange);
     }
 
+    public void setTicketStatus(Ticket ticket) {
+        ticketListModel.setTicketStatus(ticket);
+    }
+
     private void addListeners() {
         ticketListModel.addPropertyChangeListener(Request.TYPE.TICKET_LIST_RESPONSE.name(), this::handleResponse);
         ticketListModel.addPropertyChangeListener(Request.TYPE.NO_TICKETS_FOUND_RESPONSE.name(), this::handleEmptyResponse);

@@ -5,7 +5,6 @@ import server.persistence.createticket.ICreateTicketDAO;
 import shared.Branch;
 import shared.Response;
 import shared.Ticket;
-import shared.clients.User;
 
 import java.util.ArrayList;
 
@@ -40,5 +39,10 @@ public class CreateTicketServerModelHandler implements ICreateTicketServerModel 
             branches.add(new Branch(0, "No categories found"));
         }
         return branches;
+    }
+
+    @Override
+    public void updateTicket(Ticket ticket) {
+        createTicketDAO.updateTicket(ticket);
     }
 }

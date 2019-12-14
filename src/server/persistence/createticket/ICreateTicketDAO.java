@@ -11,4 +11,6 @@ public interface ICreateTicketDAO {
     String addTicket (Ticket createTicket) throws DataConnectionException;
 
     ArrayList<Branch> getBranches() throws DataConnectionException;
+
+    void updateTicket(Ticket ticket);
 }
