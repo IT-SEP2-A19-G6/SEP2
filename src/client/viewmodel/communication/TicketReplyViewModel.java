@@ -2,14 +2,11 @@ package client.viewmodel.communication;
 
 import client.model.communication.ITicketReplyModel;
 import client.viewmodel.statemachine.IStateController;
-import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.property.*;
+import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import shared.Request;
-import shared.Response;
 import shared.TicketReply;
 
 import java.beans.PropertyChangeEvent;
@@ -20,6 +17,8 @@ public class TicketReplyViewModel implements IStateController {
     private StringProperty messageArea;
     private StringProperty replyResult;
     private ObservableList<TicketReply> replies;
+
+
 
     public TicketReplyViewModel(ITicketReplyModel ticketReplyModel) {
         this.ticketReplyModel = ticketReplyModel;
@@ -47,7 +46,7 @@ public class TicketReplyViewModel implements IStateController {
     }
 
     private void addListeners() {
-        ticketReplyModel.addPropertyChangeListener(Request.TYPE.TICKET_REPLY_RESPONSE.name(), this ::handleResponse);
+        ticketReplyModel.addPropertyChangeListener(Request.TYPE.TICKET_REPLY_RESPONSE.name(), this::handleResponse);
     }
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
@@ -55,7 +54,7 @@ public class TicketReplyViewModel implements IStateController {
         replies.setAll(serverReplies);
     }
 
-    public ObservableList<TicketReply> getReplies() {
+    public ObservableList<TicketReply> getTicketReplies() {
         return replies;
     }
 
@@ -74,4 +73,8 @@ public class TicketReplyViewModel implements IStateController {
     public void getReplies(int ticketid) {
         ticketReplyModel.getReplies(ticketid);
     }
+
+
 }
+
+

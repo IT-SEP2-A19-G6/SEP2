@@ -5,6 +5,7 @@ import client.view.ticketlist.items.replyitem.TicketReplyItemController;
 import client.viewmodel.ViewModelFactory;
 import client.viewmodel.communication.TicketReplyViewModel;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -60,14 +61,18 @@ public class TicketItemController {
         labelBranch.setText(ticket.getBranch());
         labelAssignedTo.setText(ticket.getAssignee());
 
-//        viewModel.getReplies().addListener((ListChangeListener.Change<? extends TicketReply> c) -> {
+
+
+//        viewModel.getTicketReplies().addListener((ListChangeListener.Change<? extends TicketReply> c) -> {
 //            while (c.next()) {
 //                if (c.wasAdded()) {
 //                    int start = c.getFrom();
 //                    int end = c.getTo();
 //                    for (int i = start; i < end; i++) {
 //                        TicketReply newTicketReply = c.getList().get(i);
-//                        replies.add(newTicketReply);
+//                        if (newTicketReply.getTicketId() == ticket.getId()){
+//                            replies.add(newTicketReply);
+//                        }
 //                    }
 //                }
 //            }
@@ -81,6 +86,9 @@ public class TicketItemController {
     }
 
     public void showMoreButton(ActionEvent actionEvent) {
+        viewModel.getTicketReplies().clear();
+        viewModel.getReplies(ticket.getId());
+
         //Change if necessary
         // TODO fix check...
         if (ticketVBox.getChildren().size() > 4) {
@@ -96,7 +104,7 @@ public class TicketItemController {
     private void loadReplies() {
         replies.clear();
 
-        viewModel.getReplies().addListener((ListChangeListener.Change<? extends TicketReply> c) -> {
+        viewModel.getTicketReplies().addListener((ListChangeListener.Change<? extends TicketReply> c) -> {
             while (c.next()) {
                 if (c.wasAdded()) {
                     int start = c.getFrom();
@@ -113,9 +121,8 @@ public class TicketItemController {
                 }
                 ticketVBox.getChildren().add(getReplyNode());
             });
-        });
+        });;
 
-        viewModel.getReplies(ticket.getId());
     }
 
     private Node getReplyNode() {

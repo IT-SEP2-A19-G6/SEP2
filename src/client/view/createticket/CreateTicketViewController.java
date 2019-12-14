@@ -23,6 +23,8 @@ public class CreateTicketViewController {
     @FXML
     public Label labelComment;
 
+    @FXML Label infoLabel;
+
     private CreateTicketViewModel createTicketViewModel;
     private IVirtualButton clientButton;
 
@@ -33,6 +35,7 @@ public class CreateTicketViewController {
         subjectTextField.textProperty().bindBidirectional(createTicketViewModel.subjectProperty());
         descriptionTextArea.textProperty().bindBidirectional(createTicketViewModel.descriptionProperty());
         locationTextField.textProperty().bindBidirectional(createTicketViewModel.locationProperty());
+        infoLabel.textProperty().bindBidirectional(createTicketViewModel.ticketResultProperty());
         categoryComboBox.valueProperty().bindBidirectional(this.createTicketViewModel.currentCategory());
         categoryComboBox.setItems(this.createTicketViewModel.getCategories());
         createTicketViewModel.ticketResultProperty().addListener((observableValue, s, t1) -> {

@@ -60,7 +60,6 @@ public class CreateTicketViewModel {
         Response result = (Response) propertyChangeEvent.getNewValue();
         if (result.getMessage().contains("OK")){
             Platform.runLater(()->{
-                System.out.println(result.getMessage());
                 ticketResult.setValue(result.getMessage());
             });
         }

@@ -59,10 +59,11 @@
                   <TextArea fx:id="descriptionTextArea" prefHeight="400.0" prefWidth="560.0" promptText="Specify in greater details" />
                </children>
             </VBox>
-            <HBox spacing="20.0">
+            <HBox alignment="CENTER_LEFT" spacing="20.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#onSubmitButtonClick" text="Submit" />
                   <Button mnemonicParsing="false" onAction="#onResetButtonClick" text="Reset" />
+                  <Label fx:id="infoLabel" />
                </children>
             </HBox>
          </children>
