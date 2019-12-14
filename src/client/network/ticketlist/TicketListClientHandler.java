@@ -16,7 +16,7 @@ public class TicketListClientHandler implements ITicketListClient {
         this.clientSocketHandler = clientSocketHandler;
         this.clientSocketHandler.addPropertyChangeListener(Request.TYPE.TICKET_LIST_RESPONSE.name(), this::handleResponse);
     }
-    
+
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
         Request reqFromServer = (Request) propertyChangeEvent.getNewValue();
