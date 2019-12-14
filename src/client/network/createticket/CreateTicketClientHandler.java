@@ -9,6 +9,7 @@ import shared.Ticket;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 
 public class CreateTicketClientHandler implements ICreateTicketClient {
 
@@ -22,20 +23,31 @@ public class CreateTicketClientHandler implements ICreateTicketClient {
     }
 
     private void addListeners() {
-        clientSocketHandler.addPropertyChangeListener(Request.TYPE.TICKET_RECEIVE.name(), this::handleResponse);
+        clientSocketHandler.addPropertyChangeListener(Request.TYPE.TICKET_RECEIVE.name(), this::handleTicketResponse);
+        clientSocketHandler.addPropertyChangeListener(Request.TYPE.BRANCH_RESPONSE.name(), this::handleBranchResponse);
     }
 
-    private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
+    private void handleBranchResponse(PropertyChangeEvent propertyChangeEvent) {
+        Request serverResponse = (Request) propertyChangeEvent.getNewValue();
+        ArrayList<String> branches = (ArrayList<String>) serverResponse.object;
+        support.firePropertyChange(serverResponse.type.name(), "", branches);
+    }
+
+    private void handleTicketResponse(PropertyChangeEvent propertyChangeEvent) {
         Request serverReq = (Request) propertyChangeEvent.getNewValue();
-        if (serverReq.type.name().equals(Request.TYPE.TICKET_RECEIVE.name())) {
-            Response createTicket = (Response) serverReq.object;
-            support.firePropertyChange(serverReq.type.name(), "", createTicket);
-        }
+        Response createTicket = (Response) serverReq.object;
+        support.firePropertyChange(serverReq.type.name(), "", createTicket);
     }
     @Override
     public void submitTicket(Ticket ticket) {
         Request createTicketReq = new Request(Request.TYPE.TICKET_CREATE, ticket);
         clientSocketHandler.sendToServer(createTicketReq);
+    }
+
+    @Override
+    public void getBranches() {
+        Request branchReq = new Request(Request.TYPE.BRANCH_REQ, "");
+        clientSocketHandler.sendToServer(branchReq);
     }
 
     @Override

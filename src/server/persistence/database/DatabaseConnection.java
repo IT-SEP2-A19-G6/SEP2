@@ -9,7 +9,8 @@ public class DatabaseConnection implements IDatabaseConnection {
     private String schemaName;
     private String clientTableName;
     private String ticketTableName;
-    private String userTableName;
+    private String branchTableName;
+    private String replyTableName;
 
     private String driver = ApplicationProperties.INSTANCE.getDbDriver();
     private String url = ApplicationProperties.INSTANCE.getDbUrl();
@@ -20,9 +21,10 @@ public class DatabaseConnection implements IDatabaseConnection {
 
     public DatabaseConnection() {
         schemaName = "sep2";
-        clientTableName = "account_client"; // TODO: Perhaps this could be placed in an enum later?
-        userTableName = "account_user";
+        clientTableName = "account_client";
         ticketTableName = "ticket";
+        branchTableName = "branch";
+        replyTableName = "reply";
     }
 
 
@@ -121,8 +123,13 @@ public class DatabaseConnection implements IDatabaseConnection {
         return ticketTableName;
     }
     @Override
-    public String getUserTableName(){
-        return userTableName;
+    public String getReplyTableName(){
+        return replyTableName;
+    }
+
+    @Override
+    public String getBranchTableName() {
+        return branchTableName;
     }
 
 }

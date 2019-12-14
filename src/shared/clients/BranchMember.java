@@ -2,12 +2,14 @@ package shared.clients;
 
 public class BranchMember extends Client {
 
-    public BranchMember(String username, String password, ClientType type) {
-        super(username, password, type);
+    private int branchId;
+
+    public BranchMember(int id, String username, ClientType type, int branchId) {
+        super(id, username, type);
+        this.branchId = branchId;
     }
 
-    @Override
-    public void setType(ClientType type) {
-
+    public int getBranchId() {
+        return branchId;
     }
 }

@@ -5,4 +5,6 @@ import shared.Ticket;
 
 public interface ICreateTicketClient extends IPropertyChangeSubject {
     void submitTicket(Ticket ticket);
+
+    void getBranches();
 }

@@ -62,6 +62,7 @@ public class LoginViewController {
     }
 
     public void openSignUp(MouseEvent mouseEvent) {
+        loginViewModel.clearFields();
         ViewHandler.getInstance().openSignUpView();
     }
 }

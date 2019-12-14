@@ -14,6 +14,10 @@ public class Response implements Serializable {
         this.message = message;
     }
 
+    public Response(String message){
+        this.message = message;
+    }
+
 
     public Client getReceiver() {
         return receiver;

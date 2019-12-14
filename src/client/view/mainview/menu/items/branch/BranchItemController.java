@@ -28,7 +28,7 @@ public class BranchItemController implements IDotController {
     }
 
     public void doAction(ActionEvent actionEvent) {
-        ViewHandler.getInstance().loadTicketList(new TicketListExchange(Request.TYPE.BRANCH_TICKET_LIST_REQ, ClientProperties.getInstance().getClient().getUsername()));
+        ViewHandler.getInstance().loadTicketList(new TicketListExchange(Request.TYPE.BRANCH_TICKET_LIST_REQ, ClientProperties.getInstance().getClient()));
         buttonController.branchButtonPressed(this);
     }
 

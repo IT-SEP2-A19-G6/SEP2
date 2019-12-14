@@ -7,29 +7,31 @@ import java.time.LocalDate;
 
 public class TicketReply implements Serializable {
     private String message;
-    private LocalDate timeStamp;
+    private String timeStamp;
     private String username;
     private int ticketId;
-    private int clientid;
+    private int clientId;
 
-    public TicketReply(String message, LocalDate timeStamp, String username, int ticketId) {
+
+    public TicketReply(String message, String timeStamp, String username, int ticketId) {
         this.message = message;
         this.timeStamp = timeStamp;
         this.username = username;
         this.ticketId = ticketId;
     }
 
-    public TicketReply(int ticketId, String message, int clientid) {
-        this.ticketId = ticketId;
+    public TicketReply(String message, int ticketId, int clientId) {
         this.message = message;
-        this.clientid = clientid;
+        this.clientId = clientId;
+        this.ticketId = ticketId;
+
     }
 
     public String getMessage() {
         return message;
     }
 
-    public LocalDate getTimeStamp() {
+    public String getTimeStamp() {
         return timeStamp;
     }
 
@@ -39,5 +41,9 @@ public class TicketReply implements Serializable {
 
     public int getTicketId() {
         return ticketId;
+    }
+
+    public int getClientId() {
+        return clientId;
     }
 }
