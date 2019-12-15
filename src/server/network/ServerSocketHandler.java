@@ -1,6 +1,8 @@
 package server.network;
 
 import server.model.ServerModelFactory;
+import server.model.admin.AdminServerModelHandler;
+import server.model.admin.IAdminServerModel;
 import server.model.communication.ITicketReplyServerModel;
 import server.model.createticket.ICreateTicketServerModel;
 import server.model.login.ILoginServerModel;
@@ -29,6 +31,7 @@ public class ServerSocketHandler implements Runnable {
     private ITicketListServerModel ticketListServerModel;
     private ITicketReplyServerModel ticketReplyServerModel;
     private IUpdateTicketServerModel updateTicketServerModel;
+    private IAdminServerModel adminServerModel;
 
 
     public ServerSocketHandler(Socket socket, ServerModelFactory serverModelFactory) {
@@ -40,6 +43,7 @@ public class ServerSocketHandler implements Runnable {
         signUpServerModel = serverModelFactory.getSignUpServerModel();
         ticketListServerModel = serverModelFactory.getTicketListServerModel();
         ticketReplyServerModel = serverModelFactory.getTicketReplyServerModel();
+        adminServerModel = serverModelFactory.getAdminServerModel();
         try {
             outputToClient = new ObjectOutputStream(socket.getOutputStream());
             inputFromClient = new ObjectInputStream(socket.getInputStream());
@@ -107,6 +111,11 @@ public class ServerSocketHandler implements Runnable {
                 } else if (requestFromClient.type.equals(Request.TYPE.SET_ASSIGNEE)) {
                     Ticket ticket = (Ticket) requestFromClient.object;
                     updateTicketServerModel.setAssignee(ticket);
+                } else if (requestFromClient.type.equals(Request.TYPE.ADD_BRANCH_REQ)){
+                    Branch branch = (Branch) requestFromClient.object;
+                    Response fromServer = adminServerModel.addBranch(branch);
+                    Request response = new Request(Request.TYPE.ADD_BRANCH_RESPONSE, fromServer);
+                    sendToClient(response);
                 }
 
             }

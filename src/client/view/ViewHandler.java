@@ -1,5 +1,6 @@
 package client.view;
 
+import client.view.admin.AdminViewController;
 import client.view.createticket.CreateTicketViewController;
 import client.view.login.LoginViewController;
 import client.view.mainview.MainViewController;
@@ -28,10 +29,12 @@ public class ViewHandler {
     private Scene loginScene;
     private Scene signUpScene;
     private Scene mainScene;
+    private Scene adminScene;
 
     private VBox menu;
     private Pane createTicketPane;
     private AnchorPane ticketListPane;
+    private VBox adminView;
 
     private MainViewController mainViewController;
     private TicketListController ticketListController;
@@ -71,6 +74,21 @@ public class ViewHandler {
             }
         }
         mainViewController.setRightArea(createTicketPane);
+    }
+
+    public void loadAdminView() {
+        if (adminView == null) {
+            adminView = new VBox();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("admin/AdminView.fxml"));
+                adminView = loader.load();
+                AdminViewController controller = loader.getController();
+                controller.init(viewModelFactory.getAdminViewModel());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        mainViewController.setRightArea(adminView);
     }
 
     public void loadTicketList(TicketListExchange ticketListExchange) {

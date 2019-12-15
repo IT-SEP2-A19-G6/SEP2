@@ -1,5 +1,7 @@
 package server.model;
 
+import server.model.admin.AdminServerModelHandler;
+import server.model.admin.IAdminServerModel;
 import server.model.communication.ITicketReplyServerModel;
 import server.model.communication.TicketReplyServerModelHandler;
 import server.model.createticket.CreateTicketServerModelHandler;
@@ -22,6 +24,7 @@ public class ServerModelFactory {
     private ISignUpServerModel signUpServerModel;
     private ITicketReplyServerModel ticketReplyServerModel;
     private IUpdateTicketServerModel updateTicketServerModel;
+    private IAdminServerModel adminServerModel;
 
     public ServerModelFactory(DataFactory dataFactory) {
         this.dataFactory = dataFactory;
@@ -67,5 +70,12 @@ public class ServerModelFactory {
             updateTicketServerModel = new UpdateTicketServerModel(dataFactory.getUpdateTicketDAO());
         }
         return updateTicketServerModel;
+    }
+
+    public IAdminServerModel getAdminServerModel(){
+        if(adminServerModel == null){
+            adminServerModel = new AdminServerModelHandler(dataFactory.getAdminDAO());
+        }
+        return adminServerModel;
     }
 }

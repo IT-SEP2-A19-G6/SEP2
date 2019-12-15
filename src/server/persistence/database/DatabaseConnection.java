@@ -28,7 +28,7 @@ public class DatabaseConnection implements IDatabaseConnection {
     }
 
 
-    public Connection getConnection() throws DataConnectionException {
+    private Connection getConnection() throws DataConnectionException {
 
         try {
             Class.forName(driver);

@@ -18,15 +18,15 @@ public class CreateTicketServerModelHandler implements ICreateTicketServerModel 
     @Override
     public Response sendTicket(Ticket ticket) {
 
-            String createTicketMessage;
-            try {
-                createTicketMessage = createTicketDAO.addTicket(ticket);//make method in loginDAO in JDBC
-            } catch (DataConnectionException e) {
-                createTicketMessage = e.getMessage();
-            }
-
-            return new Response(createTicketMessage);//create method to get username in Ticket
+        String createTicketMessage;
+        try {
+            createTicketMessage = createTicketDAO.addTicket(ticket);//make method in loginDAO in JDBC
+        } catch (DataConnectionException e) {
+            createTicketMessage = e.getMessage();
         }
+
+        return new Response(createTicketMessage);//create method to get username in Ticket
+    }
 
     @Override
     public ArrayList<Branch> getBranches() {
@@ -40,6 +40,5 @@ public class CreateTicketServerModelHandler implements ICreateTicketServerModel 
         }
         return branches;
     }
-
 
 }

@@ -28,6 +28,8 @@ public class Request implements Serializable {
         SET_STATE, // Object contains client type
         BRANCH_REQ, // no object
         BRANCH_RESPONSE, // Object contains ArrayList<Branch>
+        ADD_BRANCH_REQ, //Object contains Branch
+        ADD_BRANCH_RESPONSE, //Object contains Response
         TICKET_SET_STATUS, // Object contains ticket with updated status
         BRANCH_MEMBERS_BY_BRANCHNAME_REQ, // Object contains branchName
         BRANCH_MEMBERS_BY_BRANCHNAME_REPLY,

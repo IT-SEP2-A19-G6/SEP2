@@ -9,6 +9,8 @@ public class Response implements Serializable {
     private Client receiver;
     private String message;
 
+    public Response(){}
+
     public Response(Client receiver, String message) {
         this.receiver = receiver;
         this.message = message;
@@ -18,6 +20,9 @@ public class Response implements Serializable {
         this.message = message;
     }
 
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public Client getReceiver() {
         return receiver;

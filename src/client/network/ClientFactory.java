@@ -1,5 +1,7 @@
 package client.network;
 
+import client.network.admin.AdminClientHandler;
+import client.network.admin.IAdminClient;
 import client.network.communication.ITicketReplyClient;
 import client.network.communication.TicketReplyClient;
 import client.network.login.ILoginClient;
@@ -25,6 +27,7 @@ public class ClientFactory {
     private ITicketListClient ticketListClient;
     private ISignUpClient signUpClient;
     private ITicketReplyClient ticketReplyClient;
+    private IAdminClient adminClient;
 
     public ClientFactory() {
         System.out.println("Client is starting...");
@@ -78,6 +81,13 @@ public class ClientFactory {
             ticketReplyClient = new TicketReplyClient(clientSocketHandler);
         }
         return ticketReplyClient;
+    }
+
+    public IAdminClient getAdminClient(){
+        if(adminClient == null){
+            adminClient = new AdminClientHandler(clientSocketHandler);
+        }
+        return adminClient;
     }
 
 }

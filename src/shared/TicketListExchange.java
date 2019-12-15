@@ -12,7 +12,8 @@ public class TicketListExchange implements Serializable {
     ArrayList<Ticket> ticketList;
 
     public TicketListExchange(Request.TYPE action, Client client) {
-        this.client = client;        this.action = action;
+        this.client = client;
+        this.action = action;
     }
 
     public Client getClient() {
@@ -28,7 +29,7 @@ public class TicketListExchange implements Serializable {
     }
 
     public ArrayList<Ticket> getTickets() {
-        return ticketList;
+        return getList();
     }
 
     public void setMessage(String message) {
@@ -40,6 +41,14 @@ public class TicketListExchange implements Serializable {
     }
 
     public void setTicketList(ArrayList<Ticket> ticketList) {
-        this.ticketList = ticketList;
+        getList().clear();
+        getList().addAll(ticketList);
+    }
+
+    private ArrayList<Ticket> getList(){
+        if (ticketList == null){
+            ticketList = new ArrayList<>();
+        }
+        return ticketList;
     }
 }

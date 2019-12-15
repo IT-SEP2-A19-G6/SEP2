@@ -1,6 +1,7 @@
 package client.viewmodel;
 
 import client.model.ModelFactory;
+import client.viewmodel.admin.AdminViewModel;
 import client.viewmodel.communication.TicketReplyViewModel;
 import client.viewmodel.createticket.CreateTicketViewModel;
 import client.viewmodel.login.LoginViewModel;
@@ -17,6 +18,7 @@ public class ViewModelFactory {
     private TicketListViewModel ticketListViewModel;
     private MenuViewModel menuViewModel;
     private TicketReplyViewModel ticketReplyViewModel;
+    private AdminViewModel adminViewModel;
 
     public ViewModelFactory(ModelFactory modelFactory) {
         this.modelFactory = modelFactory;
@@ -63,5 +65,12 @@ public class ViewModelFactory {
             ticketReplyViewModel = new TicketReplyViewModel(modelFactory.ticketReplyModel());
         }
         return ticketReplyViewModel;
+    }
+
+    public AdminViewModel getAdminViewModel() {
+        if (adminViewModel == null){
+            adminViewModel = new AdminViewModel(modelFactory.getAdminModel());
+        }
+        return adminViewModel;
     }
 }
