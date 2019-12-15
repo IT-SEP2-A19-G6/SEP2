@@ -41,8 +41,5 @@ public class CreateTicketServerModelHandler implements ICreateTicketServerModel 
         return branches;
     }
 
-    @Override
-    public void updateTicket(Ticket ticket) {
-        createTicketDAO.updateTicket(ticket);
-    }
+
 }

@@ -12,6 +12,8 @@ import server.persistence.signup.ISignUpDAO;
 import server.persistence.signup.SignUpDAO;
 import server.persistence.ticketlist.ITicketListDAO;
 import server.persistence.ticketlist.TicketListDAO;
+import server.persistence.updateticket.IUpdateTicketDAO;
+import server.persistence.updateticket.UpdateTicketDAO;
 
 public class DataFactory {
     private IDatabaseConnection databaseConnection;
@@ -20,6 +22,7 @@ public class DataFactory {
     private ITicketListDAO ticketListDAO;
     private ISignUpDAO signUpDAO;
     private ITicketReplyDAO ticketReplyDAO;
+    private IUpdateTicketDAO updateTicketDAO;
 
     public DataFactory(){
         databaseConnection = new DatabaseConnection();
@@ -61,4 +64,10 @@ public class DataFactory {
     }
 
 
+    public IUpdateTicketDAO getUpdateTicketDAO() {
+        if (updateTicketDAO == null){
+            updateTicketDAO = new UpdateTicketDAO(databaseConnection);
+        }
+        return updateTicketDAO;
+    }
 }

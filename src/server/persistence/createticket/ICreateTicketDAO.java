@@ -12,5 +12,4 @@ public interface ICreateTicketDAO {
 
     ArrayList<Branch> getBranches() throws DataConnectionException;
 
-    void updateTicket(Ticket ticket);
 }

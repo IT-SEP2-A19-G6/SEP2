@@ -13,5 +13,5 @@ public interface ICreateTicketServerModel {
 
     ArrayList<Branch> getBranches();
 
-    void updateTicket(Ticket ticket);
+
 }
