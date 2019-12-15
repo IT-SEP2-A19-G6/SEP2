@@ -36,6 +36,8 @@ public class TicketReplyItemController {
         if(messageTextArea.getText().isEmpty()) return;
 
         viewModel.addReply(id);
+        viewModel.getReplies(id);
+        messageTextArea.clear();
     }
 
 }
