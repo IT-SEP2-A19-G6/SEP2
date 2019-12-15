@@ -1,17 +1,17 @@
 package client.view.createticket;
 
+import client.view.mainview.menu.MenuViewController;
+import client.view.mainview.menu.items.IVirtualButton;
 import client.viewmodel.createticket.CreateTicketViewModel;
-import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 
+
 public class CreateTicketViewController {
     @FXML
-    public ComboBox actionComboBox;
+    public ComboBox<String> categoryComboBox;
     @FXML
     public TextField subjectTextField;
     @FXML
@@ -23,24 +23,25 @@ public class CreateTicketViewController {
     @FXML
     public Label labelComment;
 
-    private CreateTicketViewModel vm;
-    private StringProperty ticketResult;
+    @FXML Label infoLabel;
 
-    public void init(CreateTicketViewModel vm) {
-        this.vm = vm;
-        subjectTextField.textProperty().bindBidirectional(vm.subjectProperty());
-        descriptionTextArea.textProperty().bindBidirectional(vm.descriptionProperty());
-        locationTextField.textProperty().bindBidirectional(vm.locationProperty());
-        ticketResult = new SimpleStringProperty();
-        ticketResult.bind(vm.ticketResultProperty());
-        ticketResult.addListener((ChangeListener) (observable, oldValue, newValue) -> {
-            if (newValue == "OK") {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Ticket");
-                alert.setHeaderText("Information Alert");
-                String s ="The ticket has been successfully created";
-                alert.setContentText(s);
-                alert.show();
+    private CreateTicketViewModel createTicketViewModel;
+    private IVirtualButton clientButton;
+
+
+    public void init(CreateTicketViewModel createTicketViewModel, MenuViewController menuViewController) {
+        this.createTicketViewModel = createTicketViewModel;
+        this.clientButton = menuViewController.getClientButtonController();
+        subjectTextField.textProperty().bindBidirectional(createTicketViewModel.subjectProperty());
+        descriptionTextArea.textProperty().bindBidirectional(createTicketViewModel.descriptionProperty());
+        locationTextField.textProperty().bindBidirectional(createTicketViewModel.locationProperty());
+        infoLabel.textProperty().bindBidirectional(createTicketViewModel.ticketResultProperty());
+        categoryComboBox.valueProperty().bindBidirectional(this.createTicketViewModel.currentCategory());
+        categoryComboBox.setItems(this.createTicketViewModel.getCategories());
+        createTicketViewModel.ticketResultProperty().addListener((observableValue, s, t1) -> {
+            if (t1.equals("OK")) {
+                clientButton.pressButton();
+                createTicketViewModel.clearFields();
             }
         });
     }
@@ -50,14 +51,12 @@ public class CreateTicketViewController {
         labelSubject.setTextFill(subjectTextField.getText().isEmpty() ? Color.RED : Color.BLACK);
         if (subjectTextField.getText().isEmpty() || descriptionTextArea.getText().isEmpty()) return;
 
-        vm.submitTicket();
+        createTicketViewModel.submitTicket();
     }
 
-    public void onResetButtonClick() {
-        vm.clearFields();
-    }
 
-    public void onCancelButtonClick() {
-        Platform.exit();
+    public void onResetButtonClick(ActionEvent actionEvent) {
+        createTicketViewModel.clearFields();
+        categoryComboBox.getSelectionModel().select(0);
     }
 }

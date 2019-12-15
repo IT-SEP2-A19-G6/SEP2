@@ -30,7 +30,6 @@ public class TicketListController {
     public void init(ViewModelFactory vmf) {
         viewModelFactory = vmf;
         this.ticketListViewModel = vmf.getTicketListViewModel();
-
         ticketListViewModel.getTickets().addListener((ListChangeListener.Change<? extends Ticket> c) -> {
             Platform.runLater(() -> {
                 ticketListVBox.getChildren().clear();
@@ -92,4 +91,6 @@ public class TicketListController {
     public void requestList(TicketListExchange ticketListExchange) {
         ticketListViewModel.requestTickets(ticketListExchange);
     }
+
+
 }

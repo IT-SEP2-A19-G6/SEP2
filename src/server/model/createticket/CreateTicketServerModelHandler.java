@@ -2,9 +2,11 @@ package server.model.createticket;
 
 import server.exceptions.DataConnectionException;
 import server.persistence.createticket.ICreateTicketDAO;
+import shared.Branch;
 import shared.Response;
 import shared.Ticket;
-import shared.clients.User;
+
+import java.util.ArrayList;
 
 public class CreateTicketServerModelHandler implements ICreateTicketServerModel {
     private ICreateTicketDAO createTicketDAO;
@@ -23,6 +25,21 @@ public class CreateTicketServerModelHandler implements ICreateTicketServerModel 
                 createTicketMessage = e.getMessage();
             }
 
-            return new Response(new User(ticket.getUsername(), ""), createTicketMessage);//create method to get username in Ticket
+            return new Response(createTicketMessage);//create method to get username in Ticket
         }
+
+    @Override
+    public ArrayList<Branch> getBranches() {
+        ArrayList<Branch> branches;
+
+        try {
+            branches = createTicketDAO.getBranches();
+        } catch (DataConnectionException e) {
+            branches = new ArrayList<>();
+            branches.add(new Branch(0, "No categories found"));
+        }
+        return branches;
     }
+
+
+}

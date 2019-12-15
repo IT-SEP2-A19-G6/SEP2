@@ -6,7 +6,7 @@ import shared.Ticket;
 import java.util.ArrayList;
 
 public interface ITicketListDAO {
-    ArrayList<Ticket> getOwnTicketList(String userToFind) throws DataConnectionException;
-    ArrayList<Ticket> getAssignedTicketList(String userToFind) throws DataConnectionException;
-    ArrayList<Ticket> getBranchTicketList(String userToFind) throws DataConnectionException;
+    ArrayList<Ticket> getOwnTicketList(int searchId) throws DataConnectionException;
+    ArrayList<Ticket> getAssignedTicketList(int searchId) throws DataConnectionException;
+    ArrayList<Ticket> getBranchTicketList(int searchId) throws DataConnectionException;
 }

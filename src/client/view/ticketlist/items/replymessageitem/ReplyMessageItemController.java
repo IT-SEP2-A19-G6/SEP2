@@ -18,7 +18,7 @@ public class ReplyMessageItemController {
 
     public void init(TicketReply reply) {
         labelId.setText(String.valueOf(reply.getTicketId()));
-        labelCreated.setText(String.valueOf(reply.getTimeStamp()));
+        labelCreated.setText(reply.getTimeStamp());
         labelCreatedBy.setText(reply.getUsername());
         labelMessage.setText(reply.getMessage());
     }

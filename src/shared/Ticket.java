@@ -6,46 +6,43 @@ import java.util.ArrayList;
 public class Ticket implements Serializable {
 
 
+    private int branchId;
     private int id;
     private int clientId;
     private String createdDate;
     private String username;
     private String subject;
     private String description;
-    private String category;
     private String location;
     private String ticketStatus;
     private String branch;
     private String assignee;
     private ArrayList<TicketReply> replies;
 
-    public Ticket(int id, String createdDate, String username, String subject, String description, String category, String location, String ticketStatus, String branch, String assignee) {
+    public Ticket(int id, String createdDate, String username, String subject, String description, String location, String ticketStatus, String branch, String assignee) {
         this.id = id;
         this.createdDate = createdDate;
         this.username = username;
         this.subject = subject;
         this.description = description;
-        this.category = category;
         this.location = location;
         this.ticketStatus = ticketStatus;
         this.branch = branch;
         this.assignee = assignee;
     }
 
-    public Ticket(int id, int clientId, String subject, String description, String category, String location, String ticketStatus) {
+    public Ticket(int id, int clientId, String subject, String description, String location, String ticketStatus) {
         this.id = id;
         this.clientId = clientId;
         this.subject = subject;
         this.description = description;
-        this.category = category;
         this.location = location;
         this.ticketStatus = ticketStatus;
     }
-    public Ticket(int clientId, String subject, String description, String category, String location, String ticketStatus) {
+    public Ticket(int clientId, String subject, String description, String location, String ticketStatus) {
         this.clientId = clientId;
         this.subject = subject;
         this.description = description;
-        this.category = category;
         this.location = location;
         this.ticketStatus = ticketStatus;
     }
@@ -55,6 +52,16 @@ public class Ticket implements Serializable {
         this.description = description;
         this.location = location;
     }
+
+    public Ticket(int clientId, String subject, String description, String location, int branchId) {
+        this.clientId = clientId;
+        this.subject = subject;
+        this.description = description;
+        this.location = location;
+        this.branchId = branchId;
+    }
+
+
 
     public int getClientId() {
         return clientId;
@@ -70,10 +77,6 @@ public class Ticket implements Serializable {
 
     public String getDescription() {
         return description;
-    }
-
-    public String getCategory() {
-        return category;
     }
 
     public String getLocation() {
@@ -100,6 +103,10 @@ public class Ticket implements Serializable {
         return createdDate;
     }
 
+    public int getBranchId() {
+        return branchId;
+    }
+
     public void addReply(TicketReply reply) {
         if (replies == null){
             this.replies = new ArrayList<>();
@@ -114,6 +121,15 @@ public class Ticket implements Serializable {
         return null;
     }
 
+    public void setTicketStatus(String ticketStatus) {
+        this.ticketStatus = ticketStatus;
+    }
+
+    public void setAssignee(String username) {
+        assignee = username;
+    }
+
+
     @Override
     public String toString() {
         return "Ticket{" +
@@ -121,9 +137,9 @@ public class Ticket implements Serializable {
                 ", username='" + username + '\'' +
                 ", subject='" + subject + '\'' +
                 ", description='" + description + '\'' +
-                ", category='" + category + '\'' +
                 ", location='" + location + '\'' +
                 ", ticketStatus='" + ticketStatus + '\'' +
                 '}';
     }
+
 }

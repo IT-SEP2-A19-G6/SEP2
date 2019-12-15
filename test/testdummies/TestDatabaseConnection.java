@@ -62,7 +62,12 @@ public class TestDatabaseConnection implements IDatabaseConnection {
     }
 
     @Override
-    public String getUserTableName() {
+    public String getReplyTableName() {
+        return null;
+    }
+
+    @Override
+    public String getBranchTableName() {
         return null;
     }
 

@@ -54,7 +54,7 @@ public class LoginViewModel {
             loginResult.setValue("Enter password");
         }else {
             loginResult.setValue("");
-            loginModel.validateLogin(username.getValue(), password.getValue());
+            loginModel.validateLogin(username.getValue().toLowerCase(), password.getValue());
         }
     }
 
