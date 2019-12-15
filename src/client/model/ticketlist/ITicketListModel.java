@@ -9,4 +9,7 @@ public interface ITicketListModel extends IPropertyChangeSubject {
 
     void setTicketStatus(Ticket ticket);
 
+    void requestBranchMembersByBranchName(String branchName);
+
+    void setAssignee(Ticket ticket);
 }
