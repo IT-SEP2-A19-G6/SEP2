@@ -14,7 +14,6 @@ import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import shared.Request;
 import shared.Ticket;
@@ -48,7 +47,7 @@ public class TicketItemController implements IStateController {
     @FXML
     public ComboBox statusComboBox;
     @FXML
-    public HBox statusHBox;
+    public VBox branchMemberVBox;
 
     ArrayList<TicketReply> replies;
     private ViewModelFactory viewModelFactory;
@@ -152,8 +151,8 @@ public class TicketItemController implements IStateController {
 
     @Override
     public void setBranchOptions() {
-        statusHBox.setVisible(true);
-        statusHBox.managedProperty().bind(statusHBox.visibleProperty());
+        branchMemberVBox.setVisible(true);
+        branchMemberVBox.managedProperty().bind(branchMemberVBox.visibleProperty());
     }
 
     @Override
@@ -162,8 +161,8 @@ public class TicketItemController implements IStateController {
     }
     @Override
     public void setUserOptions() {
-        statusHBox.setVisible(false);
-        statusHBox.managedProperty().bind(statusHBox.visibleProperty());
+        branchMemberVBox.setVisible(false);
+        branchMemberVBox.managedProperty().bind(branchMemberVBox.visibleProperty());
     }
 
     public void statusComboBoxAction(ActionEvent actionEvent) {
@@ -172,5 +171,8 @@ public class TicketItemController implements IStateController {
         labelStatus.setText(selectedValue);
         viewModelFactory.getTicketListViewModel().setTicketStatus(ticket);
 
+    }
+
+    public void assigneeComboBoxAction(ActionEvent actionEvent) {
     }
 }
