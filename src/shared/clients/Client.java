@@ -38,5 +38,4 @@ public abstract class Client implements Serializable {
     }
 
 
-
 }

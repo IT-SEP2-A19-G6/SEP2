@@ -61,8 +61,6 @@ public class ServerSocketHandler implements Runnable {
     public void run() {
         try {
             while (activeConnection) {
-
-                //TODO remember to change the method depending on what kind of object needs to be casted.
                 Request requestFromClient = (Request) inputFromClient.readObject();
 
                 if (requestFromClient.type.equals(Request.TYPE.CLOSE_CONNECTION)){
@@ -102,9 +100,15 @@ public class ServerSocketHandler implements Runnable {
                 } else if (requestFromClient.type.equals(Request.TYPE.TICKET_SET_STATUS)) {
                     Ticket ticket = (Ticket) requestFromClient.object;
                     updateTicketServerModel.updateTicket(ticket);
+                } else if (requestFromClient.type.equals(Request.TYPE.BRANCH_MEMBERS_BY_BRANCHNAME_REQ)) {
+                    String branchName = (String) requestFromClient.object;
+                    Request response = new Request(Request.TYPE.BRANCH_MEMBERS_BY_BRANCHNAME_REPLY, updateTicketServerModel.getBranchMembersByName(branchName));
+                    sendToClient(response);
+                } else if (requestFromClient.type.equals(Request.TYPE.SET_ASSIGNEE)) {
+                    Ticket ticket = (Ticket) requestFromClient.object;
+                    updateTicketServerModel.setAssignee(ticket);
                 }
 
-                //TODO create methods to take care of the newly received objects.
             }
         } catch (SocketException e) {
             closeConnection(); //client closed the connection without calling close

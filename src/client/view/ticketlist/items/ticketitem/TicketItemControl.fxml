@@ -8,7 +8,7 @@
 <?import java.lang.*?>
 <BorderPane style=" -fx-background-color: white; -fx-effect: dropshadow(three-pass-box, black, 10,0,0,0); -fx-background-insets: 5; -fx-background-radius: 2; -fx-padding: 20;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.ticketlist.items.ticketitem.TicketItemController">
    <center>
-      <VBox fx:id="ticketVBox" BorderPane.alignment="CENTER">
+      <VBox fx:id="ticketVBox" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
             <HBox>
                <children>
@@ -31,6 +31,14 @@
                   <Insets bottom="10.0" />
                </padding>
             </HBox>
+            <VBox>
+               <children>
+                  <Label fx:id="labelDescription">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+               </children>
+            </VBox>
             <HBox spacing="20.0" VBox.vgrow="ALWAYS">
                <children>
                   <HBox spacing="5.0">
@@ -59,12 +67,14 @@
                   </HBox>
                </children>
             </HBox>
-            <HBox>
+            <HBox spacing="5.0">
                <children>
                   <Label text="Assigned to: " textFill="#767676" />
                   <Label fx:id="labelAssignedTo" text="Label" textFill="#767676" />
-                  <Pane HBox.hgrow="ALWAYS" />
-                  <Label text="Branch: " textFill="#767676" />
+                  <Label text="Branch: " textFill="#767676">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin></Label>
                   <Label fx:id="labelBranch" text="Label" textFill="#767676" />
                </children>
             </HBox>
