@@ -5,12 +5,10 @@ import server.persistence.database.IDatabaseConnection;
 import shared.Branch;
 import shared.Ticket;
 
-import java.io.StringBufferInputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class CreateTicketDAO implements ICreateTicketDAO {
 
@@ -46,6 +44,8 @@ public class CreateTicketDAO implements ICreateTicketDAO {
 
         return getBranches(sql);
     }
+
+
 
     private ArrayList<Branch> getBranches(String preparedSql) throws DataConnectionException {
         PreparedStatement ps = null;

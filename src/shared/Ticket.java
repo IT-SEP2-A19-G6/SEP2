@@ -121,6 +121,10 @@ public class Ticket implements Serializable {
         return null;
     }
 
+    public void setTicketStatus(String ticketStatus) {
+        this.ticketStatus = ticketStatus;
+    }
+
     @Override
     public String toString() {
         return "Ticket{" +

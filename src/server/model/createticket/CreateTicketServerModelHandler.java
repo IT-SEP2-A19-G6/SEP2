@@ -5,7 +5,6 @@ import server.persistence.createticket.ICreateTicketDAO;
 import shared.Branch;
 import shared.Response;
 import shared.Ticket;
-import shared.clients.User;
 
 import java.util.ArrayList;
 
@@ -41,4 +40,6 @@ public class CreateTicketServerModelHandler implements ICreateTicketServerModel 
         }
         return branches;
     }
+
+
 }

@@ -1,26 +1,30 @@
 package client.view.ticketlist.items.ticketitem;
 
-import client.view.ticketlist.items.replymessageitem.ReplyMessageItemController;
+import client.util.ClientProperties;
 import client.view.ticketlist.items.replyitem.TicketReplyItemController;
+import client.view.ticketlist.items.replymessageitem.ReplyMessageItemController;
 import client.viewmodel.ViewModelFactory;
 import client.viewmodel.communication.TicketReplyViewModel;
+import client.viewmodel.statemachine.IStateController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import shared.Request;
 import shared.Ticket;
 import shared.TicketReply;
+import shared.clients.ClientType;
 
 import java.beans.PropertyChangeEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class TicketItemController {
+public class TicketItemController implements IStateController {
 
     @FXML
     public Label labelId;
@@ -40,6 +44,10 @@ public class TicketItemController {
     public Label labelAssignedTo;
     @FXML
     public VBox ticketVBox;
+    @FXML
+    public ComboBox statusComboBox;
+    @FXML
+    public VBox branchMemberVBox;
 
     ArrayList<TicketReply> replies;
     private ViewModelFactory viewModelFactory;
@@ -55,6 +63,7 @@ public class TicketItemController {
         this.viewModelFactory = viewModelFactory;
         this.ticket = ticket;
         this.viewModel = viewModelFactory.getTicketReplyViewModel();
+
         labelId.setText(String.valueOf(ticket.getId()));
         labelCreated.setText(ticket.getCreatedDate());
         labelCreatedBy.setText(ticket.getUsername());
@@ -68,6 +77,13 @@ public class TicketItemController {
         viewModel.addPropertyChangeListener(Request.TYPE.TICKET_REPLY_RESPONSE.name() + ticket.getId(), this::handleReplies);
 
         replyNode = getReplyNode();
+
+        if (ClientProperties.getInstance().getClient().getType() == ClientType.BRANCH_MEMBER) {
+            setBranchOptions();
+        } else {
+            setUserOptions();
+        }
+
     }
 
     private void handleReplies(PropertyChangeEvent propertyChangeEvent) {
@@ -131,5 +147,32 @@ public class TicketItemController {
     private void clearMessages(){
         ticketVBox.getChildren().removeAll(replyNodes);
         ticketVBox.getChildren().remove(replyNode);
+    }
+
+    @Override
+    public void setBranchOptions() {
+        branchMemberVBox.setVisible(true);
+        branchMemberVBox.managedProperty().bind(branchMemberVBox.visibleProperty());
+    }
+
+    @Override
+    public void clearCurrentOptions() {
+        setUserOptions();
+    }
+    @Override
+    public void setUserOptions() {
+        branchMemberVBox.setVisible(false);
+        branchMemberVBox.managedProperty().bind(branchMemberVBox.visibleProperty());
+    }
+
+    public void statusComboBoxAction(ActionEvent actionEvent) {
+        String selectedValue = (String) statusComboBox.getValue();
+        ticket.setTicketStatus(selectedValue);
+        labelStatus.setText(selectedValue);
+        viewModelFactory.getTicketListViewModel().setTicketStatus(ticket);
+
+    }
+
+    public void assigneeComboBoxAction(ActionEvent actionEvent) {
     }
 }
