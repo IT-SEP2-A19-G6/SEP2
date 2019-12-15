@@ -107,7 +107,7 @@ public class TicketItemController implements IStateController {
             for (TicketReply reply : replies) {
                 replyNodes.add(createTicketReplyMessage(reply));
             }
-            ticketVBox.getChildren().addAll(4, replyNodes);
+            ticketVBox.getChildren().addAll(5, replyNodes);
             if (!ticketVBox.getChildren().contains(replyNode)) {
                 ticketVBox.getChildren().add(replyNode);
             }
