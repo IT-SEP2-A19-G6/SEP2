@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TicketReplyServerModelHandler implements ITicketReplyServerModel {
-    private ITicketReplyDAO ticketReplyDAO;
+    private final ITicketReplyDAO ticketReplyDAO;
 
     public TicketReplyServerModelHandler(ITicketReplyDAO ticketReplyDAO) {
         this.ticketReplyDAO = ticketReplyDAO;

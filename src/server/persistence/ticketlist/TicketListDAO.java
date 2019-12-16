@@ -3,20 +3,17 @@ package server.persistence.ticketlist;
 import server.exceptions.DataConnectionException;
 import server.persistence.database.IDatabaseConnection;
 import shared.Ticket;
-import shared.clients.BranchMember;
-import shared.clients.Client;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class TicketListDAO implements ITicketListDAO {
-    private IDatabaseConnection databaseConnection;
+    private final IDatabaseConnection databaseConnection;
 
     public TicketListDAO(IDatabaseConnection databaseConnection) {
         this.databaseConnection = databaseConnection;
@@ -76,6 +73,7 @@ public class TicketListDAO implements ITicketListDAO {
                 String description = rs.getString("Description");
                 String location = rs.getString("Location");
                 String ticketStatus = rs.getString("Ticket_Status");
+                //noinspection SpellCheckingInspection
                 String branch = rs.getString("branchname");
                 String assignee = rs.getString("assignee");
 

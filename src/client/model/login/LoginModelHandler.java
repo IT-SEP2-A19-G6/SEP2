@@ -12,8 +12,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class LoginModelHandler implements ILoginModel {
-    private PropertyChangeSupport support = new PropertyChangeSupport(this);
-    private ILoginClient loginClient;
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    private final ILoginClient loginClient;
 
     public LoginModelHandler(ILoginClient loginClient){
         this.loginClient = loginClient;
@@ -49,25 +49,6 @@ public class LoginModelHandler implements ILoginModel {
         } else {
             support.addPropertyChangeListener(name, listener);
         }
-    }
-
-    @Override
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
-    }
-
-    @Override
-    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
-        if (name == null){
-            support.removePropertyChangeListener(listener);
-        } else {
-            support.removePropertyChangeListener(name, listener);
-        }
-    }
-
-    @Override
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        support.removePropertyChangeListener(listener);
     }
 
 }

@@ -9,6 +9,7 @@ import shared.clients.User;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+@SuppressWarnings("CanBeFinal")
 public class TestSocketHandler implements IClientSocketHandler {
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
     private User testUser;
@@ -58,22 +59,4 @@ public class TestSocketHandler implements IClientSocketHandler {
         }
     }
 
-    @Override
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
-    }
-
-    @Override
-    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
-        if (name == null){
-            support.removePropertyChangeListener(listener);
-        } else {
-            support.removePropertyChangeListener(name, listener);
-        }
-    }
-
-    @Override
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        support.removePropertyChangeListener(listener);
-    }
 }

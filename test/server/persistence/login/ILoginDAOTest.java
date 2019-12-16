@@ -8,6 +8,7 @@ import testdummies.TestDatabaseConnection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "EmptyMethod", "unused"})
 class ILoginDAOTest {
     IDatabaseConnection dbConn;
     private ILoginDAO loginDAO;

@@ -2,12 +2,10 @@ package client.view.login;
 
 import client.view.ViewHandler;
 import client.viewmodel.login.LoginViewModel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 
 
 public class LoginViewController {
@@ -45,23 +43,23 @@ public class LoginViewController {
     }
 
 
-    public void onLoginButton(ActionEvent actionEvent) {
+    public void onLoginButton() {
         loginViewModel.validateLogin();
     }
 
-    public void onCancelButton(ActionEvent actionEvent) {
+    public void onCancelButton() {
         loginViewModel.clearFields();
     }
 
-    public void OnEnter(ActionEvent actionEvent) {
+    public void OnEnter() {
         loginViewModel.validateLogin();
     }
 
-    public void setInFocus(MouseEvent mouseEvent) {
+    public void setInFocus() {
         loginViewModel.setIsInFocus(true);
     }
 
-    public void openSignUp(MouseEvent mouseEvent) {
+    public void openSignUp() {
         loginViewModel.clearFields();
         ViewHandler.getInstance().openSignUpView();
     }

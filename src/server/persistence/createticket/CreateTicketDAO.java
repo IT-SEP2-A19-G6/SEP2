@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class CreateTicketDAO implements ICreateTicketDAO {
 
-    private IDatabaseConnection databaseConnection;
+    private final IDatabaseConnection databaseConnection;
     public CreateTicketDAO(IDatabaseConnection databaseConnection){
         this.databaseConnection = databaseConnection;
     }
@@ -56,6 +56,7 @@ public class CreateTicketDAO implements ICreateTicketDAO {
             rs = ps.executeQuery();
             while(rs.next()) {
                 int id = rs.getInt("id");
+                //noinspection SpellCheckingInspection
                 String branchName = rs.getString("branchname");
 
 

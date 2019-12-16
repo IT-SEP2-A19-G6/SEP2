@@ -8,7 +8,7 @@ import shared.clients.User;
 
 
 public class LoginServerModelHandler implements ILoginServerModel {
-    private ILoginDAO loginDAO;
+    private final ILoginDAO loginDAO;
 
     public LoginServerModelHandler(ILoginDAO loginDAO) {
         this.loginDAO = loginDAO;
@@ -18,10 +18,10 @@ public class LoginServerModelHandler implements ILoginServerModel {
     public Response validateLogin(User user){
         try {
             String loginMessage;
-            Client client = null;
+            Client client;
             client = loginDAO.validateLogin(user);
             loginMessage = client != null ? "User login accepted" : "Incorrect credentials";
-            return new Response(client != null ? client : null, loginMessage);
+            return new Response(client, loginMessage);
         } catch (DataConnectionException e) {
             e.printStackTrace();
         }

@@ -5,12 +5,11 @@ import server.persistence.ticketlist.ITicketListDAO;
 import shared.Request;
 import shared.TicketListExchange;
 import shared.clients.BranchMember;
-import shared.clients.Client;
 import shared.clients.User;
 
 
 public class TicketListServerModelHandler implements ITicketListServerModel {
-    private ITicketListDAO ticketListDAO;
+    private final ITicketListDAO ticketListDAO;
 
     public TicketListServerModelHandler(ITicketListDAO userDAO) {
         this.ticketListDAO = userDAO;

@@ -2,7 +2,6 @@ package server.persistence.communication;
 
 import server.exceptions.DataConnectionException;
 import server.persistence.database.IDatabaseConnection;
-import shared.Ticket;
 import shared.TicketReply;
 
 import java.sql.PreparedStatement;
@@ -10,18 +9,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class TicketReplyDAO implements ITicketReplyDAO {
-    private IDatabaseConnection databaseConnection;
+    private final IDatabaseConnection databaseConnection;
 
     public TicketReplyDAO(IDatabaseConnection databaseConnection) {
         this.databaseConnection = databaseConnection;
     }
-
-    //TODO handle thrown exceptions in server model
 
     @Override
     public ArrayList<TicketReply> getReplies(int ticketId) throws DataConnectionException {
@@ -56,6 +52,7 @@ public class TicketReplyDAO implements ITicketReplyDAO {
             ps = databaseConnection.executePreparedQuery(preparedSql);
             rs = ps.executeQuery();
             while(rs.next()) {
+                //noinspection SpellCheckingInspection
                 int ticketId = rs.getInt("ticketid");
                 Date createdDate = rs.getTimestamp("timestamp");
                 String replier = rs.getString("replier");

@@ -1,0 +1,10 @@
+# Application Properties
+app.name=IT-SEP2-A19-G6
+
+#Database
+db.driver=org.postgresql.Driver
+db.url=jdbc:postgresql://localhost:5432/postgres?currentSchema=sep2
+db.user=postgres
+db.password=admin
+
+#Other stuff here

@@ -4,7 +4,6 @@ import client.util.ClientProperties;
 import client.view.ViewHandler;
 import client.view.mainview.menu.items.dotcontroller.IButtonController;
 import client.view.mainview.menu.items.dotcontroller.IDotController;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.shape.Circle;
@@ -27,7 +26,7 @@ public class BranchItemController implements IDotController {
         setVisibility(false);
     }
 
-    public void doAction(ActionEvent actionEvent) {
+    public void doAction() {
         ViewHandler.getInstance().loadTicketList(new TicketListExchange(Request.TYPE.BRANCH_TICKET_LIST_REQ, ClientProperties.getInstance().getClient()));
         buttonController.branchButtonPressed(this);
     }

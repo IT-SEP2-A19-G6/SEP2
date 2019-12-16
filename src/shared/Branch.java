@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public class Branch implements Serializable {
 
-    private int id;
-    private String branchName;
+    private final int id;
+    private final String branchName;
 
     public Branch(int id, String branchName) {
         this.id = id;

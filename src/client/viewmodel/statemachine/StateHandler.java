@@ -12,14 +12,13 @@ import java.beans.PropertyChangeEvent;
 
 public class StateHandler {
     private IClientState currentState;
-    private IStateController menuItemController;
-    private IStateController replyItemController;
+    private final IStateController menuItemController;
+    private final IStateController replyItemController;
 
 
     public StateHandler(ViewModelFactory viewModelFactory, ILoginModel loginModel){
         menuItemController = viewModelFactory.getMenuViewModel();
         replyItemController = viewModelFactory.getTicketReplyViewModel();
-
         loginModel.addPropertyChangeListener(Request.TYPE.SET_STATE.name(), this::handleStateReq);
     }
 

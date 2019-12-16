@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 
 public class SignUpDAO implements ISignUpDAO{
-    private IDatabaseConnection databaseConnection;
+    private final IDatabaseConnection databaseConnection;
 
     public SignUpDAO(IDatabaseConnection databaseConnection) {
         this.databaseConnection = databaseConnection;

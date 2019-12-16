@@ -1,7 +1,6 @@
 package client.network.login;
 
 import client.network.socket.IClientSocketHandler;
-import client.util.ClientProperties;
 import shared.Request;
 import shared.Response;
 import shared.clients.Client;
@@ -11,8 +10,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class LoginClientHandler implements ILoginClient {
-    private PropertyChangeSupport support = new PropertyChangeSupport(this);
-    private IClientSocketHandler clientSocketHandler;
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    private final IClientSocketHandler clientSocketHandler;
 
     public LoginClientHandler(IClientSocketHandler clientSocketHandler){
         this.clientSocketHandler = clientSocketHandler;
@@ -33,7 +32,6 @@ public class LoginClientHandler implements ILoginClient {
     public void validateLogin(Client client) {
         Request loginReq = new Request(Request.TYPE.LOGIN_REQ, client);
         clientSocketHandler.sendToServer(loginReq);
-
     }
 
     @Override
@@ -45,22 +43,4 @@ public class LoginClientHandler implements ILoginClient {
         }
     }
 
-    @Override
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
-    }
-
-    @Override
-    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
-        if (name == null){
-            support.removePropertyChangeListener(listener);
-        } else {
-            support.removePropertyChangeListener(name, listener);
-        }
-    }
-
-    @Override
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        support.removePropertyChangeListener(listener);
-    }
 }
