@@ -6,9 +6,9 @@ import java.util.ArrayList;
 public class Ticket implements Serializable {
 
 
-    private int branchId;
     private int id;
     private int clientId;
+    private int branchId;
     private String createdDate;
     private String username;
     private String subject;
@@ -31,27 +31,6 @@ public class Ticket implements Serializable {
         this.assignee = assignee;
     }
 
-    public Ticket(int id, int clientId, String subject, String description, String location, String ticketStatus) {
-        this.id = id;
-        this.clientId = clientId;
-        this.subject = subject;
-        this.description = description;
-        this.location = location;
-        this.ticketStatus = ticketStatus;
-    }
-    public Ticket(int clientId, String subject, String description, String location, String ticketStatus) {
-        this.clientId = clientId;
-        this.subject = subject;
-        this.description = description;
-        this.location = location;
-        this.ticketStatus = ticketStatus;
-    }
-
-    public Ticket(String subject, String description, String location) {
-        this.subject = subject;
-        this.description = description;
-        this.location = location;
-    }
 
     public Ticket(int clientId, String subject, String description, String location, int branchId) {
         this.clientId = clientId;
@@ -127,19 +106,6 @@ public class Ticket implements Serializable {
 
     public void setAssignee(String username) {
         assignee = username;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Ticket{" +
-                "user=" + clientId +
-                ", username='" + username + '\'' +
-                ", subject='" + subject + '\'' +
-                ", description='" + description + '\'' +
-                ", location='" + location + '\'' +
-                ", ticketStatus='" + ticketStatus + '\'' +
-                '}';
     }
 
 }

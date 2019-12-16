@@ -32,9 +32,6 @@ public class Request implements Serializable {
         BRANCH_MEMBERS_BY_BRANCHNAME_REQ, // Object contains branchName
         BRANCH_MEMBERS_BY_BRANCHNAME_REPLY,
         SET_ASSIGNEE, // Object contains integer with assignee id
-        ;
-
-
     }
 
     public Request(TYPE type, Object object) {
