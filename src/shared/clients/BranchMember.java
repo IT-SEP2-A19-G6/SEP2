@@ -13,8 +13,5 @@ public class BranchMember extends Client {
         return branchId;
     }
 
-    @Override
-    public String toString() {
-        return super.getUsername();
-    }
+
 }
