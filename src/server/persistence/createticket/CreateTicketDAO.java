@@ -33,9 +33,8 @@ public class CreateTicketDAO implements ICreateTicketDAO {
             databaseConnection.executeUpdate(preparedStatement);
             return "OK";
         } catch (SQLException e) {
-            System.out.println("Creating ticket failed, no ID obtained" + e.getMessage());
+            return "Error ticket not saved.";
         }
-        return "NOT OK";
     }
 
     @Override

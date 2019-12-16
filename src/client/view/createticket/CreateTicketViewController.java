@@ -27,6 +27,8 @@ public class CreateTicketViewController {
     @FXML
     private Label infoLabel;
 
+    @FXML Label categoryLabel;
+
     private CreateTicketViewModel createTicketViewModel;
     private IVirtualButton clientButton;
 
@@ -51,7 +53,12 @@ public class CreateTicketViewController {
     public void onSubmitButtonClick() {
         labelComment.setTextFill(descriptionTextArea.getText().isEmpty() ? Color.RED : Color.BLACK);
         labelSubject.setTextFill(subjectTextField.getText().isEmpty() ? Color.RED : Color.BLACK);
-        if (subjectTextField.getText().isEmpty() || descriptionTextArea.getText().isEmpty()) return;
+        categoryLabel.setTextFill(categoryComboBox.getValue().contains("Choose a category") ? Color.RED : Color.BLACK);
+        if (subjectTextField.getText().isEmpty() || descriptionTextArea.getText().isEmpty() || categoryComboBox.getValue().contains("Choose a category")){
+            infoLabel.setText("Please fill required fields!");
+            return;
+        }
+
         createTicketViewModel.submitTicket();
     }
 
@@ -59,5 +66,8 @@ public class CreateTicketViewController {
     public void onResetButtonClick() {
         createTicketViewModel.clearFields();
         categoryComboBox.getSelectionModel().select(0);
+        labelComment.setTextFill(Color.BLACK);
+        labelSubject.setTextFill(Color.BLACK);
+        categoryLabel.setTextFill(Color.BLACK);
     }
 }

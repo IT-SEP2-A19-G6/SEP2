@@ -27,28 +27,51 @@
                 </Label>
                 <ComboBox fx:id="categoryComboBox" prefWidth="150.0"/>
             </VBox>
-            <VBox layoutX="10.0" layoutY="10.0" spacing="2.0">
-                <Label text="Location of the issue">
-                    <font>
-                        <Font name="System Bold" size="12.0"/>
-                    </font>
-                </Label>
-                <TextField fx:id="locationTextField" promptText="Optional"/>
+            <HBox spacing="20.0">
+               <children>
+                  <VBox spacing="2.0">
+                     <children>
+                        <Label fx:id="categoryLabel" text="Category">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="categoryComboBox" prefWidth="150.0" />
+                     </children>
+                  </VBox>
+                  <VBox layoutX="10.0" layoutY="10.0" spacing="2.0">
+                     <children>
+                        <Label text="Location of the issue">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="locationTextField" promptText="Optional" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <VBox spacing="2.0">
+               <children>
+                  <Label fx:id="labelComment" text="Description">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="descriptionTextArea" prefHeight="400.0" prefWidth="560.0" promptText="Specify in greater details" />
+               </children>
             </VBox>
-        </HBox>
-        <VBox spacing="2.0">
-            <Label fx:id="labelComment" text="Description">
-                <font>
-                    <Font name="System Bold" size="12.0"/>
-                </font>
-            </Label>
-            <TextArea fx:id="descriptionTextArea" prefHeight="400.0" prefWidth="560.0"
-                      promptText="Specify in greater details"/>
-        </VBox>
-        <HBox alignment="CENTER_LEFT" spacing="20.0">
-            <Button mnemonicParsing="false" onAction="#onSubmitButtonClick" text="Submit"/>
-            <Button mnemonicParsing="false" onAction="#onResetButtonClick" text="Reset"/>
-            <Label fx:id="infoLabel"/>
-        </HBox>
-    </VBox>
+            <HBox alignment="CENTER_LEFT" spacing="20.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onSubmitButtonClick" text="Submit" />
+                  <Button mnemonicParsing="false" onAction="#onResetButtonClick" text="Reset" />
+                  <Label fx:id="infoLabel" textFill="RED" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding></VBox>
+   </children>
+
 </AnchorPane>
