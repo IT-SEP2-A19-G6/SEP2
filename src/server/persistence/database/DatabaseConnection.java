@@ -102,12 +102,8 @@ public class DatabaseConnection implements IDatabaseConnection {
         return preparedStatement;
     }
     @Override
-    public void executeUpdate(PreparedStatement preparedStatement){
-        try {
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void executeUpdate(PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.executeUpdate();
     }
 
     @Override

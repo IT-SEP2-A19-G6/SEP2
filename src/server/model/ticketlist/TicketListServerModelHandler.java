@@ -24,7 +24,7 @@ public class TicketListServerModelHandler implements ITicketListServerModel {
                 exchange.setTicketList(ticketListDAO.getOwnTicketList(user.getClientId()));
                 if (exchange.getTickets().size() == 0){
                     exchange.setAction(Request.TYPE.NO_TICKETS_FOUND_RESPONSE);
-                    exchange.setMessage("No tickets yet - try add one...");
+                    exchange.setMessage("No tickets yet - try adding one...");
                     return exchange;
                 }
             } catch (DataConnectionException e) {

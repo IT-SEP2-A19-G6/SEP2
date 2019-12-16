@@ -29,9 +29,8 @@ public class SignUpDAO implements ISignUpDAO{
             databaseConnection.executeUpdate(preparedStatement);
             return "Success";
         } catch (SQLException e) {
-            System.out.println("Creating ticket failed, no ID obtained" + e.getMessage());
+            return "Username already taken!";
         }
-        return "Operation failed";
     }
 
 }

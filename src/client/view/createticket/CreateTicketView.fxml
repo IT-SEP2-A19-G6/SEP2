@@ -29,7 +29,7 @@
                <children>
                   <VBox spacing="2.0">
                      <children>
-                        <Label text="Category">
+                        <Label fx:id="categoryLabel" text="Category">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -63,7 +63,7 @@
                <children>
                   <Button mnemonicParsing="false" onAction="#onSubmitButtonClick" text="Submit" />
                   <Button mnemonicParsing="false" onAction="#onResetButtonClick" text="Reset" />
-                  <Label fx:id="infoLabel" />
+                  <Label fx:id="infoLabel" textFill="RED" />
                </children>
             </HBox>
          </children>
