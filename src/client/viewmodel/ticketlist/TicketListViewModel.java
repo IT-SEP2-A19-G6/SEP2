@@ -16,10 +16,10 @@ import java.util.ArrayList;
 
 public class TicketListViewModel {
 
-    private ITicketListModel ticketListModel;
-    private ObservableList<Ticket> tickets;
-    private StringProperty responseMessage;
-    private ObservableList<BranchMember> branchMembers;
+    private final ITicketListModel ticketListModel;
+    private final ObservableList<Ticket> tickets;
+    private final StringProperty responseMessage;
+    private final ObservableList<BranchMember> branchMembers;
 
     public TicketListViewModel(ITicketListModel ticketListModel) {
         this.ticketListModel = ticketListModel;
@@ -49,6 +49,7 @@ public class TicketListViewModel {
     }
 
     private void handleResponseBranchMembers(PropertyChangeEvent propertyChangeEvent) {
+        //noinspection unchecked
         branchMembers.setAll((ArrayList<BranchMember>) propertyChangeEvent.getNewValue());
     }
 
@@ -75,6 +76,7 @@ public class TicketListViewModel {
     }
 
     public void setAssignee(String assignee, int ticketId) {
+        //noinspection ConstantConditions
         tickets.stream().filter(e -> e.getId() == ticketId).findFirst().orElse(null).setAssignee(assignee);
         Ticket ticket = tickets.stream().filter(e -> e.getId() == ticketId).findFirst().orElse(null);
         ticketListModel.setAssignee(ticket);

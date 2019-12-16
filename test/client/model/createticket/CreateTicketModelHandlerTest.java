@@ -1,21 +1,6 @@
 package client.model.createticket;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
+@SuppressWarnings("unused")
 class CreateTicketModelHandlerTest {
 
-    @BeforeEach
-    void setUp() {
-    }
-
-
-
-
-
-
-    @Test
-    void submitTicket() {
-
-    }
 }

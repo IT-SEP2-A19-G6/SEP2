@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class TicketListExchange implements Serializable {
-    private Client client;
+    private final Client client;
     private String message;
     private Request.TYPE action;
     private ArrayList<Ticket> ticketList;

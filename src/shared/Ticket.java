@@ -1,7 +1,6 @@
 package shared;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Ticket implements Serializable {
 
@@ -11,13 +10,12 @@ public class Ticket implements Serializable {
     private int branchId;
     private String createdDate;
     private String username;
-    private String subject;
-    private String description;
-    private String location;
+    private final String subject;
+    private final String description;
+    private final String location;
     private String ticketStatus;
     private String branch;
     private String assignee;
-    private ArrayList<TicketReply> replies;
 
     public Ticket(int id, String createdDate, String username, String subject, String description, String location, String ticketStatus, String branch, String assignee) {
         this.id = id;
@@ -84,20 +82,6 @@ public class Ticket implements Serializable {
 
     public int getBranchId() {
         return branchId;
-    }
-
-    public void addReply(TicketReply reply) {
-        if (replies == null){
-            this.replies = new ArrayList<>();
-        }
-        replies.add(reply);
-    }
-
-    public ArrayList<TicketReply> getReplies() {
-        if (replies != null){
-            return replies;
-        }
-        return null;
     }
 
     public void setTicketStatus(String ticketStatus) {

@@ -5,7 +5,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import server.persistence.DataFactory;
 
+@SuppressWarnings({"FieldCanBeLocal", "EmptyMethod"})
 class ILoginDAOTestPostgres {
+    @SuppressWarnings("unused")
     private ILoginDAO loginDAO;
 
     @BeforeEach

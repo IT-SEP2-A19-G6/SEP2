@@ -1,17 +1,17 @@
 package client.network.communication;
 
 import client.network.socket.IClientSocketHandler;
-import shared.IPropertyChangeSubject;
 import shared.Request;
 import shared.TicketReply;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 public class TicketReplyClient implements ITicketReplyClient {
-    private PropertyChangeSupport support = new PropertyChangeSupport(this);
-    private IClientSocketHandler clientSocketHandler;
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    private final IClientSocketHandler clientSocketHandler;
 
     public TicketReplyClient(IClientSocketHandler clientSocketHandler) {
         this.clientSocketHandler = clientSocketHandler;
@@ -24,6 +24,7 @@ public class TicketReplyClient implements ITicketReplyClient {
 
     private void handleReplies(PropertyChangeEvent propertyChangeEvent) {
         Request request = (Request) propertyChangeEvent.getNewValue();
+        //noinspection unchecked
         ArrayList<TicketReply> replies = (ArrayList<TicketReply>) request.object;
         support.firePropertyChange(Request.TYPE.TICKET_REPLY_RESPONSE.name(), "", replies);
     }
@@ -47,22 +48,4 @@ public class TicketReplyClient implements ITicketReplyClient {
         }
     }
 
-    @Override
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
-    }
-
-    @Override
-    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
-        if (name == null){
-            support.removePropertyChangeListener(listener);
-        } else {
-            support.removePropertyChangeListener(name, listener);
-        }
-    }
-
-    @Override
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        support.removePropertyChangeListener(listener);
-    }
 }

@@ -16,7 +16,7 @@ import server.persistence.updateticket.IUpdateTicketDAO;
 import server.persistence.updateticket.UpdateTicketDAO;
 
 public class DataFactory {
-    private IDatabaseConnection databaseConnection;
+    private final IDatabaseConnection databaseConnection;
     private ILoginDAO loginDAO;
     private ICreateTicketDAO createTicketDAO;
     private ITicketListDAO ticketListDAO;

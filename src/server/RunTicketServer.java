@@ -4,7 +4,7 @@ import server.model.ServerModelFactory;
 import server.network.SocketServer;
 import server.persistence.DataFactory;
 
-public class RunTicketServer {
+class RunTicketServer {
 
     public static void main(String[] args) {
         DataFactory dataFactory = new DataFactory();

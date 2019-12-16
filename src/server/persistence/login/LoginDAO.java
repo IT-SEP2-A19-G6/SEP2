@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class LoginDAO implements ILoginDAO{
-    private IDatabaseConnection databaseConnection;
+    private final IDatabaseConnection databaseConnection;
 
     public LoginDAO(IDatabaseConnection databaseConnection){
         this.databaseConnection = databaseConnection;

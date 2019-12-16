@@ -9,15 +9,15 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class SignUpModelHandler implements ISignUpModel {
-    private PropertyChangeSupport support = new PropertyChangeSupport(this);
-    private ISignUpClient signUpClient;
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    private final ISignUpClient signUpClient;
 
     public SignUpModelHandler(ISignUpClient signUpClient) {
         this.signUpClient = signUpClient;
-        addListners();
+        addListeners();
     }
 
-    private void addListners() {
+    private void addListeners() {
         signUpClient.addPropertyChangeListener(Request.TYPE.SIGNUP_RESPONSE.name(), this::handleResponse);
     }
 
@@ -39,22 +39,4 @@ public class SignUpModelHandler implements ISignUpModel {
         }
     }
 
-    @Override
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
-    }
-
-    @Override
-    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
-        if (name == null){
-            support.removePropertyChangeListener(listener);
-        } else {
-            support.removePropertyChangeListener(name, listener);
-        }
-    }
-
-    @Override
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        support.removePropertyChangeListener(listener);
-    }
 }

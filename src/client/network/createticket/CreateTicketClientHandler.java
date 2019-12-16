@@ -14,8 +14,8 @@ import java.util.ArrayList;
 public class CreateTicketClientHandler implements ICreateTicketClient {
 
 
-    private PropertyChangeSupport support = new PropertyChangeSupport(this);
-    private IClientSocketHandler clientSocketHandler;
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    private final IClientSocketHandler clientSocketHandler;
 
     public CreateTicketClientHandler(IClientSocketHandler clientSocketHandler){
         this.clientSocketHandler =  clientSocketHandler;
@@ -29,6 +29,7 @@ public class CreateTicketClientHandler implements ICreateTicketClient {
 
     private void handleBranchResponse(PropertyChangeEvent propertyChangeEvent) {
         Request serverResponse = (Request) propertyChangeEvent.getNewValue();
+        @SuppressWarnings("unchecked")
         ArrayList<String> branches = (ArrayList<String>) serverResponse.object;
         support.firePropertyChange(serverResponse.type.name(), "", branches);
     }
@@ -57,25 +58,6 @@ public class CreateTicketClientHandler implements ICreateTicketClient {
         } else {
             support.addPropertyChangeListener(name, listener);
         }
-    }
-
-    @Override
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
-    }
-
-    @Override
-    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
-        if (name == null){
-            support.removePropertyChangeListener(listener);
-        } else {
-            support.removePropertyChangeListener(name, listener);
-        }
-    }
-
-    @Override
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        support.removePropertyChangeListener(listener);
     }
 
 
