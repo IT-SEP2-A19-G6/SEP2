@@ -5,7 +5,6 @@ import client.view.ticketlist.items.ticketitem.TicketItemController;
 import client.viewmodel.ViewModelFactory;
 import client.viewmodel.ticketlist.TicketListViewModel;
 import javafx.application.Platform;
-import javafx.beans.property.ListProperty;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +13,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import shared.Ticket;
 import shared.TicketListExchange;
-import shared.TicketReply;
 
 import java.io.IOException;
 
@@ -93,4 +91,6 @@ public class TicketListController {
     public void requestList(TicketListExchange ticketListExchange) {
         ticketListViewModel.requestTickets(ticketListExchange);
     }
+
+
 }

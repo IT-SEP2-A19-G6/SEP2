@@ -121,6 +121,15 @@ public class Ticket implements Serializable {
         return null;
     }
 
+    public void setTicketStatus(String ticketStatus) {
+        this.ticketStatus = ticketStatus;
+    }
+
+    public void setAssignee(String username) {
+        assignee = username;
+    }
+
+
     @Override
     public String toString() {
         return "Ticket{" +
@@ -132,4 +141,5 @@ public class Ticket implements Serializable {
                 ", ticketStatus='" + ticketStatus + '\'' +
                 '}';
     }
+
 }

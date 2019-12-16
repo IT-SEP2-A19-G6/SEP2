@@ -2,12 +2,14 @@ package server.network;
 
 import server.model.ServerModelFactory;
 import server.model.communication.ITicketReplyServerModel;
+import server.model.createticket.ICreateTicketServerModel;
 import server.model.login.ILoginServerModel;
 import server.model.signup.ISignUpServerModel;
-import server.model.createticket.ICreateTicketServerModel;
 import server.model.ticketlist.ITicketListServerModel;
+import server.model.updateticket.IUpdateTicketServerModel;
 import shared.*;
 import shared.clients.User;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -17,25 +19,27 @@ import java.util.ArrayList;
 
 public class ServerSocketHandler implements Runnable {
 
-private Socket socket;
-private boolean activeConnection;
-private ObjectOutputStream outputToClient;
-private ObjectInputStream inputFromClient;
-private ILoginServerModel loginServerModel;
-private ICreateTicketServerModel createTicketServerModel;
-private ISignUpServerModel signUpServerModel;
-private ITicketListServerModel ticketListServerModel;
-private ITicketReplyServerModel ticketReplyServerModel;
+    private Socket socket;
+    private boolean activeConnection;
+    private ObjectOutputStream outputToClient;
+    private ObjectInputStream inputFromClient;
+    private ILoginServerModel loginServerModel;
+    private ICreateTicketServerModel createTicketServerModel;
+    private ISignUpServerModel signUpServerModel;
+    private ITicketListServerModel ticketListServerModel;
+    private ITicketReplyServerModel ticketReplyServerModel;
+    private IUpdateTicketServerModel updateTicketServerModel;
 
 
     public ServerSocketHandler(Socket socket, ServerModelFactory serverModelFactory) {
         activeConnection = true;
         this.socket = socket;
-        this.loginServerModel = serverModelFactory.getLoginServerModel();
-        this.createTicketServerModel = serverModelFactory.getTicketServerModel();
-        this.signUpServerModel = serverModelFactory.getSignUpServerModel();
-        this.ticketListServerModel = serverModelFactory.getTicketListServerModel();
-        this.ticketReplyServerModel = serverModelFactory.getTicketReplyServerModel();
+        loginServerModel = serverModelFactory.getLoginServerModel();
+        createTicketServerModel = serverModelFactory.getTicketServerModel();
+        updateTicketServerModel = serverModelFactory.getUpdateTicketServerModel();
+        signUpServerModel = serverModelFactory.getSignUpServerModel();
+        ticketListServerModel = serverModelFactory.getTicketListServerModel();
+        ticketReplyServerModel = serverModelFactory.getTicketReplyServerModel();
         try {
             outputToClient = new ObjectOutputStream(socket.getOutputStream());
             inputFromClient = new ObjectInputStream(socket.getInputStream());
@@ -57,8 +61,6 @@ private ITicketReplyServerModel ticketReplyServerModel;
     public void run() {
         try {
             while (activeConnection) {
-
-                //TODO remember to change the method depending on what kind of object needs to be casted.
                 Request requestFromClient = (Request) inputFromClient.readObject();
 
                 if (requestFromClient.type.equals(Request.TYPE.CLOSE_CONNECTION)){
@@ -95,9 +97,18 @@ private ITicketReplyServerModel ticketReplyServerModel;
                     ArrayList<Branch> branches = createTicketServerModel.getBranches();
                     Request response = new Request(Request.TYPE.BRANCH_RESPONSE, branches);
                     sendToClient(response);
+                } else if (requestFromClient.type.equals(Request.TYPE.TICKET_SET_STATUS)) {
+                    Ticket ticket = (Ticket) requestFromClient.object;
+                    updateTicketServerModel.updateTicket(ticket);
+                } else if (requestFromClient.type.equals(Request.TYPE.BRANCH_MEMBERS_BY_BRANCHNAME_REQ)) {
+                    String branchName = (String) requestFromClient.object;
+                    Request response = new Request(Request.TYPE.BRANCH_MEMBERS_BY_BRANCHNAME_REPLY, updateTicketServerModel.getBranchMembersByName(branchName));
+                    sendToClient(response);
+                } else if (requestFromClient.type.equals(Request.TYPE.SET_ASSIGNEE)) {
+                    Ticket ticket = (Ticket) requestFromClient.object;
+                    updateTicketServerModel.setAssignee(ticket);
                 }
 
-                //TODO create methods to take care of the newly received objects.
             }
         } catch (SocketException e) {
             closeConnection(); //client closed the connection without calling close

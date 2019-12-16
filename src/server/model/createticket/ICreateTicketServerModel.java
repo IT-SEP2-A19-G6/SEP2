@@ -12,4 +12,6 @@ public interface ICreateTicketServerModel {
     Response sendTicket(Ticket ticket);
 
     ArrayList<Branch> getBranches();
+
+
 }
