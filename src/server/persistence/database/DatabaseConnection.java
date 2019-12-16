@@ -6,16 +6,16 @@ import shared.util.ApplicationProperties;
 import java.sql.*;
 
 public class DatabaseConnection implements IDatabaseConnection {
-    private String schemaName;
-    private String clientTableName;
-    private String ticketTableName;
-    private String branchTableName;
-    private String replyTableName;
+    private final String schemaName;
+    private final String clientTableName;
+    private final String ticketTableName;
+    private final String branchTableName;
+    private final String replyTableName;
 
-    private String driver = ApplicationProperties.INSTANCE.getDbDriver();
-    private String url = ApplicationProperties.INSTANCE.getDbUrl();
-    private String user = ApplicationProperties.INSTANCE.getDbUser();
-    private String pw = ApplicationProperties.INSTANCE.getDbPassword();
+    private final String driver = ApplicationProperties.INSTANCE.getDbDriver();
+    private final String url = ApplicationProperties.INSTANCE.getDbUrl();
+    private final String user = ApplicationProperties.INSTANCE.getDbUser();
+    private final String pw = ApplicationProperties.INSTANCE.getDbPassword();
 
     private Connection connection;
 
@@ -28,7 +28,7 @@ public class DatabaseConnection implements IDatabaseConnection {
     }
 
 
-    public Connection getConnection() throws DataConnectionException {
+    private Connection getConnection() throws DataConnectionException {
 
         try {
             Class.forName(driver);
@@ -48,7 +48,6 @@ public class DatabaseConnection implements IDatabaseConnection {
 
     @Override
     public void closeConnection(PreparedStatement ps, ResultSet rs) {
-        // close preparedstatement
         try {
             if (rs != null) {
                 ps.close();
@@ -56,14 +55,12 @@ public class DatabaseConnection implements IDatabaseConnection {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        // close the resultset
         try {
             if (rs != null)
                 rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        // close connection
         try {
             if (!connection.isClosed())
                 getConnection().close();
@@ -77,7 +74,7 @@ public class DatabaseConnection implements IDatabaseConnection {
     @Override
     public PreparedStatement executePreparedQuery(String preparedSql) throws DataConnectionException {
         Connection connection = getConnection();
-        PreparedStatement preparedStatement = null;
+        PreparedStatement preparedStatement;
         try {
             preparedStatement = connection.prepareStatement(preparedSql);
         } catch (SQLException e) {
@@ -93,7 +90,7 @@ public class DatabaseConnection implements IDatabaseConnection {
     public PreparedStatement createPreparedStatement(String preparedSql) throws DataConnectionException  {
         Connection connection = getConnection();
 
-        PreparedStatement preparedStatement = null;
+        PreparedStatement preparedStatement;
         try {
             preparedStatement = connection.prepareStatement(preparedSql);
         } catch (SQLException e) {

@@ -1,6 +1,5 @@
 package testdummies;
 
-import server.exceptions.DataConnectionException;
 import server.persistence.database.IDatabaseConnection;
 import shared.clients.User;
 
@@ -8,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+@SuppressWarnings({"CanBeFinal", "WeakerAccess"})
 public class TestDatabaseConnection implements IDatabaseConnection {
     User testUser;
     User disabledUser;
@@ -37,7 +37,7 @@ public class TestDatabaseConnection implements IDatabaseConnection {
 
 
     @Override
-    public PreparedStatement createPreparedStatement(String preparedSql) throws DataConnectionException {
+    public PreparedStatement createPreparedStatement(String preparedSql) {
         return null;
     }
 

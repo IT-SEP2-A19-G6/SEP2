@@ -10,8 +10,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class TicketListModelHandler implements ITicketListModel {
-    private ITicketListClient ticketListClient;
-    private PropertyChangeSupport support = new PropertyChangeSupport(this);
+    private final ITicketListClient ticketListClient;
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public TicketListModelHandler(ITicketListClient userClient) {
         this.ticketListClient = userClient;
@@ -57,22 +57,4 @@ public class TicketListModelHandler implements ITicketListModel {
         }
     }
 
-    @Override
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
-    }
-
-    @Override
-    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
-        if (name == null){
-            support.removePropertyChangeListener(listener);
-        } else {
-            support.removePropertyChangeListener(name, listener);
-        }
-    }
-
-    @Override
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        support.removePropertyChangeListener(listener);
-    }
 }

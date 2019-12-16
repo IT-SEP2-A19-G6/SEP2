@@ -15,7 +15,7 @@ import client.network.ClientFactory;
 public class ModelFactory {
     private ILoginModel loginModel;
     private ICreateTicketModel createTicketModel;
-    private ClientFactory clientFactory;
+    private final ClientFactory clientFactory;
     private ITicketListModel ticketListModel;
     private ISignUpModel signUpModel;
     private ITicketReplyModel ticketReplyModel;

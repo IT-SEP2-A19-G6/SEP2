@@ -1,6 +1,7 @@
 package client.network.socket;
 
 import shared.Request;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.EOFException;
@@ -10,8 +11,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class ClientSocketHandler implements IClientSocketHandler{
-    private PropertyChangeSupport support = new PropertyChangeSupport(this);
-    private Socket socket;
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    private final Socket socket;
     private ObjectInputStream inputFromServer;
     private ObjectOutputStream outputToServer;
     private boolean activeConnection;
@@ -75,22 +76,4 @@ public class ClientSocketHandler implements IClientSocketHandler{
         }
     }
 
-    @Override
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
-    }
-
-    @Override
-    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
-        if (name == null){
-            support.removePropertyChangeListener(listener);
-        } else {
-            support.removePropertyChangeListener(name, listener);
-        }
-    }
-
-    @Override
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        support.removePropertyChangeListener(listener);
-    }
 }

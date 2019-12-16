@@ -10,21 +10,15 @@ import java.util.ArrayList;
 public class UpdateTicketServerModel implements IUpdateTicketServerModel {
 
 
-    private IUpdateTicketDAO updateTicketDAO;
+    private final IUpdateTicketDAO updateTicketDAO;
 
     public UpdateTicketServerModel(IUpdateTicketDAO updateTicketDAO) {
         this.updateTicketDAO = updateTicketDAO;
     }
 
-
-
     @Override
     public void updateTicket(Ticket ticket) {
-        try {
-            updateTicketDAO.updateTicket(ticket);
-        } catch (DataConnectionException e) {
-            e.printStackTrace();
-        }
+        updateTicketDAO.updateTicket(ticket);
     }
 
     @Override

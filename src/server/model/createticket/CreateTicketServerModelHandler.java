@@ -9,7 +9,7 @@ import shared.Ticket;
 import java.util.ArrayList;
 
 public class CreateTicketServerModelHandler implements ICreateTicketServerModel {
-    private ICreateTicketDAO createTicketDAO;
+    private final ICreateTicketDAO createTicketDAO;
 
     public CreateTicketServerModelHandler(ICreateTicketDAO createTicketDAO) {
         this.createTicketDAO = createTicketDAO;

@@ -7,8 +7,6 @@ import client.viewmodel.ViewModelFactory;
 import client.viewmodel.communication.TicketReplyViewModel;
 import client.viewmodel.statemachine.IStateController;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -26,44 +24,43 @@ import java.beans.PropertyChangeEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
+@SuppressWarnings("SpellCheckingInspection")
 public class TicketItemController implements IStateController {
 
     @FXML
-    public Label labelId;
+    private Label labelId;
     @FXML
-    public Label labelCreated;
+    private Label labelCreated;
     @FXML
-    public Label labelCreatedBy;
+    private Label labelCreatedBy;
     @FXML
-    public Label labelLocation;
+    private Label labelLocation;
     @FXML
-    public Label labelSubject;
+    private Label labelSubject;
     @FXML
-    public Label labelStatus;
+    private Label labelStatus;
     @FXML
-    public Label labelBranch;
+    private Label labelBranch;
     @FXML
-    public Label labelAssignedTo;
+    private Label labelAssignedTo;
     @FXML
-    public VBox ticketVBox;
+    private VBox ticketVBox;
     @FXML
-    public VBox branchMemberVBox;
+    private VBox branchMemberVBox;
     @FXML
-    public ComboBox assigneeComboBox;
+    private ComboBox assigneeComboBox;
     @FXML
-    public ComboBox statusComboBox;
+    private ComboBox statusComboBox;
     @FXML
-    public Label labelDescription;
+    private Label labelDescription;
 
-    ArrayList<TicketReply> replies;
+    private ArrayList<TicketReply> replies;
     private ViewModelFactory viewModelFactory;
     private TicketReplyViewModel viewModel;
     private Ticket ticket;
     private boolean isShown;
     private ArrayList<Node> replyNodes = new ArrayList<>();
     private Node replyNode;
-    private ObservableList<BranchMember> branchMembers;
-
 
 
     public void init(ViewModelFactory viewModelFactory, Ticket ticket) {
@@ -99,6 +96,7 @@ public class TicketItemController implements IStateController {
     }
 
     private void handleReplies(PropertyChangeEvent propertyChangeEvent) {
+        //noinspection unchecked
         replies = (ArrayList<TicketReply>) propertyChangeEvent.getNewValue();
         Platform.runLater(() -> {
             if (isShown)
@@ -115,7 +113,7 @@ public class TicketItemController implements IStateController {
 
     }
 
-    public void showMoreButton(ActionEvent actionEvent) {
+    public void showMoreButton() {
         if (isShown){
             clearMessages();
             isShown = false;
@@ -161,21 +159,14 @@ public class TicketItemController implements IStateController {
         ticketVBox.getChildren().remove(replyNode);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void setBranchOptions() {
-        System.out.println("Entering set branch options");
         branchMemberVBox.setVisible(true);
         branchMemberVBox.managedProperty().bind(branchMemberVBox.visibleProperty());
-
         assigneeComboBox.setItems(viewModelFactory.getTicketListViewModel().getBranchMembers());
         assigneeComboBox.getSelectionModel().select(labelAssignedTo.getText() == null ? "NONE" : labelAssignedTo.getText());
-
         statusComboBox.getSelectionModel().select(labelStatus.getText());
-
-
-
-
-        //TODO it calls multiple times
         viewModelFactory.getTicketListViewModel().requestBranchMembersByBranchName(ticket.getBranch());
     }
 
@@ -190,7 +181,7 @@ public class TicketItemController implements IStateController {
         branchMemberVBox.managedProperty().bind(branchMemberVBox.visibleProperty());
     }
 
-    public void statusComboBoxAction(ActionEvent actionEvent) {
+    public void statusComboBoxAction() {
         String selectedValue = (String) statusComboBox.getValue();
         ticket.setTicketStatus(selectedValue);
         labelStatus.setText(selectedValue);
@@ -198,7 +189,7 @@ public class TicketItemController implements IStateController {
 
     }
 
-    public void assigneeComboBoxAction(ActionEvent actionEvent) {
+    public void assigneeComboBoxAction() {
         BranchMember bm = (BranchMember) assigneeComboBox.getValue();
 
         if (bm != null) {

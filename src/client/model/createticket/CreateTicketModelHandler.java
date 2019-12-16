@@ -14,8 +14,8 @@ import java.util.ArrayList;
 public class CreateTicketModelHandler implements ICreateTicketModel{
 
 
-    private PropertyChangeSupport support = new PropertyChangeSupport(this);
-    private ICreateTicketClient createTicketClient;
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    private final ICreateTicketClient createTicketClient;
     private ArrayList<Branch> branches;
 
 
@@ -30,6 +30,7 @@ public class CreateTicketModelHandler implements ICreateTicketModel{
     }
 
     private void handleBranchResponse(PropertyChangeEvent propertyChangeEvent) {
+        //noinspection unchecked
         branches = (ArrayList<Branch>) propertyChangeEvent.getNewValue();
         ArrayList<String> branchNames = new ArrayList<>();
         for (Branch branch : branches){
@@ -68,22 +69,4 @@ public class CreateTicketModelHandler implements ICreateTicketModel{
         }
     }
 
-    @Override
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
-    }
-
-    @Override
-    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
-        if (name == null){
-            support.removePropertyChangeListener(listener);
-        } else {
-            support.removePropertyChangeListener(name, listener);
-        }
-    }
-
-    @Override
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        support.removePropertyChangeListener(listener);
-    }
 }
