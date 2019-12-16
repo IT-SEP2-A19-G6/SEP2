@@ -7,7 +7,7 @@ import shared.Response;
 import shared.clients.User;
 
 public class SignUpServerModelHandler implements ISignUpServerModel {
-    private ISignUpDAO signUpDAO;
+    private final ISignUpDAO signUpDAO;
 
     public SignUpServerModelHandler(ISignUpDAO signUpDAO) {
         this.signUpDAO = signUpDAO;
@@ -15,12 +15,12 @@ public class SignUpServerModelHandler implements ISignUpServerModel {
 
     @Override
     public Response requestSignUp(User newUser) {
-        String DAOresponse;
+        String DAOResponse;
         try {
-            DAOresponse = signUpDAO.requestSignUp(newUser);
+            DAOResponse = signUpDAO.requestSignUp(newUser);
         } catch (DataConnectionException e) {
-            DAOresponse = e.getMessage();
+            DAOResponse = e.getMessage();
         }
-        return new Response(newUser, DAOresponse);
+        return new Response(newUser, DAOResponse);
     }
 }

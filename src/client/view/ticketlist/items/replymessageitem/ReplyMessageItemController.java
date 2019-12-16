@@ -8,13 +8,13 @@ import shared.TicketReply;
 public class ReplyMessageItemController {
 
     @FXML
-    public Label labelId;
+    private Label labelId;
     @FXML
-    public Label labelCreated;
+    private Label labelCreated;
     @FXML
-    public Label labelCreatedBy;
+    private Label labelCreatedBy;
     @FXML
-    public Label labelMessage;
+    private Label labelMessage;
 
     public void init(TicketReply reply) {
         labelId.setText(String.valueOf(reply.getTicketId()));

@@ -10,7 +10,7 @@ import client.viewmodel.statemachine.StateHandler;
 import client.viewmodel.ticketlist.TicketListViewModel;
 
 public class ViewModelFactory {
-    private ModelFactory modelFactory;
+    private final ModelFactory modelFactory;
     private LoginViewModel loginViewModel;
     private CreateTicketViewModel createIssueViewModel;
     private SignUpViewModel signUpViewModel;

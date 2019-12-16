@@ -31,9 +31,7 @@ public class TicketListController {
         viewModelFactory = vmf;
         this.ticketListViewModel = vmf.getTicketListViewModel();
         ticketListViewModel.getTickets().addListener((ListChangeListener.Change<? extends Ticket> c) -> {
-            Platform.runLater(() -> {
-                ticketListVBox.getChildren().clear();
-            });
+            Platform.runLater(() -> ticketListVBox.getChildren().clear());
             while (c.next()) {
                 if (c.wasAdded()) {
                     int start = c.getFrom();
@@ -48,9 +46,7 @@ public class TicketListController {
 
         ticketListViewModel.responseMessageProperty().addListener((observableValue, s, t1) -> {
             if (!(t1.equals(""))){
-                Platform.runLater(() -> {
-                    ticketListVBox.getChildren().clear();
-                });
+                Platform.runLater(() -> ticketListVBox.getChildren().clear());
                 createMessage(t1);
                 ticketListViewModel.resetResponseMessage();
             }
@@ -60,6 +56,7 @@ public class TicketListController {
     private void createTicket(Ticket ticket) {
         Platform.runLater(() -> {
         try {
+            //noinspection SpellCheckingInspection
             FXMLLoader loader = new FXMLLoader(getClass().getResource("items/ticketitem/TicketItemControl.fxml"));
             BorderPane pane  =  loader.load();
             TicketItemController controller = loader.getController();
@@ -75,6 +72,7 @@ public class TicketListController {
     private void createMessage(String message) {
         Platform.runLater(() -> {
             try {
+                //noinspection SpellCheckingInspection
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("items/messageitem/MessageItemControl.fxml"));
                 VBox messageBox  =  loader.load();
                 MessageItemController controller = loader.getController();

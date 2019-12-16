@@ -4,10 +4,11 @@ import java.io.Serializable;
 
 public class Request implements Serializable {
 
-    public TYPE type;
-    public Object object;
+    public final TYPE type;
+    public final Object object;
 
 
+    @SuppressWarnings("SpellCheckingInspection")
     public enum TYPE {
         LOGIN_REQ, //object contains User
         LOGIN_RESPONSE, //object equals Response

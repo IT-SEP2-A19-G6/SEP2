@@ -17,21 +17,21 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 
-public class ServerSocketHandler implements Runnable {
+class ServerSocketHandler implements Runnable {
 
-    private Socket socket;
+    private final Socket socket;
     private boolean activeConnection;
     private ObjectOutputStream outputToClient;
     private ObjectInputStream inputFromClient;
-    private ILoginServerModel loginServerModel;
-    private ICreateTicketServerModel createTicketServerModel;
-    private ISignUpServerModel signUpServerModel;
-    private ITicketListServerModel ticketListServerModel;
-    private ITicketReplyServerModel ticketReplyServerModel;
-    private IUpdateTicketServerModel updateTicketServerModel;
+    private final ILoginServerModel loginServerModel;
+    private final ICreateTicketServerModel createTicketServerModel;
+    private final ISignUpServerModel signUpServerModel;
+    private final ITicketListServerModel ticketListServerModel;
+    private final ITicketReplyServerModel ticketReplyServerModel;
+    private final IUpdateTicketServerModel updateTicketServerModel;
 
 
-    public ServerSocketHandler(Socket socket, ServerModelFactory serverModelFactory) {
+    ServerSocketHandler(Socket socket, ServerModelFactory serverModelFactory) {
         activeConnection = true;
         this.socket = socket;
         loginServerModel = serverModelFactory.getLoginServerModel();

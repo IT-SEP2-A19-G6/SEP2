@@ -1,29 +1,27 @@
 package client.viewmodel.createticket;
 
 import client.model.createticket.ICreateTicketModel;
-import client.viewmodel.statemachine.IStateController;
 import javafx.application.Platform;
-import javafx.beans.property.Property;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.paint.Paint;
 import shared.Request;
 import shared.Response;
+
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 
 public class CreateTicketViewModel {
 
 
-    private ICreateTicketModel createTicketModel;
-    private StringProperty subject;
-    private StringProperty description;
-    private StringProperty location;
-    private StringProperty ticketResult;
-    private ObservableList<String> categories;
-    private StringProperty currentCategory;
+    private final ICreateTicketModel createTicketModel;
+    private final StringProperty subject;
+    private final StringProperty description;
+    private final StringProperty location;
+    private final StringProperty ticketResult;
+    private final ObservableList<String> categories;
+    private final StringProperty currentCategory;
     private final String stdCategoryMessage = "Choose a category";
 
     public CreateTicketViewModel(ICreateTicketModel createTicketModel) {
@@ -49,9 +47,8 @@ public class CreateTicketViewModel {
     private void createCategories(PropertyChangeEvent propertyChangeEvent) {
         categories.clear();
         categories.add(stdCategoryMessage);
-        Platform.runLater(()-> {
-            currentCategory.setValue(stdCategoryMessage);
-        });
+        Platform.runLater(()-> currentCategory.setValue(stdCategoryMessage));
+        //noinspection unchecked
         ArrayList<String> branchNames = (ArrayList<String>) propertyChangeEvent.getNewValue();
         categories.addAll(branchNames);
     }
@@ -59,9 +56,7 @@ public class CreateTicketViewModel {
     private void handleTicketResponse(PropertyChangeEvent propertyChangeEvent) {
         Response result = (Response) propertyChangeEvent.getNewValue();
         if (result.getMessage().contains("OK")){
-            Platform.runLater(()->{
-                ticketResult.setValue(result.getMessage());
-            });
+            Platform.runLater(()-> ticketResult.setValue(result.getMessage()));
         }
     }
 

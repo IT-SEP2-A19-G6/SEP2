@@ -5,13 +5,11 @@ import org.junit.jupiter.api.Test;
 import server.persistence.database.IDatabaseConnection;
 import server.persistence.login.ILoginDAO;
 import server.persistence.login.LoginDAO;
-import shared.clients.Client;
-import testdummies.TestDatabaseConnection;
 import shared.Response;
 import shared.clients.User;
+import testdummies.TestDatabaseConnection;
 
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class LoginServerModelTest {

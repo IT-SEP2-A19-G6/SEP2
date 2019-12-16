@@ -1,15 +1,12 @@
 package shared;
 
-import client.util.ClientProperties;
-
 import java.io.Serializable;
-import java.time.LocalDate;
 
 public class TicketReply implements Serializable {
-    private String message;
+    private final String message;
     private String timeStamp;
     private String username;
-    private int ticketId;
+    private final int ticketId;
     private int clientId;
 
 

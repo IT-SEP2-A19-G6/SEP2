@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class UpdateTicketDAO implements IUpdateTicketDAO {
 
-    private IDatabaseConnection databaseConnection;
+    private final IDatabaseConnection databaseConnection;
 
     public UpdateTicketDAO(IDatabaseConnection databaseConnection) {
         this.databaseConnection = databaseConnection;
@@ -22,7 +22,7 @@ public class UpdateTicketDAO implements IUpdateTicketDAO {
 
 
     @Override
-    public void updateTicket(Ticket ticket) throws DataConnectionException {
+    public void updateTicket(Ticket ticket) {
         try {
             String sql = "UPDATE " + databaseConnection.getTicketTableName() +
                     " SET" +
@@ -56,12 +56,6 @@ public class UpdateTicketDAO implements IUpdateTicketDAO {
        String sql = "select * from " + databaseConnection.getClientTableName() + " where branchId = (select id from " + databaseConnection.getBranchTableName() + " where branchName = '" + branchName + "');";
        return getBranchMembers(sql);
 
-    }
-
-    @Override
-    public ArrayList<BranchMember> getAllBranchMembers() throws DataConnectionException {
-        String sql = "select * from " + databaseConnection.getClientTableName() + " where branchId is not null;";
-        return getBranchMembers(sql);
     }
 
     @Override

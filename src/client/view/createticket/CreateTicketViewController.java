@@ -3,27 +3,29 @@ package client.view.createticket;
 import client.view.mainview.menu.MenuViewController;
 import client.view.mainview.menu.items.IVirtualButton;
 import client.viewmodel.createticket.CreateTicketViewModel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
 
 public class CreateTicketViewController {
     @FXML
-    public ComboBox<String> categoryComboBox;
+    private ComboBox<String> categoryComboBox;
     @FXML
-    public TextField subjectTextField;
+    private TextField subjectTextField;
     @FXML
-    public TextArea descriptionTextArea;
+    private TextArea descriptionTextArea;
     @FXML
-    public TextField locationTextField;
+    private TextField locationTextField;
     @FXML
-    public Label labelSubject;
+    private Label labelSubject;
     @FXML
-    public Label labelComment;
-
-    @FXML Label infoLabel;
+    private Label labelComment;
+    @FXML
+    private Label infoLabel;
 
     private CreateTicketViewModel createTicketViewModel;
     private IVirtualButton clientButton;
@@ -50,12 +52,11 @@ public class CreateTicketViewController {
         labelComment.setTextFill(descriptionTextArea.getText().isEmpty() ? Color.RED : Color.BLACK);
         labelSubject.setTextFill(subjectTextField.getText().isEmpty() ? Color.RED : Color.BLACK);
         if (subjectTextField.getText().isEmpty() || descriptionTextArea.getText().isEmpty()) return;
-
         createTicketViewModel.submitTicket();
     }
 
 
-    public void onResetButtonClick(ActionEvent actionEvent) {
+    public void onResetButtonClick() {
         createTicketViewModel.clearFields();
         categoryComboBox.getSelectionModel().select(0);
     }
