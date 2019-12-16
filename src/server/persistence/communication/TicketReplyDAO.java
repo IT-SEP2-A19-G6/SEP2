@@ -20,6 +20,8 @@ public class TicketReplyDAO implements ITicketReplyDAO {
         this.databaseConnection = databaseConnection;
     }
 
+    //TODO handle thrown exceptions in server model
+
     @Override
     public ArrayList<TicketReply> getReplies(int ticketId) {
         String sql =  "SELECT r.Reply_Id, t.id, tStamp, r.user_Id, r.message from" + databaseConnection.getTicketTableName() + " t, "
