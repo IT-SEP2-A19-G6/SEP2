@@ -18,7 +18,7 @@ public class TestSocketHandler implements IClientSocketHandler {
     private User testUser;
 
     public TestSocketHandler(){
-        testUser = new User("correctUser", "correctPassword");
+        testUser = new User("correctuser", "correctPassword");
     }
 
 
