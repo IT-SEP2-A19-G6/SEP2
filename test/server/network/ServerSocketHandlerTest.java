@@ -21,7 +21,7 @@ class ServerSocketHandlerTest {
     @BeforeEach
     void setUp() {
         createTicketDAO = new TestCreateTicketDAO();
-        ICreateTicketServerModel createTicketServerModel = new CreateTicketServerModelHandler(createTicketDAO);
+        new CreateTicketServerModelHandler(createTicketDAO);
     }
 
     @Test
