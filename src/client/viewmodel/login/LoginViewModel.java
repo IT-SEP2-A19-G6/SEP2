@@ -62,7 +62,7 @@ public class LoginViewModel {
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
         Response result = (Response) propertyChangeEvent.getNewValue();
         if(loginResult != null) {
-            Platform.runLater(()-> loginResult.setValue(result.getMessage()));
+           Platform.runLater(()-> loginResult.setValue(result.getMessage()));
         }
     }
 
