@@ -118,4 +118,17 @@ class ICreateTicketModelTest {
         assertEquals("Choose a category", vm.getCategories().get(0));
 
     }
+
+    @Test
+    void clearFields() {
+        subjectTextField.setValue("Test Subject");
+        currentCategory.setValue("Test Branch");
+        descriptionTextArea.setValue("Test description");
+        locationTextField.setValue("Test location");
+        vm.clearFields();
+        assertEquals("Test Subject", vm.subjectProperty());
+        assertEquals("Test Branch", vm.getCategories());
+        assertEquals("Test description", vm.descriptionProperty());
+        assertEquals("Test location", vm.locationProperty());
+    }
 }
