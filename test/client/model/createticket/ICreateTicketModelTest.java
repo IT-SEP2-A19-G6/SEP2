@@ -94,6 +94,7 @@ class ICreateTicketModelTest {
         long startTime = System.currentTimeMillis(); //fetch starting time
         while(vm.ticketResultProperty().getValue() == null||(System.currentTimeMillis()-startTime)<3000)
         {
+            // sleep to make sure observer gets through
             Thread.sleep(100);
         }
         // assert
@@ -126,9 +127,9 @@ class ICreateTicketModelTest {
         descriptionTextArea.setValue("Test description");
         locationTextField.setValue("Test location");
         vm.clearFields();
-        assertEquals("Test Subject", vm.subjectProperty());
-        assertEquals("Test Branch", vm.getCategories());
-        assertEquals("Test description", vm.descriptionProperty());
-        assertEquals("Test location", vm.locationProperty());
+        assertEquals("", vm.subjectProperty().getValue());
+        assertEquals("Choose a category", vm.currentCategory().getValue());
+        assertEquals("", vm.descriptionProperty().getValue());
+        assertEquals("", vm.locationProperty().getValue());
     }
 }
