@@ -46,6 +46,7 @@ public class ClientItemController implements IDotController, IVirtualButton {
 
     private void doButtonAction(){
         buttonController.clientButtonPressed(this);
+
         if (isUser){
             ViewHandler.getInstance().loadTicketList(new TicketListExchange(Request.TYPE.OWN_TICKET_LIST_REQ, ClientProperties.getInstance().getClient()));
         } else {
