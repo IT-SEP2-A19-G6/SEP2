@@ -10,7 +10,7 @@ import shared.Ticket;
 import testdummies.TestCreateTicketDAO;
 import static org.junit.jupiter.api.Assertions.*;
 
-class ServerSocketHandlerTest {
+class CreateTicketSocketHandlerTest {
     private ICreateTicketDAO createTicketDAO;
     private int clientId;
     private String subject = "some subject";
