@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 
 public class MessageItemController {
     @FXML
-    Label messageLabel;
+    private Label messageLabel;
 
     public void init(String message){
         messageLabel.setText(message);
