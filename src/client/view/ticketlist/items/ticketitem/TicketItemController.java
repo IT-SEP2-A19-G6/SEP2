@@ -5,7 +5,6 @@ import client.view.ticketlist.items.replyitem.TicketReplyItemController;
 import client.view.ticketlist.items.replymessageitem.ReplyMessageItemController;
 import client.viewmodel.ViewModelFactory;
 import client.viewmodel.communication.TicketReplyViewModel;
-import client.viewmodel.statemachine.IStateController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 @SuppressWarnings("SpellCheckingInspection")
-public class TicketItemController implements IStateController {
+public class TicketItemController {
 
     @FXML
     private Label labelId;
@@ -59,7 +58,7 @@ public class TicketItemController implements IStateController {
     private TicketReplyViewModel viewModel;
     private Ticket ticket;
     private boolean isShown;
-    private ArrayList<Node> replyNodes = new ArrayList<>();
+    private ArrayList<Node> replyNodes;
     private Node replyNode;
 
 
@@ -81,7 +80,7 @@ public class TicketItemController implements IStateController {
         labelBranch.setText(ticket.getBranch());
         labelAssignedTo.setText(ticket.getAssignee());
         isShown = false;
-        // TODO: addpropertychangelistener in controller is not a good idea. Perhaps bind this to ticketlist viewmodel ?
+
         viewModel.addPropertyChangeListener(Request.TYPE.TICKET_REPLY_RESPONSE.name() + ticket.getId(), this::handleReplies);
 
         replyNode = getReplyNode();
@@ -160,8 +159,7 @@ public class TicketItemController implements IStateController {
     }
 
     @SuppressWarnings("unchecked")
-    @Override
-    public void setBranchOptions() {
+    private void setBranchOptions() {
         branchMemberVBox.setVisible(true);
         branchMemberVBox.managedProperty().bind(branchMemberVBox.visibleProperty());
         assigneeComboBox.setItems(viewModelFactory.getTicketListViewModel().getBranchMembers());
@@ -170,12 +168,7 @@ public class TicketItemController implements IStateController {
         viewModelFactory.getTicketListViewModel().requestBranchMembersByBranchName(ticket.getBranch());
     }
 
-    @Override
-    public void clearCurrentOptions() {
-        setUserOptions();
-    }
-    @Override
-    public void setUserOptions() {
+    private void setUserOptions() {
         // hides the space the vbox occupies by binding visibility properties
         branchMemberVBox.setVisible(false);
         branchMemberVBox.managedProperty().bind(branchMemberVBox.visibleProperty());
