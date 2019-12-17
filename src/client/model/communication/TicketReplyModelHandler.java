@@ -1,7 +1,7 @@
 package client.model.communication;
 
 import client.network.communication.ITicketReplyClient;
-import shared.IPropertyChangeSubject;
+import client.util.ClientProperties;
 import shared.Request;
 import shared.TicketReply;
 
@@ -10,8 +10,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class TicketReplyModelHandler implements ITicketReplyModel {
-    private PropertyChangeSupport support = new PropertyChangeSupport(this);
-    private ITicketReplyClient ticketReplyClient;
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    private final ITicketReplyClient ticketReplyClient;
 
 
     public TicketReplyModelHandler(ITicketReplyClient ticketReplyClient) {
@@ -32,8 +32,10 @@ public class TicketReplyModelHandler implements ITicketReplyModel {
         ticketReplyClient.getReplies(ticketId);
     }
 
+    @SuppressWarnings("SpellCheckingInspection")
     @Override
-    public void addReply(TicketReply reply) {
+    public void addReply(int ticketid, String message) {
+        TicketReply reply = new TicketReply(message, ticketid, ClientProperties.getInstance().getClient().getClientId());
         ticketReplyClient.addReply(reply);
     }
 
@@ -46,22 +48,4 @@ public class TicketReplyModelHandler implements ITicketReplyModel {
         }
     }
 
-    @Override
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
-    }
-
-    @Override
-    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
-        if (name == null){
-            support.removePropertyChangeListener(listener);
-        } else {
-            support.removePropertyChangeListener(name, listener);
-        }
-    }
-
-    @Override
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        support.removePropertyChangeListener(listener);
-    }
 }

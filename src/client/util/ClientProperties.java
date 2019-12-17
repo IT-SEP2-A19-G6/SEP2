@@ -8,13 +8,11 @@ public class ClientProperties {
     private static ClientProperties instance;
     private Client client;
 
-
-    private ClientProperties(){
-
+    private ClientProperties() {
     }
 
-    public static ClientProperties getInstance(){
-        if(instance == null){
+    public static ClientProperties getInstance() {
+        if (instance == null) {
             instance = new ClientProperties();
         }
         return instance;
@@ -27,7 +25,4 @@ public class ClientProperties {
     public void setClient(Client client) {
         this.client = client;
     }
-
-
-
 }

@@ -1,35 +1,34 @@
 package shared;
+import java.io.Serializable;
 
-import java.sql.Date;
-import java.time.LocalDate;
 
-public class TicketReply {
-    private String message;
-    private LocalDate timeStamp;
+public class TicketReply implements Serializable {
+    private final String message;
+    private String timeStamp;
     private String username;
-    private int ticketId;
-    private int replyId;
+    private final int ticketId;
+    private int clientId;
 
-    public TicketReply(int replyId,int ticketId, LocalDate timeStamp, String username ,String message ) {
-        this.replyId = replyId;
-        this.ticketId = ticketId;
+
+    public TicketReply(String message, String timeStamp, String username, int ticketId) {
+        this.message = message;
         this.timeStamp = timeStamp;
         this.username = username;
-        this.message = message;
-    }
-
-    public TicketReply(String message, String username, int ticketId) {
-        this.message = message;
-        this.username = username;
         this.ticketId = ticketId;
     }
 
+    public TicketReply(String message, int ticketId, int clientId) {
+        this.message = message;
+        this.clientId = clientId;
+        this.ticketId = ticketId;
+
+    }
 
     public String getMessage() {
         return message;
     }
 
-    public Date getTimeStamp() {
+    public String getTimeStamp() {
         return timeStamp;
     }
 
@@ -41,6 +40,7 @@ public class TicketReply {
         return ticketId;
     }
 
-    public int getReplyId() { return replyId;
+    public int getClientId() {
+        return clientId;
     }
 }

@@ -1,46 +1,51 @@
 package client.view.createticket;
 
+import client.view.mainview.menu.MenuViewController;
+import client.view.mainview.menu.items.IVirtualButton;
 import client.viewmodel.createticket.CreateTicketViewModel;
-import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
+
 
 public class CreateTicketViewController {
     @FXML
-    public ComboBox actionComboBox;
+    private ComboBox<String> categoryComboBox;
     @FXML
-    public TextField subjectTextField;
+    private TextField subjectTextField;
     @FXML
-    public TextArea descriptionTextArea;
+    private TextArea descriptionTextArea;
     @FXML
-    public TextField locationTextField;
+    private TextField locationTextField;
     @FXML
-    public Label labelSubject;
+    private Label labelSubject;
     @FXML
-    public Label labelComment;
+    private Label labelComment;
+    @FXML
+    private Label infoLabel;
 
-    private CreateTicketViewModel vm;
-    private StringProperty ticketResult;
+    @FXML Label categoryLabel;
 
-    public void init(CreateTicketViewModel vm) {
-        this.vm = vm;
-        subjectTextField.textProperty().bindBidirectional(vm.subjectProperty());
-        descriptionTextArea.textProperty().bindBidirectional(vm.descriptionProperty());
-        locationTextField.textProperty().bindBidirectional(vm.locationProperty());
-        ticketResult = new SimpleStringProperty();
-        ticketResult.bind(vm.ticketResultProperty());
-        ticketResult.addListener((ChangeListener) (observable, oldValue, newValue) -> {
-            if (newValue == "OK") {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Ticket");
-                alert.setHeaderText("Information Alert");
-                String s ="The ticket has been successfully created";
-                alert.setContentText(s);
-                alert.show();
+    private CreateTicketViewModel createTicketViewModel;
+    private IVirtualButton clientButton;
+
+
+    public void init(CreateTicketViewModel createTicketViewModel, MenuViewController menuViewController) {
+        this.createTicketViewModel = createTicketViewModel;
+        this.clientButton = menuViewController.getClientButtonController();
+        subjectTextField.textProperty().bindBidirectional(createTicketViewModel.subjectProperty());
+        descriptionTextArea.textProperty().bindBidirectional(createTicketViewModel.descriptionProperty());
+        locationTextField.textProperty().bindBidirectional(createTicketViewModel.locationProperty());
+        infoLabel.textProperty().bindBidirectional(createTicketViewModel.ticketResultProperty());
+        categoryComboBox.valueProperty().bindBidirectional(this.createTicketViewModel.currentCategory());
+        categoryComboBox.setItems(this.createTicketViewModel.getCategories());
+        createTicketViewModel.ticketResultProperty().addListener((observableValue, s, t1) -> {
+            if (t1.equals("OK")) {
+                clientButton.pressButton();
+                createTicketViewModel.clearFields();
             }
         });
     }
@@ -48,16 +53,21 @@ public class CreateTicketViewController {
     public void onSubmitButtonClick() {
         labelComment.setTextFill(descriptionTextArea.getText().isEmpty() ? Color.RED : Color.BLACK);
         labelSubject.setTextFill(subjectTextField.getText().isEmpty() ? Color.RED : Color.BLACK);
-        if (subjectTextField.getText().isEmpty() || descriptionTextArea.getText().isEmpty()) return;
+        categoryLabel.setTextFill(categoryComboBox.getValue().contains("Choose a category") ? Color.RED : Color.BLACK);
+        if (subjectTextField.getText().isEmpty() || descriptionTextArea.getText().isEmpty() || categoryComboBox.getValue().contains("Choose a category")){
+            infoLabel.setText("Please fill required fields!");
+            return;
+        }
 
-        vm.submitTicket();
+        createTicketViewModel.submitTicket();
     }
+
 
     public void onResetButtonClick() {
-        vm.clearFields();
-    }
-
-    public void onCancelButtonClick() {
-        Platform.exit();
+        createTicketViewModel.clearFields();
+        categoryComboBox.getSelectionModel().select(0);
+        labelComment.setTextFill(Color.BLACK);
+        labelSubject.setTextFill(Color.BLACK);
+        categoryLabel.setTextFill(Color.BLACK);
     }
 }

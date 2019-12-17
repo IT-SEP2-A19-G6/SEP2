@@ -14,44 +14,38 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class TicketReplyDAO implements ITicketReplyDAO {
-    private IDatabaseConnection databaseConnection;
+    private final IDatabaseConnection databaseConnection;
 
     public TicketReplyDAO(IDatabaseConnection databaseConnection) {
         this.databaseConnection = databaseConnection;
     }
 
-    //TODO handle thrown exceptions in server model
 
-    @Override
-    public ArrayList<TicketReply> getReplies(int ticketId) {
-        String sql =  "SELECT r.Reply_Id, t.id, tStamp, r.user_Id, r.message from" + databaseConnection.getTicketTableName() + " t, "
-                + databaseConnection.getReplyTableName() + " r, " +
-         "where t.id = " + ticketId;
-        return getRepliesByTicketId(sql);
+    public ArrayList<TicketReply> getReplies(int ticketId) throws DataConnectionException {
+        String sql = "SELECT Ticket_Id AS ticketId, tStamp AS timestamp, c.Username AS replier, message FROM " + databaseConnection.getReplyTableName() + " r " +
+                "INNER JOIN Ticket T on r.Ticket_Id = T.Id " +
+                "INNER JOIN Account_Client c on r.client_Id = c.Id " +
+                "where t.id = " + ticketId +
+                "ORDER BY timestamp DESC;";
+
+        return getRepliesFromDb(sql);
     }
 
     @Override
-    public String addReply(TicketReply reply) throws DataConnectionException{
+    public void addReply(TicketReply reply) throws DataConnectionException, SQLException {
+        String sql = "insert into " + databaseConnection.getReplyTableName() + " (Ticket_Id, client_Id, message) VALUES (?, ?, ?);";
 
-        try {
-            String sql = "INSERT INTO " + "Reply" + " (replyId, Ticket_Id, user_Id, message)" + " VALUES (?, ?, ?, ?, ?);";
-            PreparedStatement preparedStatement = databaseConnection.createPreparedStatement(sql);
+        PreparedStatement preparedStatement = databaseConnection.createPreparedStatement(sql);
 
-            preparedStatement.setInt(1, reply.getReplyId());
-            preparedStatement.setInt(2, reply.getTicketId());
-            preparedStatement.setDate(3, reply.getTimeStamp());
-            preparedStatement.setString(4, reply.getUsername());
-            preparedStatement.setString(5, reply.getMessage());
+        preparedStatement.setInt(1, reply.getTicketId());
+        preparedStatement.setInt(2, reply.getClientId());
+        preparedStatement.setString(3, reply.getMessage());
 
-            databaseConnection.executeUpdate(preparedStatement);
-            return "Reply has been added to the Ticket";
-        } catch (SQLException e) {
-            System.out.println("Creating reply failed: " + e.getMessage());
-        }
-            return "Reply has failed to add";
+        databaseConnection.executeUpdate(preparedStatement);
+
     }
 
-    public ArrayList<TicketReply> getRepliesByTicketId(String preparedSql){
+    private ArrayList<TicketReply> getRepliesFromDb(String preparedSql) throws DataConnectionException {
         PreparedStatement ps = null;
         ResultSet rs = null;
         ArrayList<TicketReply> replies = new ArrayList<>();
@@ -59,19 +53,18 @@ public class TicketReplyDAO implements ITicketReplyDAO {
             ps = databaseConnection.executePreparedQuery(preparedSql);
             rs = ps.executeQuery();
             while(rs.next()) {
-                int id = rs.getInt("ReplyId");
-                int ticketId = rs.getInt("TicketId");
-                Date timestamp = rs.getDate("tStamp");
-                String username = rs.getString("user_Id");
+                //noinspection SpellCheckingInspection
+                int ticketId = rs.getInt("ticketid");
+                Date createdDate = rs.getTimestamp("timestamp");
+                String replier = rs.getString("replier");
                 String message = rs.getString("message");
 
-
                 DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-                String date = dateFormat.format(timestamp);
+                String date = dateFormat.format(createdDate);
 
-                replies.add(new TicketReply(id, ticketId, date, username, message));
+                replies.add(new TicketReply(message, date, replier, ticketId));
             }
-        } catch (SQLException | DataConnectionException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             databaseConnection.closeConnection(ps, rs);

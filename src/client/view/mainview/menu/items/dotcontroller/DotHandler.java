@@ -4,7 +4,7 @@ package client.view.mainview.menu.items.dotcontroller;
 import java.util.ArrayList;
 
 public class DotHandler implements IButtonController {
-    ArrayList<IDotController> dots;
+    private final ArrayList<IDotController> dots;
 
     public DotHandler(){
         dots = new ArrayList<>();

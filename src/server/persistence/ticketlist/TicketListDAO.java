@@ -3,58 +3,56 @@ package server.persistence.ticketlist;
 import server.exceptions.DataConnectionException;
 import server.persistence.database.IDatabaseConnection;
 import shared.Ticket;
-import shared.clients.BranchMember;
-import shared.clients.Client;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class TicketListDAO implements ITicketListDAO {
-    private IDatabaseConnection databaseConnection;
+    private final IDatabaseConnection databaseConnection;
 
     public TicketListDAO(IDatabaseConnection databaseConnection) {
         this.databaseConnection = databaseConnection;
     }
 
     @Override
-    public ArrayList<Ticket> getOwnTicketList(String userToFind) throws DataConnectionException {
-        String sql = "SELECT t.id, created_at, c.Username as creator, Subject, Description, Category, Location, Ticket_Status, branchName, abm.Username as assignee FROM " + databaseConnection.getTicketTableName() + " t " +
-        "INNER JOIN Account_Client c ON t.User_Id = c.id " +
-        "INNER JOIN account_branch_member abm on t.Assignee = abm.Id " +
-        "INNER JOIN Branch B on abm.Id_Branch = B.Id " +
-        "WHERE c.Username = '" + userToFind + "' " +
-        "GROUP by t.Id, c.id, abm.id, b.id;";
+
+    public ArrayList<Ticket> getOwnTicketList(int searchId) throws DataConnectionException {
+        String sql = "SELECT t.id AS ticketId, created_at, Subject, Description, Location, Ticket_Status, c.username AS creator, branchName, a.Username AS assignee FROM " + databaseConnection.getTicketTableName() + " t " +
+        "INNER JOIN Account_Client c ON t.client_Id = c.Id " +
+        "INNER JOIN branch b ON t.Id_Branch = b.Id " +
+        "LEFT JOIN  account_client a ON t.assignee = a.Id " +
+        "WHERE c.id = " + searchId +
+        "ORDER BY created_at DESC;";
 
         return getTickets(sql);
     }
 
 
     @Override
-    public ArrayList<Ticket> getAssignedTicketList(String userToFind) throws DataConnectionException {
-        String sql = "SELECT t.id, created_at, u.Username as creator, Subject, Description, Category, Location, Ticket_Status, branchName, c.Username as assignee FROM " + databaseConnection.getTicketTableName() + " t " +
-                "INNER JOIN Account_Client c ON t.assignee = c.id " +
-                "INNER JOIN account_user u on t.user_Id = u.Id " +
-                "INNER JOIN Branch b on t.Id_Branch = b.Id " +
-                "WHERE c.Username = '" + userToFind + "' " +
-                "GROUP by t.Id, c.id, u.id, b.id;";
+    public ArrayList<Ticket> getAssignedTicketList(int searchId) throws DataConnectionException {
+        String sql = "SELECT t.id AS ticketId, created_at, Subject, Description, Location, Ticket_Status, c.username AS creator, branchName, a.Username AS assignee FROM " + databaseConnection.getTicketTableName() + " t " +
+                "INNER JOIN Account_Client a ON t.assignee = a.Id " +
+                "INNER JOIN branch b ON t.Id_Branch = b.Id " +
+                "LEFT JOIN  account_client c ON t.client_Id = c.Id " +
+                "WHERE a.id = " + searchId +
+                "ORDER BY created_at ASC;";
 
         return getTickets(sql);
     }
 
     @Override
-    public ArrayList<Ticket> getBranchTicketList(String userToFind) throws DataConnectionException {
-        String sql = "SELECT t.id, created_at, u.Username as creator, Subject, Description, Category, Location, Ticket_Status, branchName, c.Username as assignee FROM " + databaseConnection.getTicketTableName() + " t " +
-                "INNER JOIN account_branch_member abm ON t.Id_Branch = abm.Id_Branch " +
-                "INNER JOIN account_branch_member c ON t.assignee = c.id " +
-                "INNER JOIN Branch B ON t.Id_Branch = B.Id " +
-                "INNER JOIN Account_User u ON t.user_Id = u.Id " +
-                "WHERE abm.username = '" + userToFind + "';";
+    public ArrayList<Ticket> getBranchTicketList(int searchId) throws DataConnectionException {
+        String sql = "SELECT t.id AS ticketId, created_at, Subject, Description, Location, Ticket_Status, c.username AS creator, branchName, a.Username AS assignee  FROM " + databaseConnection.getTicketTableName() + " t " +
+                "LEFT JOIN Account_Client a ON t.Assignee = a.Id " +
+                "INNER JOIN Account_Client c ON t.client_Id = c.id " +
+                "INNER JOIN branch b ON t.Id_Branch = b.Id " +
+                "WHERE t.id_branch = " + searchId +
+                "ORDER BY created_at ASC;";
 
         return getTickets(sql);
     }
@@ -68,21 +66,21 @@ public class TicketListDAO implements ITicketListDAO {
             ps = databaseConnection.executePreparedQuery(preparedSql);
             rs = ps.executeQuery();
             while(rs.next()) {
-                int id = rs.getInt("Id");
+                int id = rs.getInt("ticketId");
                 Date createdDate = rs.getTimestamp("created_at");
                 String creator = rs.getString("creator");
                 String subject = rs.getString("Subject");
                 String description = rs.getString("Description");
-                String category = rs.getString("Category");
                 String location = rs.getString("Location");
                 String ticketStatus = rs.getString("Ticket_Status");
+                //noinspection SpellCheckingInspection
                 String branch = rs.getString("branchname");
                 String assignee = rs.getString("assignee");
 
                 DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
                 String date = dateFormat.format(createdDate);
 
-                tickets.add(new Ticket(id, date, creator, subject, description, category, location, ticketStatus, branch, assignee));
+                tickets.add(new Ticket(id, date, creator, subject, description, location, ticketStatus, branch, assignee));
             }
         } catch (SQLException e) {
             e.printStackTrace();

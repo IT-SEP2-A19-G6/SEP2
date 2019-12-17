@@ -3,7 +3,6 @@ package client.view.mainview.menu.items.plus;
 import client.view.ViewHandler;
 import client.view.mainview.menu.items.dotcontroller.IButtonController;
 import client.view.mainview.menu.items.dotcontroller.IDotController;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.shape.Circle;
@@ -24,7 +23,7 @@ public class PlusItemController implements IDotController {
         setVisibility(false);
     }
 
-    public void doAction(ActionEvent actionEvent) {
+    public void doAction() {
         buttonController.plusButtonPressed(this);
         ViewHandler.getInstance().loadCreateTicket();
     }

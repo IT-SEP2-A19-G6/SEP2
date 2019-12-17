@@ -3,7 +3,7 @@ package client.viewmodel.statemachine.states;
 import client.viewmodel.statemachine.StateHandler;
 
 public class UserState implements IClientState {
-    StateHandler stateHandler;
+    private StateHandler stateHandler;
 
     @Override
     public void entry(StateHandler stateHandler) {

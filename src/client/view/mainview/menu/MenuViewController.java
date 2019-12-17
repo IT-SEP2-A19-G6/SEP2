@@ -28,8 +28,8 @@ public class MenuViewController {
     private StringProperty plusLabel;
     private BooleanProperty branchIcon;
     private StringProperty branchLabel;
-
     private IButtonController buttonController;
+    private ClientItemController clientItemController;
 
     public void init(MenuViewModel menuViewModel){
 
@@ -68,10 +68,10 @@ public class MenuViewController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("items/client/ClientItemControl.fxml"));
             GridPane icon  =  loader.load();
-            ClientItemController controller = loader.getController();
-            controller.init(username, isUser, buttonController);
+            clientItemController = loader.getController();
+            clientItemController.init(username, isUser, buttonController);
             content = icon;
-            buttonController.addDotController(controller);
+            buttonController.addDotController(clientItemController);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -109,6 +109,13 @@ public class MenuViewController {
             e.printStackTrace();
         }
         return content;
+    }
+
+    public ClientItemController getClientButtonController(){
+        if(clientItemController != null){
+            return clientItemController;
+        }
+        return null;
     }
 
 }

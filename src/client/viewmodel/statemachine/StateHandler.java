@@ -7,16 +7,18 @@ import client.viewmodel.statemachine.states.IClientState;
 import client.viewmodel.statemachine.states.UserState;
 import shared.Request;
 import shared.clients.ClientType;
+
 import java.beans.PropertyChangeEvent;
 
 public class StateHandler {
     private IClientState currentState;
-    private IStateController menuItemController;
-    private IStateController replyItemController;
+    private final IStateController menuItemController;
+    private final IStateController replyItemController;
+
 
     public StateHandler(ViewModelFactory viewModelFactory, ILoginModel loginModel){
-        this.menuItemController = viewModelFactory.getMenuViewModel();
-        this.replyItemController = viewModelFactory.getTicketReplyViewModel();
+        menuItemController = viewModelFactory.getMenuViewModel();
+        replyItemController = viewModelFactory.getTicketReplyViewModel();
         loginModel.addPropertyChangeListener(Request.TYPE.SET_STATE.name(), this::handleStateReq);
     }
 
@@ -45,6 +47,7 @@ public class StateHandler {
     public void setBranchOptions(){
         menuItemController.setBranchOptions();
         replyItemController.setBranchOptions();
+
     }
 
     public void clearCurrentOptions(){

@@ -35,6 +35,7 @@ public class ViewHandler {
 
     private MainViewController mainViewController;
     private TicketListController ticketListController;
+    private MenuViewController menuViewController;
 
     private static ViewHandler instance;
 
@@ -61,10 +62,11 @@ public class ViewHandler {
         if (createTicketPane == null) {
             createTicketPane = new Pane();
             try {
+                //noinspection SpellCheckingInspection
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("createticket/CreateTicketView.fxml"));
                 createTicketPane = loader.load();
                 CreateTicketViewController controller = loader.getController();
-                controller.init(viewModelFactory.getCreateTicketViewModel());
+                controller.init(viewModelFactory.getCreateTicketViewModel(), menuViewController);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -76,10 +78,11 @@ public class ViewHandler {
         if (ticketListPane == null) {
             ticketListPane = new AnchorPane();
             try {
+                //noinspection SpellCheckingInspection
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("ticketlist/TicketListView.fxml"));
                 ticketListPane = loader.load();
                 ticketListController = loader.getController();
-                ticketListController.init(viewModelFactory.getTicketListViewModel());
+                ticketListController.init(viewModelFactory);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -93,10 +96,11 @@ public class ViewHandler {
         if (menu == null){
             menu = new VBox();
             try {
+                //noinspection SpellCheckingInspection
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("mainview/menu/MenuView.fxml"));
                 menu = loader.load();
-                MenuViewController controller = loader.getController();
-                controller.init(viewModelFactory.getMenuViewModel());
+                menuViewController = loader.getController();
+                menuViewController.init(viewModelFactory.getMenuViewModel());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -107,6 +111,7 @@ public class ViewHandler {
     public void openMainView() {
         FXMLLoader loader = new FXMLLoader();
         if (mainScene == null) {
+            //noinspection SpellCheckingInspection
             Parent root = getRootByPath("mainview/MainView.fxml", loader);
             mainViewController = loader.getController();
             mainViewController.init();
@@ -120,6 +125,7 @@ public class ViewHandler {
         FXMLLoader loader = new FXMLLoader();
 
         if (signUpScene == null) {
+            //noinspection SpellCheckingInspection
             Parent root = getRootByPath("signup/SignUpView.fxml", loader);
             SignUpViewController controller = loader.getController();
             controller.init(viewModelFactory.getSignUpViewModel());
@@ -153,7 +159,7 @@ public class ViewHandler {
         return root;
     }
 
-    public void setMainRightArea(Node node){
+    private void setMainRightArea(Node node){
         mainViewController.setRightArea(node);
     }
 

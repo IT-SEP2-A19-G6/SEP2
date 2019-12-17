@@ -8,20 +8,25 @@ import javafx.collections.ObservableList;
 import shared.Request;
 import shared.Ticket;
 import shared.TicketListExchange;
+import shared.clients.BranchMember;
 
 import java.beans.PropertyChangeEvent;
+import java.util.ArrayList;
 
 
 public class TicketListViewModel {
 
-    private ITicketListModel ticketListModel;
-    private ObservableList<Ticket> tickets;
-    private StringProperty responseMessage;
+    private final ITicketListModel ticketListModel;
+    private final ObservableList<Ticket> tickets;
+    private final StringProperty responseMessage;
+    private final ObservableList<BranchMember> branchMembers;
 
     public TicketListViewModel(ITicketListModel ticketListModel) {
         this.ticketListModel = ticketListModel;
+        branchMembers = FXCollections.observableArrayList();
         tickets = FXCollections.observableArrayList();
         responseMessage = new SimpleStringProperty();
+
         addListeners();
     }
 
@@ -29,9 +34,23 @@ public class TicketListViewModel {
         ticketListModel.requestTicketList(ticketListExchange);
     }
 
+    public void requestBranchMembersByBranchName(String branchName) {
+        ticketListModel.requestBranchMembersByBranchName(branchName);
+    }
+
+    public void setTicketStatus(Ticket ticket) {
+        ticketListModel.setTicketStatus(ticket);
+    }
+
     private void addListeners() {
         ticketListModel.addPropertyChangeListener(Request.TYPE.TICKET_LIST_RESPONSE.name(), this::handleResponse);
         ticketListModel.addPropertyChangeListener(Request.TYPE.NO_TICKETS_FOUND_RESPONSE.name(), this::handleEmptyResponse);
+        ticketListModel.addPropertyChangeListener(Request.TYPE.BRANCH_MEMBERS_BY_BRANCHNAME_REPLY.name(), this::handleResponseBranchMembers);
+    }
+
+    private void handleResponseBranchMembers(PropertyChangeEvent propertyChangeEvent) {
+        //noinspection unchecked
+        branchMembers.setAll((ArrayList<BranchMember>) propertyChangeEvent.getNewValue());
     }
 
     private void handleEmptyResponse(PropertyChangeEvent propertyChangeEvent) {
@@ -52,4 +71,14 @@ public class TicketListViewModel {
 
     public void resetResponseMessage(){ responseMessage.setValue(""); }
 
+    public ObservableList<BranchMember> getBranchMembers() {
+        return branchMembers;
+    }
+
+    public void setAssignee(String assignee, int ticketId) {
+        //noinspection ConstantConditions
+        tickets.stream().filter(e -> e.getId() == ticketId).findFirst().orElse(null).setAssignee(assignee);
+        Ticket ticket = tickets.stream().filter(e -> e.getId() == ticketId).findFirst().orElse(null);
+        ticketListModel.setAssignee(ticket);
+    }
 }

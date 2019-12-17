@@ -2,28 +2,79 @@ package client.viewmodel.communication;
 
 import client.model.communication.ITicketReplyModel;
 import client.viewmodel.statemachine.IStateController;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import shared.IPropertyChangeSubject;
+import shared.Request;
+import shared.TicketReply;
 
-public class TicketReplyViewModel implements IStateController {
-    private ITicketReplyModel ticketReplyModel;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+
+public class TicketReplyViewModel implements IStateController, IPropertyChangeSubject {
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    private final ITicketReplyModel ticketReplyModel;
+    private final StringProperty messageArea;
+
 
     public TicketReplyViewModel(ITicketReplyModel ticketReplyModel) {
         this.ticketReplyModel = ticketReplyModel;
+        messageArea = new SimpleStringProperty("");
+        addListeners();
     }
 
 
     @Override
     public void setUserOptions() {
-        System.out.println("Reply VM entered user state"); //TODO delete sout
     }
 
     @Override
     public void setBranchOptions() {
-        System.out.println("Reply VM entered branch state"); //TODO delete sout
     }
 
     @Override
     public void clearCurrentOptions() {
         //if anything needs to be cleared on exit...
+        messageArea.setValue("");
     }
 
+    private void addListeners() {
+        ticketReplyModel.addPropertyChangeListener(Request.TYPE.TICKET_REPLY_RESPONSE.name(), this::handleResponse);
+    }
+
+    private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
+        //noinspection unchecked
+        ArrayList<TicketReply> serverReplies = (ArrayList<TicketReply>) propertyChangeEvent.getNewValue();
+        if (serverReplies.size() > 0){
+            support.firePropertyChange(Request.TYPE.TICKET_REPLY_RESPONSE.name() + serverReplies.get(0).getTicketId(),"", serverReplies);
+        }
+    }
+
+    public void addReply(int ticketId) {
+        ticketReplyModel.addReply(ticketId, messageArea.getValue());
+    }
+
+    public StringProperty messageAreaProperty() {
+        return messageArea;
+    }
+
+    @SuppressWarnings("SpellCheckingInspection")
+    public void getReplies(int ticketid) {
+        ticketReplyModel.getReplies(ticketid);
+    }
+
+    @Override
+    public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
+        if (name == null){
+            support.addPropertyChangeListener(listener);
+        } else {
+            support.addPropertyChangeListener(name, listener);
+        }
+    }
+
+
 }
+
+

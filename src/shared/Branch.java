@@ -1,19 +1,22 @@
 package shared;
 
-import shared.clients.BranchMember;
-
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Branch implements Serializable {
 
-    private String department;
+    private final int id;
+    private final String branchName;
 
-    public Branch(String department) {
-        this.department = department;
+    public Branch(int id, String branchName) {
+        this.id = id;
+        this.branchName = branchName;
     }
 
-    public String getDepartment() {
-        return department;
+    public int getId() {
+        return id;
+    }
+
+    public String getBranchName() {
+        return branchName;
     }
 }

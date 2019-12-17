@@ -9,14 +9,15 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import shared.Request;
 import shared.Response;
+
 import java.beans.PropertyChangeEvent;
 
 public class LoginViewModel {
-    private ILoginModel loginModel;
-    private StringProperty loginResult;
-    private StringProperty username;
-    private StringProperty password;
-    private BooleanProperty isInFocus;
+    private final ILoginModel loginModel;
+    private final StringProperty loginResult;
+    private final StringProperty username;
+    private final StringProperty password;
+    private final BooleanProperty isInFocus;
 
     public LoginViewModel(ILoginModel loginModel) {
         this.loginModel = loginModel;
@@ -54,16 +55,14 @@ public class LoginViewModel {
             loginResult.setValue("Enter password");
         }else {
             loginResult.setValue("");
-            loginModel.validateLogin(username.getValue(), password.getValue());
+            loginModel.validateLogin(username.getValue().toLowerCase(), password.getValue());
         }
     }
 
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
         Response result = (Response) propertyChangeEvent.getNewValue();
         if(loginResult != null) {
-            Platform.runLater(()->{
-                loginResult.setValue(result.getMessage());
-                    });
+            Platform.runLater(()-> loginResult.setValue(result.getMessage()));
         }
     }
 

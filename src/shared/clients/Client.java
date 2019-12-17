@@ -5,29 +5,20 @@ import java.io.Serializable;
 public abstract class Client implements Serializable {
 
     private int id;
-    private String username;
+    private final String username;
     private String password;
     private ClientType type;
-    private boolean active;
 
 
-    public Client(int id, String username, String password, ClientType type, boolean active) {
+    Client(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    Client(int id, String username, ClientType type) {
         this.id = id;
         this.username = username;
-        this.password = password;
         this.type = type;
-        this.active = active;
-    }
-
-    public Client(String username, String password, ClientType type) {
-        this.username = username;
-        this.password = password;
-        this.type = type;
-    }
-
-    public Client(String username, String password) {
-        this.username = username;
-        this.password = password;
     }
 
     public String getUsername() {
@@ -42,14 +33,9 @@ public abstract class Client implements Serializable {
         return type;
     }
 
-    public boolean getActive() {
-        return active;
-    }
-
-    public int getUserId() {
+    public int getClientId() {
         return id;
     }
 
-    public abstract void setType(ClientType type);
 
 }
