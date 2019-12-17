@@ -13,7 +13,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
-public class TicketReplyViewModel implements IStateController, IPropertyChangeSubject {
+public class TicketReplyViewModel implements IPropertyChangeSubject {
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     private final ITicketReplyModel ticketReplyModel;
     private final StringProperty messageArea;
@@ -23,21 +23,6 @@ public class TicketReplyViewModel implements IStateController, IPropertyChangeSu
         this.ticketReplyModel = ticketReplyModel;
         messageArea = new SimpleStringProperty("");
         addListeners();
-    }
-
-
-    @Override
-    public void setUserOptions() {
-    }
-
-    @Override
-    public void setBranchOptions() {
-    }
-
-    @Override
-    public void clearCurrentOptions() {
-        //if anything needs to be cleared on exit...
-        messageArea.setValue("");
     }
 
     private void addListeners() {
