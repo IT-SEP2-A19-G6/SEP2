@@ -7,8 +7,5 @@ public class User extends Client{
     }
 
     public User(int id, String username, ClientType type) {
-        super(id, username, type);
-    }
-
-
+        super(id, username, type);}
 }
