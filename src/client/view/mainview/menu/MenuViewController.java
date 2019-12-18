@@ -112,10 +112,7 @@ public class MenuViewController {
     }
 
     public ClientItemController getClientButtonController(){
-        if(clientItemController != null){
-            return clientItemController;
-        }
-        return null;
+        return clientItemController;
     }
 
 }

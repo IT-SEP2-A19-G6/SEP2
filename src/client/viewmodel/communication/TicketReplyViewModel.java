@@ -1,7 +1,6 @@
 package client.viewmodel.communication;
 
 import client.model.communication.ITicketReplyModel;
-import client.viewmodel.statemachine.IStateController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import shared.IPropertyChangeSubject;
@@ -20,6 +19,7 @@ public class TicketReplyViewModel implements IPropertyChangeSubject {
 
 
     public TicketReplyViewModel(ITicketReplyModel ticketReplyModel) {
+
         this.ticketReplyModel = ticketReplyModel;
         messageArea = new SimpleStringProperty("");
         addListeners();

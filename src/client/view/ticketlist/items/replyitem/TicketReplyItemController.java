@@ -2,18 +2,15 @@ package client.view.ticketlist.items.replyitem;
 
 import client.viewmodel.communication.TicketReplyViewModel;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
 
 public class TicketReplyItemController {
 
-    @FXML
-    public Label messagesLabel;
+
     @FXML
     private TextArea messageTextArea;
-    @FXML
-    public Label textAreaEmpty;
+
 
     private TicketReplyViewModel viewModel;
 

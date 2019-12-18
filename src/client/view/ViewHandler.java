@@ -117,7 +117,7 @@ public class ViewHandler {
             mainViewController.init();
             mainScene = new Scene(root);
         }
-        stage.setTitle("Main View");
+        stage.setTitle("Ticket System");
         stage.setScene(mainScene);
     }
 
