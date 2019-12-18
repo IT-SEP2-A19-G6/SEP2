@@ -1,6 +1,6 @@
 package shared;
-
 import java.io.Serializable;
+
 
 public class TicketReply implements Serializable {
     private final String message;
