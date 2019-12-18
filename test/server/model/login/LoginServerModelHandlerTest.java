@@ -38,7 +38,7 @@ class LoginServerModelHandlerTest {
     @Test
     void validateLoginUserWrongUsername() {
         //arrange
-        client = new User("wrongUsername", "correctPassword");
+        client = new User("incorrectUser", "correctPassword");
         //act
         Response response = loginServerModelHandler.validateLogin((User) client);
         String clientToCheck =  response.getMessage();
@@ -57,6 +57,28 @@ class LoginServerModelHandlerTest {
         assertEquals("Incorrect credentials", response.getMessage());
     }
 
+    @Test
+    void validateLoginUserWrongCredentials() {
+        //arrange
+        client = new User("incorrectUser", "incorrectPassword");
+        //act
+        Response response = loginServerModelHandler.validateLogin((User) client);
+        String clientToCheck =  response.getMessage();
+        //assert
+        assertEquals("Incorrect credentials", response.getMessage());
+    }
+
+    @Test
+    void validateLoginUserClient() {
+        //arrange
+        client = new User("correctUser", "correctPassword");
+        //act
+        Response response = loginServerModelHandler.validateLogin((User) client);
+        Client clientToCheck =  response.getReceiver();
+        //assert
+        assertEquals(ClientType.USER, clientToCheck.getType());
+    }
+    //Branch Member
     @Test
     void validateLoginBranchMemberOK() {
         //arrange
@@ -91,14 +113,14 @@ class LoginServerModelHandlerTest {
     }
 
     @Test
-    void validateLoginUserClient() {
+    void validateLoginBranchMemberWrongCredentials() {
         //arrange
-        client = new User("correctUser", "correctPassword");
+        client = new User("incorrectBranchMember", "incorrectPassword");
         //act
         Response response = loginServerModelHandler.validateLogin((User) client);
-        Client clientToCheck =  response.getReceiver();
+        String clientToCheck =  response.getMessage();
         //assert
-        assertEquals(ClientType.USER, clientToCheck.getType());
+        assertEquals("Incorrect credentials", response.getMessage());
     }
 
     @Test
