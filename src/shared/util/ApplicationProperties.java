@@ -32,8 +32,20 @@ public enum ApplicationProperties {
         return properties.getProperty("db.url");
     }
 
-    public String getDbDriver() {return properties.getProperty("db.driver");
-
+    public String getDbDriver() {
+        return properties.getProperty("db.driver");
     }
 
+    public String getConnectionUrl() {
+        return properties.getProperty("conn.url");
+    }
+
+    public int getConnectionPort() {
+        return Integer.parseInt(properties.getProperty("conn.port"));
+    }
 }
+
+
+
+
+
