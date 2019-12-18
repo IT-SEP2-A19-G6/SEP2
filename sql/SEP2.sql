@@ -1,9 +1,8 @@
-DROP SCHEMA IF EXISTS "sep2" CASCADE;
+-- 1. Create schema
 CREATE SCHEMA "sep2";
-
+-- 2. Set search Path
 SET SEARCH_PATH = "sep2";
-
-
+-- 3. Create tables
 DROP TABLE IF EXISTS account_client CASCADE;
 CREATE TABLE Account_Client (
     Id serial,
@@ -13,14 +12,12 @@ CREATE TABLE Account_Client (
     PRIMARY KEY (Id)
 );
 
-
 DROP TABLE IF EXISTS branch CASCADE;
 CREATE TABLE branch (
     Id serial,
     branchName varchar,
     primary key (Id)
 );
-
 
 DROP TABLE IF EXISTS Ticket CASCADE;
 CREATE TABLE Ticket (
@@ -35,7 +32,6 @@ CREATE TABLE Ticket (
     Assignee integer references Account_Client(id),
     PRIMARY KEY (Id)
 );
-
 DROP TABLE IF EXISTS Reply CASCADE;
 CREATE TABLE  Reply (
     Reply_Id serial,
@@ -47,92 +43,33 @@ CREATE TABLE  Reply (
     foreign key (client_Id) references Account_Client(id)
 );
 
-
-
-select * from Account_Client
-where Username = 'user1';
-
-
-
-
---TODO remove types and have only USER and add trigger if the client id is in branch_members, then type = 'BRANCH_MEMBER'
+-- 4. insert users
 insert into account_client (Username, Password) VALUES ('user1', 'user');
-insert into account_client (Username, Password, branchId) VALUES ('fm2', 'user', 1);
+insert into account_client (Username, Password) VALUES ('user2', 'user');
 insert into account_client (Username, Password) VALUES ('user3', 'user');
 insert into account_client (Username, Password) VALUES ('user4', 'user');
 insert into account_client (Username, Password) VALUES ('user5', 'user');
 insert into account_client (Username, Password) VALUES ('user6', 'user');
-insert into account_client (Username, Password) VALUES ('user7', 'user');
-insert into account_client (Username, Password, branchId) VALUES ('it2', 'member', 1);
-select * from Account_Client;
--- This is only for use in case of id reset to 1 again...
--- ALTER SEQUENCE account_client_id_seq RESTART WITH 1;
------------------------------------------------------------------------------------------------------------------------
+
+-- 5. insert branches
 INSERT INTO Branch (branchName) VALUES ('IT');
 INSERT INTO Branch (branchName) VALUES ('Facility Management');
 
------------------------------------------------------------------------------------------------------------------------
--- insert into branch_members (Id_client, Id_Branch) VALUES ( 7, 1);
--- insert into branch_members (Id_client, Id_Branch) VALUES ( 8, 2);
--- insert into branch_members (Id_client, Id_Branch) VALUES ( 9, 2);
--- SELECT * FROM branch_members;
------------------------------------------------------------------------------------------------------------------------
+-- 6. insert branch members into IT
+insert into account_client (Username, Password, branchId) VALUES ('it1', 'member', 1);
+insert into account_client (Username, Password, branchId) VALUES ('it2', 'member', 1);
+insert into account_client (Username, Password, branchId) VALUES ('it3', 'member', 1);
+-- 7. insert branch members into facility management
+insert into account_client (Username, Password, branchId) VALUES ('fm1', 'member', 2);
+insert into account_client (Username, Password, branchId) VALUES ('fm2', 'member', 2);
+insert into account_client (Username, Password, branchId) VALUES ('fm3', 'member', 2);
 
-
-INSERT INTO Ticket (client_Id, Subject, Description, Location, Id_Branch)
-VALUES (1, 'Something broken', 'Hallo this is a test to make sure it works, broken chair',
-         'ROOM 301A', 1);
-
+select * from Account_Client;
+-- 8. insert tickets
+INSERT INTO Ticket (client_Id, Subject, Description, Location, , Ticket_Status, Id_Branch)
+VALUES (1, 'Toilet incident', 'All out of paper....',
+         'Mens room', 'OPEN', 2);
 
 INSERT INTO Ticket (client_Id, Subject, Description, Location, Ticket_Status, Id_Branch)
-VALUES (1, 'Something broken', 'Hallo this is a test to make sure it works, broken chair',
+VALUES (1, 'Teams inaccessible', 'Can´t log in to MS Teams
          'ROOM 301A', 'OPEN', 1);
-
-
-INSERT INTO Ticket (client_Id, Subject, Description, Location, Ticket_Status, Id_Branch, assignee)
-VALUES (1, 'Something broken', 'Hallo this is a test to make sure it works, broken chair',
-         'ROOM 301A', 'OPEN', 1, 3);
-
-select * from Ticket;
-
-
-
-
-
-
-SELECT t.id AS ticketId, created_at, Subject, Description, Location, Ticket_Status, c.username AS creator, branchName, a.Username AS assignee FROM ticket t
-INNER JOIN Account_Client c ON t.client_Id = c.Id
-INNER JOIN branch b ON t.Id_Branch = b.Id
-LEFT JOIN  account_client a ON t.assignee = a.Id
-WHERE c.id = '1'
-ORDER BY created_at DESC;
-
-SELECT t.id AS ticketId, created_at, Subject, Description, Location, Ticket_Status, c.username AS creator, branchName, a.Username AS assignee FROM ticket t
-INNER JOIN Account_Client a ON t.assignee = a.Id
-INNER JOIN branch b ON t.Id_Branch = b.Id
-LEFT JOIN  account_client c ON t.client_Id = c.Id
-WHERE a.id = '3';
-
-SELECT t.id AS ticketId, created_at, Subject, Description, Location, Ticket_Status, c.username AS creator, branchName, a.Username AS assignee  FROM Ticket t
-LEFT JOIN Account_Client a ON t.Assignee = a.Id
-INNER JOIN Account_Client c ON t.client_Id = c.id
-INNER JOIN branch b ON t.Id_Branch = b.Id
-    WHERE t.id_branch = 1;
-
--- This is only for use in case of id reset to 1 again...
---ALTER SEQUENCE ticket_id_ticket_seq RESTART WITH 1;
------------------------------------------------------------------------------------------------------------------------
-
-INSERT INTO Reply ( Ticket_Id, client_Id, message)
-VALUES ( 2, 2, 'I will figure it out');
-
-INSERT INTO Reply ( Ticket_Id, client_Id, message)
-values ( 2, 1, 'Sounds good');
-
-SELECT * FROM Reply;
-
-SELECT Ticket_Id AS ticketId, tStamp AS timestamp, c.Username AS replier, message FROM Reply
-INNER JOIN Ticket T on Reply.Ticket_Id = T.Id
-INNER JOIN Account_Client c on Reply.client_Id = c.Id
-where t.id = 2
-ORDER BY timestamp DESC;
