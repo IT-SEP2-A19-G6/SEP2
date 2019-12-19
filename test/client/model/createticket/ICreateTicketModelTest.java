@@ -70,7 +70,7 @@ class ICreateTicketModelTest {
         subjectTextField.setValue("Test Subject");
         descriptionTextArea.setValue("Test Description");
         locationTextField.setValue("Test Location");
-
+        currentCategory.setValue("Test Branch");
         // act
         vm.submitTicket();
 
