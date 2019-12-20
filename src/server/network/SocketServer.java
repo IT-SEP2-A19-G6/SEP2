@@ -1,6 +1,7 @@
 package server.network;
 
 import server.model.ServerModelFactory;
+import shared.util.ApplicationProperties;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -17,7 +18,7 @@ public class SocketServer {
     public void start() {
 
         try {
-        ServerSocket serverSocket = new ServerSocket(2920);
+        ServerSocket serverSocket = new ServerSocket(ApplicationProperties.INSTANCE.getConnectionPort());
 
         System.out.println("Server is running...");
         //noinspection InfiniteLoopStatement

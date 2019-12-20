@@ -2,16 +2,17 @@ package client.network;
 
 import client.network.communication.ITicketReplyClient;
 import client.network.communication.TicketReplyClient;
+import client.network.createticket.CreateTicketClientHandler;
+import client.network.createticket.ICreateTicketClient;
 import client.network.login.ILoginClient;
 import client.network.login.LoginClientHandler;
 import client.network.signup.ISignUpClient;
 import client.network.signup.SignUpClientHandler;
 import client.network.socket.ClientSocketHandler;
 import client.network.socket.IClientSocketHandler;
-import client.network.createticket.CreateTicketClientHandler;
-import client.network.createticket.ICreateTicketClient;
 import client.network.ticketlist.ITicketListClient;
 import client.network.ticketlist.TicketListClientHandler;
+import shared.util.ApplicationProperties;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -30,7 +31,7 @@ public class ClientFactory {
         System.out.println("Client is starting...");
 
         try {
-            Socket socket = new Socket("localhost", 2920);
+            Socket socket = new Socket(ApplicationProperties.INSTANCE.getConnectionUrl(), ApplicationProperties.INSTANCE.getConnectionPort());
             clientSocketHandler = new ClientSocketHandler(socket);
             Thread t = new Thread(clientSocketHandler);
              t.start();

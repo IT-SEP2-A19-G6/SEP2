@@ -2,6 +2,7 @@ package server.persistence.communication;
 
 import server.exceptions.DataConnectionException;
 import server.persistence.database.IDatabaseConnection;
+import shared.Ticket;
 import shared.TicketReply;
 
 import java.sql.PreparedStatement;
@@ -19,7 +20,7 @@ public class TicketReplyDAO implements ITicketReplyDAO {
         this.databaseConnection = databaseConnection;
     }
 
-    @Override
+
     public ArrayList<TicketReply> getReplies(int ticketId) throws DataConnectionException {
         String sql = "SELECT Ticket_Id AS ticketId, tStamp AS timestamp, c.Username AS replier, message FROM " + databaseConnection.getReplyTableName() + " r " +
                 "INNER JOIN Ticket T on r.Ticket_Id = T.Id " +

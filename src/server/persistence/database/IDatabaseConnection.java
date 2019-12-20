@@ -19,6 +19,7 @@ public interface IDatabaseConnection {
     String getReplyTableName();
     String getBranchTableName();
 
+
     void closeConnection(PreparedStatement ps, ResultSet rs);
 
 }

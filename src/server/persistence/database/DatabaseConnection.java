@@ -6,6 +6,7 @@ import shared.util.ApplicationProperties;
 import java.sql.*;
 
 public class DatabaseConnection implements IDatabaseConnection {
+
     private final String schemaName;
     private final String clientTableName;
     private final String ticketTableName;
@@ -116,13 +117,11 @@ public class DatabaseConnection implements IDatabaseConnection {
         return ticketTableName;
     }
     @Override
-    public String getReplyTableName(){
-        return replyTableName;
-    }
-
-    @Override
     public String getBranchTableName() {
         return branchTableName;
     }
+    @Override
+    public String getReplyTableName() {return replyTableName;}
+
 
 }
