@@ -6,13 +6,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class TicketListExchange implements Serializable {
-    Client client;
-    String message;
-    Request.TYPE action;
-    ArrayList<Ticket> ticketList;
+    private final Client client;
+    private String message;
+    private Request.TYPE action;
+    private ArrayList<Ticket> ticketList;
 
     public TicketListExchange(Request.TYPE action, Client client) {
-        this.client = client;        this.action = action;
+        this.client = client;
+        this.action = action;
     }
 
     public Client getClient() {
@@ -28,6 +29,9 @@ public class TicketListExchange implements Serializable {
     }
 
     public ArrayList<Ticket> getTickets() {
+        if (ticketList == null){
+            ticketList = new ArrayList<>();
+        }
         return ticketList;
     }
 

@@ -9,13 +9,11 @@ import javafx.beans.value.ObservableValue;
 import shared.Request;
 import shared.Response;
 
-
 import java.beans.PropertyChangeEvent;
 
 public class SignUpViewModel {
-    private ISignUpModel signUpModel;
-    private StringProperty feedbackProperty;
-
+    private final ISignUpModel signUpModel;
+    private final StringProperty feedbackProperty;
 
     public SignUpViewModel(ISignUpModel signUpModel){
         this.signUpModel = signUpModel;
@@ -27,22 +25,16 @@ public class SignUpViewModel {
         signUpModel.addPropertyChangeListener(Request.TYPE.SIGNUP_RESPONSE.name(), this::handleResponse);
     }
 
-
-
-
     private void handleResponse(PropertyChangeEvent propertyChangeEvent) {
         Response response = (Response) propertyChangeEvent.getNewValue();
-        Platform.runLater(() ->{
-            feedbackProperty.setValue(response.getMessage());
-        });
+        Platform.runLater(() -> feedbackProperty.setValue(response.getMessage()));
     }
-
 
     public ObservableValue<? extends String> feedbackStringProperty() {
         return feedbackProperty;
     }
 
-
+    @SuppressWarnings("SpellCheckingInspection")
     public void requestSignup(String newUsername, String newPassword, String confirmPassword) {
         if (newUsername.equals("")){
             feedbackProperty.setValue("Enter username!");

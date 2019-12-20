@@ -1,23 +1,21 @@
 package shared;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Ticket implements Serializable {
 
 
-    private int branchId;
     private int id;
     private int clientId;
+    private int branchId;
     private String createdDate;
     private String username;
-    private String subject;
-    private String description;
-    private String location;
+    private final String subject;
+    private final String description;
+    private final String location;
     private String ticketStatus;
     private String branch;
     private String assignee;
-    private ArrayList<TicketReply> replies;
 
     public Ticket(int id, String createdDate, String username, String subject, String description, String location, String ticketStatus, String branch, String assignee) {
         this.id = id;
@@ -31,27 +29,6 @@ public class Ticket implements Serializable {
         this.assignee = assignee;
     }
 
-    public Ticket(int id, int clientId, String subject, String description, String location, String ticketStatus) {
-        this.id = id;
-        this.clientId = clientId;
-        this.subject = subject;
-        this.description = description;
-        this.location = location;
-        this.ticketStatus = ticketStatus;
-    }
-    public Ticket(int clientId, String subject, String description, String location, String ticketStatus) {
-        this.clientId = clientId;
-        this.subject = subject;
-        this.description = description;
-        this.location = location;
-        this.ticketStatus = ticketStatus;
-    }
-
-    public Ticket(String subject, String description, String location) {
-        this.subject = subject;
-        this.description = description;
-        this.location = location;
-    }
 
     public Ticket(int clientId, String subject, String description, String location, int branchId) {
         this.clientId = clientId;
@@ -107,39 +84,12 @@ public class Ticket implements Serializable {
         return branchId;
     }
 
-    public void addReply(TicketReply reply) {
-        if (replies == null){
-            this.replies = new ArrayList<>();
-        }
-        replies.add(reply);
-    }
-
-    public ArrayList<TicketReply> getReplies() {
-        if (replies != null){
-            return replies;
-        }
-        return null;
-    }
-
     public void setTicketStatus(String ticketStatus) {
         this.ticketStatus = ticketStatus;
     }
 
     public void setAssignee(String username) {
         assignee = username;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Ticket{" +
-                "user=" + clientId +
-                ", username='" + username + '\'' +
-                ", subject='" + subject + '\'' +
-                ", description='" + description + '\'' +
-                ", location='" + location + '\'' +
-                ", ticketStatus='" + ticketStatus + '\'' +
-                '}';
     }
 
 }

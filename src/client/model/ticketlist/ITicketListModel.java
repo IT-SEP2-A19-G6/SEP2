@@ -6,10 +6,7 @@ import shared.TicketListExchange;
 
 public interface ITicketListModel extends IPropertyChangeSubject {
     void requestTicketList(TicketListExchange exchange);
-
     void setTicketStatus(Ticket ticket);
-
     void requestBranchMembersByBranchName(String branchName);
-
     void setAssignee(Ticket ticket);
 }

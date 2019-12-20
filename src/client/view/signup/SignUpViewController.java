@@ -2,13 +2,11 @@ package client.view.signup;
 
 import client.view.ViewHandler;
 import client.viewmodel.signup.SignUpViewModel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 
 
 public class SignUpViewController {
@@ -43,12 +41,12 @@ public class SignUpViewController {
     }
 
 
-    public void onEnterKey(ActionEvent actionEvent) {
+    public void onEnterKey() {
         signUpViewModel.requestSignup(newUserField.getText().toLowerCase(), newPasswordField.getText(), confirmPasswordField.getText());
     }
 
 
-    public void onMouseClick(MouseEvent mouseEvent) {
+    public void onMouseClick() {
         setFocus(true);
     }
 
@@ -61,7 +59,7 @@ public class SignUpViewController {
     }
 
 
-    public void onCancelButton(ActionEvent actionEvent) {
+    public void onCancelButton() {
         ViewHandler.getInstance().openLoginView();
     }
 }

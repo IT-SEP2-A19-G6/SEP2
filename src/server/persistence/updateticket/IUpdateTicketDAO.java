@@ -7,10 +7,9 @@ import shared.clients.BranchMember;
 import java.util.ArrayList;
 
 public interface IUpdateTicketDAO {
-    void updateTicket(Ticket ticket) throws DataConnectionException;
+    void updateTicket(Ticket ticket);
 
     ArrayList<BranchMember> getBranchMembersByBranchName(String branchName) throws DataConnectionException;
-    ArrayList<BranchMember> getAllBranchMembers() throws DataConnectionException;
 
     void setAssignee(Ticket ticket) throws DataConnectionException;
 }

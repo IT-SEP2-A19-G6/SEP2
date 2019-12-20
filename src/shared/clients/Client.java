@@ -5,17 +5,17 @@ import java.io.Serializable;
 public abstract class Client implements Serializable {
 
     private int id;
-    private String username;
+    private final String username;
     private String password;
     private ClientType type;
 
 
-    public Client(String username, String password) {
+    Client(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public Client(int id, String username, ClientType type) {
+    Client(int id, String username, ClientType type) {
         this.id = id;
         this.username = username;
         this.type = type;

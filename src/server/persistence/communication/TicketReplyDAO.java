@@ -10,20 +10,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class TicketReplyDAO implements ITicketReplyDAO {
-    private IDatabaseConnection databaseConnection;
+    private final IDatabaseConnection databaseConnection;
 
     public TicketReplyDAO(IDatabaseConnection databaseConnection) {
         this.databaseConnection = databaseConnection;
     }
 
-    //TODO handle thrown exceptions in server model
 
-    @Override
     public ArrayList<TicketReply> getReplies(int ticketId) throws DataConnectionException {
         String sql = "SELECT Ticket_Id AS ticketId, tStamp AS timestamp, c.Username AS replier, message FROM " + databaseConnection.getReplyTableName() + " r " +
                 "INNER JOIN Ticket T on r.Ticket_Id = T.Id " +
@@ -56,6 +53,7 @@ public class TicketReplyDAO implements ITicketReplyDAO {
             ps = databaseConnection.executePreparedQuery(preparedSql);
             rs = ps.executeQuery();
             while(rs.next()) {
+                //noinspection SpellCheckingInspection
                 int ticketId = rs.getInt("ticketid");
                 Date createdDate = rs.getTimestamp("timestamp");
                 String replier = rs.getString("replier");

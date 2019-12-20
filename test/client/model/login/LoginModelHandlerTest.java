@@ -35,7 +35,7 @@ class LoginModelHandlerTest {
 
     @Test
     void validateCorrectCredentials(){
-        user = new User("correctUser", "correctPassword");
+        user = new User("correctuser", "correctPassword");
         loginModel.validateLogin(user.getUsername(), user.getPassword());
         assertEquals(user.getUsername(), userToCheck.getUsername());
         assertEquals("User login accepted", responseToCheck);

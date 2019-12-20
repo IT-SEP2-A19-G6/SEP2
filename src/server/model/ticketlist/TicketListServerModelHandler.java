@@ -5,12 +5,11 @@ import server.persistence.ticketlist.ITicketListDAO;
 import shared.Request;
 import shared.TicketListExchange;
 import shared.clients.BranchMember;
-import shared.clients.Client;
 import shared.clients.User;
 
 
 public class TicketListServerModelHandler implements ITicketListServerModel {
-    private ITicketListDAO ticketListDAO;
+    private final ITicketListDAO ticketListDAO;
 
     public TicketListServerModelHandler(ITicketListDAO userDAO) {
         this.ticketListDAO = userDAO;
@@ -24,7 +23,7 @@ public class TicketListServerModelHandler implements ITicketListServerModel {
                 exchange.setTicketList(ticketListDAO.getOwnTicketList(user.getClientId()));
                 if (exchange.getTickets().size() == 0){
                     exchange.setAction(Request.TYPE.NO_TICKETS_FOUND_RESPONSE);
-                    exchange.setMessage("No tickets yet - try add one...");
+                    exchange.setMessage("No tickets yet - try adding one...");
                     return exchange;
                 }
             } catch (DataConnectionException e) {

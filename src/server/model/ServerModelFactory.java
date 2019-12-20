@@ -15,7 +15,7 @@ import server.model.updateticket.UpdateTicketServerModel;
 import server.persistence.DataFactory;
 
 public class ServerModelFactory {
-    private DataFactory dataFactory;
+    private final DataFactory dataFactory;
     private ILoginServerModel loginServerModel;
     private ICreateTicketServerModel ticketServerModel;
     private ITicketListServerModel ticketListServerModel;

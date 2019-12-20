@@ -5,7 +5,6 @@ import client.view.ViewHandler;
 import client.view.mainview.menu.items.IVirtualButton;
 import client.view.mainview.menu.items.dotcontroller.IButtonController;
 import client.view.mainview.menu.items.dotcontroller.IDotController;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.shape.Circle;
@@ -21,19 +20,17 @@ public class ClientItemController implements IDotController, IVirtualButton {
 
 
     private boolean isUser;
-    private String username;
 
     private IButtonController buttonController;
 
     public void init(String username, boolean isUser, IButtonController buttonController){
         this.buttonController = buttonController;
         this.isUser = isUser;
-        this.username = username;
         label.setText(username);
         setVisibility(true);
     }
 
-    public void doAction(ActionEvent actionEvent) {
+    public void doAction() {
        doButtonAction();
     }
 
@@ -47,8 +44,9 @@ public class ClientItemController implements IDotController, IVirtualButton {
         doButtonAction();
     }
 
-    public void doButtonAction(){
+    private void doButtonAction(){
         buttonController.clientButtonPressed(this);
+
         if (isUser){
             ViewHandler.getInstance().loadTicketList(new TicketListExchange(Request.TYPE.OWN_TICKET_LIST_REQ, ClientProperties.getInstance().getClient()));
         } else {

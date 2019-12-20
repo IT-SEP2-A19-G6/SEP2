@@ -2,7 +2,7 @@ package shared.clients;
 
 public class BranchMember extends Client {
 
-    private int branchId;
+    private final int branchId;
 
     public BranchMember(int id, String username, ClientType type, int branchId) {
         super(id, username, type);

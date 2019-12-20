@@ -9,8 +9,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class SignUpClientHandler implements ISignUpClient {
-    private PropertyChangeSupport support = new PropertyChangeSupport(this);
-    private IClientSocketHandler clientSocketHandler;
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    private final IClientSocketHandler clientSocketHandler;
 
     public SignUpClientHandler(IClientSocketHandler clientSocketHandler) {
         this.clientSocketHandler = clientSocketHandler;
@@ -41,22 +41,4 @@ public class SignUpClientHandler implements ISignUpClient {
         }
     }
 
-    @Override
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
-    }
-
-    @Override
-    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
-        if (name == null){
-            support.removePropertyChangeListener(listener);
-        } else {
-            support.removePropertyChangeListener(name, listener);
-        }
-    }
-
-    @Override
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        support.removePropertyChangeListener(listener);
-    }
 }

@@ -7,13 +7,13 @@ import javafx.beans.property.*;
 
 
 public class MenuViewModel implements IStateController {
-    private BooleanProperty clientIcon;
-    private BooleanProperty isUser;
-    private StringProperty clientLabel;
-    private BooleanProperty plusIcon;
-    private StringProperty plusLabel;
-    private BooleanProperty branchIcon;
-    private StringProperty branchLabel;
+    private final BooleanProperty clientIcon;
+    private final BooleanProperty isUser;
+    private final StringProperty clientLabel;
+    private final BooleanProperty plusIcon;
+    private final StringProperty plusLabel;
+    private final BooleanProperty branchIcon;
+    private final StringProperty branchLabel;
 
     public MenuViewModel(){
         clientIcon = new SimpleBooleanProperty();
@@ -40,7 +40,6 @@ public class MenuViewModel implements IStateController {
         clientIcon.setValue(true);
         clientLabel.setValue(ClientProperties.getInstance().getClient().getUsername());
         this.isUser.setValue(true);
-
         plusIcon.setValue(true);
         plusLabel.setValue("New Ticket");
     }
@@ -50,7 +49,6 @@ public class MenuViewModel implements IStateController {
         clientIcon.setValue(true);
         clientLabel.setValue(ClientProperties.getInstance().getClient().getUsername());
         this.isUser.setValue(false);
-
         branchIcon.setValue(true);
         branchLabel.setValue("Branch");
     }

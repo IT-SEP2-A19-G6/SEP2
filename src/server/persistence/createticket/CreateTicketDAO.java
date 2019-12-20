@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class CreateTicketDAO implements ICreateTicketDAO {
 
-    private IDatabaseConnection databaseConnection;
+    private final IDatabaseConnection databaseConnection;
     public CreateTicketDAO(IDatabaseConnection databaseConnection){
         this.databaseConnection = databaseConnection;
     }
@@ -33,9 +33,8 @@ public class CreateTicketDAO implements ICreateTicketDAO {
             databaseConnection.executeUpdate(preparedStatement);
             return "OK";
         } catch (SQLException e) {
-            System.out.println("Creating ticket failed, no ID obtained" + e.getMessage());
+            return "Error ticket not saved.";
         }
-        return "NOT OK";
     }
 
     @Override
@@ -56,6 +55,7 @@ public class CreateTicketDAO implements ICreateTicketDAO {
             rs = ps.executeQuery();
             while(rs.next()) {
                 int id = rs.getInt("id");
+                //noinspection SpellCheckingInspection
                 String branchName = rs.getString("branchname");
 
 

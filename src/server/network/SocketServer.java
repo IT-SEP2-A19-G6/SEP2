@@ -1,6 +1,7 @@
 package server.network;
 
 import server.model.ServerModelFactory;
+import shared.util.ApplicationProperties;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -8,7 +9,7 @@ import java.net.Socket;
 
 public class SocketServer {
 
-    private ServerModelFactory serverModelFactory;
+    private final ServerModelFactory serverModelFactory;
 
     public SocketServer(ServerModelFactory serverModelFactory) {
         this.serverModelFactory = serverModelFactory;
@@ -17,15 +18,15 @@ public class SocketServer {
     public void start() {
 
         try {
-        ServerSocket serverSocket = new ServerSocket(2920);
+        ServerSocket serverSocket = new ServerSocket(ApplicationProperties.INSTANCE.getConnectionPort());
 
         System.out.println("Server is running...");
+        //noinspection InfiniteLoopStatement
         while (true) {
 
             Socket socket = serverSocket.accept();
             ServerSocketHandler serverSocketHandler = new ServerSocketHandler(socket, serverModelFactory);
             Thread t = new Thread(serverSocketHandler);
-            //"socketThread" if we give name wouldn't it crash when connection another client?
             t.start();
         }
 

@@ -12,14 +12,11 @@ import java.beans.PropertyChangeEvent;
 
 public class StateHandler {
     private IClientState currentState;
-    private IStateController menuItemController;
-    private IStateController replyItemController;
+    private final IStateController menuItemController;
 
 
     public StateHandler(ViewModelFactory viewModelFactory, ILoginModel loginModel){
         menuItemController = viewModelFactory.getMenuViewModel();
-        replyItemController = viewModelFactory.getTicketReplyViewModel();
-
         loginModel.addPropertyChangeListener(Request.TYPE.SET_STATE.name(), this::handleStateReq);
     }
 
@@ -42,18 +39,14 @@ public class StateHandler {
 
     public void setUserOptions(){
         menuItemController.setUserOptions();
-        replyItemController.setUserOptions();
     }
 
     public void setBranchOptions(){
         menuItemController.setBranchOptions();
-        replyItemController.setBranchOptions();
-
     }
 
     public void clearCurrentOptions(){
         menuItemController.clearCurrentOptions();
-        replyItemController.clearCurrentOptions();
     }
 
 

@@ -6,28 +6,19 @@ import java.util.Properties;
 public enum ApplicationProperties {
 
     INSTANCE;
-    //TODO: application.properties has to be created in the final master before handin.
-    // Currently deleted to prevent git update
     private final Properties properties;
-    private final String filePath = "shared/util/application.properties";
 
     ApplicationProperties() {
         properties = new Properties();
         try {
+            String filePath = "shared/util/application.properties";
+            //noinspection ConstantConditions
             properties.load(getClass().getClassLoader().getResourceAsStream(filePath));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public String getDefaultFilePath() {
-        return filePath;
-    }
-
-
-    public String getAppName() {
-        return properties.getProperty("app.name");
-    }
 
     public String getDbUser() {
         return properties.getProperty("db.user");
@@ -41,8 +32,20 @@ public enum ApplicationProperties {
         return properties.getProperty("db.url");
     }
 
-    public String getDbDriver() {return properties.getProperty("db.driver");
-
+    public String getDbDriver() {
+        return properties.getProperty("db.driver");
     }
 
+    public String getConnectionUrl() {
+        return properties.getProperty("conn.url");
+    }
+
+    public int getConnectionPort() {
+        return Integer.parseInt(properties.getProperty("conn.port"));
+    }
 }
+
+
+
+
+
